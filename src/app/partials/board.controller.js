@@ -6,9 +6,10 @@
     .controller('BoardController', BoardController);
 
   /** @ngInject */
-  function BoardController($stateParams, $state) {
+  function BoardController($stateParams, $state, $window) {
     var vm = this;
     vm.id = $stateParams.id;
+    vm.innerHeight = {height:$window.innerHeight+ 'px'};
 
     vm.getBoards = function () {
       //service will be used in future
@@ -31,7 +32,7 @@
       })
     };
     vm.selectBoard(vm.id);
-    
+
     vm.setCards = function () {
       //service will be used in future
       vm.cards = [
