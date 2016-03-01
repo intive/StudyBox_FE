@@ -2,26 +2,26 @@
   <div class="mdl-grid">
     <div class="mdl-cell mdl-cell--4-col">
 
-      <label class="mdl-select__label" for="boards"><a ui-sref="boards">boards:</a></label>
-      <div class="mdl-select mdl-js-select mdl-select--floating-label" id="boards">
+      <label class="mdl-select__label board-card" for="boards"><a ui-sref="boards">boards:</a></label>
+      <div class="mdl-select mdl-js-select mdl-select--floating-label board-card" id="boards">
         <select ng-model="board.selectedBoard.id"
                 ng-change="board.selectBoard(board.selectedBoard.id)"
                 ng-options="item.id as item.name for item in board.categories">
         </select>
       </div>
 
-      <div class="acme-card-square mdl-card mdl-shadow--2dp" ng-repeat="card in board.cards"
+      <div class="acme-card-square mdl-card mdl-shadow--2dp board-card" ng-repeat="card in board.cards"
         ng-click="board.selectCard(card.id)">
-        <div class="mdl-card__title">
+        <div class="mdl-card__title board-card-title">
           {{ card.name }}
         </div>
-        <div class="mdl-card__subtitle-text">
+        <div class="mdl-card__subtitle-text board-card-question">
          {{ card.question }}
         </div>
-        <div class="mdl-card__subtitle-text">
+        <div class="mdl-card__subtitle-text board-card-hint">
           {{ card.hint }}
         </div>
-        <div class="mdl-card__subtitle-text">
+        <div class="mdl-card__subtitle-text board-card-answer">
           {{ card.answer }}
         </div>
       </div>
