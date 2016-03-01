@@ -27,14 +27,14 @@
         templateUrl: 'app/partials/board.html',
         controller: 'BoardController',
         controllerAs: 'board'
-      })
-      .state('board.card', {
-        parent: 'board',
-        url: '/:card_id',
-        templateUrl: 'app/partials/card.html',
-        controller: 'CardController',
-        controllerAs: 'card'
       });
+      //.state('board.card', {
+      //  parent: 'board',
+      //  url: '/:card_id',
+      //  templateUrl: 'app/partials/card.html',
+      //  controller: 'CardController',
+      //  controllerAs: 'card'
+      //});
 
     $urlRouterProvider.otherwise('/boards');
   }

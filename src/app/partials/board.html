@@ -1,15 +1,17 @@
 <div class="page-content">
   <div class="mdl-grid">
     <div class="mdl-cell mdl-cell--4-col">
-      <!--<form>-->
-        <label class="mdl-select__label" for="boards"><a ui-sref="boards">boards:</a></label>
-        <div class="mdl-select mdl-js-select mdl-select--floating-label" id="boards">
-          <select ng-model="board.selected" ng-options="item as category.name for category in board.categories">
-          </select>
-        </div>
-      <!--</form>-->
-      {{ board.selected }}
-      <div class="acme-card-square mdl-card mdl-shadow--2dp" ng-repeat="card in board.cards" ui-sref="board.card({ card_id: card.id })">
+
+      <label class="mdl-select__label" for="boards"><a ui-sref="boards">boards:</a></label>
+      <div class="mdl-select mdl-js-select mdl-select--floating-label" id="boards">
+        <select ng-model="board.selectedBoard.id"
+                ng-change="board.selectBoard(board.selectedBoard.id)"
+                ng-options="item.id as item.name for item in board.categories">
+        </select>
+      </div>
+
+      <div class="acme-card-square mdl-card mdl-shadow--2dp" ng-repeat="card in board.cards"
+        ng-click="board.selectCard(card.id)">
         <div class="mdl-card__title">
           {{ card.name }}
         </div>
@@ -25,11 +27,11 @@
       </div>
     </div>
 
-    <div ui-view="card" class="mdl-cell mdl-cell--4-col">
-      place for card view
+    <div>
+      Select card to edit: <br>
+      <card>
+      </card>
     </div>
-
-
 
   </div>
 </div>
