@@ -1,0 +1,48 @@
+<div class="page-content" ng-controller="RegistrationController as registration">
+  <div class="mdl-grid">
+    <div class="mdl-layout-spacer"></div>
+    <div class="mdl-cell mdl-cell--4-col">
+      <div class="demo-card-wide mdl-card mdl-shadow--2dp">
+        <div class="mdl-card__title">
+          <h2 class="mdl-card__title-text">Rejestracja</h2>
+        </div>
+      <div class="mdl-card__supporting-text">
+        <h6>{{ registration.message }}</h6>
+        <form name="registrationForm" ng-submit="registration.submit(registrationForm.$valid)" novalidate >
+        <div ng-class="{ 'mdl-textfield__error': registrationForm.user.$touched && registrationForm.user.$invalid }">
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <label class="mdl-textfield__label" for="nick">NAZWA UŻYTKOWNIKA</label>
+            <input class="mdl-textfield__input" type="text" name="nick" ng-pattern="[A-Z,a-z]*" ng-model="registration.user.nick" required>
+          </div>
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" ng-class="{error: showValidationMessages && registrationForm.email.$invalid}">
+            <label class="mdl-textfield__label" for="email">E-MAIL</label>
+            <input class="mdl-textfield__input" type="email" name="email" ng-model="registration.user.email" required>
+          </div>
+            <span ng-messages="registrationForm.email.$error" role="alert">
+              <span ng-message="email">Format e-maila jest niepoprawny</span>
+            </span>
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <label class="mdl-textfield__label" for="password">HASŁO</label>
+            <input class="mdl-textfield__input" type="password" name="password" ng-model="registration.user.password" ng-minlength="8" required>
+          </div>
+          <span ng-show="registrationForm.password.$error.minlength">Hasło powinno się składać z min. 8 znaków</span>
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" is-invalid>
+            <label class="mdl-textfield__label" for="passwordCheck">POTWIERDŹ HASŁO</label>
+            <input class="mdl-textfield__input" type="password" name="confirmPassword" ng-model="registration.user.confirmPassword" ng-minlength="8" required compare-to="registration.user.password">
+          </div>
+            <span ng-messages="registrationForm.confirmPassword.$error" role="alert" ng-show="registrationForm.confirmPassword.$touched">
+              <span ng-message="compareTo">Hasła nie pasują</span>
+              <span ng-message="required">Wymagane</span>
+            </span>
+          <div class="mdl-textfield"></div>
+          <div class="mdl-textfield">
+            <button class="mdl-textfield--full-width mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" type="submit" ng-disabled="registrationForm.$invalid">Zarejestruj</button>
+          </div>
+        </div>
+        </form>
+      </div>
+      </div>
+    </div>
+    <div class="mdl-layout-spacer"></div>
+  </div>
+</div>
