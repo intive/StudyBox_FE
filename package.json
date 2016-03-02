@@ -1,7 +1,9 @@
 {
   "name": "studyBoxFe",
   "version": "0.0.0",
-  "dependencies": {},
+  "dependencies": {
+    "angular-translate-loader-partial": "^2.10.0"
+  },
   "scripts": {
     "test": "gulp test"
   },
