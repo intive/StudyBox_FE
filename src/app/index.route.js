@@ -10,7 +10,7 @@
     $stateProvider
       .state('home', {
         url: '/',
-        template: 'Study Box Front-end'
+        template: '{{"studyBoxFe_stringTestowy" | translate}} draniu'
       });
 
     $urlRouterProvider.otherwise('/');
