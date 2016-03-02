@@ -14,29 +14,22 @@
         controller: 'HomeController',
         controllerAs: 'home'
       })
-      .state('boards', {
+      .state('decks', {
         parent: 'home',
-        url: 'boards',
-        templateUrl: 'app/partials/boards.html',
-        controller: 'BoardsController',
-        controllerAs: 'boards'
+        url: 'decks',
+        templateUrl: 'app/partials/decks.html',
+        controller: 'DecksController',
+        controllerAs: 'decks'
       })
-      .state('board', {
+      .state('deck', {
         parent: 'home',
-        url: 'board/:id',
-        templateUrl: 'app/partials/board.html',
-        controller: 'BoardController',
-        controllerAs: 'board'
+        url: 'deck/:id',
+        templateUrl: 'app/partials/deck.html',
+        controller: 'DeckController',
+        controllerAs: 'deck'
       });
-      //.state('board.card', {
-      //  parent: 'board',
-      //  url: '/:card_id',
-      //  templateUrl: 'app/partials/card.html',
-      //  controller: 'CardController',
-      //  controllerAs: 'card'
-      //});
 
-    $urlRouterProvider.otherwise('/boards');
+    $urlRouterProvider.otherwise('/decks');
   }
 
 })();

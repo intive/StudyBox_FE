@@ -1,27 +1,28 @@
-.board-cards {
+.deck-cards {
   overflow:scroll;
 }
 
-.board-card {
+.deck-card {
   margin-bottom: 10px;
+  margin-left: 10px;
 }
 
-.board-card-title {
+.deck-card-title {
   padding: 10px;
   font-size: large;
 }
 
-.board-card-question {
+.deck-card-question {
   padding: 10px;
   font-size: medium;
 }
 
-.board-card-hint {
+.deck-card-hint {
   padding: 10px;
   font-size: small;
 }
 
-.board-card-answer {
+.deck-card-answer {
   padding: 10px;
   font-size: medium;
 }

@@ -1,0 +1,40 @@
+<div class="page-content">
+  <div class="mdl-grid">
+    <div ng-style="{{deck.innerHeight}}" class="mdl-cell mdl-cell--4-col deck-cards">
+
+      <label class="mdl-select__label deck-card" for="decks"><a ui-sref="decks">decks:</a></label>
+      <div class="mdl-select mdl-js-select mdl-select--floating-label deck-card" id="decks">
+        <select ng-model="deck.selectedDeck.id"
+                ng-change="deck.selectDeck(deck.selectedDeck.id)"
+                ng-options="item.id as item.name for item in deck.categories">
+        </select>
+      </div>
+
+      <div class="acme-card-square mdl-card mdl-shadow--2dp deck-card" ng-repeat="card in deck.cards"
+        ng-click="deck.selectCard(card.id)">
+        <div class="mdl-card__title deck-card-title">
+          {{ card.name }}
+        </div>
+        <div class="mdl-card__subtitle-text deck-card-question">
+         {{ card.question }}
+        </div>
+        <div class="mdl-card__subtitle-text deck-card-hint">
+          {{ card.hint }}
+        </div>
+        <div class="mdl-card__subtitle-text deck-card-answer">
+          {{ card.answer }}
+        </div>
+      </div>
+    </div>
+
+    <div>
+      Select card to edit: <br>
+      <card>
+      </card>
+    </div>
+
+  </div>
+</div>
+
+
+
