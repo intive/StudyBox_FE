@@ -11,7 +11,8 @@
       'ngAria',
       'ui.router',
       'toastr',
-      'pascalprecht.translate'
+      'pascalprecht.translate',
+      'translator'
     ]);
 
 })();
