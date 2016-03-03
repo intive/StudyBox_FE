@@ -10,10 +10,26 @@
     $stateProvider
       .state('home', {
         url: '/',
-        template: '{{"studyBoxFe_stringTestowy" | translate}} draniu'
+        templateUrl: 'app/partials/home.html',
+        controller: 'HomeController',
+        controllerAs: 'home'
+      })
+      .state('decks', {
+        parent: 'home',
+        url: 'decks',
+        templateUrl: 'app/partials/decks.html',
+        controller: 'DecksController',
+        controllerAs: 'decks'
+      })
+      .state('deck', {
+        parent: 'home',
+        url: 'deck/:id',
+        templateUrl: 'app/partials/deck.html',
+        controller: 'DeckController',
+        controllerAs: 'deck'
       });
 
-    $urlRouterProvider.otherwise('/');
+    $urlRouterProvider.otherwise('/decks');
   }
 
 })();
