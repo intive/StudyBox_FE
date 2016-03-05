@@ -8,12 +8,14 @@
   /** @ngInject */
   function routerConfig($stateProvider, $urlRouterProvider) {
     $stateProvider
-      .state('home', {
-        url: '/',
-        template: 'Study Box Front-end'
+      .state('login', {
+        url: '/login',
+        template: 'app/login/login.html',
+        controller: 'LoginController',
+        controllerAs: 'login'
       });
 
-    $urlRouterProvider.otherwise('/');
+    $urlRouterProvider.otherwise('/decks');
   }
 
 })();
