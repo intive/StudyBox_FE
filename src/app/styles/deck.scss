@@ -1,0 +1,28 @@
+.deck-cards {
+  overflow:scroll;
+}
+
+.deck-card {
+  margin-bottom: 1em;
+  margin-left: 1em;
+}
+
+.deck-card-title {
+  padding: 1em;
+  font-size: large;
+}
+
+.deck-card-question {
+  padding: 1em;
+  font-size: medium;
+}
+
+.deck-card-hint {
+  padding: 1em;
+  font-size: small;
+}
+
+.deck-card-answer {
+  padding: 1em;
+  font-size: medium;
+}
