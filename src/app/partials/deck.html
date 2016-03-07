@@ -11,18 +11,16 @@
       <!--</div>-->
 
       <div class="lock-size" layout="row" layout-align="center center">
-        <!--<md-button aria-label="menu" class="md-fab md-warn" ng-click="deck.switch()">-->
-          <!--<p>+</p>-->
-        <!--</md-button>-->
-        <!--<md-input-container ng-show="deck.creation">-->
-          <!--<label>Deck</label>-->
-          <!--<input style="width: 200px">-->
-        <!--</md-input-container>-->
-        <!--ng-change="deck.selectDeck(deck.selectedDeck)"-->
-        <md-select ng-hide="deck.creation"
-          ng-model="deck.selectedDeck" ng-model-options="{trackBy: '$value.id'}"
-          ng-change="deck.selectDeck(deck.selectedDeck)"
-          md-on-open="getDecks()" style="min-width: 200px;">
+        <md-input-container ng-show="deck.creationMode">
+          <form ng-submit="deck.createDeck()">
+            <input ng-model="deck.newDeck" placeholder="Create new" ng-blur="deck.createDeck()">
+          </form>
+        </md-input-container>
+        <md-select ng-hide="deck.creationMode" aria-label="decks"
+          ng-model="deck.selectedDeck"
+          ng-model-options="{trackBy: '$value.id'}"
+          ng-change="deck.selectDeck()"
+          md-on-open="getDecks()">
           <md-option ng-value="item" ng-repeat="item in deck.categories">{{item.name}}</md-option>
         </md-select>
       </div>

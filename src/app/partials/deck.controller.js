@@ -6,54 +6,46 @@
     .controller('DeckController', DeckController);
 
   /** @ngInject */
-  function DeckController($stateParams, $state, $window) {
+  function DeckController($stateParams, $state, $window, Decks) {
     var vm = this;
     vm.id = $stateParams.id;
     vm.innerHeight = {height:$window.innerHeight+ 'px'};
     vm.selectedDeck = {id:vm.id, name:null};
 
-    vm.creation=false;
-    vm.switch = function () {
-      if(vm.creation){
-        vm.creation=false
-      }else{
-        vm.creation=true
-      }
-    console.log(vm.creation)
+    vm.createDeck = function(){
+      console.log('create');
+      console.log(vm.newDeck);
+      vm.selectedDeck = {id:34, name:vm.newDeck};
+      $state.go("deck", { id: vm.selectedDeck.id })
     };
 
     vm.getDecks = function () {
       //service will be used in future
-
-      return[
-        {id: 0, name: 'deck_0'},
-        {id: 12, name: 'deck_1'},
-        {id: 23, name: 'deck_2'},
-        {id: 34, name: 'deck_3'}]
+      vm.categories=Decks.getDecks();
     };
+    vm.getDecks();
+    console.log(vm.categories);
 
-    vm.categories = vm.getDecks();
-
-    vm.selectDeck = function(value){
-      console.log('deck');
-      console.log(value);
-      vm.selectedDeck = value;
-      $state.go("deck", { id: value.id })
-      console.log('dupa');
+    vm.initDeck = function(value){
+      if(value=='new'){
+        vm.creationMode=true;
+      }else {
+        vm.creationMode=false;
+        console.log('selectId');
+        console.log(value);
+        vm.categories.forEach(function(entry) {
+          if (entry.id == value){
+            vm.selectedDeck = entry;
+          }
+        })
+      }
     };
+    vm.initDeck(vm.id);
 
-
-    vm.selectDeckId = function(value){
-      console.log('id');
-      console.log(value);
-      vm.categories.forEach(function(entry) {
-        if (entry.id == value){
-          vm.selectedDeck = entry;
-          $state.go("deck", { id: vm.selectedDeck.id })
-        }
-      })
+    vm.selectDeck = function(){
+      console.log('selectDeck');
+      $state.go("deck", { id: vm.selectedDeck.id })
     };
-    vm.selectDeckId(vm.id);
 
     vm.setCards = function () {
       //service will be used in future
