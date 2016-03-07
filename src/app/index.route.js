@@ -15,7 +15,7 @@
         controllerAs: 'login'
       });
 
-    $urlRouterProvider.otherwise('/decks');
+    $urlRouterProvider.otherwise('/');
   }
 
 })();

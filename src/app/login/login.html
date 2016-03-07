@@ -7,30 +7,30 @@
       <form name="loginForm" ng-submit="vm.login()" novalidate>
 
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-          <label class="mdl-textfield__label" for="username">EMAIL</label>
-          <input class="mdl-textfield__input" type="text" id="username" name="username" ng-model="vm.username" ng-required="true" />
+          <input class="mdl-textfield__input" type="text" id="username" name="username" ng-model="vm.username" ng-required="true" placeholder="E-MAIL" />
           <span class="mdl-tooltip mdl-tooltip--validation" for="username" ng-show="form.username.$dirty && form.username.$touched">
-            <span ng-show="form.username.$dirty && form.username.$error.required">Proszę wypełnić to pole</span>
+            <span ng-show="form.username.$dirty && form.username.$error.required"></span>
           </span>
         </div>
 
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-          <label class="mdl-textfield__label" for="password">HASŁO</label>
-          <input class="mdl-textfield__input" type="password" id="password" name="password" ng-model="vm.password" ng-required="true" />
+          <input class="mdl-textfield__input" type="password" id="password" name="password" ng-model="vm.password" ng-required="true" placeholder="HASŁO" />
           <span class="mdl-tooltip mdl-tooltip--validation" for="password" ng-show="form.password.$dirty && form.password.$touched">
-            <span ng-show="form.password.$dirty && form.password.$error.required">Pole wymagane</span>
+            <span ng-show="form.password.$dirty && form.password.$error.required"></span>
           </span>
         </div>
 
         <div class="mdl-textfield"></div>
         <div class="mdl-textfield">
-          <button type="submit" class=" mdl-textfield--full-width mdl-button mdl-js-button mdl-button--raised mdl-button--colored  mdl-js-ripple-effect" ng-disabled="form.$invalid || vm.dataLoading">Login</button>
+          <button type="submit" class=" mdl-textfield--full-width mdl-button mdl-js-button mdl-button--raised mdl-button--colored  mdl-js-ripple-effect" ng-disabled="form.$invalid || vm.dataLoading">Zaloguj</button>
         </div>
 
       </form>
 
     </div>
-    <div class="mdl-layout-spacer"></div>
+    <div class="mdl-layout-spacer">
+      <a href="">Utwórz  nowego użytkownika</a>
+    </div>
   </div>
 </div>
 
