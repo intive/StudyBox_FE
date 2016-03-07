@@ -10,6 +10,17 @@
     var vm = this;
     vm.id = $stateParams.id;
     vm.innerHeight = {height:$window.innerHeight+ 'px'};
+    vm.selectedDeck = {id:vm.id, name:null};
+
+    vm.creation=false;
+    vm.switch = function () {
+      if(vm.creation){
+        vm.creation=false
+      }else{
+        vm.creation=true
+      }
+    console.log(vm.creation)
+    };
 
     vm.getDecks = function () {
       //service will be used in future
@@ -24,14 +35,25 @@
     vm.categories = vm.getDecks();
 
     vm.selectDeck = function(value){
+      console.log('deck');
+      console.log(value);
+      vm.selectedDeck = value;
+      $state.go("deck", { id: value.id })
+      console.log('dupa');
+    };
+
+
+    vm.selectDeckId = function(value){
+      console.log('id');
+      console.log(value);
       vm.categories.forEach(function(entry) {
         if (entry.id == value){
           vm.selectedDeck = entry;
-          $state.go("deck", { id: value })
+          $state.go("deck", { id: vm.selectedDeck.id })
         }
       })
     };
-    vm.selectDeck(vm.id);
+    vm.selectDeckId(vm.id);
 
     vm.setCards = function () {
       //service will be used in future
