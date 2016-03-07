@@ -2,14 +2,6 @@
   <div class="mdl-grid">
     <div ng-style="{{deck.innerHeight}}" class="mdl-cell mdl-cell--4-col deck-cards">
 
-      <!--<label class="mdl-select__label deck-card" for="decks"><a ui-sref="decks">decks:</a></label>-->
-      <!--<div class="mdl-select mdl-js-select mdl-select&#45;&#45;floating-label deck-card" id="decks">-->
-        <!--<select ng-model="deck.selectedDeck.id"-->
-                <!--ng-change="deck.selectDeck(deck.selectedDeck.id)"-->
-                <!--ng-options="item.id as item.name for item in deck.categories">-->
-        <!--</select>-->
-      <!--</div>-->
-
       <div class="lock-size" layout="row" layout-align="center center">
         <md-input-container ng-show="deck.creationMode">
           <form ng-submit="deck.createDeck()">
@@ -20,8 +12,9 @@
           ng-model="deck.selectedDeck"
           ng-model-options="{trackBy: '$value.id'}"
           ng-change="deck.selectDeck()"
-          md-on-open="getDecks()">
-          <md-option ng-value="item" ng-repeat="item in deck.categories">{{item.name}}</md-option>
+          md-on-open="deck.getDecks()">
+          <md-option ng-value="{id:-1, name:'new name'}">create new</md-option>
+          <md-option ng-value="item" ng-repeat="item in deck.decks">{{item.name}}</md-option>
         </md-select>
       </div>
 

@@ -5,7 +5,7 @@
     .module('studyBoxFe', [
       'ngAnimate',
       'ngCookies',
-      'ngTouch',
+      'ngMaterial',
       'ngSanitize',
       'ngMessages',
       'ngAria',
