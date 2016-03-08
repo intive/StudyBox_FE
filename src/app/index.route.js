@@ -33,6 +33,7 @@
         templateUrl: 'app/registration/registration.html',
         controller: 'RegistrationController',
         controllerAs: 'registration'
+      })
       .state('login', {
         url: '/login',
         template: 'app/login/login.html',
