@@ -1,21 +1,34 @@
-/**
- *  Do not remove the comments below. It's the markers used by wiredep to inject
- *  sass dependencies when defined in the bower.json of your dependencies
- */
-// bower:scss
-// endbower
 
+button.md-button.pinkButton{
+  //background-color: #EA0061;
+}
 
-.pinkButton{
-  width: 100%;
-  margin-top: 20px;
-  background-color: #EA0061;
+@mixin separate() {
 }
 
 
-/**
- *  Do not remove the comment below. It's the markers used by gulp-inject to inject
- *  all your sass files automatically
- */
-// injector
-// endinjector
+md-input-container.middleArea , md-select.choseDeck
+{
+  margin: 6px 8px;
+  padding: 0px;
+}
+
+
+md-input-container textarea.md-input.question
+{
+  background-color: #bababa;
+  min-height: 5em;
+}
+
+md-input-container textarea.md-input.hint
+{
+  background-color: #bababa;
+  min-height: 5em;
+}
+
+md-input-container textarea.md-input.answer
+{
+  background-color: #bababa;
+  min-height: 5em;
+}
+

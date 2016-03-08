@@ -1,43 +1,40 @@
-<head>
-  <link rel="stylesheet" type="text/css" href="addCard.scss">
-</head>
+<div layout="row" style="margin-top:10px;">
 
-<div class="mdl-grid" >
-    <div class="mdl-cell mdl-cell--3-col">
-      <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent pinkButton" >
-        <i class="material-icons" style="">layers</i> Wybierz talię lub stwórz nową
-      </button>
-      <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent pinkButton">
-        <i class="material-icons">cloud upload</i> Dodaj talię z pliku
-      </button>
-      <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent pinkButton">
-        <i class="material-icons">play arrow</i> Rozpocznij test
-      </button>
+  <div flex="30">
+
+    <md-content layout-padding layout="column" layout-align="center stretch">
+        <md-select class="choseDeck" placeholder="Wybierz talię" ng-model="chosenDeck" >
+          <md-option ng-repeat="deck in AddCardController.categories" value="{{ deck.name }}">
+            {{ deck.name }}
+          </md-option>
+        </md-select>
+    </md-content>
+    <div>
+      DECKI
     </div>
-    <div class="mdl-cell mdl-cell--1-col-desktop"></div>
-    <div class="mdl-cell mdl-cell--5-col ">
-      <div class="mdl-shadow--2dp" style="width: 100%;height: 50%;">
+  </div>
 
-        <!-- Expandable Textfield -->
-        <form action="#">
-          <div class="mdl-textfield mdl-js-textfield" style="width: 100%; box-sizing: border-box; padding: 0px;min-height: 100px;">
-            <textarea elastic class="mdl-textfield__input" type="text" id="question" required style="padding:20px;box-sizing: border-box;overflow: hidden;resize: none; background-color: rgba(66,66,66,0.1);min-height: 104px;"></textarea>
-            <label  class="mdl-textfield__label" for="question" style="padding: 0px 20px;box-sizing: border-box;min-height: 100px;">Wpisz pytanie ... </label>
-          </div>
-          <div class="mdl-textfield mdl-js-textfield" style="width: 100%; box-sizing: border-box; padding: 0px;min-height: 100px;">
-            <textarea elastic class="mdl-textfield__input" type="text" id="hint" required style="padding:20px;box-sizing: border-box;overflow: hidden;resize: none; background-color: rgba(66,66,66,0.1);min-height: 104px;"></textarea>
-            <label  class="mdl-textfield__label" for="hint" style="padding: 0px 20px;box-sizing: border-box;min-height: 100px;">Wpisz pytanie ... </label>
-          </div>
-          <div class="mdl-textfield mdl-js-textfield" style="width: 100%; box-sizing: border-box; padding: 0px;min-height: 100px;">
-            <textarea elastic class="mdl-textfield__input" type="text" id="answer" required style="padding:20px;box-sizing: border-box;overflow: hidden;resize: none; background-color: rgba(66,66,66,0.1);min-height: 104px;"></textarea>
-            <label  class="mdl-textfield__label" for="answer" style="padding: 0px 20px;box-sizing: border-box;min-height: 100px;">Wpisz pytanie ... </label>
-          </div>
-        </form>
-      </div>
+  <div flex="45" layout-align="center stretch">
+    <md-content layout-padding>
+      <md-input-container class="md-block middleArea">
+        <textarea class="question" placeholder="Wpisz pytanie" ng-model="question" rows="5" md-select-on-focus></textarea>
+      </md-input-container>
 
-      <!-- Accent-colored raised button with ripple -->
-      <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" style="width: 100%;margin-top: 20px; background-color: #EA0061;">
-        Dodaj fiszkę
-      </button>
+      <md-input-container class="md-block middleArea">
+        <textarea class="hint" placeholder="Wpisz podpowiedź" ng-model="hint" rows="5" md-select-on-focus></textarea>
+      </md-input-container>
+
+      <md-input-container class="md-block middleArea">
+        <textarea class="answer" placeholder="Wpisz odpowiedź" ng-model="answer" rows="5" md-select-on-focus></textarea>
+      </md-input-container>
+    </md-content>
+  </div>
+  <div flex="25">
+
+    <div layout="column" layout-align="center stretch">
+      <md-button class="md-raised pinkButton">Rozpocznij test</md-button>
+
+      <md-button class="md-raised pinkButton">Dodaj talię z pliku</md-button>
     </div>
+  </div>
 </div>
