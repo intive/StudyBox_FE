@@ -6,7 +6,8 @@
       <form name="registrationForm" ng-submit="registration.submit(registrationForm.$valid)">
         <md-input-container class="md-block">
           <label>{{"registration-nazwa_uzytkownika" | translate}}</label>
-          <input required name="login" minlength="3" ng-model="registration.data.login" ng-pattern="/^.+@.+\..+$/">
+          <!-- loginy zaczynajace sie na litere lub cyfre -->
+          <input required name="login" minlength="3" ng-model="registration.data.login" ng-pattern="/^[A-Za-z0-9][A-Za-z0-9-_]*$/">
           <div ng-messages="registrationForm.login.$error">
             <div ng-message="required">{{"registration-pole_wymagane" | translate}}</div>
             <div ng-message="pattern">{{"registration-pole_wzor_nie_pasuje" | translate}}</div>
