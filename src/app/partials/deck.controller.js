@@ -13,7 +13,7 @@
 
     //init current selected deck
     vm.initDeck = function(value){
-      if(value<0){
+      if(value=='new'){
         vm.creationMode=true;
       }else {
         vm.creationMode=false;
@@ -34,7 +34,8 @@
     vm.createDeck = function(name){
       DeckService.createDeck(name)
         .then(function (result) {
-          vm.initDeck(result.data.id);
+          vm.selectedDeck={id:result.data.id,name:result.data.name};
+          vm.selectDeck();
         }, function (e) {
           console.log(e);
         });

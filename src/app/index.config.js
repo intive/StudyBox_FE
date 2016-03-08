@@ -9,8 +9,8 @@
   function config($logProvider, $mdThemingProvider) {
     // am conf theme
     $mdThemingProvider.theme('default')
-      .primaryPalette('pink')
-      .accentPalette('orange');
+      .primaryPalette('blue')
+      .accentPalette('grey');
     // Enable log
     $logProvider.debugEnabled(true);
   }

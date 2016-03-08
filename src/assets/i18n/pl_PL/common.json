@@ -1,4 +1,6 @@
-	{ 
+	{
 		"studyBoxFe_stringTestowy": "Witaj",
-		"studyBoxFe_drugiString": "do widzenia!"
+		"studyBoxFe_drugiString": "do widzenia!",
+    "studyBoxFe_createDeck": "Stwórz nową talię",
+    "studyBoxFe_typeName": "Wpisz nazwę"
 	}

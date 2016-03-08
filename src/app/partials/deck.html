@@ -3,9 +3,9 @@
 
     <div ng-style="{{deck.innerHeight}}" class="mdl-cell mdl-cell--4-col deck-cards">
       <div class="lock-size" layout="row" layout-align="center center">
-        <md-input-container ng-show="deck.creationMode">
+        <md-input-container ng-hide="deck.creationMode==false">
           <form ng-submit="deck.createDeck()">
-            <input ng-model="deck.newDeck" placeholder="Create new" ng-blur="deck.createDeck()">
+            <input ng-model="deck.newDeck" placeholder="{{'studyBoxFe_typeName' | translate}}">
           </form>
         </md-input-container>
         <md-select ng-hide="deck.creationMode" aria-label="decks"
@@ -13,7 +13,7 @@
                    ng-model-options="{trackBy: '$value.id'}"
                    ng-change="deck.selectDeck()"
                    md-on-open="deck.getDecks()">
-          <md-option ng-value="{id:-1, name:'new name'}">create new</md-option>
+          <md-option ng-value="{id:'new', name:'new name'}">{{'studyBoxFe_createDeck' | translate}}</md-option>
           <md-option ng-value="item" ng-repeat="item in deck.decks">{{item.name}}</md-option>
         </md-select>
       </div>
