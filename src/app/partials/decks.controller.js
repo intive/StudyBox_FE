@@ -18,7 +18,7 @@
         {id: 34, name: 'deck_3'}]
     };
 
-    vm.categories = getDecks()
+    vm.decks = getDecks()
     }
 
 })();

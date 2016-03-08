@@ -1,17 +1,10 @@
-<div class="acme-card-square mdl-card mdl-shadow--2dp">
-  <div class="mdl-card__title">
-    {{ deck.selectedCard.name }}
-  </div>
-  <div class="mdl-card__subtitle-text">
-    {{ deck.selectedCard.question }}
-  </div>
-  <div class="mdl-card__subtitle-text">
-    {{ deck.selectedCard.hint }}
-  </div>
-  <div class="mdl-card__subtitle-text">
+<md-card>
+  <md-card-content>
+    <h2>{{ deck.selectedCard.name }}</h2>
+    <p>{{ deck.selectedCard.question }}</p>
+    <p>{{ deck.selectedCard.hint }}</p>
+  </md-card-content>
+  <md-card-footer>
     {{ deck.selectedCard.answer }}
-  </div>
-</div>
-
-
-
+  </md-card-footer>
+</md-card>

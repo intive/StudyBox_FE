@@ -1,11 +1,10 @@
-<div class="mdl-grid">
-  <div class="mdl-cell mdl-cell--4-col" ng-repeat="deck in decks.categories">
-    <div class="acme-card-square mdl-card mdl-shadow--2dp" ui-sref="deck({ id: deck.id })">
-      <div class="mdl-card__title">
-        {{ deck.name }}
-      </div>
-    </div>
-  </div>
-</div>
-
-
+<md-grid-list
+  md-cols="1" md-cols-sm="2" md-cols-md="3" md-cols-gt-md="6"
+  md-row-height-gt-md="1:1" md-row-height="4:3"
+  md-gutter="8px" md-gutter-gt-sm="4px" >
+  <md-grid-tile ng-repeat="deck in decks.decks"
+                md-colspan-sm="1" ng-style="{'background': 'grey'}"
+                ui-sref="deck({ id: deck.id })"><h3>{{ deck.name }}</h3>
+      <md-grid-tile-footer><h3>{{ deck.name }}</h3></md-grid-tile-footer>
+  </md-grid-tile>
+</md-grid-list>

@@ -1,5 +1,6 @@
-<div class="page-content">
-  <div class="mdl-grid">
+<div layout="row" layout-wrap>
+  <div flex="30">
+
     <div ng-style="{{deck.innerHeight}}" class="mdl-cell mdl-cell--4-col deck-cards">
 
       <div class="lock-size" layout="row" layout-align="center center">
@@ -9,22 +10,22 @@
           </form>
         </md-input-container>
         <md-select ng-hide="deck.creationMode" aria-label="decks"
-          ng-model="deck.selectedDeck"
-          ng-model-options="{trackBy: '$value.id'}"
-          ng-change="deck.selectDeck()"
-          md-on-open="deck.getDecks()">
+                   ng-model="deck.selectedDeck"
+                   ng-model-options="{trackBy: '$value.id'}"
+                   ng-change="deck.selectDeck()"
+                   md-on-open="deck.getDecks()">
           <md-option ng-value="{id:-1, name:'new name'}">create new</md-option>
           <md-option ng-value="item" ng-repeat="item in deck.decks">{{item.name}}</md-option>
         </md-select>
       </div>
 
       <div class="acme-card mdl-card mdl-shadow--2dp deck-card" ng-repeat="card in deck.cards"
-        ng-click="deck.selectCard(card.id)">
+           ng-click="deck.selectCard(card.id)">
         <div class="mdl-card__title deck-card-title">
           {{ card.name }}
         </div>
         <div class="mdl-card__subtitle-text deck-card-question">
-         {{ card.question }}
+          {{ card.question }}
         </div>
         <div class="mdl-card__subtitle-text deck-card-hint">
           {{ card.hint }}
@@ -35,14 +36,17 @@
       </div>
     </div>
 
+  </div>
+  <div flex="45">
     <div>
       Select card to edit: <br>
       <card>
       </card>
     </div>
-
+  </div>
+  <div flex="25">
+    [flex="25"]
   </div>
 </div>
-
 
 

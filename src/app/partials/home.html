@@ -1,24 +1,14 @@
-<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+<md-content>
 
-  <header class="mdl-layout__header">
-    <acme-navbar creation-date="main.creationDate"></acme-navbar>
-  </header>
+  <md-toolbar class="md-menu-toolbar" layout="column" ng-style="{'background': 'blue'}">
+    <md-toolbar-filler >
+    </md-toolbar-filler>
+  </md-toolbar>
 
-  <div class="mdl-layout__drawer">
-    <span class="mdl-layout-title">Title</span>
-    <nav class="mdl-navigation">
-
-    </nav>
-  </div>
-
-  <div class="mdl-layout__content">
-    <div class="page-content">
-      <div ui-view>
-      </div>
+  <md-content layout-padding>
+    <div ui-view>
     </div>
-  </div>
+  </md-content>
 
 
-</div>
-
-
+</md-content>
