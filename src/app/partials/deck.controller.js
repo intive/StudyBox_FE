@@ -63,7 +63,6 @@
         }, function (e) {
           console.log(e);
         });
-
     };
 
     vm.selectCard = function(value){
@@ -72,6 +71,15 @@
           vm.selectedCard = entry;
         }
       })
+    };
+
+    vm.deleteCard = function(cardId){
+      DeckService.deleteCard(vm.selectedDeck.id, cardId)
+        .then(function (result) {
+          console.log(result);
+        }, function (e) {
+          console.log(e);
+        });
     };
 
   }

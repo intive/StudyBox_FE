@@ -10,7 +10,7 @@
     // am conf theme
     $mdThemingProvider.theme('default')
       .primaryPalette('blue')
-      .accentPalette('grey');
+      .accentPalette('pink');
     // Enable log
     $logProvider.debugEnabled(true);
   }
