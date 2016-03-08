@@ -2,7 +2,6 @@
   <div flex="30">
 
     <div ng-style="{{deck.innerHeight}}" class="mdl-cell mdl-cell--4-col deck-cards">
-
       <div class="lock-size" layout="row" layout-align="center center">
         <md-input-container ng-show="deck.creationMode">
           <form ng-submit="deck.createDeck()">
@@ -19,21 +18,17 @@
         </md-select>
       </div>
 
-      <div class="acme-card mdl-card mdl-shadow--2dp deck-card" ng-repeat="card in deck.cards"
-           ng-click="deck.selectCard(card.id)">
-        <div class="mdl-card__title deck-card-title">
-          {{ card.name }}
-        </div>
-        <div class="mdl-card__subtitle-text deck-card-question">
-          {{ card.question }}
-        </div>
-        <div class="mdl-card__subtitle-text deck-card-hint">
-          {{ card.hint }}
-        </div>
-        <div class="mdl-card__subtitle-text deck-card-answer">
-          {{ card.answer }}
-        </div>
-      </div>
+      <md-card ng-repeat="card in deck.cards">
+        <md-card-title>
+          <md-card-title-text>
+            <span class="md-headline">{{ card.question }}</span>
+            <span class="md-subhead">{{ card.answer }}</span>
+          </md-card-title-text>
+        </md-card-title>
+        <md-card-actions layout="row" layout-align="end center">
+          <md-button  ng-click="deck.selectCard(card.id)">Select</md-button>
+        </md-card-actions>
+      </md-card>
     </div>
 
   </div>
@@ -45,7 +40,7 @@
     </div>
   </div>
   <div flex="25">
-    [flex="25"]
+
   </div>
 </div>
 

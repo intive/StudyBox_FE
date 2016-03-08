@@ -22,6 +22,8 @@
             vm.selectedDeck=result.data;
             //init current deck in decks selector (only to show name)
             vm.decks=[vm.selectedDeck];
+            //load flashcards for selected deck
+            vm.getCards(vm.selectedDeck.id);
           }, function (e) {
             console.log(e);
           });
@@ -29,13 +31,13 @@
     };
     vm.initDeck(vm.deckId);
 
-    //todo
-    //new deck creation
-    vm.createDeck = function(){
-      console.log('create');
-      console.log(vm.newDeck);
-      vm.selectedDeck = {id:34, name:vm.newDeck};
-      $state.go("deck", { id: vm.selectedDeck.id })
+    vm.createDeck = function(name){
+      DeckService.createDeck(name)
+        .then(function (result) {
+          vm.initDeck(result.data.id);
+        }, function (e) {
+          console.log(e);
+        });
     };
 
     //load all deck for decks selector
@@ -53,16 +55,15 @@
       $state.go("deck", {id: vm.selectedDeck.id})
     };
 
-    //vm.setCards = function () {
-    //  //service will be used in future
-    //  vm.cards = [
-    //    {id:0, name:vm.selectedDeck.name+'_card_0', question:'question', hint:'hint', answer:'answer'},
-    //    {id:11, name:vm.selectedDeck.name+'_card_1', question:'question', hint:'hint', answer:'answer'},
-    //    {id:26, name:vm.selectedDeck.name+'_card_2', question:'question', hint:'hint', answer:'answer'},
-    //    {id:39, name:vm.selectedDeck.name+'_card_3', question:'question', hint:'hint', answer:'answer'}];
-    //
-    //};
-    //vm.setCards();
+    vm.getCards = function (id) {
+      DeckService.getCards(id)
+        .then(function (result) {
+          vm.cards=result.data;
+        }, function (e) {
+          console.log(e);
+        });
+
+    };
 
     vm.selectCard = function(value){
       vm.cards.forEach(function(entry) {
