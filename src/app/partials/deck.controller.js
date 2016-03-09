@@ -6,7 +6,7 @@
     .controller('DeckController', DeckController);
 
   /** @ngInject */
-  function DeckController($stateParams, $state, $window, BackendService) {
+  function DeckController($stateParams, $state, $window, BackendService, $log) {
     var vm = this;
     vm.deckId = $stateParams.id;
     vm.innerHeight = {height:$window.innerHeight+ 'px'};
@@ -26,7 +26,7 @@
             //load flashcards for selected deck
             vm.getCards();
           }, function (e) {
-            console.log(e);
+            $log.error(e);
           });
       }
     };
@@ -38,7 +38,7 @@
           vm.selectedDeck=result;
           vm.selectDeck();
         }, function (e) {
-          console.log(e);
+          $log.error(e);
         });
     };
 
@@ -46,9 +46,10 @@
     vm.getDecks = function () {
       BackendService.getDecks()
         .then(function (result) {
+          $log.log(result)
           vm.decks=result
           }, function (e) {
-            console.log(e);
+            $log.error(e);
           });
     };
 
@@ -62,7 +63,7 @@
         .then(function (result) {
           vm.cards=result;
         }, function (e) {
-          console.log(e);
+          $log.error(e);
         });
     };
 
@@ -77,9 +78,9 @@
     vm.deleteCard = function(cardId){
       vm.selectedDeck.removeFlashcard(cardId)
         .then(function (result) {
-          console.log(result);
+          $log.log(result);
         }, function (e) {
-          console.log(e);
+          $log.error(e);
         });
     };
 
