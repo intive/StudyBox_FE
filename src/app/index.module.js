@@ -13,7 +13,8 @@
       'toastr',
       'pascalprecht.translate',
       'translator',
-      'ngMaterial'
+      'ngMaterial',
+      'backend'
     ]);
 
 })();

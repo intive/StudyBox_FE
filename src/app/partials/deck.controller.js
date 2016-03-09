@@ -6,10 +6,11 @@
     .controller('DeckController', DeckController);
 
   /** @ngInject */
-  function DeckController($stateParams, $state, $window, DeckService) {
+  function DeckController($stateParams, $state, $window, BackendService) {
     var vm = this;
     vm.deckId = $stateParams.id;
     vm.innerHeight = {height:$window.innerHeight+ 'px'};
+    vm.selectedDeck = new BackendService.Deck();
 
     //init current selected deck
     vm.initDeck = function(value){
@@ -17,13 +18,13 @@
         vm.creationMode=true;
       }else {
         vm.creationMode=false;
-        DeckService.getDeck(value)
+        BackendService.getDeckById(value)
           .then(function (result) {
-            vm.selectedDeck=result.data;
+            vm.selectedDeck=result;
             //init current deck in decks selector (only to show name)
             vm.decks=[vm.selectedDeck];
             //load flashcards for selected deck
-            vm.getCards(vm.selectedDeck.id);
+            vm.getCards();
           }, function (e) {
             console.log(e);
           });
@@ -32,9 +33,9 @@
     vm.initDeck(vm.deckId);
 
     vm.createDeck = function(name){
-      DeckService.createDeck(name)
+      BackendService.createNewDeck(name)
         .then(function (result) {
-          vm.selectedDeck={id:result.data.id,name:result.data.name};
+          vm.selectedDeck=result;
           vm.selectDeck();
         }, function (e) {
           console.log(e);
@@ -43,9 +44,9 @@
 
     //load all deck for decks selector
     vm.getDecks = function () {
-      DeckService.getDecks()
+      BackendService.getDecks()
         .then(function (result) {
-          vm.decks=result.data
+          vm.decks=result
           }, function (e) {
             console.log(e);
           });
@@ -56,10 +57,10 @@
       $state.go("deck", {id: vm.selectedDeck.id})
     };
 
-    vm.getCards = function (id) {
-      DeckService.getCards(id)
+    vm.getCards = function () {
+      vm.selectedDeck.getFlashcards()
         .then(function (result) {
-          vm.cards=result.data;
+          vm.cards=result;
         }, function (e) {
           console.log(e);
         });
@@ -74,7 +75,7 @@
     };
 
     vm.deleteCard = function(cardId){
-      DeckService.deleteCard(vm.selectedDeck.id, cardId)
+      vm.selectedDeck.removeFlashcard(cardId)
         .then(function (result) {
           console.log(result);
         }, function (e) {
