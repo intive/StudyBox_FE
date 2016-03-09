@@ -1,7 +1,7 @@
 /**
  * INSTRUKCJA OBSŁUGI
  *
- * getDeckById() - zwraca talię po jej ID
+ * getDeckById(id) - zwraca talię po jej ID
  * getDecks() - zwraca wszystkie talie (obiekty typu Deck)
  * createNewDeck(name) - tworzy (na serwerze) nową talię
  *
