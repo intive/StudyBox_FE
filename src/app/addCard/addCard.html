@@ -2,7 +2,7 @@
 
   <div flex-gt-xs="30" flex-xs="grow">
     <md-content layout-padding layout="column" layout-align="center stretch">
-        <md-select class="choseDeck" placeholder="Wybierz talię" ng-model="chosenDeck" >
+        <md-select class="siteParts" placeholder="Wybierz talię" ng-model="chosenDeck" >
           <md-option ng-repeat="deck in AddCardController.categories" value="{{ deck.name }}">
             {{ deck.name }}
           </md-option>
@@ -14,16 +14,16 @@
   </div>
 
   <div flex-gt-xs="45" flex-xs="grow" layout-align="center stretch">
-    <md-content layout-padding>
-      <md-input-container class="md-block middleArea md-whiteframe-4dp" style="margin: 6px 8px 0px;" md-no-float>
+    <md-content layout-padding class="siteParts">
+      <md-input-container class="md-block md-whiteframe-4dp middleCard" md-no-float>
         <textarea class="question" placeholder="Wpisz pytanie" ng-model="question" rows="5" md-select-on-focus></textarea>
       </md-input-container>
 
-      <md-input-container class="md-block middleArea md-whiteframe-4dp" md-no-float>
+      <md-input-container class="md-block md-whiteframe-4dp middleCard" md-no-float>
         <textarea class="hint" placeholder="Wpisz podpowiedź" ng-model="hint" rows="5" md-select-on-focus></textarea>
       </md-input-container>
 
-      <md-input-container class="md-block middleArea md-whiteframe-4dp" md-no-float>
+      <md-input-container class="md-block md-whiteframe-4dp middleCard" md-no-float>
         <textarea class="answer" placeholder="Wpisz odpowiedź" ng-model="answer" rows="5" md-select-on-focus></textarea>
       </md-input-container>
     </md-content>
@@ -33,7 +33,7 @@
 
   <div flex-gt-xs="25" flex-xs="grow" >
 
-    <div layout="column" layout-align="center stretch">
+    <div layout="column" layout-align="center stretch" class="siteParts">
       <md-button class="md-raised addCardButton">Rozpocznij test</md-button>
 
       <md-button class="md-raised addCardButton">Dodaj talię z pliku</md-button>

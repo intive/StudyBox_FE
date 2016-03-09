@@ -11,11 +11,7 @@ button.md-button.addCardButton{
   padding: 10px;
 }
 
-@mixin separate() {
-}
-
-
-md-input-container.middleArea , md-select.choseDeck
+md-input-container.siteParts , md-content.siteParts , .layout-column.siteParts
 {
   margin: 0px 8px;
   padding: 0px;
@@ -24,6 +20,17 @@ md-input-container.middleArea , md-select.choseDeck
 @mixin partOfCard() {
   min-height: 7em;
   padding: 25px;
+}
+
+@mixin middleCard()
+{
+  padding: 0px;
+  margin: 0px 8px;
+}
+
+md-input-container.middleCard
+{
+  @include middleCard();
 }
 
 md-input-container textarea.md-input.question
