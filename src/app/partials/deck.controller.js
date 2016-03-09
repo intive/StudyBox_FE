@@ -6,7 +6,7 @@
     .controller('DeckController', DeckController);
 
   /** @ngInject */
-  function DeckController($stateParams, $state, $window, DeckService) {
+  function DeckController($stateParams, $state, $window, DeckService, BackendService) {
     var vm = this;
     vm.deckId = $stateParams.id;
     vm.innerHeight = {height:$window.innerHeight+ 'px'};
@@ -17,6 +17,13 @@
         vm.creationMode=true;
       }else {
         vm.creationMode=false;
+        var deck = new BackendService.Deck();
+        //deck.id = value;
+        //deck.name =
+        console.log(deck)
+
+
+
         DeckService.getDeck(value)
           .then(function (result) {
             vm.selectedDeck=result.data;
@@ -32,9 +39,9 @@
     vm.initDeck(vm.deckId);
 
     vm.createDeck = function(name){
-      DeckService.createDeck(name)
+      BackendService.createNewDeck(name)
         .then(function (result) {
-          vm.selectedDeck={id:result.data.id,name:result.data.name};
+          vm.selectedDeck={id:result.id,name:result.name};
           vm.selectDeck();
         }, function (e) {
           console.log(e);
@@ -43,9 +50,11 @@
 
     //load all deck for decks selector
     vm.getDecks = function () {
-      DeckService.getDecks()
+      console.log(BackendService.getDecks())
+      BackendService.getDecks()
         .then(function (result) {
-          vm.decks=result.data
+          console.log(result)
+          vm.decks=result
           }, function (e) {
             console.log(e);
           });
@@ -56,8 +65,10 @@
       $state.go("deck", {id: vm.selectedDeck.id})
     };
 
-    vm.getCards = function (id) {
-      DeckService.getCards(id)
+    vm.getCards = function () {
+      var deck = new BackendService.Deck();
+      deck.id=vm.selectedDeck.id;
+      deck.getFlashcards()
         .then(function (result) {
           vm.cards=result.data;
         }, function (e) {
@@ -74,7 +85,8 @@
     };
 
     vm.deleteCard = function(cardId){
-      DeckService.deleteCard(vm.selectedDeck.id, cardId)
+      //DeckService.deleteCard(vm.selectedDeck.id, cardId)
+      BackendService.removeFlashcard
         .then(function (result) {
           console.log(result);
         }, function (e) {
