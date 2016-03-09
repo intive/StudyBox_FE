@@ -5,8 +5,10 @@ $graphite: #424242;
   font-size: 1.6em;
 }
 
-button.md-button.pinkButton{
+button.md-button.addCardButton{
   //background-color: #EA0061;
+  font-size: 0.7em;
+  padding: 10px;
 }
 
 @mixin separate() {

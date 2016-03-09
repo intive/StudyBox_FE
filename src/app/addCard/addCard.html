@@ -1,7 +1,6 @@
-<div layout="row" class="addCard" style="margin-top:10px;">
+<div layout="row" layout-xs="column" class="addCard" style="margin-top:10px;">
 
-  <div flex="30">
-
+  <div flex-gt-xs="30" flex-xs="grow">
     <md-content layout-padding layout="column" layout-align="center stretch">
         <md-select class="choseDeck" placeholder="Wybierz talię" ng-model="chosenDeck" >
           <md-option ng-repeat="deck in AddCardController.categories" value="{{ deck.name }}">
@@ -14,7 +13,7 @@
     </div>
   </div>
 
-  <div flex="45" layout-align="center stretch">
+  <div flex-gt-xs="45" flex-xs="grow" layout-align="center stretch">
     <md-content layout-padding>
       <md-input-container class="md-block middleArea md-whiteframe-4dp" style="margin: 6px 8px 0px;" md-no-float>
         <textarea class="question" placeholder="Wpisz pytanie" ng-model="question" rows="5" md-select-on-focus></textarea>
@@ -28,13 +27,16 @@
         <textarea class="answer" placeholder="Wpisz odpowiedź" ng-model="answer" rows="5" md-select-on-focus></textarea>
       </md-input-container>
     </md-content>
+
+    <md-button class="md-raised addCardButton" layout-align="end">Dodaj do talii</md-button>
   </div>
-  <div flex="25">
+
+  <div flex-gt-xs="25" flex-xs="grow" >
 
     <div layout="column" layout-align="center stretch">
-      <md-button class="md-raised pinkButton">Rozpocznij test</md-button>
+      <md-button class="md-raised addCardButton">Rozpocznij test</md-button>
 
-      <md-button class="md-raised pinkButton">Dodaj talię z pliku</md-button>
+      <md-button class="md-raised addCardButton">Dodaj talię z pliku</md-button>
     </div>
   </div>
 </div>
