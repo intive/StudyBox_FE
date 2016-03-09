@@ -39,9 +39,15 @@
         templateUrl: 'app/login/login.html',
         controller: 'LoginController',
         controllerAs: 'login'
+      })
+      .state('landing', {
+        url: '/landing',
+        templateUrl: 'app/landing/landing.html',
+        controller: 'LandingController',
+        controllerAs: 'landing'
       });
 
-    $urlRouterProvider.otherwise('/');
+    $urlRouterProvider.otherwise('/decks');
   }
 
 })();

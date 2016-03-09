@@ -1,53 +1,65 @@
-<div md-content layout-padding ng-controller="RegistrationController as registration" ng-cloak>
-  <div layout="column" layout-align="center center">
-      <div flex><h4>Rejestracja</h4></div>
-      <div flex><h6>{{registration.formStatus}}</h6></div>
-
-      <form name="registrationForm" ng-submit="registration.submit(registrationForm.$valid)">
-        <md-input-container class="md-block">
-          <label>{{"registration-nazwa_uzytkownika" | translate}}</label>
-          <!-- loginy zaczynajace sie na litere lub cyfre -->
-          <input required name="login" minlength="3" ng-model="registration.data.login" ng-pattern="/^[A-Za-z0-9][A-Za-z0-9-_]*$/">
-          <div ng-messages="registrationForm.login.$error">
-            <div ng-message="required">{{"registration-pole_wymagane" | translate}}</div>
-            <div ng-message="pattern">{{"registration-pole_wzor_nie_pasuje" | translate}}</div>
-            <div ng-message="minlength">{{"registration-pole_min_znaki" | translate}}</div>
+<div md-content layout-padding ng-controller="RegistrationController as registration" ng-cloak  layout="row" layout-align="center">
+  <div flex-xs="10" flex-gt-md="35" flex-gt-sm="30" flex-gt-xs="25"></div>
+  <div flex-xs="80" flex-gt-md="30" flex-gt-sm="40" flex-gt-xs="50">
+    <md-card>
+      <md-card-title layout-align="center">
+        <md-card-title-media>
+          <div class="md-media-sm logo">
+              <img ng-src="{{registration.imagePath}}" class="md-card-image">
           </div>
-        </md-input-container>
+        </md-card-title-media>
+      </md-card-title>
+      <md-card-content>
+        <div flex><h4>Rejestracja</h4></div>
+        <div flex><h6>{{registration.formStatus}}</h6></div>
+        <form name="registrationForm" ng-submit="registration.submit(registrationForm.$valid)">
+          <md-input-container class="md-block">
+            <label>{{"registration-nazwa_uzytkownika" | translate}}</label>
+            <!-- loginy zaczynajace sie na litere lub cyfre -->
+            <input required name="login"  ng-model="registration.data.login" minlength="3" ng-pattern="/^[A-Za-z0-9][A-Za-z0-9-_]*$/">
+            <div ng-messages="registrationForm.login.$error">
+              <div ng-message="required">{{"registration-pole_wymagane" | translate}}</div>
+              <div ng-message="pattern">{{"registration-pole_wzor_nie_pasuje" | translate}}</div>
+              <div ng-message="minlength">{{"registration-pole_min_znaki" | translate}}</div>
+            </div>
+          </md-input-container>
 
-        <md-input-container class="md-block">
-          <label>{{"registration-pole_email" | translate}}</label>
-          <input required type="email" name="email" ng-model="registration.data.email" ng-pattern="/^.+@.+\..+$/" />
-          <div ng-messages="registrationForm.email.$error">
-            <div ng-message="required">{{"registration-pole_wymagane" | translate}}</div>
-            <div ng-message="md-maxlength">{{"registration_nazwa-uzytkownika" | translate}}</div>
-            <div ng-message="pattern">{{"registration-pole_wzor_nie_pasuje" | translate}}</div>
+          <md-input-container class="md-block">
+            <label>{{"registration-pole_email" | translate}}</label>
+            <input required type="email" name="email" ng-model="registration.data.email" ng-pattern="/^.+@.+\..+$/" />
+            <div ng-messages="registrationForm.email.$error">
+              <div ng-message="required">{{"registration-pole_wymagane" | translate}}</div>
+              <div ng-message="md-maxlength">{{"registration_nazwa-uzytkownika" | translate}}</div>
+              <div ng-message="pattern">{{"registration-pole_wzor_nie_pasuje" | translate}}</div>
+            </div>
+          </md-input-container>
+
+          <md-input-container class="md-block">
+            <label>{{"registration-pole_haslo" | translate}}</label>
+            <input required type="password" name="password" minlength="8" ng-model="registration.data.password" />
+            <div ng-messages="registrationForm.password.$error">
+              <div ng-message="required">{{"registration-pole_wymagane" | translate}}</div>
+              <div ng-message="minlength">{{"registration-pole_min_znaki" | translate}}</div>
+            </div>
+          </md-input-container>
+
+          <md-input-container class="md-block">
+            <label for="confirmPassword">{{"registration-pole_powtorz_haslo" | translate}}</label>
+            <input required type="password" name="confirmPassword" ng-model="registration.data.confirmPassword" compare-to="registration.data.password" />
+            <div ng-messages="registrationForm.confirmPassword.$error">
+              <div ng-message="required">{{"registration-pole_wymagane" | translate}}</div>
+              <div ng-message="compareTo">{{"registration-pole_haslo_nie_pasuje" | translate}}</div>
+              <div ng-message="minlength">{{"registration-pole_min_znaki" | translate}}</div>
+            </div>
+          </md-input-container>
+
+          <div layout="column" layout-align="center stretch">
+            <md-button class="md-raised" type="submit" ng-disabled="registrationForm.$invalid">{{"registration-przycisk_zarejestruj" | translate}}</md-button>
+            <md-button ng-click="registration.reset()" >{{"registration-przycisk_anuluj" | translate}}</md-button>
           </div>
-        </md-input-container>
-
-        <md-input-container class="md-block">
-          <label>{{"registration-pole_haslo" | translate}}</label>
-          <input required type="password" name="password" minlength="8" ng-model="registration.data.password" />
-          <div ng-messages="registrationForm.password.$error">
-            <div ng-message="required">{{"registration-pole_wymagane" | translate}}</div>
-            <div ng-message="minlength">{{"registration-pole_min_znaki" | translate}}</div>
-          </div>
-        </md-input-container>
-
-        <md-input-container class="md-block">
-          <label for="confirmPassword">{{"registration-pole_powtorz_haslo" | translate}}</label>
-          <input required type="password" name="confirmPassword" ng-model="registration.data.confirmPassword" compare-to="registration.data.password" />
-          <div ng-messages="registrationForm.confirmPassword.$error">
-            <div ng-message="required">{{"registration-pole_wymagane" | translate}}</div>
-            <div ng-message="compareTo">{{"registration-pole_haslo_nie_pasuje" | translate}}</div>
-            <div ng-message="minlength">{{"registration-pole_min_znaki" | translate}}</div>
-          </div>
-        </md-input-container>
-
-        <div layout="column" layout-align="center stretch">
-          <md-button class="md-raised" type="submit" ng-disabled="registrationForm.$invalid">{{"registration-przycisk_zarejestruj" | translate}}</md-button>
-          <md-button ng-click="registration.reset()" >{{"registration-przycisk_anuluj" | translate}}</md-button>
-        </div>
-      </form>
+        </form>
+      </md-card-content>
+    </md-card>
   </div>
+  <div flex-xs="10" flex-gt-md="35" flex-gt-sm="30" flex-gt-xs="25" ></div>
 </md-content>

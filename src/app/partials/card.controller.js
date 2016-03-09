@@ -9,7 +9,7 @@
 
   /** @ngInject */
   function CardController() {
-    var vm = this;
+    //var vm = this;
   }
 
   function CardDirective() {
