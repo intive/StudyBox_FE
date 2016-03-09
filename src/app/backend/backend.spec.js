@@ -15,8 +15,9 @@
     }));
 
     it('can create a deck locally', function() {
-      var deck = new BackendService.Deck('sample name');
-      expect(deck.name).toEqual('sample name');
+      var deck = new BackendService.Deck();
+      deck.name = 'test';
+      expect(deck.name).toEqual('test');
     });
 
     it('can download flashcards', inject(function($httpBackend) {
@@ -125,7 +126,8 @@
     }));
 
     it('can change a deck name', inject(function($httpBackend) {
-      var deck = new BackendService.Deck('mock');
+      var deck = new BackendService.Deck();
+      deck.name = 'mock';
       var $scope = {};
       var updatedDeck = {
         id: '1',
@@ -152,8 +154,9 @@
     }));
 
     it('can create new deck with api', inject(function($httpBackend) {
-      var mockDeck = new BackendService.Deck('A');
+      var mockDeck = new BackendService.Deck();
       mockDeck.id = '1';
+      mockDeck.name = 'A';
       var $scope = {};
 
       BackendService.createNewDeck('A')
@@ -179,9 +182,11 @@
     }));
 
     it('can fetch all decks', inject(function($httpBackend) {
-      var mockDeck1 = new BackendService.Deck('A');
+      var mockDeck1 = new BackendService.Deck();
+      mockDeck1.name = 'A';
       mockDeck1.id = '1';
-      var mockDeck2 = new BackendService.Deck('B');
+      var mockDeck2 = new BackendService.Deck();
+      mockDeck2.name = 'B';
       mockDeck2.id = '2';
       var mockDecks = [mockDeck1, mockDeck2];
       var $scope = {};
@@ -206,6 +211,34 @@
 
       expect($scope.valid).toBe(true);
       expect(typeof($scope.response[0])).toEqual(typeof(mockDecks[0]));
+    }));
+
+    it('can fetch a deck by id', inject(function($httpBackend) {
+      var mockDeck = new BackendService.Deck();
+      mockDeck.id = '1';
+      mockDeck.name = 'test';
+      var $scope = {};
+
+      BackendService.getDeckById('1')
+      .then(
+        function success(deck) {
+          $scope.response = deck;
+          $scope.valid = true;
+        },
+        function error(data) {
+          $scope.response = data;
+          $scope.valid = false;
+        }
+      );
+
+      $httpBackend
+      .when('GET')
+      .respond(200, mockDeck);
+
+      $httpBackend.flush();
+
+      expect($scope.valid).toBe(true);
+      expect(typeof($scope.response)).toEqual(typeof(mockDeck));
     }));
   });
 })();
