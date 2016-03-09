@@ -5,7 +5,7 @@
     .module('studyBoxFe', [
       'ngAnimate',
       'ngCookies',
-      'ngTouch',
+      'ngMaterial',
       'ngSanitize',
       'ngMessages',
       'ngAria',
@@ -13,7 +13,8 @@
       'toastr',
       'pascalprecht.translate',
       'translator',
-      'ngMaterial'
+      'ngMaterial',
+      'backend'
     ]);
 
 })();
