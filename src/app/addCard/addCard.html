@@ -14,10 +14,16 @@
   </div>
 
   <div flex-gt-xs="45" flex-xs="grow" layout-align="center stretch" class="separate">
-    <md-content layout-padding class="siteParts">
+    <md-content layout-padding class="siteParts" style="overflow: visible;">
+
       <md-input-container class="md-block md-whiteframe-4dp middleCard" md-no-float>
         <i class="material-icons camera" onclick="document.getElementById('fileInput1').click();">camera_alt</i>
+        <i class="material-icons hintCardAdd" hide-xs>add_circle</i>
         <textarea class="question" placeholder="Wpisz pytanie" ng-model="question" rows="5" md-select-on-focus></textarea>
+      </md-input-container>
+
+      <md-input-container class="md-block hintDiv md-whiteframe-4dp middleCard" md-no-float hide-gt-xs show-xs>
+        <i class="material-icons hintCardRemove">add</i>
       </md-input-container>
 
       <md-input-container class="md-block md-whiteframe-4dp middleCard" md-no-float>

@@ -19,7 +19,36 @@ $graphite: #424242;
   color: rgba(0,0,0,0.4);
 }
 
-.camera:hover
+.hintDiv
+{
+  padding: 0px;
+  background-color: lighten($graphite,50%);
+}
+
+.hintDiv:hover
+{
+  background-color: lighten($graphite,45%);
+  cursor: pointer;
+}
+
+.hintCardRemove
+{
+  font-size: 60px;
+  position: relative;
+  left: calc(50% - 30px);
+  color: rgba(0,0,0,0.4);
+}
+
+.hintCardAdd
+{
+  font-size: 60px;
+  position: absolute;
+  bottom: -30px;
+  right: -60px;
+  color: rgba(0,0,0,0.4);
+}
+
+.hintCardAdd:hover, .camera:hover
 {
   cursor: pointer;
   color: rgba(0,0,0,0.6);
@@ -50,7 +79,7 @@ md-select.siteParts
 }
 
 @mixin partOfCard() {
-  min-height: 7em;
+  min-height: 8em;
   padding: 25px;
 }
 
