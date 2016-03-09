@@ -9,7 +9,7 @@ button.md-button.pinkButton{
 
 md-input-container.middleArea , md-select.choseDeck
 {
-  margin: 6px 8px;
+  margin: 0px 8px;
   padding: 0px;
 }
 
@@ -17,18 +17,23 @@ md-input-container.middleArea , md-select.choseDeck
 md-input-container textarea.md-input.question
 {
   background-color: #bababa;
-  min-height: 5em;
+  min-height: 10em;
 }
 
 md-input-container textarea.md-input.hint
 {
   background-color: #bababa;
-  min-height: 5em;
+  min-height: 10em;
 }
 
 md-input-container textarea.md-input.answer
 {
   background-color: #bababa;
-  min-height: 5em;
+  min-height: 10em;
+}
+
+//Usunięcie odstępów pomiędzy textareami
+md-input-container .md-errors-spacer {
+  min-height: 0;
 }
 
