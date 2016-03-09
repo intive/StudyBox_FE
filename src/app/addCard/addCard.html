@@ -18,15 +18,15 @@
 
       <md-input-container class="md-block md-whiteframe-4dp middleCard" md-no-float>
         <i class="material-icons camera" onclick="document.getElementById('fileInput1').click();">camera_alt</i>
-        <i class="material-icons hintCardAdd" hide-xs>add_circle</i>
+        <i id="addButton" class="material-icons hintCardAdd" hide-xs ng-click="AddCardController.toggleButton()">add_circle</i>
         <textarea class="question" placeholder="Wpisz pytanie" ng-model="question" rows="5" md-select-on-focus></textarea>
       </md-input-container>
 
       <md-input-container class="md-block hintDiv md-whiteframe-4dp middleCard" md-no-float hide-gt-xs show-xs>
-        <i class="material-icons hintCardRemove">add</i>
+        <md-button id="hiddenIcon" class="md-raised material-icons hintCardRemove" ng-click="AddCardController.toggleButton()" style="margin-top: 10px;margin-bottom:10px;">add</md-button>
       </md-input-container>
 
-      <md-input-container class="md-block md-whiteframe-4dp middleCard" md-no-float>
+      <md-input-container class="md-block md-whiteframe-4dp middleCard" id="hint" md-no-float style="display: none;">
         <i class="material-icons camera" onclick="document.getElementById('fileInput2').click();">camera_alt</i>
         <textarea class="hint" placeholder="Wpisz podpowiedź" ng-model="hint" rows="5" md-select-on-focus></textarea>
       </md-input-container>

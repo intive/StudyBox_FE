@@ -22,20 +22,14 @@ $graphite: #424242;
 .hintDiv
 {
   padding: 0px;
-  background-color: lighten($graphite,50%);
-}
-
-.hintDiv:hover
-{
-  background-color: lighten($graphite,45%);
-  cursor: pointer;
+  background-color: lighten($graphite,66%);
 }
 
 .hintCardRemove
 {
   font-size: 60px;
   position: relative;
-  left: calc(50% - 30px);
+  left: calc(50% - 44px);
   color: rgba(0,0,0,0.4);
 }
 
