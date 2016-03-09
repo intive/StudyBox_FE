@@ -1,5 +1,5 @@
 (function() {
-    'use strict';
-    angular
-        .module('backend', []);
+  'use strict';
+  angular
+  .module('backend', []);
 })();
