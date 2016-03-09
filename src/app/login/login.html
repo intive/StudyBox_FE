@@ -16,8 +16,8 @@
 
             <md-input-container class="md-block">
                 <label>{{"login-pole_haslo" | translate}}</label>
-                <input required type="password" name="password" minlength="8" ng-model="registration.data.password" />
-                <div ng-messages="registrationForm.password.$error">
+                <input required type="password" name="password" minlength="8" ng-model="login.data.password" />
+                <div ng-messages="loginnForm.password.$error">
                     <div ng-message="required">{{"registration-pole_wymagane" | translate}}</div>
                     <div ng-message="minlength">{{"registration-pole_min_znaki" | translate}}</div>
                 </div>
