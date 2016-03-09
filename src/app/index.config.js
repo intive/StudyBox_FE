@@ -6,7 +6,11 @@
     .config(config);
 
   /** @ngInject */
-  function config($logProvider) {
+  function config($logProvider, $mdThemingProvider) {
+    // am conf theme
+    $mdThemingProvider.theme('default')
+      .primaryPalette('blue')
+      .accentPalette('pink');
     // Enable log
     $logProvider.debugEnabled(true);
   }

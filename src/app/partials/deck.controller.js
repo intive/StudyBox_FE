@@ -6,43 +6,64 @@
     .controller('DeckController', DeckController);
 
   /** @ngInject */
-  function DeckController($stateParams, $state, $window) {
+  function DeckController($stateParams, $state, $window, DeckService) {
     var vm = this;
-    vm.id = $stateParams.id;
+    vm.deckId = $stateParams.id;
     vm.innerHeight = {height:$window.innerHeight+ 'px'};
 
+    //init current selected deck
+    vm.initDeck = function(value){
+      if(value=='new'){
+        vm.creationMode=true;
+      }else {
+        vm.creationMode=false;
+        DeckService.getDeck(value)
+          .then(function (result) {
+            vm.selectedDeck=result.data;
+            //init current deck in decks selector (only to show name)
+            vm.decks=[vm.selectedDeck];
+            //load flashcards for selected deck
+            vm.getCards(vm.selectedDeck.id);
+          }, function (e) {
+            console.log(e);
+          });
+      }
+    };
+    vm.initDeck(vm.deckId);
+
+    vm.createDeck = function(name){
+      DeckService.createDeck(name)
+        .then(function (result) {
+          vm.selectedDeck={id:result.data.id,name:result.data.name};
+          vm.selectDeck();
+        }, function (e) {
+          console.log(e);
+        });
+    };
+
+    //load all deck for decks selector
     vm.getDecks = function () {
-      //service will be used in future
-
-      return[
-        {id: 0, name: 'deck_0'},
-        {id: 12, name: 'deck_1'},
-        {id: 23, name: 'deck_2'},
-        {id: 34, name: 'deck_3'}]
+      DeckService.getDecks()
+        .then(function (result) {
+          vm.decks=result.data
+          }, function (e) {
+            console.log(e);
+          });
     };
 
-    vm.categories = vm.getDecks();
-
-    vm.selectDeck = function(value){
-      vm.categories.forEach(function(entry) {
-        if (entry.id == value){
-          vm.selectedDeck = entry;
-          $state.go("deck", { id: value })
-        }
-      })
+    //apply deck choice
+    vm.selectDeck = function(){
+      $state.go("deck", {id: vm.selectedDeck.id})
     };
-    vm.selectDeck(vm.id);
 
-    vm.setCards = function () {
-      //service will be used in future
-      vm.cards = [
-        {id:0, name:vm.selectedDeck.name+'_card_0', question:'question', hint:'hint', answer:'answer'},
-        {id:11, name:vm.selectedDeck.name+'_card_1', question:'question', hint:'hint', answer:'answer'},
-        {id:26, name:vm.selectedDeck.name+'_card_2', question:'question', hint:'hint', answer:'answer'},
-        {id:39, name:vm.selectedDeck.name+'_card_3', question:'question', hint:'hint', answer:'answer'}];
-
+    vm.getCards = function (id) {
+      DeckService.getCards(id)
+        .then(function (result) {
+          vm.cards=result.data;
+        }, function (e) {
+          console.log(e);
+        });
     };
-    vm.setCards();
 
     vm.selectCard = function(value){
       vm.cards.forEach(function(entry) {
@@ -50,6 +71,15 @@
           vm.selectedCard = entry;
         }
       })
+    };
+
+    vm.deleteCard = function(cardId){
+      DeckService.deleteCard(vm.selectedDeck.id, cardId)
+        .then(function (result) {
+          console.log(result);
+        }, function (e) {
+          console.log(e);
+        });
     };
 
   }
