@@ -1,6 +1,7 @@
 /**
  * INSTRUKCJA OBSŁUGI
  *
+ * getDeckById() - zwraca talię po jej ID
  * getDecks() - zwraca wszystkie talie (obiekty typu Deck)
  * createNewDeck(name) - tworzy (na serwerze) nową talię
  *
@@ -26,6 +27,7 @@
   /** @ngInject */
   function BackendService($http) {
 
+    this.getDeckById = getDeckById;
     this.getDecks = getDecks;
     this.createNewDeck = createNewDeck;
 
@@ -33,9 +35,10 @@
 
     /* *** */
 
-    function getDecks() {
+    function getDeckById(id) {
       var method = 'GET';
-      var url = 'http://private-anon-0160c33ac-studybox.apiary-mock.com/decks';
+      var url = 'http://private-anon-0160c33ac-studybox.apiary-mock.com/decks/';
+      url += id;
 
       return promiseWithDecks(method, url);
     }
@@ -64,6 +67,13 @@
       return promise;
     }
 
+    function getDecks() {
+      var method = 'GET';
+      var url = 'http://private-anon-0160c33ac-studybox.apiary-mock.com/decks';
+
+      return promiseWithDecks(method, url);
+    }
+
     function createNewDeck(name) {
       var method = 'POST';
       var url = 'http://private-anon-0160c33ac-studybox.apiary-mock.com/decks';
@@ -76,7 +86,8 @@
       var promise = $http({method: method, url: url, data: data})
       .then(
         function success(response) {
-          var deck = new Deck(response.data.name);
+          var deck = new Deck();
+          deck.name = response.data.name;
           deck.id = response.data.id;
           return deck;
         },
@@ -87,9 +98,9 @@
       return promise;
     }
 
-    function Deck(name) {
+    function Deck() {
       this.id = null;
-      this.name = name;
+      this.name = null;
 
       this.getFlashcards = getFlashcards;
       this.createFlashcard = createFlashcard;
