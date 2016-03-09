@@ -12,6 +12,7 @@ function RegistrationController($log) {
   vm.submit = submit;
   vm.reset = reset;
   vm.data = {};
+  vm.imagePath = "assets/images/StudyBoxLogo_xx.png";
 
   //wysylanie formularza
   function submit(isValid) {
