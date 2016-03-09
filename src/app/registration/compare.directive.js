@@ -21,6 +21,6 @@ function compareTo() {
         ngModel.$validate();
       });
     }
-  }
+  };
 }
 })();
