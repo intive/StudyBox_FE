@@ -2,33 +2,23 @@
   'use strict';
 
   angular
-    .module('patronat2016')
+    .module('studyBoxFe')
     .controller('LoginController', LoginController);
 
+  function LoginController($log) {
+    var vm = this;
+    vm.formStatus = '';
+    vm.submit = submit;
 
-    LoginController.$inject = ['$location', 'AuthenticationService', 'FlashService'];
-    function LoginController($location, AuthenticationService, FlashService) {
-        var vm = this;
 
-        vm.login = login;
-
-        (function initController() {
-            // reset login status
-            AuthenticationService.ClearCredentials();
-        })();
-
-        function login() {
-            vm.dataLoading = true;
-            AuthenticationService.Login(vm.username, vm.password, function (response) {
-                if (response.success) {
-                    AuthenticationService.SetCredentials(vm.username, vm.password);
-                    $location.path('/');
-                } else {
-                    FlashService.Error(response.message);
-                    vm.dataLoading = false;
-                }
-            });
-        }
+    function submit(isValid) {
+      if (isValid) {
+        vm.formStatus = "";
+        $log.info("Poprawne logowanie");
+      }else{
+        vm.formStatus = "Niepoprawny login lub hasło";
+        $log.info("błąd logowania");
+      }
     }
-
+  }
 })();
