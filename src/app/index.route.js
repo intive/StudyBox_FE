@@ -10,9 +10,9 @@
     $stateProvider
       .state('home', {
         url: '/',
-        templateUrl: 'app/partials/home.html',
-        controller: 'HomeController',
-        controllerAs: 'home'
+        templateUrl: 'app/login/landing.html',
+        controller: 'LandingController',
+        controllerAs: 'landing'
       })
       .state('decks', {
         parent: 'home',
@@ -33,15 +33,15 @@
         templateUrl: 'app/registration/registration.html',
         controller: 'RegistrationController',
         controllerAs: 'registration'
-      })
-      .state('landing', {
+      });
+/*      .state('landing', {
         url: '/landing',
         templateUrl: 'app/landing/landing.html',
         controller: 'LandingController',
         controllerAs: 'landing'
-      });
+      });*/
 
-    $urlRouterProvider.otherwise('/decks');
+    $urlRouterProvider.otherwise('/');
   }
 
 })();
