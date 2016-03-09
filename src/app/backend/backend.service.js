@@ -1,7 +1,7 @@
 /**
  * INSTRUKCJA OBSŁUGI
  *
- * getDeckById() - zwraca talię po jej ID
+ * getDeckById(id) - zwraca talię po jej ID
  * getDecks() - zwraca wszystkie talie (obiekty typu Deck)
  * createNewDeck(name) - tworzy (na serwerze) nową talię
  *
@@ -40,6 +40,30 @@
       var url = 'http://private-anon-0160c33ac-studybox.apiary-mock.com/decks/';
       url += id;
 
+      return promiseWithDeck(method, url);
+    }
+
+    function promiseWithDeck(method, url) {
+      var promise = $http({method: method, url: url})
+      .then(
+        function success(response) {
+          var deck = new Deck();
+          deck.id = response.data.id;
+          deck.name = response.data.name;
+          return deck;
+        },
+        function error(response) {
+          return response;
+        }
+      );
+
+      return promise;
+    }
+
+    function getDecks() {
+      var method = 'GET';
+      var url = 'http://private-anon-0160c33ac-studybox.apiary-mock.com/decks';
+
       return promiseWithDecks(method, url);
     }
 
@@ -65,13 +89,6 @@
       }
 
       return promise;
-    }
-
-    function getDecks() {
-      var method = 'GET';
-      var url = 'http://private-anon-0160c33ac-studybox.apiary-mock.com/decks';
-
-      return promiseWithDecks(method, url);
     }
 
     function createNewDeck(name) {
