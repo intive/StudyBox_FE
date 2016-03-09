@@ -1,3 +1,9 @@
+$graphite: #424242;
+
+.addCard
+{
+  font-size: 1.6em;
+}
 
 button.md-button.pinkButton{
   //background-color: #EA0061;
@@ -13,23 +19,27 @@ md-input-container.middleArea , md-select.choseDeck
   padding: 0px;
 }
 
+@mixin partOfCard() {
+  min-height: 7em;
+  padding: 25px;
+}
 
 md-input-container textarea.md-input.question
 {
-  background-color: #bababa;
-  min-height: 10em;
+  background-color: lighten($graphite,70%);
+  @include partOfCard();
 }
 
 md-input-container textarea.md-input.hint
 {
-  background-color: #bababa;
-  min-height: 10em;
+  background-color: lighten($graphite,66%);
+  @include partOfCard();
 }
 
 md-input-container textarea.md-input.answer
 {
-  background-color: #bababa;
-  min-height: 10em;
+  background-color: lighten($graphite,62%);
+  @include partOfCard();
 }
 
 //Usunięcie odstępów pomiędzy textareami
