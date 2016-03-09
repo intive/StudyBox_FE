@@ -33,6 +33,12 @@
         templateUrl: 'app/registration/registration.html',
         controller: 'RegistrationController',
         controllerAs: 'registration'
+      })
+      .state('landing', {
+        url: '/landing',
+        templateUrl: 'app/landing/landing.html',
+        controller: 'LandingController',
+        controllerAs: 'landing'
       });
 
     $urlRouterProvider.otherwise('/decks');
