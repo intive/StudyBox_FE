@@ -9,8 +9,6 @@
   /** @ngInject */
   function AddCardController($stateParams, $state, $window) {
     var vm = this;
-    vm.id = $stateParams.id;
-    vm.innerHeight = {height:$window.innerHeight+ 'px'};
 
     vm.getDecks = function () {
       //service will be used in future
