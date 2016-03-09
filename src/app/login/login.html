@@ -1,36 +1,32 @@
-<div ng-controller="LoginController as login"  class="layout mdl-layout mdl-js-layout mdl-layout--fixed-header">
-  <div class="mdl-grid">
-    <div class="mdl-layout-spacer"></div>
-    <div class="mdl-cell mdl-cell--4-col">
-      <h4>Logowanie</h4>
+<div md-content layout-padding ng-controller="LoginController as login" ng-cloak>
+    <div layout="column" layout-align="center center">
+        <div flex><h4>Logowanie</h4></div>
 
-      <form name="loginForm" ng-submit="vm.login()" novalidate>
+        <form name="loginForm" ng-submit="login.submit(loginForm.$valid)">
 
-        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-          <input class="mdl-textfield__input" type="text" id="username" name="username" ng-model="vm.username" ng-required="true" placeholder="E-MAIL" />
-          <span class="mdl-tooltip mdl-tooltip--validation" for="username" ng-show="form.username.$dirty && form.username.$touched">
-            <span ng-show="form.username.$dirty && form.username.$error.required"></span>
-          </span>
-        </div>
+            <md-input-container class="md-block">
+                <label>{{"login-pole_email" | translate}}</label>
+                <input required type="email" name="email" ng-model="login.data.email" ng-pattern="/^.+@.+\..+$/" />
+                <div ng-messages="loginForm.email.$error">
+                    <div ng-message="required">{{"login-pole_wymagane" | translate}}</div>
+                    <div ng-message="md-maxlength">{{"login_nazwa-uzytkownika" | translate}}</div>
+                    <div ng-message="pattern">{{"login-pole_wzor_nie_pasuje" | translate}}</div>
+                </div>
+            </md-input-container>
 
-        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-          <input class="mdl-textfield__input" type="password" id="password" name="password" ng-model="vm.password" ng-required="true" placeholder="HASŁO" />
-          <span class="mdl-tooltip mdl-tooltip--validation" for="password" ng-show="form.password.$dirty && form.password.$touched">
-            <span ng-show="form.password.$dirty && form.password.$error.required"></span>
-          </span>
-        </div>
+            <md-input-container class="md-block">
+                <label>{{"login-pole_haslo" | translate}}</label>
+                <input required type="password" name="password" minlength="8" ng-model="registration.data.password" />
+                <div ng-messages="registrationForm.password.$error">
+                    <div ng-message="required">{{"registration-pole_wymagane" | translate}}</div>
+                    <div ng-message="minlength">{{"registration-pole_min_znaki" | translate}}</div>
+                </div>
+            </md-input-container>
 
-        <div class="mdl-textfield"></div>
-        <div class="mdl-textfield">
-          <button type="submit" class=" mdl-textfield--full-width mdl-button mdl-js-button mdl-button--raised mdl-button--colored  mdl-js-ripple-effect" ng-disabled="form.$invalid || vm.dataLoading">Zaloguj</button>
-        </div>
-
-      </form>
-
+            <div layout="column" layout-align="center stretch">
+                <md-button class="md-raised" type="submit" ng-disabled="loginForm.$invalid">{{"login-przycisk_zarejestruj" | translate}}</md-button>
+            </div>
+        </form>
     </div>
-    <div class="mdl-layout-spacer">
-      <a href="">Utwórz  nowego użytkownika</a>
-    </div>
-  </div>
+    </md-content>
 </div>
-
