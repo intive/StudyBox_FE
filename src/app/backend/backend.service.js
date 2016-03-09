@@ -81,7 +81,8 @@
       function jsonToDecks(response) {
         var decks = [];
         for(var i = 0; i < response.data.length; i++) {
-          var deck = new Deck(response.data[i].name);
+          var deck = new Deck();
+          deck.name = response.data[i].name;
           deck.id = response.data[i].id;
           decks.push(deck);
         }
