@@ -1,7 +1,7 @@
 <div layout="row" layout-wrap>
   <div flex="30">
 
-    <div ng-style="{{deck.innerHeight}}" class="mdl-cell mdl-cell--4-col deck-cards">
+    <div ng-style="{{deck.innerHeight}}">
       <div class="lock-size" layout="row" layout-align="center center">
         <md-input-container ng-if="deck.creationMode==true">
           <form ng-submit="deck.createDeck()">
