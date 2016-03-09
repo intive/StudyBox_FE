@@ -5,16 +5,32 @@ $graphite: #424242;
   font-size: 1.6em;
 }
 
-button.md-button.addCardButton{
+.separate
+{
+  margin-top: 25px;
+}
+
+button.md-button.addCardButtons{
   //background-color: #EA0061;
   font-size: 0.7em;
   padding: 10px;
+}
+
+button.md-button.addCardButton {
+  margin-top:10px;
+  width: 50%;
+  min-width: 142px;
 }
 
 md-input-container.siteParts , md-content.siteParts , .layout-column.siteParts
 {
   margin: 0px 8px;
   padding: 0px;
+}
+
+md-select.siteParts
+{
+  margin-top: 0px;
 }
 
 @mixin partOfCard() {
