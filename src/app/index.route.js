@@ -11,19 +11,17 @@
       .state('home', {
         url: '/',
         templateUrl: 'app/login/landing.html',
-        controller: 'HomeController',
-        controllerAs: 'home'
+        controller: 'LandingController',
+        controllerAs: 'landing'
       })
       .state('decks', {
-        parent: 'home',
-        url: 'decks',
+        url: '/decks',
         templateUrl: 'app/partials/decks.html',
         controller: 'DecksController',
         controllerAs: 'decks'
       })
       .state('deck', {
-        parent: 'home',
-        url: 'deck/:id',
+        url: '/deck/:id',
         templateUrl: 'app/partials/deck.html',
         controller: 'DeckController',
         controllerAs: 'deck'
@@ -34,11 +32,11 @@
         controller: 'RegistrationController',
         controllerAs: 'registration'
       })
-      .state('landing', {
-        url: '/landing',
-        templateUrl: 'app/login/landing.html',
-        controller: 'LandingController',
-        controllerAs: 'landing'
+      .state('login', {
+        url: '/login',
+        templateUrl: 'app/login/login.html',
+        controller: 'LoginController',
+        controllerAs: 'login'
       });
 
     $urlRouterProvider.otherwise('/');
