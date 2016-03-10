@@ -2,7 +2,8 @@
   "name": "studyBoxFe",
   "version": "0.0.0",
   "dependencies": {
-    "angular-translate-loader-partial": "^2.10.0"
+    "angular-translate-loader-partial": "^2.10.0",
+    "material-design-icons": "^2.2.0"
   },
   "scripts": {
     "test": "gulp test"
