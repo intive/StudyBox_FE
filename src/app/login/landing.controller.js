@@ -9,7 +9,7 @@ angular
 function LandingController() {
   var vm = this;
   vm.imagePath = "assets/images/StudyBoxLogo_xx.png";
-  vm.loginLink = "";
+  vm.loginLink = "#/login";
   vm.registrationLink = "";
 
 }
