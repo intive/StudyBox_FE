@@ -5,7 +5,7 @@
     .module('studyBoxFe')
     .controller('LoginController', LoginController);
 
-  function LoginController($log) {
+  function LoginController($log, $state) {
     var vm = this;
     vm.formStatus = '';
     vm.submit = submit;
@@ -15,6 +15,7 @@
       if (isValid) {
         vm.formStatus = "";
         $log.info("Poprawne logowanie");
+        $state.go("decks")
       }else{
         vm.formStatus = "Niepoprawny login lub hasło";
         $log.info("błąd logowania");
