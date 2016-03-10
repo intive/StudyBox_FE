@@ -20,12 +20,6 @@
         controllerAs: 'AddCardController',
         templateUrl: 'app/addCard/addCard.html'
       })
-      .state('addCard', {
-        url: '/addCard',
-        controller: 'AddCardController',
-        controllerAs: 'AddCardController',
-        templateUrl: 'app/addCard/addCard.html'
-      })
       .state('decks', {
         url: '/decks',
         templateUrl: 'app/decks/decks.html',
