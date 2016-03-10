@@ -7,7 +7,7 @@
 
 
   /** @ngInject */
-  function AddCardController($stateParams, $state, $window) {
+  function AddCardController($stateParams, $state, $window, $document) {
     var vm = this;
     vm.id = $stateParams.id;
 
@@ -29,17 +29,17 @@
     {
       if(toggleStatus === true)
       {
-        document.getElementById("addButton").innerHTML = "remove_circle";
-        document.getElementById("hiddenIcon").innerHTML = "remove";
-        document.getElementById("hint").style.display = "block";
+        $document.getElementById("addButton").innerHTML = "remove_circle";
+        $document.getElementById("hiddenIcon").innerHTML = "remove";
+        $document.getElementById("hint").style.display = "block";
 
         toggleStatus = false;
       }
       else
       {
-        document.getElementById("addButton").innerHTML = "add_circle";
-        document.getElementById("hiddenIcon").innerHTML = "add";
-        document.getElementById("hint").style.display = "none";
+        $document.getElementById("addButton").innerHTML = "add_circle";
+        $document.getElementById("hiddenIcon").innerHTML = "add";
+        $document.getElementById("hint").style.display = "none";
 
         toggleStatus = true;
       }
