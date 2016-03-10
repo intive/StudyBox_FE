@@ -6,26 +6,24 @@
     .controller('DecksController', DecksController);
 
   /** @ngInject */
-  function DecksController() {
+  function DecksController(BackendService, $log) {
     var vm = this;
     vm.isOpen = false;
     vm.SearchIsOpen = false;
     vm.toggle = toggle;
+    vm.getDecks = getDecks;
 
-    var getDecks = function () {
-      //service will be used in future
-      return[
-        {id: 0, name: 'deck_0'},
-        {id: 12, name: 'deck_1'},
-        {id: 23, name: 'deck_2'},
-        {id: 34, name: 'deck_3'},
-        {id: 0, name: 'deck_0'},
-        {id: 12, name: 'deck_1'},
-        {id: 23, name: 'deck_2'},
-        {id: 34, name: 'deck_3'}]
-    };
+    function getDecks() {
+      BackendService.getDecks()
+        .then(function (result) {
+          $log.log(result)
+          vm.categories=result
+          }, function (e) {
+            $log.error(e);
+          });
+    }
 
-    vm.categories = getDecks()
+    getDecks();
 
     function toggle(){
       vm.SearchIsOpen = !vm.SearchIsOpen;
