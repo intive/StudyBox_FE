@@ -11,8 +11,8 @@
       .state('home', {
         url: '/',
         templateUrl: 'app/login/landing.html',
-        controller: 'LandingController',
-        controllerAs: 'landing'
+        controller: 'HomeController',
+        controllerAs: 'home'
       })
       .state('decks', {
         parent: 'home',
@@ -33,13 +33,13 @@
         templateUrl: 'app/registration/registration.html',
         controller: 'RegistrationController',
         controllerAs: 'registration'
-      });
-/*      .state('landing', {
+      })
+      .state('landing', {
         url: '/landing',
-        templateUrl: 'app/landing/landing.html',
+        templateUrl: 'app/login/landing.html',
         controller: 'LandingController',
         controllerAs: 'landing'
-      });*/
+      });
 
     $urlRouterProvider.otherwise('/');
   }
