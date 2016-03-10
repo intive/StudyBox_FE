@@ -22,13 +22,13 @@
       })
       .state('decks', {
         url: '/decks',
-        templateUrl: 'app/partials/decks.html',
+        templateUrl: 'app/decks/decks.html',
         controller: 'DecksController',
         controllerAs: 'decks'
       })
       .state('deck', {
         url: '/deck/:id',
-        templateUrl: 'app/partials/deck.html',
+        templateUrl: 'app/decks/deck.html',
         controller: 'DeckController',
         controllerAs: 'deck'
       })
