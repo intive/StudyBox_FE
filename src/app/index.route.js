@@ -14,19 +14,27 @@
         controller: 'LandingController',
         controllerAs: 'landing'
       })
+      .state('navbar', {
+        templateUrl: 'app/navbar/navbar.html',
+        controller: 'NavbarController',
+        controllerAs: 'navbar'
+      })
       .state('addCard', {
+        parent: 'navbar',
         url: '/addCard',
         controller: 'AddCardController',
         controllerAs: 'AddCardController',
         templateUrl: 'app/addCard/addCard.html'
       })
       .state('decks', {
+        parent: 'navbar',
         url: '/decks',
         templateUrl: 'app/decks/decks.html',
         controller: 'DecksController',
         controllerAs: 'decks'
       })
       .state('deck', {
+        parent: 'navbar',
         url: '/deck/:id',
         templateUrl: 'app/decks/deck.html',
         controller: 'DeckController',
