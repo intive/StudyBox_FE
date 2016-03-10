@@ -15,9 +15,9 @@
   function CardDirective() {
     return {
       restrict: 'E',
-      templateUrl: 'app/partials/card.html',
+      templateUrl: 'app/cards/card.html',
       controller: 'CardController',
       controllerAs: 'card'
-    }
+    };
   }
 })();
