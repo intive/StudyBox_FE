@@ -12,7 +12,7 @@ $graphite: #424242;
 
 .camera
 {
-  font-size: 35px;
+  font-size: 35px !important;
   position: absolute;
   top: 25px;
   right: 25px;
@@ -27,7 +27,7 @@ $graphite: #424242;
 
 .hintCardRemove
 {
-  font-size: 60px;
+  font-size: 60px !important;
   position: relative;
   left: calc(50% - 44px);
   color: rgba(0,0,0,0.4);
@@ -35,7 +35,7 @@ $graphite: #424242;
 
 .hintCardAdd
 {
-  font-size: 60px;
+  font-size: 60px !important;
   position: absolute;
   bottom: -30px;
   right: -60px;
