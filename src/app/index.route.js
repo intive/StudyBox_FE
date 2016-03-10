@@ -14,6 +14,12 @@
         controller: 'HomeController',
         controllerAs: 'home'
       })
+      .state('addCard', {
+        url: '/addCard',
+        controller: 'AddCardController',
+        controllerAs: 'AddCardController',
+        templateUrl: 'app/addCard/addCard.html'
+      })
       .state('decks', {
         parent: 'home',
         url: 'decks',
