@@ -18,7 +18,7 @@
         {id: 0, name: 'deck_0'},
         {id: 12, name: 'deck_1'},
         {id: 23, name: 'deck_2'},
-        {id: 34, name: 'deck_3'}]
+        {id: 34, name: 'deck_3'}];
     };
 
     vm.categories = vm.getDecks();
@@ -27,7 +27,7 @@
 
     vm.toggleButton = function ()
     {
-      if(toggleStatus == true)
+      if(toggleStatus === true)
       {
         document.getElementById("addButton").innerHTML = "remove_circle";
         document.getElementById("hiddenIcon").innerHTML = "remove";
