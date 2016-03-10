@@ -15,7 +15,7 @@
       if (isValid) {
         vm.formStatus = "";
         $log.info("Poprawne logowanie");
-        $state.go("decks")
+        $state.go("decks");
       }else{
         vm.formStatus = "Niepoprawny login lub hasło";
         $log.info("błąd logowania");
