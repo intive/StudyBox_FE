@@ -1,0 +1,55 @@
+<div layout="row" layout-xs="column" class="addCard">
+
+  <div flex-gt-xs="30" flex-xs="grow" class="separate">
+    <md-content layout-padding layout="column" layout-align="center stretch" style="padding-top: 0px;">
+        <md-select class="siteParts" placeholder="Wybierz talię" ng-model="chosenDeck" >
+          <md-option ng-repeat="deck in AddCardController.categories" value="{{ deck.name }}">
+            {{ deck.name }}
+          </md-option>
+        </md-select>
+      <div>
+        DECKI
+      </div>
+    </md-content>
+  </div>
+
+  <div flex-gt-xs="45" flex-xs="grow" layout-align="center stretch" class="separate">
+    <md-content layout-padding class="siteParts" style="overflow: visible;">
+
+      <md-input-container class="md-block md-whiteframe-4dp middleCard" md-no-float>
+        <i class="material-icons camera" onclick="document.getElementById('fileInput1').click();">camera_alt</i>
+        <i id="addButton" class="material-icons hintCardAdd" hide-xs ng-click="AddCardController.toggleButton()">add_circle</i>
+        <textarea class="question" placeholder="Wpisz pytanie" ng-model="question" rows="5" md-select-on-focus></textarea>
+      </md-input-container>
+
+      <md-input-container class="md-block hintDiv md-whiteframe-4dp middleCard" md-no-float hide-gt-xs show-xs>
+        <md-button id="hiddenIcon" class="md-raised material-icons hintCardRemove" ng-click="AddCardController.toggleButton()" style="margin-top: 10px;margin-bottom:10px;">add</md-button>
+      </md-input-container>
+
+      <md-input-container class="md-block md-whiteframe-4dp middleCard" id="hint" md-no-float style="display: none;">
+        <i class="material-icons camera" onclick="document.getElementById('fileInput2').click();">camera_alt</i>
+        <textarea class="hint" placeholder="Wpisz podpowiedź" ng-model="hint" rows="5" md-select-on-focus></textarea>
+      </md-input-container>
+
+      <md-input-container class="md-block md-whiteframe-4dp middleCard" md-no-float>
+        <i class="material-icons camera" onclick="document.getElementById('fileInput3').click();">camera_alt</i>
+        <textarea class="answer" placeholder="Wpisz odpowiedź" ng-model="answer" rows="5" md-select-on-focus></textarea>
+      </md-input-container>
+
+      <input type="file" style="display: none;" id="fileInput1" name="myImage" accept="image/*" />
+      <input type="file" style="display: none;" id="fileInput2" name="myImage" accept="image/*" />
+      <input type="file" style="display: none;" id="fileInput3" name="myImage" accept="image/*" />
+
+      <md-button class="md-raised addCardButtons addCardButton" layout-align="end center">Dodaj do talii</md-button>
+    </md-content>
+  </div>
+
+  <div flex-gt-xs="25" flex-xs="grow" class="separate">
+
+    <div layout="column" layout-align="center stretch" class="siteParts">
+      <md-button class="md-raised addCardButtons" style="margin-top:0px;">Rozpocznij test</md-button>
+
+      <md-button class="md-raised addCardButtons">Dodaj talię z pliku</md-button>
+    </div>
+  </div>
+</div>

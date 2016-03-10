@@ -1,0 +1,117 @@
+$graphite: #424242;
+
+.addCard
+{
+  font-size: 1.6em;
+}
+
+.separate
+{
+  margin-top: 25px;
+}
+
+.camera
+{
+  font-size: 35px;
+  position: absolute;
+  top: 25px;
+  right: 25px;
+  color: rgba(0,0,0,0.4);
+}
+
+.hintDiv
+{
+  padding: 0px;
+  background-color: lighten($graphite,66%);
+}
+
+.hintCardRemove
+{
+  font-size: 60px;
+  position: relative;
+  left: calc(50% - 44px);
+  color: rgba(0,0,0,0.4);
+}
+
+.hintCardAdd
+{
+  font-size: 60px;
+  position: absolute;
+  bottom: -30px;
+  right: -60px;
+  color: rgba(0,0,0,0.4);
+}
+
+.hintCardAdd:focus {
+  outline: -webkit-focus-ring-color auto 0px;
+}
+
+.hintCardAdd:hover, .camera:hover
+{
+  cursor: pointer;
+  color: rgba(0,0,0,0.6);
+}
+
+button.md-button.addCardButtons{
+  //background-color: #EA0061;
+  font-size: 0.7em;
+  padding: 10px;
+}
+
+button.md-button.addCardButton {
+  margin-top:10px;
+  width: 50%;
+  min-width: 142px;
+  float: right;
+}
+
+md-input-container.siteParts , md-content.siteParts , .layout-column.siteParts
+{
+  margin: 0px 8px;
+  padding: 0px;
+}
+
+md-select.siteParts
+{
+  margin-top: 0px;
+}
+
+@mixin partOfCard() {
+  min-height: 8em;
+  padding: 25px;
+}
+
+@mixin middleCard()
+{
+  padding: 0px;
+  margin: 0px 8px;
+}
+
+md-input-container.middleCard
+{
+  @include middleCard();
+}
+
+md-input-container textarea.md-input.question
+{
+  background-color: lighten($graphite,70%);
+  @include partOfCard();
+}
+
+md-input-container textarea.md-input.hint
+{
+  background-color: lighten($graphite,66%);
+  @include partOfCard();
+}
+
+md-input-container textarea.md-input.answer
+{
+  background-color: lighten($graphite,62%);
+  @include partOfCard();
+}
+
+//Usunięcie odstępów pomiędzy textareami
+md-input-container .md-errors-spacer {
+  min-height: 0;
+}
+
