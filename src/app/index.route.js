@@ -8,16 +8,18 @@
   /** @ngInject */
   function routerConfig($stateProvider, $urlRouterProvider) {
     $stateProvider
-        .state('home', {
-            url: '/',
-            template: 'Study Box Front-end'
-        })
-        .state('addCard', {
-            url: '/addCard',
-            controller: 'AddCardController',
-            controllerAs: 'AddCardController',
-            templateUrl: 'app/addCard/addCard.html'
-        })
+      .state('home', {
+        url: '/',
+        templateUrl: 'app/login/landing.html',
+        controller: 'HomeController',
+        controllerAs: 'home'
+      })
+      .state('addCard', {
+        url: '/addCard',
+        controller: 'AddCardController',
+        controllerAs: 'AddCardController',
+        templateUrl: 'app/addCard/addCard.html'
+      })
       .state('decks', {
         parent: 'home',
         url: 'decks',
