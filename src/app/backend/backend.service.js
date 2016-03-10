@@ -37,7 +37,7 @@
 
     function getDeckById(id) {
       var method = 'GET';
-      var url = 'http://private-anon-0160c33ac-studybox.apiary-mock.com/decks/';
+      var url = '/api/decks/';
       url += id;
 
       return promiseWithDeck(method, url);
@@ -62,7 +62,7 @@
 
     function getDecks() {
       var method = 'GET';
-      var url = 'http://private-anon-0160c33ac-studybox.apiary-mock.com/decks';
+      var url = '/api/decks';
 
       return promiseWithDecks(method, url);
     }
@@ -94,7 +94,7 @@
 
     function createNewDeck(name) {
       var method = 'POST';
-      var url = 'http://private-anon-0160c33ac-studybox.apiary-mock.com/decks';
+      var url = '/api/decks';
       var data = {name: name};
 
       return newDeckPromise(method, url, data);
@@ -128,7 +128,7 @@
 
       function getFlashcards() {
         var method = 'GET';
-        var url = "http://private-anon-0160c33ac-studybox.apiary-mock.com/decks/";
+        var url = "/api/decks/";
         /*jshint validthis:true */
         url += this.id + "/flashcards";
         var data = {};
@@ -138,7 +138,7 @@
 
       function createFlashcard(question, answer) {
         var method = 'POST';
-        var url = 'http://private-anon-0160c33ac-studybox.apiary-mock.com/decks/';
+        var url = '/api/decks/';
         /*jshint validthis:true */
         url += this.id + '/flashcards';
         var data = {question: question, answer: answer};
@@ -148,7 +148,7 @@
 
       function updateFlashcard(id, question, answer) {
         var method = 'PUT';
-        var url = 'http://private-anon-0160c33ac-studybox.apiary-mock.com/decks/';
+        var url = '/api/decks/';
         /*jshint validthis:true */
         url += this.id + '/flashcards/';
         url += id;
@@ -160,7 +160,7 @@
 
       function removeFlashcard(id) {
         var method = 'DELETE';
-        var url = 'http://private-anon-0160c33ac-studybox.apiary-mock.com/decks/';
+        var url = '/api/decks/';
         /*jshint validthis:true */
         url += this.id + '/flashcards/';
         url += id;
@@ -171,7 +171,7 @@
 
       function changeName(new_name) {
         var method = 'PUT';
-        var url = 'http://private-anon-0160c33ac-studybox.apiary-mock.com/decks/';
+        var url = '/api/decks/';
         /*jshint validthis:true */
         url += this.id;
         var data = {id: this.id, name: new_name};
