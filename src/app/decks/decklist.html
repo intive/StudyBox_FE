@@ -1,0 +1,30 @@
+<div ng-style="{{deckList.innerHeight}}">
+  <div class="lock-size" layout="row" layout-align="center center">
+    <md-input-container ng-if="deckList.creationMode==true">
+      <form ng-submit="deckList.createDeck()">
+        <input ng-model="deckList.newDeck" placeholder="{{'studyBoxFe_typeName' | translate}}">
+      </form>
+    </md-input-container>
+    <md-select ng-if="deckList.creationMode==false" aria-label="deckLists"
+               ng-model="deckList.selectedDeck"
+               ng-model-options="{trackBy: '$value.id'}"
+               ng-change="deckList.selectDeck()"
+               md-on-open="deckList.getDecks()">
+      <md-option ng-value="{id:'new', name:'new name'}">{{'studyBoxFe_createDeck' | translate}}</md-option>
+      <md-option ng-value="item" ng-repeat="item in deckList.decks">{{item.name}}</md-option>
+    </md-select>
+  </div>
+
+  <md-card ng-repeat="card in deckList.cards" ng-click="deckList.selectCard(card.id)">
+    <md-card-title>
+      <md-card-title-text>
+        <span class="md-headline">{{ card.question }}</span>
+        <span class="md-subhead">{{ card.answer }}</span>
+      </md-card-title-text>
+    </md-card-title>
+    <md-card-actions layout="row" layout-align="end center">
+      <md-button  ng-click="deckList.deleteCard(card.id)">Remove</md-button>
+    </md-card-actions>
+  </md-card>
+</div>
+

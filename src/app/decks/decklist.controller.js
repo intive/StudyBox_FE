@@ -3,10 +3,10 @@
 
   angular
     .module('studyBoxFe')
-    .controller('DeckController', DeckController);
+    .controller('DeckListController', DecklistController);
 
   /** @ngInject */
-  function DeckController($stateParams, $state, $window, BackendService, $log) {
+  function DecklistController($stateParams, $state, $window, BackendService, $log) {
     var vm = this;
     vm.deckId = $stateParams.id;
     vm.innerHeight = {height:$window.innerHeight+ 'px'};

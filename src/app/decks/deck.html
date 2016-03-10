@@ -1,47 +1,9 @@
 <div layout="row" layout-wrap>
-  <div flex="30">
+  <deck-list flex="30">
+  </deck-list>
+  <add-card flex="70">
 
-    <div ng-style="{{deck.innerHeight}}">
-      <div class="lock-size" layout="row" layout-align="center center">
-        <md-input-container ng-if="deck.creationMode==true">
-          <form ng-submit="deck.createDeck()">
-            <input ng-model="deck.newDeck" placeholder="{{'studyBoxFe_typeName' | translate}}">
-          </form>
-        </md-input-container>
-        <md-select ng-if="deck.creationMode==false" aria-label="decks"
-                   ng-model="deck.selectedDeck"
-                   ng-model-options="{trackBy: '$value.id'}"
-                   ng-change="deck.selectDeck()"
-                   md-on-open="deck.getDecks()">
-          <md-option ng-value="{id:'new', name:'new name'}">{{'studyBoxFe_createDeck' | translate}}</md-option>
-          <md-option ng-value="item" ng-repeat="item in deck.decks">{{item.name}}</md-option>
-        </md-select>
-      </div>
+  </add-card>
 
-      <md-card ng-repeat="card in deck.cards" ng-click="deck.selectCard(card.id)">
-        <md-card-title>
-          <md-card-title-text>
-            <span class="md-headline">{{ card.question }}</span>
-            <span class="md-subhead">{{ card.answer }}</span>
-          </md-card-title-text>
-        </md-card-title>
-        <md-card-actions layout="row" layout-align="end center">
-          <md-button  ng-click="deck.deleteCard(card.id)">Remove</md-button>
-        </md-card-actions>
-      </md-card>
-    </div>
-
-  </div>
-  <div flex="45">
-    <div>
-      Select card to edit: <br>
-      <card>
-      </card>
-    </div>
-  </div>
-  <div flex="25">
-
-  </div>
 </div>
-
 
