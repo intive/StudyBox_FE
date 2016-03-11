@@ -42,7 +42,7 @@
         throw message;
       }
       var method = 'GET';
-      var url = 'http://localhost:3005/decks/';
+      var url = '/api/decks/';
       url += id;
 
       return promiseWithDeck(method, url);
@@ -67,7 +67,7 @@
 
     function getDecks() {
       var method = 'GET';
-      var url = 'http://localhost:3005/decks';
+      var url = '/api/decks';
 
       return promiseWithDecks(method, url);
     }
@@ -104,7 +104,7 @@
         throw message;
       }
       var method = 'POST';
-      var url = 'http://localhost:3005/decks';
+      var url = '/api/decks';
       var data = {name: name};
 
       return newDeckPromise(method, url, data);
@@ -143,7 +143,7 @@
 
       function getFlashcards() {
         var method = 'GET';
-        var url = "http://localhost:3005/decks/";
+        var url = "/api/decks/";
         /*jshint validthis:true */
         url += this.id + "/flashcards";
         var data = {};
@@ -158,7 +158,7 @@
           throw message;
         }
         var method = 'POST';
-        var url = 'http://localhost:3005/decks/';
+        var url = '/api/decks/';
         /*jshint validthis:true */
         url += this.id + '/flashcards';
         var data = {question: question, answer: answer};
@@ -174,7 +174,7 @@
           throw message;
         }
         var method = 'PUT';
-        var url = 'http://localhost:3005/decks/';
+        var url = '/api/decks/';
         /*jshint validthis:true */
         url += this.id + '/flashcards/';
         url += id;
@@ -191,7 +191,7 @@
           throw message;
         }
         var method = 'DELETE';
-        var url = 'http://localhost:3005/flashcards/' + id;
+        var url = '/api/flashcards/' + id;
         var data = {};
 
         return simplePromise(method, url, data);
@@ -204,7 +204,7 @@
           throw message;
         }
         var method = 'PUT';
-        var url = 'http://localhost:3005/decks/';
+        var url = '/api/decks/';
         /*jshint validthis:true */
         url += this.id;
         var data = {name: new_name};

@@ -36,7 +36,7 @@ function browserSyncInit(baseDir, browser) {
    * For more details and option, https://github.com/chimurai/http-proxy-middleware/blob/v0.9.0/README.md
    */
   server.middleware = proxyMiddleware('/api', {
-    target: 'http://private-anon-0160c33ac-studybox.apiary-mock.com',
+    target: 'http://localhost:3005',
     pathRewrite: {
         '^/api' : ''
     },
