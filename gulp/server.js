@@ -1,5 +1,7 @@
 'use strict';
 
+var jsonServer = require('gulp-json-srv');
+
 var path = require('path');
 var gulp = require('gulp');
 var conf = require('./conf');
@@ -53,6 +55,7 @@ browserSync.use(browserSyncSpa({
 }));
 
 gulp.task('serve', ['watch'], function () {
+  jsonServer.start({port: 3005});
   browserSyncInit([path.join(conf.paths.tmp, '/serve'), conf.paths.src]);
 });
 

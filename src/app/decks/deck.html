@@ -4,7 +4,7 @@
     <div ng-style="{{deck.innerHeight}}">
       <div class="lock-size" layout="row" layout-align="center center">
         <md-input-container ng-if="deck.creationMode==true">
-          <form ng-submit="deck.createDeck()">
+          <form ng-submit="deck.createDeck(deck.newDeck)">
             <input ng-model="deck.newDeck" placeholder="{{'studyBoxFe_typeName' | translate}}">
           </form>
         </md-input-container>

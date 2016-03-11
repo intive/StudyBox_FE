@@ -36,8 +36,13 @@
     /* *** */
 
     function getDeckById(id) {
+      if(angular.isUndefined(id) ) {
+        var message = 'must specify deck id';
+        alert(message);
+        throw message;
+      }
       var method = 'GET';
-      var url = '/api/decks/';
+      var url = 'http://localhost:3005/decks/';
       url += id;
 
       return promiseWithDeck(method, url);
@@ -62,7 +67,7 @@
 
     function getDecks() {
       var method = 'GET';
-      var url = '/api/decks';
+      var url = 'http://localhost:3005/decks';
 
       return promiseWithDecks(method, url);
     }
@@ -93,15 +98,25 @@
     }
 
     function createNewDeck(name) {
+      if(angular.isUndefined(name)) {
+        var message = 'must specify deck name';
+        alert(message);
+        throw message;
+      }
       var method = 'POST';
-      var url = '/api/decks';
+      var url = 'http://localhost:3005/decks';
       var data = {name: name};
 
       return newDeckPromise(method, url, data);
     }
 
     function newDeckPromise(method, url, data) {
-      var promise = $http({method: method, url: url, data: data})
+      var promise = $http(
+        {
+          method: method,
+          url: url,
+          data: data
+        })
       .then(
         function success(response) {
           var deck = new Deck();
@@ -128,7 +143,7 @@
 
       function getFlashcards() {
         var method = 'GET';
-        var url = "/api/decks/";
+        var url = "http://localhost:3005/decks/";
         /*jshint validthis:true */
         url += this.id + "/flashcards";
         var data = {};
@@ -137,8 +152,13 @@
       }
 
       function createFlashcard(question, answer) {
+        if(angular.isUndefined(question) || angular.isUndefined(answer) ) {
+          var message = 'must specify question and answer';
+          alert(message);
+          throw message;
+        }
         var method = 'POST';
-        var url = '/api/decks/';
+        var url = 'http://localhost:3005/decks/';
         /*jshint validthis:true */
         url += this.id + '/flashcards';
         var data = {question: question, answer: answer};
@@ -147,8 +167,14 @@
       }
 
       function updateFlashcard(id, question, answer) {
+        if(angular.isUndefined(id) || angular.isUndefined(question) ||
+           angular.isUndefined(answer) ) {
+          var message = 'must specify id, question and answer';
+          alert(message);
+          throw message;
+        }
         var method = 'PUT';
-        var url = '/api/decks/';
+        var url = 'http://localhost:3005/decks/';
         /*jshint validthis:true */
         url += this.id + '/flashcards/';
         url += id;
@@ -159,22 +185,29 @@
       }
 
       function removeFlashcard(id) {
+        if(angular.isUndefined(id) ) {
+          var message = 'must specify id';
+          alert(message);
+          throw message;
+        }
         var method = 'DELETE';
-        var url = '/api/decks/';
-        /*jshint validthis:true */
-        url += this.id + '/flashcards/';
-        url += id;
+        var url = 'http://localhost:3005/flashcards/' + id;
         var data = {};
 
         return simplePromise(method, url, data);
       }
 
       function changeName(new_name) {
+        if(angular.isUndefined(new_name) ) {
+          var message = 'must specify new_name';
+          alert(message);
+          throw message;
+        }
         var method = 'PUT';
-        var url = '/api/decks/';
+        var url = 'http://localhost:3005/decks/';
         /*jshint validthis:true */
         url += this.id;
-        var data = {id: this.id, name: new_name};
+        var data = {name: new_name};
         var $this = this;
 
         var promise = $http({method: method, url: url, data: data})

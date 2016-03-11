@@ -51,7 +51,7 @@
       var deck = new BackendService.Deck();
       var $scope = {};
 
-      deck.createFlashcard(mockFlashcards[0])
+      deck.createFlashcard('question', 'answer')
       .then(
         function success(data) {
           $scope.response = data;
@@ -77,7 +77,7 @@
       var deck = new BackendService.Deck();
       var $scope = {};
 
-      deck.updateFlashcard(mockFlashcards[0])
+      deck.updateFlashcard(1, 'question', 'answer')
       .then(
         function success(data) {
           $scope.response = data;
