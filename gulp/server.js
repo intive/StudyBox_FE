@@ -1,5 +1,7 @@
 'use strict';
 
+var jsonServer = require('gulp-json-srv');
+
 var path = require('path');
 var gulp = require('gulp');
 var conf = require('./conf');
@@ -34,7 +36,7 @@ function browserSyncInit(baseDir, browser) {
    * For more details and option, https://github.com/chimurai/http-proxy-middleware/blob/v0.9.0/README.md
    */
   server.middleware = proxyMiddleware('/api', {
-    target: 'http://private-anon-0160c33ac-studybox.apiary-mock.com',
+    target: 'http://localhost:3005',
     pathRewrite: {
         '^/api' : ''
     },
@@ -53,6 +55,7 @@ browserSync.use(browserSyncSpa({
 }));
 
 gulp.task('serve', ['watch'], function () {
+  jsonServer.start({port: 3005});
   browserSyncInit([path.join(conf.paths.tmp, '/serve'), conf.paths.src]);
 });
 
