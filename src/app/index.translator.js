@@ -12,6 +12,7 @@
       prefix: '/assets/i18n/',
       suffix: '/common.json'
     });
+    $translateProvider.useSanitizeValueStrategy('sanitize');
     $translateProvider.preferredLanguage('pl_PL');
   }
 
