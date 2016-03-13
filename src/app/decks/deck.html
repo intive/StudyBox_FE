@@ -5,7 +5,7 @@
       <div class="lock-size" layout="row" layout-align="center center">
         <md-input-container ng-if="deck.creationMode==true">
           <form ng-submit="deck.createDeck(deck.newDeck)">
-            <input ng-model="deck.newDeck" placeholder="{{'studyBoxFe_typeName' | translate}}">
+            <input ng-model="deck.newDeck" placeholder="{{'deck-typeName' | translate}}">
           </form>
         </md-input-container>
         <md-select ng-if="deck.creationMode==false" aria-label="decks"
@@ -13,7 +13,7 @@
                    ng-model-options="{trackBy: '$value.id'}"
                    ng-change="deck.selectDeck()"
                    md-on-open="deck.getDecks()">
-          <md-option ng-value="{id:'new', name:'new name'}">{{'studyBoxFe_createDeck' | translate}}</md-option>
+          <md-option ng-value="{id:'new', name:'new name'}">{{'deck-createDeck' | translate}}</md-option>
           <md-option ng-value="item" ng-repeat="item in deck.decks">{{item.name}}</md-option>
         </md-select>
       </div>
@@ -26,7 +26,7 @@
           </md-card-title-text>
         </md-card-title>
         <md-card-actions layout="row" layout-align="end center">
-          <md-button  ng-click="deck.deleteCard(card.id)">Remove</md-button>
+          <md-button  ng-click="deck.deleteCard(card.id)">{{'deck-removeDeck' | translate}}</md-button>
         </md-card-actions>
       </md-card>
     </div>

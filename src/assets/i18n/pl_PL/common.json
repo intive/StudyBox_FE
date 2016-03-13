@@ -1,6 +1,8 @@
 	{
-    "studyBoxFe_createDeck": "Stwórz nową talię",
-    "studyBoxFe_typeName": "Wpisz nazwę",
+    "deck-createDeck": "Stwórz nową talię",
+    "deck-typeName": "Wpisz nazwę",
+    "deck-removeDeck": "Usuń talię",
+    "registration-form_title": "Rejestracja",
     "registration-pole_wymagane": "To pole jest wymagane",
     "registration-pole_min_znaki": "To pole musi mieć min. 3 znaki",
     "registration-nazwa_uzytkownika": "NAZWA UŻYTKOWNIKA",
@@ -11,13 +13,12 @@
     "registration-pole_powtorz_haslo": "POWTÓRZ HASŁO",
     "registration-pole_haslo_nie_pasuje": "Hasła nie są takie same",
     "registration-pole_wzor_nie_pasuje": "Format pola jest nieprawidłowy",
-    "landing-przycisk_zaloguj": "LOGOWANIE",
-    "landing-przycisk_zarejestruj": "REJESTRACJA",
     "registration-pole_wzor_nie_pasuje": "Format pola jest nieprawidłowy",
+    "login-form_title":"Logowanie",
     "login-pole_haslo": "HASŁO",
     "login-pole_email": "E-MAIL",
     "login-przycisk_zaloguj": "ZALOGUJ SIĘ",
-    "login-link_nowy_użytkownik": "UTWÓRZ KONTO",
-    "login-wprowadź_poprawny_adres_email": "Nieprawidłowy adres Email",
-    "login-błędne_hasło": "Błędne hasło"
+    "login-link_nowy_uzytkownik": "UTWÓRZ KONTO",
+    "login-wprowadz_poprawny_adres_email": "Nieprawidłowy adres Email",
+    "login-bledne_haslo": "Błędne hasło"
 	}
