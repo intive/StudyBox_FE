@@ -7,9 +7,8 @@
 
 
   /** @ngInject */
-  function AddCardController($stateParams, $state, $window) {
+  function AddCardController($document) {
     var vm = this;
-    vm.id = $stateParams.id;
 
     vm.getDecks = function () {
       //service will be used in future
@@ -29,17 +28,17 @@
     {
       if(toggleStatus === true)
       {
-        document.getElementById("addButton").innerHTML = "remove_circle";
-        document.getElementById("hiddenIcon").innerHTML = "remove";
-        document.getElementById("hint").style.display = "block";
+        angular.element($document[0].querySelector('#addButton')).text("remove_circle");
+        angular.element($document[0].querySelector('#hiddenIcon')).text("remove");
+        angular.element($document[0].querySelector('#hint')).css("display", "block");
 
         toggleStatus = false;
       }
       else
       {
-        document.getElementById("addButton").innerHTML = "add_circle";
-        document.getElementById("hiddenIcon").innerHTML = "add";
-        document.getElementById("hint").style.display = "none";
+        angular.element($document[0].querySelector('#addButton')).text("add_circle");
+        angular.element($document[0].querySelector('#hiddenIcon')).text("add");
+        angular.element($document[0].querySelector('#hint')).css("display", "none");
 
         toggleStatus = true;
       }
