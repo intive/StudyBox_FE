@@ -1,6 +1,6 @@
 <div md-content layout-padding ng-controller="LoginController as login" ng-cloak>
     <div layout="column" layout-align="center center">
-        <div flex><h4>Logowanie</h4></div>
+        <div flex><h4 class="header">Logowanie</h4></div>
 
         <form name="loginForm" ng-submit="login.submit(loginForm.$valid)">
 
@@ -26,7 +26,7 @@
                 <md-button class="md-raised" type="submit" ng-disabled="loginForm.$invalid">{{"login-przycisk_zaloguj" | translate}}</md-button>
                 <md-button class="md-raised" ng-href="#/registration">{{"login-link_nowy_użytkownik" | translate}}</md-button>
             </div>
-            
+
         </form>
     </div>
   </md-content>
