@@ -11,26 +11,9 @@
     vm.deckId = $stateParams.id;
     vm.innerHeight = {height:$window.innerHeight+ 'px'};
     vm.selectedDeck = new BackendService.Deck();
-
-    //init current selected deck
-    vm.initDeck = function(value){
-      if(value=='new'){
-        vm.creationMode=true;
-      }else {
-        vm.creationMode=false;
-        BackendService.getDeckById(value)
-          .then(function (result) {
-            vm.selectedDeck=result;
-            //init current deck in decks selector (only to show name)
-            vm.decks=[vm.selectedDeck];
-            //load flashcards for selected deck
-            vm.getCards();
-          }, function (e) {
-            $log.error(e);
-          });
-      }
-    };
-    vm.initDeck(vm.deckId);
+    vm.decks = null;
+    vm.creation = false;
+    vm.load = false;
 
     vm.createDeck = function(name){
       BackendService.createNewDeck(name)
@@ -42,29 +25,50 @@
         });
     };
 
-    //load all deck for decks selector
-    vm.getDecks = function () {
-      BackendService.getDecks()
-        .then(function (result) {
-          $log.log(result)
-          vm.decks=result
-          }, function (e) {
-            $log.error(e);
-          });
+    vm.getDecks = function (query) {
+      //for not loading list of deck on page init
+      if (vm.load){
+        if (vm.decks == null){
+          //create request for deck list
+          vm.decks = BackendService.getDecks();
+        }
+        return vm.decks
+          .then(function(result){
+            var list = query ? result.filter( queryFilter(query) ) : result;
+            // checking if deck name exist for creation
+            if (list.length > 0) {
+              if (query != list[0].name){
+                vm.creation = true;
+              }else{
+                vm.creation = false;
+                vm.selectedItem = list[0]
+              }
+            }
+            else {
+              if (vm.selectedDeck.name != query){
+                vm.creation = true;
+              }else {
+                vm.creation = false;
+              }
+            }
+            return list
+          })
+        }else {
+        vm.load = true
+      }
     };
 
     //apply deck choice
     vm.selectDeck = function(){
-      $state.go("deck", {id: vm.selectedDeck.id})
-    };
-
-    vm.getCards = function () {
-      vm.selectedDeck.getFlashcards()
-        .then(function (result) {
-          vm.cards=result;
-        }, function (e) {
-          $log.error(e);
-        });
+      if (vm.selectedItem){
+        $state.go("deck", {id: vm.selectedItem.id})
+      }else{
+        if (vm.searchText) {
+          vm.createDeck(vm.searchText)
+        }else{
+          $log.error('no search text')
+        }
+      }
     };
 
     vm.selectCard = function(value){
@@ -84,6 +88,37 @@
         });
     };
 
+    //LOCAL FUNCTIONS
+    function queryFilter(query) {
+      var lowercaseQuery = angular.lowercase(query);
+      return function filterFn(deck) {
+        return (deck.name.toLowerCase().indexOf(lowercaseQuery) === 0);
+      };
+    }
+
+    function getCards() {
+      vm.selectedDeck.getFlashcards()
+        .then(function (result) {
+          vm.cards=result;
+        }, function (e) {
+          $log.error(e);
+        });
+    }
+
+    //init current selected deck
+    function initDeck(value){
+      BackendService.getDeckById(value)
+        .then(function (result) {
+          vm.selectedDeck=result;
+          vm.selectedItem=vm.selectedDeck;
+          //load flashcards for selected deck
+          getCards();
+        }, function (e) {
+          $log.error(e);
+        });
+    }
+    initDeck(vm.deckId);
   }
+
 
 })();
