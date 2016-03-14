@@ -19,13 +19,6 @@
         controller: 'NavbarController',
         controllerAs: 'navbar'
       })
-      .state('addCard', {
-        parent: 'navbar',
-        url: '/addCard',
-        controller: 'AddCardController',
-        controllerAs: 'AddCardController',
-        templateUrl: 'app/addCard/addCard.html'
-      })
       .state('decks', {
         parent: 'navbar',
         url: '/decks',
@@ -35,10 +28,12 @@
       })
       .state('deck', {
         parent: 'navbar',
-        url: '/deck/:id',
-        templateUrl: 'app/decks/deck.html',
-        controller: 'DeckController',
-        controllerAs: 'deck'
+        url: '/deck/:deckId',
+        templateUrl: 'app/decks/deck.page.html'
+      })
+      .state('deck.addCard', {
+        parent: 'deck',
+        url: '/:cardId'
       })
       .state('registration', {
         url: '/registration',

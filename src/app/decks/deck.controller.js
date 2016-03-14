@@ -8,7 +8,7 @@
   /** @ngInject */
   function DeckController($stateParams, $state, $window, BackendService, $log) {
     var vm = this;
-    vm.deckId = $stateParams.id;
+    vm.deckId = $stateParams.deckId;
     vm.innerHeight = {height:$window.innerHeight+ 'px'};
     vm.selectedDeck = new BackendService.Deck();
     vm.decks = null;
@@ -45,11 +45,7 @@
               }
             }
             else {
-              if (vm.selectedDeck.name != query){
-                vm.creation = true;
-              }else {
-                vm.creation = false;
-              }
+              vm.creation = vm.selectedDeck.name != query;
             }
             return list
           })
@@ -61,7 +57,7 @@
     //apply deck choice
     vm.selectDeck = function(){
       if (vm.selectedItem){
-        $state.go("deck", {id: vm.selectedItem.id})
+        $state.go("deck", {deckId: vm.selectedItem.id})
       }else{
         if (vm.searchText) {
           vm.createDeck(vm.searchText)
@@ -72,11 +68,7 @@
     };
 
     vm.selectCard = function(value){
-      vm.cards.forEach(function(entry) {
-        if (entry.id == value){
-          vm.selectedCard = entry;
-        }
-      })
+      $state.go("deck.addCard", {cardId: value})
     };
 
     vm.deleteCard = function(cardId){
