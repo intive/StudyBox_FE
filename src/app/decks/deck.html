@@ -9,7 +9,7 @@
       md-item-text="item.name"
       md-selected-item-change="deck.getDecks(deck.searchText)"
       md-min-length="0"
-      placeholder="Select Deck">
+      placeholder="{{'deck-TYPE_NAME' | translate}}">
       <md-item-template>
         <span md-highlight-text="deck.searchText" md-highlight-flags="^i">{{item.name}}</span>
       </md-item-template>
