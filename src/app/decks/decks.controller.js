@@ -16,8 +16,8 @@
     function getDecks() {
       BackendService.getDecks()
         .then(function (result) {
-          $log.log(result)
-          vm.categories=result
+          $log.log(result);
+          vm.categories=result;
           }, function (e) {
             $log.error(e);
           });
