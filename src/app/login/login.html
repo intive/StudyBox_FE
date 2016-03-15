@@ -1,8 +1,17 @@
-<div md-content layout-padding ng-controller="LoginController as login" ng-cloak>
-    <div layout="column" layout-align="center center">
-        <div flex><h4 class="header">Logowanie</h4></div>
-
-        <form name="loginForm" ng-submit="login.submit(loginForm.$valid)">
+<div md-content layout-padding ng-controller="LoginController as login" ng-cloak layout="row" layout-align="center">
+  <div flex-xs="10" flex-gt-md="35" flex-gt-sm="30" flex-gt-xs="25"></div>
+  <div flex-xs="80" flex-gt-md="30" flex-gt-sm="40" flex-gt-xs="50">
+      <md-card>
+        <md-card-title layout-align="center">
+            <md-card-title-media>
+              <div class="md-media-sm logo">
+                <img ng-src="{{login.imagePath}}" class="md-card-image">
+              </div>
+            </md-card-title-media>
+          </md-card-title>
+        <md-card-content>
+              <div flex><h4>Logowanie</h4></div>
+              <form name="loginForm" ng-submit="login.submit(loginForm.$valid)">
 
             <md-input-container class="md-block">
                 <label>{{"login-pole_email" | translate}}</label>
@@ -23,10 +32,13 @@
             </md-input-container>
 
             <div layout="column" layout-align="center stretch">
-                <md-button class="md-raised" type="submit" ng-disabled="loginForm.$invalid">{{"login-przycisk_zaloguj" | translate}}</md-button>
+                <md-button class="dark-blue" type="submit" ng-disabled="loginForm.$invalid">{{"login-przycisk_zaloguj" | translate}}</md-button>
                 <md-button class="md-raised" ng-href="#/registration">{{"login-link_nowy_użytkownik" | translate}}</md-button>
             </div>
 
         </form>
+          </md-card-content>
+      </md-card>
     </div>
-  </md-content>
+  <div flex-xs="10" flex-gt-md="35" flex-gt-sm="30" flex-gt-xs="25" ></div>
+</md-content>
