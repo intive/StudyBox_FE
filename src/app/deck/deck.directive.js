@@ -9,7 +9,7 @@
   function DeckDirective() {
     return {
       restrict: 'E',
-      templateUrl: 'app/decks/deck.html',
+      templateUrl: 'app/deck/deck.html',
       controller: 'DeckController',
       controllerAs: 'deck'
     };

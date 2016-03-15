@@ -11,7 +11,7 @@
       .state('deck', {
         parent: 'navbar',
         url: '/deck/:deckId',
-        templateUrl: 'app/decks/deck.page.html'
+        templateUrl: 'app/deck/deck.page.html'
       })
       .state('deck.addCard', {
         parent: 'deck',
