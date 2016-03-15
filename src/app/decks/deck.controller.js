@@ -14,8 +14,13 @@
     vm.decks = null;
     vm.creation = false;
     vm.load = false;
+    vm.createDeck = createDeck;
+    vm.getDecks = getDecks;
+    vm.selectDeck = selectDeck;
+    vm.selectCard = selectCard;
+    vm.deleteCard = deleteCard;
 
-    vm.createDeck = function(name){
+    function createDeck(name){
       BackendService.createNewDeck(name)
         .then(function (result) {
           vm.selectedDeck=result;
@@ -23,9 +28,9 @@
         }, function (e) {
           $log.error(e);
         });
-    };
+    }
 
-    vm.getDecks = function (query) {
+    function getDecks(query) {
       //for not loading list of deck on page init
       if (vm.load){
         if (vm.decks == null){
@@ -52,10 +57,10 @@
         }else {
         vm.load = true
       }
-    };
+    }
 
     //apply deck choice
-    vm.selectDeck = function(){
+    function selectDeck(){
       if (vm.selectedItem){
         $state.go("deck", {deckId: vm.selectedItem.id})
       }else{
@@ -65,20 +70,20 @@
           $log.error('no search text')
         }
       }
-    };
+    }
 
-    vm.selectCard = function(value){
+    function selectCard(value){
       $state.go("deck.addCard", {cardId: value})
-    };
+    }
 
-    vm.deleteCard = function(cardId){
+    function deleteCard(cardId){
       vm.selectedDeck.removeFlashcard(cardId)
         .then(function (result) {
           $log.log(result);
         }, function (e) {
           $log.error(e);
         });
-    };
+    }
 
     //LOCAL FUNCTIONS
     function queryFilter(query) {
