@@ -1,4 +1,5 @@
 	{
+<<<<<<< HEAD
     "studyBoxFe_createDeck": "Stwórz nową talię",
     "studyBoxFe_typeName": "Wpisz nazwę",
     "registration-pole_wymagane": "To pole jest wymagane",
@@ -20,4 +21,28 @@
     "login-link_nowy_użytkownik": "UTWÓRZ KONTO",
     "login-wprowadź_poprawny_adres_email": "Nieprawidłowy adres Email",
     "login-błędne_hasło": "Błędne hasło"
+=======
+    "deck-CREATE_DECK": "Utwórz nową talię",
+    "deck-SELECT_DECK": "Wczytaj wybraną talię",
+    "deck-TYPE_NAME": "Wpisz nazwę",
+    "deck-REMOVE_CARD": "Usuń fiszkę",
+    "registration-FORM_TITLE": "Rejestracja",
+    "registration-REQUIRED_FIELD": "To pole jest wymagane",
+    "registration-FIELD_MIN_CHARS": "To pole musi mieć minimum 3 znaki",
+    "registration-USER_NAME": "NAZWA UŻYTKOWNIKA",
+    "registration-EMAIL_FIELD": "E-MAIL",
+    "registration-PASSWORD_FIELD": "HASŁO",
+    "registration-REGISTER_BUTTON": "ZAREJESTRUJ",
+    "registration-CANCEL_BUTTON": "ANULUJ",
+    "registration-PASSWORD_REPEAT": "POWTÓRZ HASŁO",
+    "registration-PASSWORDS_DIFFERENT": "Hasła nie są takie same",
+    "registration-INVALID_FORMAT": "Format wpisu jest nieprawidłowy",
+    "login-FORM_TITLE":"Logowanie",
+    "login-PASSWORD_FIELD": "HASŁO",
+    "login-EMAIL_FIELD": "E-MAIL",
+    "login-LOGIN_BUTTON": "ZALOGUJ SIĘ",
+    "login-NEW_USER_ACCOUNT": "UTWÓRZ KONTO",
+    "login-TYPE_VALID_EMAIL": "Nieprawidłowy adres email",
+    "login-INVALID_PASSWORD": "Błędne hasło"
+>>>>>>> c3da36ef95f5856fa098ce013cd72485be50f2be
 	}

@@ -1,0 +1,57 @@
+.deck-cards {
+  overflow:scroll;
+}
+
+.deck-card {
+  margin-bottom: 1em;
+  margin-left: 1em;
+}
+
+.deck-card-title {
+  padding: 1em;
+  font-size: large;
+}
+
+.deck-card-question {
+  padding: 1em;
+  font-size: medium;
+}
+
+.deck-card-hint {
+  padding: 1em;
+  font-size: small;
+}
+
+.deck-card-answer {
+  padding: 1em;
+  font-size: medium;
+}
+
+.deck-select-button{
+  margin-top: -7px;
+  background: #0068B4 !important;
+}
+
+.deck-select-button:disabled{
+  background: #002d4e !important;
+}
+
+.deck-add-button{
+  margin-top: -7px;
+  background-color: #EA0061 !important;
+}
+
+.deck-add-button:disabled{
+  background-color: #840037 !important;
+}
+
+/* The starting CSS styles for the enter animation */
+.fade.ng-enter {
+  transition:0.5s linear all;
+  opacity:0;
+}
+
+/* The finishing CSS styles for the enter animation */
+.fade.ng-enter.ng-enter-active {
+  opacity:1;
+}
