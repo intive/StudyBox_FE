@@ -12,82 +12,40 @@
       <md-card-content>
         <div flex><h4>{{"registration-FORM_TITLE" | translate}}</h4></div>
         <div flex><h6>{{registration.formStatus}}</h6></div>
-        <form name="registrationForm" ng-submit="registration.submit(registrationForm.$valid)">
-<<<<<<< HEAD
-          <!-- <md-input-container class="md-block">
-            <label>{{"registration-nazwa_uzytkownika" | translate}}</label>
-=======
-          <md-input-container class="md-block">
-            <label>{{"registration-USER_NAME" | translate}}</label>
-            <!-- loginy zaczynajace sie na litere lub cyfre -->
->>>>>>> c3da36ef95f5856fa098ce013cd72485be50f2be
-            <input required name="login"  ng-model="registration.data.login" minlength="3" ng-pattern="/^[A-Za-z0-9][A-Za-z0-9-_]*$/">
-            <div ng-messages="registrationForm.login.$error">
-              <div ng-message="required">{{"registration-REQUIRED_FIELD" | translate}}</div>
-              <div ng-message="pattern">{{"registration-INVALID_FORMAT" | translate}}</div>
-              <div ng-message="minlength">{{"registration-FIELD_MIN_CHARS" | translate}}</div>
-            </div>
-          </md-input-container> -->
-
+        <form name="registrationForm" ng-submit="registration.submit(registrationForm.$valid, online)" novalidate >
           <md-input-container class="md-block">
             <label>{{"registration-EMAIL_FIELD" | translate}}</label>
-            <input required type="email" name="email" ng-model="registration.data.email" ng-pattern="/^.+@.+\..+$/" />
+            <input required type="email" name="email" ng-model="registration.data.email" ng-pattern="/^.+@.+\..+$" />
             <div ng-messages="registrationForm.email.$error">
-<<<<<<< HEAD
-              <div ng-message="required">{{"registration-pole_wymagane" | translate}}</div>
-              <div ng-message="md-maxlength">{{"registration_nazwa-uzytkownika" | translate}}</div>
-              <div ng-message="pattern">{{"registration-pole_email_nie_pasuje" | translate}}</div>
-=======
               <div ng-message="required">{{"registration-REQUIRED_FIELD" | translate}}</div>
               <div ng-message="md-maxlength">{{"registration-USER_NAME" | translate}}</div>
               <div ng-message="pattern">{{"registration-INVALID_FORMAT" | translate}}</div>
->>>>>>> c3da36ef95f5856fa098ce013cd72485be50f2be
             </div>
           </md-input-container>
 
           <md-input-container class="md-block">
             <label>{{"registration-PASSWORD_FIELD" | translate}}</label>
-            <input required type="password" name="password" minlength="8" ng-model="registration.data.password" />
-<<<<<<< HEAD
-            <div ng-messages="registrationForm.password.$error" />
-              <div ng-message="required">{{"registration-pole_wymagane" | translate}}</div>
-              <div ng-message="minlength">{{"registration-pole_min_znaki_haslo" | translate}}</div>
-=======
+            <input required type="password" name="password" minlength="8" ng-model="registration.data.password" ng-pattern="/^[^\s]$/" />
             <div ng-messages="registrationForm.password.$error">
               <div ng-message="required">{{"registration-REQUIRED_FIELD" | translate}}</div>
               <div ng-message="minlength">{{"registration-FIELD_MIN_CHARS" | translate}}</div>
->>>>>>> c3da36ef95f5856fa098ce013cd72485be50f2be
+              <div ng-message="pattern">{{"registration-INVALID_FORMAT" | translate}}</div>
             </div>
           </md-input-container>
 
           <md-input-container class="md-block">
-<<<<<<< HEAD
-            <label for="confirmPassword">{{"registration-pole_powtorz_haslo" | translate}}</label>
-            <input required type="password" name="confirmPassword" ng-model="registration.data.confirmPassword" compare-to="registration.data.password"/>
-            <div ng-messages="registrationForm.confirmPassword.$error">
-              <div ng-message="required">{{"registration-pole_wymagane" | translate}}</div>
-              <div ng-message="compareTo">{{"registration-pole_haslo_nie_pasuje" | translate}}</div>
-              <div ng-message="minlength">{{"registration-pole_min_znaki_haslo" | translate}}</div>
-=======
             <label for="confirmPassword">{{"registration-PASSWORD_REPEAT" | translate}}</label>
             <input required type="password" name="confirmPassword" ng-model="registration.data.confirmPassword" compare-to="registration.data.password" />
             <div ng-messages="registrationForm.confirmPassword.$error">
               <div ng-message="required">{{"registration-REQUIRED_FIELD" | translate}}</div>
               <div ng-message="compareTo">{{"registration-PASSWORDS_DIFFERENT" | translate}}</div>
               <div ng-message="minlength">{{"registration-FIELD_MIN_CHARS" | translate}}</div>
->>>>>>> c3da36ef95f5856fa098ce013cd72485be50f2be
             </div>
           </md-input-container>
 
           <div layout="column" layout-align="center stretch">
-<<<<<<< HEAD
-            <md-button class="md-raised" type="submit" ng-disabled="registrationForm.$invalid" ng-click="registration.showAlert($event, online)" >{{"registration-przycisk_zarejestruj" | translate}}</md-button>
-            <!-- ng-href="#/login" -->
-            <md-button ng-click="registration.reset()" ng-href="#/">{{"registration-przycisk_anuluj" | translate}}</md-button>
-=======
-            <md-button class="md-raised" type="submit" ng-disabled="registrationForm.$invalid" ng-href="#/login">{{"registration-REGISTER_BUTTON" | translate}}</md-button>
+            <md-button class="md-raised md-primary" type="submit" ng-disabled="registrationForm.$invalid" ng-click="registration.showAlert($event, online)" >{{"registration-REGISTER_BUTTON" | translate}}</md-button>
             <md-button ng-click="registration.reset()" ng-href="#/">{{"registration-CANCEL_BUTTON" | translate}}</md-button>
->>>>>>> c3da36ef95f5856fa098ce013cd72485be50f2be
           </div>
         </form>
       </md-card-content>
@@ -95,3 +53,4 @@
   </div>
   <div flex-xs="10" flex-gt-md="35" flex-gt-sm="30" flex-gt-xs="25" ></div>
 </md-content>
+<!-- ng-href="#/login" -->

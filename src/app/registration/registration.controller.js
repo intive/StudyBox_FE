@@ -16,10 +16,10 @@ function RegistrationController($log, $mdDialog) {
   vm.imagePath = "assets/images/StudyBoxLogo_xx.png";
 
   //wysylanie formularza
-  function submit(isValid) {
-    if (isValid) {
-      vm.formStatus = "Formularz poprawny";
-      $log.info("formularz poprawny dla" +vm.data.email+".");
+  function submit(isValid, online) {
+    if (isValid && online) {
+        vm.formStatus = "Formularz poprawny";
+        $log.info("formularz poprawny dla " +vm.data.email);
     }else{
       vm.formStatus = "Formularz niepoprawny";
       $log.info("blad formularza");
@@ -30,6 +30,7 @@ function RegistrationController($log, $mdDialog) {
     vm.data = {};
   }
 
+  //sprawdzenie polaczenia z siecia
   function showAlert(ev, online) {
     if(!online){
       $mdDialog.show(
@@ -38,7 +39,7 @@ function RegistrationController($log, $mdDialog) {
           .clickOutsideToClose(true)
           .title('Uwaga!')
           .textContent('Utraciłeś połączenie z internetem, twoja rejestracja się nie powiodła. Spróbuj później.')
-          .ariaLabel('Alert Dialog Demo')
+          .ariaLabel('Alert Dialog')
           .ok('Rozumiem')
           .targetEvent(ev)
       );

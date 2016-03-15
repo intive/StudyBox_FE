@@ -1,34 +1,11 @@
 	{
-<<<<<<< HEAD
-    "studyBoxFe_createDeck": "Stwórz nową talię",
-    "studyBoxFe_typeName": "Wpisz nazwę",
-    "registration-pole_wymagane": "To pole jest wymagane",
-    "registration-pole_min_znaki_haslo": "Hasła są zbyt krótkie!",
-    "registration-nazwa_uzytkownika": "NAZWA UŻYTKOWNIKA",
-    "registration-pole_email": "E-MAIL",
-    "registration-pole_haslo": "HASŁO",
-    "registration-przycisk_zarejestruj": "ZAREJESTRUJ",
-    "registration-przycisk_anuluj": "ANULUJ",
-    "registration-pole_powtorz_haslo": "POWTÓRZ HASŁO",
-    "registration-pole_haslo_nie_pasuje": "Hasła nie są jednakowe!",
-    "registration-pole_wzor_nie_pasuje": "Format pola jest nieprawidłowy",
-    "registration-pole_email_nie_pasuje": "Niepoprawny e-mail",
-    "landing-przycisk_zaloguj": "LOGOWANIE",
-    "landing-przycisk_zarejestruj": "REJESTRACJA",
-    "login-pole_haslo": "HASŁO",
-    "login-pole_email": "E-MAIL",
-    "login-przycisk_zaloguj": "ZALOGUJ SIĘ",
-    "login-link_nowy_użytkownik": "UTWÓRZ KONTO",
-    "login-wprowadź_poprawny_adres_email": "Nieprawidłowy adres Email",
-    "login-błędne_hasło": "Błędne hasło"
-=======
     "deck-CREATE_DECK": "Utwórz nową talię",
     "deck-SELECT_DECK": "Wczytaj wybraną talię",
     "deck-TYPE_NAME": "Wpisz nazwę",
     "deck-REMOVE_CARD": "Usuń fiszkę",
     "registration-FORM_TITLE": "Rejestracja",
     "registration-REQUIRED_FIELD": "To pole jest wymagane",
-    "registration-FIELD_MIN_CHARS": "To pole musi mieć minimum 3 znaki",
+    "registration-FIELD_MIN_CHARS": "Hasła są zbyt krótkie! Min. 8 znaków",
     "registration-USER_NAME": "NAZWA UŻYTKOWNIKA",
     "registration-EMAIL_FIELD": "E-MAIL",
     "registration-PASSWORD_FIELD": "HASŁO",
@@ -44,5 +21,4 @@
     "login-NEW_USER_ACCOUNT": "UTWÓRZ KONTO",
     "login-TYPE_VALID_EMAIL": "Nieprawidłowy adres email",
     "login-INVALID_PASSWORD": "Błędne hasło"
->>>>>>> c3da36ef95f5856fa098ce013cd72485be50f2be
 	}
