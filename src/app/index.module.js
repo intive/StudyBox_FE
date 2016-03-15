@@ -13,8 +13,13 @@
       'toastr',
       'pascalprecht.translate',
       'translator',
-      'ngMaterial',
-      'backend'
+      'studyBoxFeApp'
+
     ]);
+  angular
+    .module('studyBoxFeApp', [
+      'backend',
+      'studyBoxFeDeck'
+    ])
 
 })();

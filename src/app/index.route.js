@@ -26,15 +26,6 @@
         controller: 'DecksController',
         controllerAs: 'decks'
       })
-      .state('deck', {
-        parent: 'navbar',
-        url: '/deck/:deckId',
-        templateUrl: 'app/decks/deck.page.html'
-      })
-      .state('deck.addCard', {
-        parent: 'deck',
-        url: '/:cardId'
-      })
       .state('registration', {
         url: '/registration',
         templateUrl: 'app/registration/registration.html',
