@@ -1,21 +1,10 @@
 <div layout="row" layout-xs="column" class="addCard">
 
-  <div flex-gt-xs="30" flex-xs="grow" class="separate">
-    <md-content layout-padding layout="column" layout-align="center stretch" style="padding-top: 0px;">
-        <md-select class="siteParts" placeholder="Wybierz talię" ng-model="chosenDeck" >
-          <md-option ng-repeat="deck in AddCardController.categories" value="{{ deck.name }}">
-            {{ deck.name }}
-          </md-option>
-        </md-select>
-      <div>
-        <div ng-include="'app/cards/card.html'"></div>
-      </div>
-    </md-content>
-  </div>
-
   <div flex-gt-xs="45" flex-xs="grow" layout-align="center stretch" class="separate">
     <md-content layout-padding class="siteParts" style="overflow: visible;">
-
+      <!--sprawdzenie działania-->
+      deckId= {{addCard.deckId}}
+      cardId= {{addCard.cardId}}
       <md-input-container class="md-block md-whiteframe-4dp middleCard" md-no-float>
         <i class="material-icons camera" onclick="document.getElementById('fileInput1').click();">camera_alt</i>
         <i id="addButton" class="material-icons hintCardAdd" hide-xs ng-click="AddCardController.toggleButton()">add_circle</i>

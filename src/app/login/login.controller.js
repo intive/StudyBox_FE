@@ -9,7 +9,7 @@
     var vm = this;
     vm.formStatus = '';
     vm.submit = submit;
-    vm.imagePath = "assets/images/StudyBoxLogo_xx.png";
+    vm.imagePath = "assets/images/StudyBoxLogo_m.png";
 
 
     function submit(isValid) {
