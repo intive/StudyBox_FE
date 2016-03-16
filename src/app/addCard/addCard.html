@@ -2,7 +2,7 @@
 
   <div flex-gt-xs="30" flex-xs="grow" class="separate">
     <md-content layout-padding layout="column" layout-align="center stretch" style="padding-top: 0px;">
-        <md-select class="siteParts" placeholder="Wybierz talię" ng-model="chosenDeck" >
+        <md-select class="siteParts" placeholder='{{"addCard-wybierz_talie" | translate}}' ng-model="chosenDeck" >
           <md-option ng-repeat="deck in AddCardController.categories" value="{{ deck.name }}">
             {{ deck.name }}
           </md-option>
@@ -20,10 +20,10 @@
         <i class="material-icons camera" onclick="document.getElementById('fileInput1').click();">camera_alt</i>
 
         <md-button md-open="AddCardController.toggleStatus" id="addButton" hide-xs aria-label="add" class="md-fab color-dial hintCardAdd" ng-class="AddCardController.toggleStatus == true ? 'rotate' : 'noclass'" ng-click="AddCardController.toggleButton()">
-          <md-tooltip id="addButtonTooltip" md-direction="right">Dodaj podpowiedź</md-tooltip>
+          <md-tooltip id="addButtonTooltip" md-direction="right">Podpowiedź</md-tooltip>
           <md-icon md-svg-src="assets/icons/add_36px.svg" style="display: inline; " ></md-icon>
         </md-button>
-        <textarea class="question" placeholder="Wpisz pytanie" ng-model="question" rows="5" md-select-on-focus></textarea>
+        <textarea class="question" placeholder='{{"addCard-wpisz_pytanie" | translate}}' ng-model="question" rows="5" md-select-on-focus></textarea>
       </md-input-container>
 
       <md-input-container class="md-block hintDiv md-whiteframe-4dp middleCard" md-no-float hide-gt-xs show-xs>
@@ -32,28 +32,28 @@
 
       <md-input-container class="md-block md-whiteframe-4dp middleCard" id="hint" md-no-float style="display: none;">
         <i class="material-icons camera" onclick="document.getElementById('fileInput2').click();">camera_alt</i>
-        <textarea class="hint" placeholder="Wpisz podpowiedź" ng-model="hint" rows="5" md-select-on-focus></textarea>
+        <textarea class="hint" placeholder='{{"addCard-wpisz_podpowiedz" | translate}}' ng-model="hint" rows="5" md-select-on-focus></textarea>
       </md-input-container>
 
       <md-input-container class="md-block md-whiteframe-4dp middleCard" md-no-float>
         <i class="material-icons camera" onclick="document.getElementById('fileInput3').click();">camera_alt</i>
-        <textarea class="answer" placeholder="Wpisz odpowiedź" ng-model="answer" rows="5" md-select-on-focus></textarea>
+        <textarea class="answer" placeholder='{{"addCard-wpisz_odpowiedz" | translate}}' ng-model="answer" rows="5" md-select-on-focus></textarea>
       </md-input-container>
 
       <input type="file" style="display: none;" id="fileInput1" name="myImage" accept="image/*" />
       <input type="file" style="display: none;" id="fileInput2" name="myImage" accept="image/*" />
       <input type="file" style="display: none;" id="fileInput3" name="myImage" accept="image/*" />
 
-      <md-button class="md-raised addCardButtons addCardButton" layout-align="end center">Dodaj do talii</md-button>
+      <md-button class="md-raised addCardButtons addCardButton" layout-align="end center">{{"addCard-dodaj_do_talii" | translate}}</md-button>
     </md-content>
   </div>
 
   <div flex-gt-xs="25" flex-xs="grow" class="separate">
 
     <div layout="column" layout-align="center stretch" class="siteParts">
-      <md-button class="md-raised addCardButtons" style="margin-top:0px;">Rozpocznij test</md-button>
+      <md-button class="md-raised addCardButtons" style="margin-top:0px;">{{"addCard-rozpocznij_test" | translate}}</md-button>
 
-      <md-button class="md-raised addCardButtons">Dodaj talię z pliku</md-button>
+      <md-button class="md-raised addCardButtons">{{"addCard-dodaj_talie_z_pliku" | translate}}</md-button>
     </div>
   </div>
 </div>
