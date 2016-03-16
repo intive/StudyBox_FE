@@ -7,7 +7,7 @@
 
 
   /** @ngInject */
-  function AddCardController($document,$window) {
+  function AddCardController($document) {
     var vm = this;
 
     vm.getDecks = function () {
@@ -27,13 +27,17 @@
     vm.toggleButton = function ()
     {
       if(vm.toggleStatus === false)
+      {
         angular.element($document[0].querySelector('#hint')).css("display", "block");
+        angular.element($document[0].querySelector('#addButtonTooltip')).innerHTML = "Usuń podpowiedź";
+      }
       else
+      {
         angular.element($document[0].querySelector('#hint')).css("display", "none");
+        angular.element($document[0].querySelector('#addButtonTooltip')).innerHTML = "Dodaj podpowiedź";
+      }
 
       vm.toggleStatus = !vm.toggleStatus;
-
-
     };
 
   }
