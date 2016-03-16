@@ -15,18 +15,16 @@
         <form name="registrationForm" ng-submit="registration.submit(registrationForm.$valid, online)" novalidate >
           <md-input-container class="md-block">
             <label>{{"registration-EMAIL_FIELD" | translate}}</label>
-            <input required type="email" name="email" ng-model="registration.data.email" ng-pattern="/^.+@.+\..+$" />
+            <input required type="email" name="email" ng-model="registration.data.email" ng-pattern="registration.emailRegex" ng-trim="false" />
             <div ng-messages="registrationForm.email.$error">
               <div ng-message="required">{{"registration-REQUIRED_FIELD" | translate}}</div>
-              <div ng-message="md-maxlength">{{"registration-USER_NAME" | translate}}</div>
               <div ng-message="pattern">{{"registration-INVALID_FORMAT" | translate}}</div>
             </div>
           </md-input-container>
 
           <md-input-container class="md-block">
             <label>{{"registration-PASSWORD_FIELD" | translate}}</label>
-            <input required type="text" name="password" ng-model="registration.data.password" ng-pattern="registration.regex" ng-trim="false" />
-            input valid? = <code>{{registrationForm.password.$valid}}</code><br>
+            <input required type="password" name="password" minlength="8" ng-model="registration.data.password" ng-pattern="registration.passwordRegex" ng-trim="false" />
             <div ng-messages="registrationForm.password.$error">
               <div ng-message="required">{{"registration-REQUIRED_FIELD" | translate}}</div>
               <div ng-message="minlength">{{"registration-FIELD_MIN_CHARS" | translate}}</div>
@@ -54,4 +52,3 @@
   </div>
   <div flex-xs="10" flex-gt-md="35" flex-gt-sm="30" flex-gt-xs="25" ></div>
 </md-content>
-<!-- ng-href="#/login" -->

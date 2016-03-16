@@ -13,7 +13,8 @@ function RegistrationController($document, $log, $mdDialog) {
   vm.showAlert = showAlert;
   vm.data = {};
   vm.imagePath = "assets/images/StudyBoxLogo_xx.png";
-  vm.regex = '\S+';
+  vm.passwordRegex = /^[^\s]+$/;
+  vm.emailRegex =  /^[^\s]+@[^\s]+\..+$/;
 
   //wysylanie formularza
   function submit(isValid, online) {
