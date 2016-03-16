@@ -2,9 +2,10 @@
   'use strict';
 
 angular
-.module('studyBoxFe')
+.module('registrationMod')
 .directive('compareTo', compareTo);
 
+/** @ngInject */
 function compareTo() {
   return {
     require: "ngModel",
