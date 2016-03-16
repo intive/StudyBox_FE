@@ -1,0 +1,106 @@
+/* Główne kolory projektu */
+$dark-blue: #0068B4;
+$raspberry: #EA0061;
+$graphite: #424242;
+$grey: #FAFAFA;
+$white: #FFFFFF;
+$black: #000000;
+
+/* Button custom */
+.button-custom {
+  color: $black;
+  text-decoration:none;
+  border-radius:3px;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-size: 1em;
+}
+
+
+.dark-blue {
+  @extend .button-custom;
+  background: $dark-blue;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+
+  &:hover {
+    background: darken($dark-blue,20%);
+    transition: all 0.3s ease;
+  }
+  &:active {
+    background: darken($dark-blue,25%);
+  }
+}
+
+.dark-blue[disabled] {
+  background: rgba(0,0,0,0.12);
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+}
+
+.dark-blue:not([disabled]):hover {
+  background: $dark-blue;
+}
+
+.raspberry {
+  @extend .button-custom;
+  background: $raspberry;
+
+  &:hover {
+    background: darken($raspberry,20%);
+    transition: all 0.3s ease;
+  }
+  &:active {
+    background: darken($raspberry,25%);
+  }
+}
+
+.raspberry[disabled] {
+  background: rgba(0,0,0,0.12);
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+}
+
+.raspberry:not([disabled]):hover {
+  background: $raspberry;
+}
+
+.graphite{
+  @extend .button-custom;
+  background: $graphite;
+
+  &:hover {
+    background: darken($graphite,20%);
+    transition: all 0.3s ease;
+  }
+  &:active {
+    background: darken($graphite,25%);
+  }
+}
+
+.graphite[disabled] {
+  background: rgba(0,0,0,0.12);
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+}
+
+.graphite:not([disabled]):hover {
+  background: $graphite;
+}
+
+.grey {
+  @extend .button-custom;
+  background: $grey;
+
+  &:hover {
+    background: darken($grey,20%);
+    transition: all 0.3s ease;
+  }
+  &:active {
+    background: darken($grey,25%);
+  }
+}
+
+.grey[disabled] {
+  background: rgba(0,0,0,0.12);
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+}
+
+.grey:not([disabled]):hover {
+  background: $grey;
+}
