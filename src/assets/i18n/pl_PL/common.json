@@ -24,12 +24,11 @@
     "login-TYPE_VALID_EMAIL": "Nieprawidłowy adres email",
     "login-INVALID_PASSWORD": "Błędne hasło",
 
-    "addCard-wybierz_talie": "Wybierz talię",
-    "addCard-wpisz_pytanie": "Wpisz pytanie",
-    "addCard-wpisz_podpowiedz": "Wpisz podpowiedź",
-    "addCard-wpisz_odpowiedz": "Wpisz odpowiedź",
-    "addCard-rozpocznij_test": "Rozpocznij test",
-    "addCard-dodaj_do_talii": "Dodaj do talii",
-    "addCard-dodaj_talie_z_pliku": "Dodaj talię z pliku"
+    "addCard-WRITE_QUESTION": "Wpisz pytanie",
+    "addCard-WRITE_HINT": "Wpisz podpowiedź",
+    "addCard-WRITE_ANSWER": "Wpisz odpowiedź",
+    "addCard-ADD_TO_DECK": "Dodaj do talii",
+    "addCard-START_TEST": "Rozpocznij test",
+    "addCard-ADD_DECK_FROM_FILE": "Dodaj talię z pliku"
 
   }

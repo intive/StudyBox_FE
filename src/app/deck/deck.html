@@ -1,15 +1,15 @@
-<md-content class="md-padding" layout="column">
+<md-content class="md-padding separate" layout="column">
   <form ng-submit="deck.selectDeck(deckForm.$valid)" name="deckForm" layout="row" layout-wrap >
     <md-autocomplete flex="80" required
-      md-input-name="deckField"
-      md-selected-item="deck.selectedItem"
-      md-search-text="deck.searchText"
-      md-search-text-change="deck.getDecks(deck.searchText)"
-      md-items="item in deck.getDecks(deck.searchText)"
-      md-item-text="item.name"
-      md-selected-item-change="deck.getDecks(deck.searchText)"
-      md-min-length="0"
-      placeholder="{{'deck-TYPE_NAME' | translate}}">
+                     md-input-name="deckField"
+                     md-selected-item="deck.selectedItem"
+                     md-search-text="deck.searchText"
+                     md-search-text-change="deck.getDecks(deck.searchText)"
+                     md-items="item in deck.getDecks(deck.searchText)"
+                     md-item-text="item.name"
+                     md-selected-item-change="deck.getDecks(deck.searchText)"
+                     md-min-length="0"
+                     placeholder="{{'deck-TYPE_NAME' | translate}}">
       <md-item-template>
         <span md-highlight-text="deck.searchText" md-highlight-flags="^i">{{item.name}}</span>
       </md-item-template>
@@ -47,4 +47,3 @@
     </md-card-actions>
   </md-card>
 </md-content>
-
