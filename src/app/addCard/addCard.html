@@ -18,7 +18,10 @@
 
       <md-input-container class="md-block md-whiteframe-4dp middleCard" md-no-float>
         <i class="material-icons camera" onclick="document.getElementById('fileInput1').click();">camera_alt</i>
-        <i id="addButton" class="material-icons hintCardAdd" hide-xs ng-click="AddCardController.toggleButton()">add_circle</i>
+        <md-button md-open="AddCardController.toggleStatus" id="addButton" hide-xs aria-label="add" class="md-fab color-dial hintCardAdd" ng-class="AddCardController.toggleStatus == true ? 'rotate' : 'noclass'" ng-click="AddCardController.toggleButton()">
+          <md-tooltip md-direction="right">Dodaj podpowiedź</md-tooltip>
+          <md-icon md-svg-src="assets/icons/add_36px.svg" style="display: inline; " ></md-icon>
+        </md-button>
         <textarea class="question" placeholder="Wpisz pytanie" ng-model="question" rows="5" md-select-on-focus></textarea>
       </md-input-container>
 
