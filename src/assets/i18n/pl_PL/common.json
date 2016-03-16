@@ -6,7 +6,7 @@
 
     "registration-FORM_TITLE": "Rejestracja",
     "registration-REQUIRED_FIELD": "To pole jest wymagane",
-    "registration-FIELD_MIN_CHARS": "To pole musi mieć minimum 3 znaki",
+    "registration-FIELD_MIN_CHARS": "Hasła są zbyt krótkie! Min. 8 znaków",
     "registration-USER_NAME": "NAZWA UŻYTKOWNIKA",
     "registration-EMAIL_FIELD": "E-MAIL",
     "registration-PASSWORD_FIELD": "HASŁO",
