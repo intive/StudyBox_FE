@@ -30,7 +30,7 @@
             $log.error(e);
           });
       }else{
-        $log.error('no search text')
+        $log.error('empty name')
       }
     }
 
