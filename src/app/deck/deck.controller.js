@@ -21,17 +21,14 @@
     vm.deleteCard = deleteCard;
 
     function createDeck(name){
-      if (name) {
-        BackendService.createNewDeck(name)
-          .then(function (result) {
-            vm.selectedItem=result;
-            vm.selectDeck();
-          }, function (e) {
-            $log.error(e);
-          });
-      }else{
-        $log.error('empty name')
-      }
+      if (!name.trim()) return;
+      BackendService.createNewDeck(name)
+        .then(function (result) {
+          vm.selectedItem=result;
+          vm.selectDeck();
+        }, function (e) {
+          $log.error(e);
+        });
     }
 
     function getDecks(query) {
