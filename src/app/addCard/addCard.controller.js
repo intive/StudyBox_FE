@@ -27,17 +27,12 @@
     vm.toggleButton = function ()
     {
       if(vm.toggleStatus === false)
-      {
         angular.element($document[0].querySelector('#hint')).css("display", "block");
-
-        vm.toggleStatus = true;
-      }
       else
-      {
         angular.element($document[0].querySelector('#hint')).css("display", "none");
 
-        vm.toggleStatus = false;
-      }
+      vm.toggleStatus = !vm.toggleStatus;
+
 
     };
 
