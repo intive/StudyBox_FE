@@ -7,8 +7,11 @@
 
 
   /** @ngInject */
-  function AddCardController($document) {
+  function AddCardController($stateParams, $document) {
     var vm = this;
+
+    vm.deckId = $stateParams.deckId;
+    vm.cardId = $stateParams.cardId;
 
     vm.getDecks = function () {
       //service will be used in future
@@ -32,8 +35,6 @@
         angular.element($document[0].querySelector('#hint')).css("display", "none");
 
       vm.toggleStatus = !vm.toggleStatus;
-
-
     };
 
   }
