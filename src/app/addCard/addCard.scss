@@ -10,13 +10,18 @@ $graphite: #424242;
   margin-top: 25px;
 }
 
-.camera
+.camera-position
 {
-  font-size: 35px !important;
   position: absolute;
   top: 25px;
   right: 25px;
-  color: rgba(0,0,0,0.4);
+}
+
+.camera
+{
+  width: 35px;
+  height: 35px;
+  opacity: 0.4;
 }
 
 .hintDiv
@@ -44,7 +49,7 @@ $graphite: #424242;
 .camera:hover
 {
   cursor: pointer;
-  color: rgba(0,0,0,0.6);
+  opacity: 0.6;
 }
 
 button.md-button.addCardButtons{

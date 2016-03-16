@@ -3,7 +3,10 @@
   <div flex-gt-xs="65" flex-xs="grow" layout-align="center stretch" class="separate">
     <md-content layout-padding class="siteParts" style="overflow: visible;">
       <md-input-container class="md-block md-whiteframe-4dp middleCard" md-no-float>
-        <i class="material-icons camera" onclick="document.getElementById('fileInput1').click();">camera_alt</i>
+
+        <i class="camera-position" onclick="document.getElementById('fileInput1').click();">
+          <md-icon md-svg-src="assets/icons/photo_camera_36px.svg" class="camera"></md-icon>
+        </i>
 
         <md-button md-open="AddCardController.toggleStatus" id="addButton" hide-xs aria-label="add" class="md-fab color-dial hintCardAdd" ng-class="addCard.toggleStatus == true ? 'rotate' : 'noclass'" ng-click="addCard.toggleButton()">
           <md-tooltip id="addButtonTooltip" md-direction="right">Podpowiedź</md-tooltip>
@@ -17,12 +20,16 @@
       </md-input-container>
 
       <md-input-container class="md-block md-whiteframe-4dp middleCard" id="hint" md-no-float style="display: none;">
-        <i class="material-icons camera" onclick="document.getElementById('fileInput2').click();">camera_alt</i>
+        <i class="camera-position" onclick="document.getElementById('fileInput1').click();">
+          <md-icon md-svg-src="assets/icons/photo_camera_36px.svg" class="camera"></md-icon>
+        </i>
         <textarea class="hint" placeholder='{{"addCard-WRITE_HINT" | translate}}' ng-model="hint" rows="5" md-select-on-focus></textarea>
       </md-input-container>
 
       <md-input-container class="md-block md-whiteframe-4dp middleCard" md-no-float>
-        <i class="material-icons camera" onclick="document.getElementById('fileInput3').click();">camera_alt</i>
+        <i class="camera-position" onclick="document.getElementById('fileInput1').click();">
+          <md-icon md-svg-src="assets/icons/photo_camera_36px.svg" class="camera"></md-icon>
+        </i>
         <textarea class="answer" placeholder='{{"addCard-WRITE_ANSWER" | translate}}' ng-model="answer" rows="5" md-select-on-focus></textarea>
       </md-input-container>
 
