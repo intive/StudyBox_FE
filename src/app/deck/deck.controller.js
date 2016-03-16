@@ -21,13 +21,17 @@
     vm.deleteCard = deleteCard;
 
     function createDeck(name){
-      BackendService.createNewDeck(name)
-        .then(function (result) {
-          vm.selectedDeck=result;
-          vm.selectDeck();
-        }, function (e) {
-          $log.error(e);
-        });
+      if (name) {
+        BackendService.createNewDeck(name)
+          .then(function (result) {
+            vm.selectedItem=result;
+            vm.selectDeck();
+          }, function (e) {
+            $log.error(e);
+          });
+      }else{
+        $log.error('no search text')
+      }
     }
 
     function getDecks(query) {
@@ -63,12 +67,6 @@
     function selectDeck(){
       if (vm.selectedItem){
         $state.go("deck", {deckId: vm.selectedItem.id})
-      }else{
-        if (vm.searchText) {
-          vm.createDeck(vm.searchText)
-        }else{
-          $log.error('no search text')
-        }
       }
     }
 
