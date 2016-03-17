@@ -21,7 +21,7 @@
 (function() {
   'use strict';
   angular
-  .module('backend')
+  .module('studyBoxFe.backend')
   .service('BackendService', BackendService);
 
   /** @ngInject */

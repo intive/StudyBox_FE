@@ -1,5 +1,7 @@
 (function() {
   'use strict';
   angular
-  .module('studyBoxFeDeck', []);
+  .module('studyBoxFe.deck', [
+      'studyBoxFe.core'
+    ]);
 })();
