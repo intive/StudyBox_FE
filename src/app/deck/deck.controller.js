@@ -19,6 +19,7 @@
     vm.selectDeck = selectDeck;
     vm.selectCard = selectCard;
     vm.deleteCard = deleteCard;
+    vm.clear = clear
 
     function createDeck(name){
       if (!name.trim()) return;
@@ -86,6 +87,10 @@
       return function filterFn(deck) {
         return (deck.name.toLowerCase().indexOf(lowercaseQuery) === 0);
       };
+    }
+
+    function clear(){
+      vm.searchText=null;
     }
 
     function getCards() {

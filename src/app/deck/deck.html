@@ -1,19 +1,20 @@
-<md-content class="md-padding" layout="column">
+<md-content class="md-padding" layout="column" ng-cloak>
   <form ng-submit="deck.selectDeck(deckForm.$valid)" name="deckForm" layout="row" layout-wrap >
-    <md-autocomplete flex="80" required
-      md-input-name="deckField"
-      md-selected-item="deck.selectedItem"
-      md-search-text="deck.searchText"
-      md-search-text-change="deck.getDecks(deck.searchText)"
-      md-items="item in deck.getDecks(deck.searchText)"
-      md-item-text="item.name"
-      md-selected-item-change="deck.getDecks(deck.searchText)"
-      md-min-length="0"
-      placeholder="{{'deck-TYPE_NAME' | translate}}">
+    <md-autocomplete flex required
+                     md-input-name="deckField"
+                     md-selected-item="deck.selectedItem"
+                     md-search-text="deck.searchText"
+                     md-search-text-change="deck.getDecks(deck.searchText)"
+                     md-items="item in deck.getDecks(deck.searchText)"
+                     md-item-text="item.name"
+                     md-selected-item-change="deck.getDecks(deck.searchText)"
+                     md-min-length="0"
+                     md-floating-label="{{'deck-TYPE_NAME' | translate}}">
       <md-item-template>
-        <span md-highlight-text="deck.searchText" md-highlight-flags="^i">{{item.name}}</span>
+        <span md-highlight-text="ctrl.searchText">{{item.name}}</span>
       </md-item-template>
     </md-autocomplete>
+    <div ng-if="deck.searchText" ng-click="deck.clear()" class="deck-clear">x</div>
 
     <div flex="20">
       <md-button aria-label="selector"
@@ -47,4 +48,3 @@
     </md-card-actions>
   </md-card>
 </md-content>
-
