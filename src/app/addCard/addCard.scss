@@ -30,12 +30,13 @@ $graphite: #424242;
   background-color: lighten($graphite,66%);
 }
 
-.hintCardRemove
+.md-button.md-fab.hintCardRemove
 {
   font-size: 60px !important;
   position: relative;
   left: calc(50% - 44px);
-  color: rgba(0,0,0,0.4);
+  background-color: #969595 !important;
+  margin: 20px;
 }
 
 .md-button.md-fab.hintCardAdd
@@ -43,7 +44,8 @@ $graphite: #424242;
   font-size: 60px !important;
   position: absolute;
   bottom: -30px;
-  right: -60px;
+  right: -40px;
+  background-color: #969595 !important;
 }
 
 .camera:hover
@@ -54,7 +56,7 @@ $graphite: #424242;
 
 button.md-button.addCardButtons{
   //background-color: #EA0061;
-  font-size: 0.7em;
+  font-size: 0.6em;
   padding: 10px;
 }
 

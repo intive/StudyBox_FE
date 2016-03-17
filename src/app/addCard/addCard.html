@@ -1,6 +1,6 @@
-<div layout="row" layout-xs="column" class="addCard">
+<div layout="row" layout-xs="column" layout-sm="column" class="addCard">
 
-  <div flex-gt-xs="65" flex-xs="grow" layout-align="center stretch" class="separate">
+  <div flex-gt-sm="65" flex-xs="grow" flex-sm="grow" layout-align="center stretch" class="separate">
     <md-content layout-padding class="siteParts" style="overflow: visible;">
       <md-input-container class="md-block md-whiteframe-4dp middleCard" md-no-float>
 
@@ -8,15 +8,18 @@
           <md-icon md-svg-src="assets/icons/photo_camera_36px.svg" class="camera"></md-icon>
         </i>
 
-        <md-button md-open="AddCardController.toggleStatus" id="addButton" hide-xs aria-label="add" class="md-fab color-dial hintCardAdd" ng-class="addCard.toggleStatus == true ? 'rotate' : 'noclass'" ng-click="addCard.toggleButton()">
+        <md-button md-open="AddCardController.toggleStatus" id="addButton" hide-xs hide-sm aria-label="add" class="md-fab color-dial hintCardAdd" ng-class="addCard.toggleStatus == true ? 'rotate' : 'noclass'" ng-click="addCard.toggleButton()">
           <md-tooltip id="addButtonTooltip" md-direction="right">Podpowiedź</md-tooltip>
           <md-icon md-svg-src="assets/icons/add_36px.svg" style="display: inline; " ></md-icon>
         </md-button>
         <textarea class="question" placeholder='{{"addCard-WRITE_QUESTION" | translate}}' ng-model="question" rows="5" md-select-on-focus></textarea>
       </md-input-container>
 
-      <md-input-container class="md-block hintDiv md-whiteframe-4dp middleCard" md-no-float hide-gt-xs show-xs>
-        <md-button id="hiddenIcon" class="md-raised material-icons hintCardRemove" ng-click="addCard.toggleButton()" style="margin-top: 10px;margin-bottom:10px;">add</md-button>
+      <md-input-container class="md-block hintDiv md-whiteframe-4dp middleCard" md-no-float hide-gt-sm show-sm show-xs>
+        <md-button md-open="AddCardController.toggleStatus" id="hiddenIcon" aria-label="add hint" class="md-fab color-dial hintCardRemove" ng-class="addCard.toggleStatus == true ? 'rotate' : 'noclass'" ng-click="addCard.toggleButton()">
+          <md-tooltip id="addButtonTooltip" md-direction="right">Podpowiedź</md-tooltip>
+          <md-icon md-svg-src="assets/icons/add_36px.svg" style="display: inline; " ></md-icon>
+        </md-button>
       </md-input-container>
 
       <md-input-container class="md-block md-whiteframe-4dp middleCard" id="hint" md-no-float style="display: none;">
@@ -41,7 +44,7 @@
     </md-content>
   </div>
 
-  <div flex-gt-xs="35" flex-xs="grow" class="separate">
+  <div flex-gt-sm="35" flex-xs="grow" flex-sm="grow" class="separate">
 
     <div layout="column" layout-align="center stretch" class="siteParts">
       <md-button class="md-raised addCardButtons" style="margin-top:0px;">{{"addCard-START_TEST" | translate}}</md-button>

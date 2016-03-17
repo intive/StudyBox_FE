@@ -1,9 +1,10 @@
-<div layout="row">
-  <div flex-sm="100" flex-xs="100" flex="30" flex-order="0">
+<div layout="row" layout-xs="column" layout-sm="column">
+
+  <div flex-gt-sm="30" flex-xs="grow" flex-sm="grow" flex-order="0">
     <deck></deck>
   </div>
 
-  <div ui-view flex-sm="100" flex-xs="100" flex="70" flex-order="1">
+  <div ui-view flex-gt-sm="70" flex-xs="grow" flex-sm="grow" flex-order="1">
     <add-card></add-card>
   </div>
 </div>
