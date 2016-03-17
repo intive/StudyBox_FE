@@ -32,7 +32,7 @@
             var list = query ? result.filter( queryFilter(query) ) : result;
             // checking if only 1 deck
             if (query == list[0].name){
-              vm.selectedItem = list[0]
+              vm.selectedDeck = list[0]
             }
             return list
           })
@@ -43,9 +43,7 @@
 
     //apply deck choice
     function selectDeck(){
-      if (vm.selectedItem){
-        $state.go("deck", {deckId: vm.selectedItem.id})
-      }
+      $state.go("deck", {deckId: vm.selectedDeck.id})
     }
 
     function selectCard(value){
@@ -87,8 +85,6 @@
       BackendService.getDeckById(value)
         .then(function (result) {
           vm.selectedDeck=result;
-          vm.selectedItem=vm.selectedDeck;
-          //load flashcards for selected deck
           getCards();
         }, function (e) {
           $log.error(e);
