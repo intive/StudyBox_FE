@@ -42,7 +42,7 @@
 
       <div layout="horizontal" layout-wrap>
         <div ng-repeat="deck in decks.categories" flex-sm="100" flex-xs="100" flex="25">
-            <md-card class="card-square" ui-sref="deck({ id: deck.id })">
+            <md-card class="card-square" ui-sref="deck({ deckId: deck.id })">
               <md-card-title class="title-square">
                 <md-card-title-text>
                 {{ deck.name }}
