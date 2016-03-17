@@ -12,25 +12,13 @@
     vm.innerHeight = {height:$window.innerHeight+ 'px'};
     vm.selectedDeck = new BackendService.Deck();
     vm.decks = null;
-    vm.creation = false;
     vm.load = false;
-    vm.createDeck = createDeck;
     vm.getDecks = getDecks;
     vm.selectDeck = selectDeck;
     vm.selectCard = selectCard;
     vm.deleteCard = deleteCard;
-    vm.clear = clear
+    vm.clear = clear;
 
-    function createDeck(name){
-      if (!name.trim()) return;
-      BackendService.createNewDeck(name)
-        .then(function (result) {
-          vm.selectedItem=result;
-          vm.selectDeck();
-        }, function (e) {
-          $log.error(e);
-        });
-    }
 
     function getDecks(query) {
       //for not loading list of deck on page init
@@ -42,17 +30,9 @@
         return vm.decks
           .then(function(result){
             var list = query ? result.filter( queryFilter(query) ) : result;
-            // checking if deck name exist for creation
-            if (list.length > 0) {
-              if (query != list[0].name){
-                vm.creation = true;
-              }else{
-                vm.creation = false;
-                vm.selectedItem = list[0]
-              }
-            }
-            else {
-              vm.creation = vm.selectedDeck.name != query;
+            // checking if only 1 deck
+            if (query == list[0].name){
+              vm.selectedItem = list[0]
             }
             return list
           })
@@ -83,9 +63,9 @@
 
     //LOCAL FUNCTIONS
     function queryFilter(query) {
-      var lowercaseQuery = angular.lowercase(query);
+      //var lowercaseQuery = angular.lowercase(query);
       return function filterFn(deck) {
-        return (deck.name.toLowerCase().indexOf(lowercaseQuery) === 0);
+        return (deck.name.indexOf(query) === 0);
       };
     }
 
