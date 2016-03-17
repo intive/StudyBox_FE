@@ -7,10 +7,12 @@
 
 
   /** @ngInject */
-  function AddCardController($stateParams) {
+  function AddCardController($stateParams, $document) {
     var vm = this;
+
     vm.deckId = $stateParams.deckId;
     vm.cardId = $stateParams.cardId;
+
     vm.getDecks = function () {
       //service will be used in future
 
@@ -23,27 +25,16 @@
 
     vm.categories = vm.getDecks();
 
-    var toggleStatus = true;
+    vm.toggleStatus = false;
 
     vm.toggleButton = function ()
     {
-      if(toggleStatus === true)
-      {
-        document.getElementById("addButton").innerHTML = "remove_circle";
-        document.getElementById("hiddenIcon").innerHTML = "remove";
-        document.getElementById("hint").style.display = "block";
-
-        toggleStatus = false;
-      }
+      if(vm.toggleStatus === false)
+        angular.element($document[0].querySelector('#hint')).css("display", "block");
       else
-      {
-        document.getElementById("addButton").innerHTML = "add_circle";
-        document.getElementById("hiddenIcon").innerHTML = "add";
-        document.getElementById("hint").style.display = "none";
+        angular.element($document[0].querySelector('#hint')).css("display", "none");
 
-        toggleStatus = true;
-      }
-
+      vm.toggleStatus = !vm.toggleStatus;
     };
 
   }
