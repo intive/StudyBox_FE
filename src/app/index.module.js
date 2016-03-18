@@ -19,7 +19,8 @@
   angular
     .module('studyBoxFeApp', [
       'backend',
-      'studyBoxFeDeck'
-    ])
+      'studyBoxFeDeck',
+      'registrationMod'
+    ]);
 
 })();

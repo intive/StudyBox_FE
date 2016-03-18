@@ -25,13 +25,8 @@
         templateUrl: 'app/decks/decks.html',
         controller: 'DecksController',
         controllerAs: 'decks'
-      })
-      .state('registration', {
-        url: '/registration',
-        templateUrl: 'app/registration/registration.html',
-        controller: 'RegistrationController',
-        controllerAs: 'registration'
       });
+      
 
     $urlRouterProvider.otherwise('/');
   }
