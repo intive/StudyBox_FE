@@ -2,5 +2,5 @@
 	'use strict';
 
 	angular
-	.module('registrationMod', []);
+	.module('registration', []);
 	})();

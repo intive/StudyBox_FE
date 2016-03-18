@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-    .module('studyBoxFe.deck')
+    .module('deck')
     .directive('deck', DeckDirective);
 
   /** @ngInject */
