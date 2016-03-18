@@ -7,7 +7,7 @@
       'studyBoxFe.core',
 
       /*Features area*/
-      'studyBoxFe.backend',
-      'studyBoxFe.deck'
+      'studyBoxFe.services',
+      'studyBoxFe.layout'
     ]);
 })();

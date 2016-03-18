@@ -2,7 +2,7 @@
   'use strict';
 
 angular
-.module('registrationMod')
+.module('registration')
 .run(ifOnline);
 
 /** @ngInject */
