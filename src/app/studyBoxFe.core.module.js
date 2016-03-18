@@ -10,7 +10,8 @@
       'ngSanitize',
       'ngMessages',
       'ngAria',
-      /*3rd party modules*/
+
+      /*3 rd party modules*/
       'ui.router',
       'toastr',
       'pascalprecht.translate',
