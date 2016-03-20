@@ -28,7 +28,7 @@
 }
 
 .deck-select-button{
-  margin-top: -7px;
+  padding-left: 5px;
   background: #0068B4 !important;
 }
 
@@ -37,7 +37,7 @@
 }
 
 .deck-add-button{
-  margin-top: -7px;
+  padding-left: 5px;
   background-color: #EA0061 !important;
 }
 
@@ -54,4 +54,18 @@
 /* The finishing CSS styles for the enter animation */
 .fade.ng-enter.ng-enter-active {
   opacity:1;
+}
+
+.deck-clear{
+  position: relative;
+  z-index: 2;
+  margin-top: 1.5em;
+  left: -1.5em;
+  cursor: pointer;
+  color: #0068B4;
+  padding: 0;
+  height: 1.2em;
+}
+.deck-clear:hover{
+  cursor: hand;
 }

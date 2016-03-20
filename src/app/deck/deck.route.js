@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-    .module('studyBoxFeDeck')
+    .module('deck')
     .config(routerConfig);
 
   /** @ngInject */

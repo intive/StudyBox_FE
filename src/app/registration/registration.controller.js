@@ -2,9 +2,10 @@
   'use strict';
 
 angular
-.module('studyBoxFe')
+.module('registration')
 .controller('RegistrationController', RegistrationController);
 
+/** @ngInject */
 function RegistrationController($document, $log, $mdDialog) {
   var vm = this;
   vm.formStatus = '';

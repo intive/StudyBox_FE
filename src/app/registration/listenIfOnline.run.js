@@ -2,9 +2,10 @@
   'use strict';
 
 angular
-.module('studyBoxFe')
+.module('registration')
 .run(ifOnline);
 
+/** @ngInject */
   function ifOnline($window, $rootScope) {
 
     $rootScope.online = navigator.onLine;
