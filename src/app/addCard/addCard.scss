@@ -14,7 +14,7 @@ $graphite: #424242;
 {
   position: absolute;
   top: 25px;
-  right: 25px;
+  right: 15px;
 }
 
 .camera
@@ -80,7 +80,7 @@ md-select.siteParts
 
 @mixin partOfCard() {
   min-height: 8em;
-  padding: 25px;
+  padding: 25px 55px 25px 25px;
 }
 
 @mixin middleCard()
