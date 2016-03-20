@@ -2,45 +2,64 @@
 
   <div flex-gt-sm="65" flex-xs="grow" flex-sm="grow" layout-align="center stretch" class="separate">
     <md-content layout-padding class="siteParts" style="overflow: visible;">
-      <md-input-container class="md-block md-whiteframe-4dp middleCard" md-no-float>
+      <form ng-submit="deck.selectDeck(deckForm.$valid)" name="deckForm">
+        <md-input-container class="md-block md-whiteframe-4dp middleCard" md-no-float>
 
-        <i class="camera-position" onclick="document.getElementById('fileInput1').click();">
-          <md-icon md-svg-src="assets/icons/photo_camera_36px.svg" class="camera"></md-icon>
-        </i>
+          <i class="camera-position" onclick="document.getElementById('fileInput1').click();">
+            <md-icon md-svg-src="assets/icons/photo_camera_36px.svg" class="camera"></md-icon>
+          </i>
 
-        <md-button md-open="AddCardController.toggleStatus" id="addButton" hide-xs hide-sm aria-label="add" class="md-fab color-dial hintCardAdd" ng-class="addCard.toggleStatus == true ? 'rotate' : 'noclass'" ng-click="addCard.toggleButton()">
-          <md-tooltip id="addButtonTooltip" md-direction="right">Podpowiedź</md-tooltip>
-          <md-icon md-svg-src="assets/icons/add_36px.svg" style="display: inline; " ></md-icon>
-        </md-button>
-        <textarea maxlength="1000" class="question" placeholder='{{"addCard-WRITE_QUESTION" | translate}}' ng-model="question" rows="5" md-select-on-focus></textarea>
-      </md-input-container>
+          <md-button md-open="AddCardController.toggleStatus" id="addButton" hide-xs hide-sm aria-label="add" class="md-fab color-dial hintCardAdd" ng-class="addCard.toggleStatus == true ? 'rotate' : 'noclass'" ng-click="addCard.toggleButton()">
+            <md-tooltip id="addButtonTooltip" md-direction="right">Podpowiedź</md-tooltip>
+            <md-icon md-svg-src="assets/icons/add_36px.svg" style="display: inline; " ></md-icon>
+          </md-button>
+          <textarea
+            maxlength="1000"
+            class="question"
+            placeholder='{{"addCard-WRITE_QUESTION" | translate}}'
+            ng-model="question" rows="5"
+            md-select-on-focus
+            required></textarea>
+        </md-input-container>
 
-      <md-input-container class="md-block hintDiv md-whiteframe-4dp middleCard" md-no-float hide-gt-sm show-sm show-xs>
-        <md-button md-open="AddCardController.toggleStatus" id="hiddenIcon" aria-label="add hint" class="md-fab color-dial hintCardRemove" ng-class="addCard.toggleStatus == true ? 'rotate' : 'noclass'" ng-click="addCard.toggleButton()">
-          <md-tooltip id="addButtonTooltip" md-direction="right">Podpowiedź</md-tooltip>
-          <md-icon md-svg-src="assets/icons/add_36px.svg" style="display: inline; " ></md-icon>
-        </md-button>
-      </md-input-container>
+        <md-input-container class="md-block hintDiv md-whiteframe-4dp middleCard" md-no-float hide-gt-sm show-sm show-xs>
+          <md-button md-open="AddCardController.toggleStatus" id="hiddenIcon" aria-label="add hint" class="md-fab color-dial hintCardRemove" ng-class="addCard.toggleStatus == true ? 'rotate' : 'noclass'" ng-click="addCard.toggleButton()">
+            <md-tooltip id="addButtonTooltip" md-direction="right">Podpowiedź</md-tooltip>
+            <md-icon md-svg-src="assets/icons/add_36px.svg" style="display: inline; " ></md-icon>
+          </md-button>
+        </md-input-container>
 
-      <md-input-container class="md-block md-whiteframe-4dp middleCard" id="hint" md-no-float style="display: none;">
-        <i class="camera-position" onclick="document.getElementById('fileInput1').click();">
-          <md-icon md-svg-src="assets/icons/photo_camera_36px.svg" class="camera"></md-icon>
-        </i>
-        <textarea maxlength="1000" class="hint" placeholder='{{"addCard-WRITE_HINT" | translate}}' ng-model="hint" rows="5" md-select-on-focus></textarea>
-      </md-input-container>
+        <md-input-container class="md-block md-whiteframe-4dp middleCard" id="hint" md-no-float style="display: none;">
+          <i class="camera-position" onclick="document.getElementById('fileInput1').click();">
+            <md-icon md-svg-src="assets/icons/photo_camera_36px.svg" class="camera"></md-icon>
+          </i>
+          <textarea
+            maxlength="1000"
+            class="hint"
+            placeholder='{{"addCard-WRITE_HINT" | translate}}'
+            ng-model="hint" rows="5"
+            md-select-on-focus></textarea>
+        </md-input-container>
 
-      <md-input-container class="md-block md-whiteframe-4dp middleCard" md-no-float>
-        <i class="camera-position" onclick="document.getElementById('fileInput1').click();">
-          <md-icon md-svg-src="assets/icons/photo_camera_36px.svg" class="camera"></md-icon>
-        </i>
-        <textarea maxlength="1000" class="answer" placeholder='{{"addCard-WRITE_ANSWER" | translate}}' ng-model="answer" rows="5" md-select-on-focus></textarea>
-      </md-input-container>
+        <md-input-container class="md-block md-whiteframe-4dp middleCard" md-no-float>
+          <i class="camera-position" onclick="document.getElementById('fileInput1').click();">
+            <md-icon md-svg-src="assets/icons/photo_camera_36px.svg" class="camera"></md-icon>
+          </i>
+          <textarea
+            maxlength="1000"
+            class="answer"
+            placeholder='{{"addCard-WRITE_ANSWER" | translate}}'
+            ng-model="answer" rows="5"
+            md-select-on-focus
+            required></textarea>
+        </md-input-container>
 
-      <input type="file" style="display: none;" id="fileInput1" name="myImage" accept="image/*" />
-      <input type="file" style="display: none;" id="fileInput2" name="myImage" accept="image/*" />
-      <input type="file" style="display: none;" id="fileInput3" name="myImage" accept="image/*" />
+        <input type="file" style="display: none;" id="fileInput1" name="myImage" accept="image/*" />
+        <input type="file" style="display: none;" id="fileInput2" name="myImage" accept="image/*" />
+        <input type="file" style="display: none;" id="fileInput3" name="myImage" accept="image/*" />
 
-      <md-button class="md-raised addCardButtons addCardButton" layout-align="end center">{{"addCard-ADD_TO_DECK" | translate}}</md-button>
+        <md-button type="submit" class="md-raised addCardButtons addCardButton" layout-align="end center">{{"addCard-ADD_TO_DECK" | translate}}</md-button>
+        </form>
     </md-content>
   </div>
 
