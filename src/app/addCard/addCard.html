@@ -12,7 +12,7 @@
           <md-tooltip id="addButtonTooltip" md-direction="right">Podpowiedź</md-tooltip>
           <md-icon md-svg-src="assets/icons/add_36px.svg" style="display: inline; " ></md-icon>
         </md-button>
-        <textarea class="question" placeholder='{{"addCard-WRITE_QUESTION" | translate}}' ng-model="question" rows="5" md-select-on-focus></textarea>
+        <textarea maxlength="1000" class="question" placeholder='{{"addCard-WRITE_QUESTION" | translate}}' ng-model="question" rows="5" md-select-on-focus></textarea>
       </md-input-container>
 
       <md-input-container class="md-block hintDiv md-whiteframe-4dp middleCard" md-no-float hide-gt-sm show-sm show-xs>
@@ -26,14 +26,14 @@
         <i class="camera-position" onclick="document.getElementById('fileInput1').click();">
           <md-icon md-svg-src="assets/icons/photo_camera_36px.svg" class="camera"></md-icon>
         </i>
-        <textarea class="hint" placeholder='{{"addCard-WRITE_HINT" | translate}}' ng-model="hint" rows="5" md-select-on-focus></textarea>
+        <textarea maxlength="1000" class="hint" placeholder='{{"addCard-WRITE_HINT" | translate}}' ng-model="hint" rows="5" md-select-on-focus></textarea>
       </md-input-container>
 
       <md-input-container class="md-block md-whiteframe-4dp middleCard" md-no-float>
         <i class="camera-position" onclick="document.getElementById('fileInput1').click();">
           <md-icon md-svg-src="assets/icons/photo_camera_36px.svg" class="camera"></md-icon>
         </i>
-        <textarea class="answer" placeholder='{{"addCard-WRITE_ANSWER" | translate}}' ng-model="answer" rows="5" md-select-on-focus></textarea>
+        <textarea maxlength="1000" class="answer" placeholder='{{"addCard-WRITE_ANSWER" | translate}}' ng-model="answer" rows="5" md-select-on-focus></textarea>
       </md-input-container>
 
       <input type="file" style="display: none;" id="fileInput1" name="myImage" accept="image/*" />
