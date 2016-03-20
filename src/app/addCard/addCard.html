@@ -10,7 +10,7 @@
           </i>
 
           <md-button md-open="AddCardController.toggleStatus" id="addButton" hide-xs hide-sm aria-label="add" class="md-fab color-dial hintCardAdd" ng-class="addCard.toggleStatus == true ? 'rotate' : 'noclass'" ng-click="addCard.toggleButton()">
-            <md-tooltip id="addButtonTooltip" md-direction="right">Podpowiedź</md-tooltip>
+            <md-tooltip id="addButtonTooltip" md-direction="right">{{"addCard-HINT" | translate}}</md-tooltip>
             <md-icon md-svg-src="assets/icons/add_36px.svg" style="display: inline; " ></md-icon>
           </md-button>
           <textarea
@@ -24,7 +24,7 @@
 
         <md-input-container class="md-block hintDiv md-whiteframe-4dp middleCard" md-no-float hide-gt-sm show-sm show-xs>
           <md-button md-open="AddCardController.toggleStatus" id="hiddenIcon" aria-label="add hint" class="md-fab color-dial hintCardRemove" ng-class="addCard.toggleStatus == true ? 'rotate' : 'noclass'" ng-click="addCard.toggleButton()">
-            <md-tooltip id="addButtonTooltip" md-direction="right">Podpowiedź</md-tooltip>
+            <md-tooltip id="addButtonTooltip" md-direction="right">{{"addCard-HINT" | translate}}</md-tooltip>
             <md-icon md-svg-src="assets/icons/add_36px.svg" style="display: inline; " ></md-icon>
           </md-button>
         </md-input-container>
