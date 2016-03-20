@@ -7,7 +7,7 @@
 
 
   /** @ngInject */
-  function AddCardController($stateParams, $document) {
+  function AddCardController($stateParams, $document, BackendService) {
     var vm = this;
 
     vm.deckId = $stateParams.deckId;
@@ -36,6 +36,12 @@
 
       vm.toggleStatus = !vm.toggleStatus;
     };
+
+
+    vm.submitForm = function()
+    {
+
+    }
 
   }
 
