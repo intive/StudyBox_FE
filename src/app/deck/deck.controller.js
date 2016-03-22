@@ -19,7 +19,7 @@
     vm.selectCard = selectCard;
     vm.deleteCard = deleteCard;
     vm.clear = clear;
-
+    vm.creation = false;
 
     function getDecks(query) {
       //for not loading list of deck on page init
@@ -31,9 +31,20 @@
         return vm.decks
           .then(function(result){
             var list = query ? result.filter( queryFilter(query) ) : result;
-            // checking if only 1 deck
-            if (list.length>0 && query == list[0].name){
-              vm.selectedDeck = list[0]
+            // checking if deck name exist for creation
+            if (list.length > 0) {
+              if (query != list[0].name){
+                vm.creation = true;
+              }else{
+                vm.creation = false;
+                vm.selectedItem = list[0]
+              }
+            }
+            else {
+              vm.creation = vm.selectedDeck.name != query;
+            }
+            if(vm.creation){
+              //todo setname
             }
             return list
           })
@@ -43,12 +54,11 @@
     }
 
     function selectedItemChange(value){
-      if(value){}
+      if(value){vm.creation=false}
     }
-
     //apply deck choice
     function selectDeck(){
-      $state.go("deck", {deckId: vm.selectedDeck.id})
+      $state.go("deck", {deckId: vm.selectedItem.id})
     }
 
     function selectCard(value){
@@ -90,6 +100,8 @@
       BackendService.getDeckById(value)
         .then(function (result) {
           vm.selectedDeck=result;
+          vm.selectedItem=vm.selectedDeck;
+          //load flashcards for selected deck
           getCards();
         }, function (e) {
           $log.error(e);
