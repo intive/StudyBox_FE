@@ -14,6 +14,7 @@
     vm.decks = null;
     vm.load = false;
     vm.getDecks = getDecks;
+    vm.selectedItemChange = selectedItemChange;
     vm.selectDeck = selectDeck;
     vm.selectCard = selectCard;
     vm.deleteCard = deleteCard;
@@ -31,7 +32,7 @@
           .then(function(result){
             var list = query ? result.filter( queryFilter(query) ) : result;
             // checking if only 1 deck
-            if (query == list[0].name){
+            if (list.length>0 && query == list[0].name){
               vm.selectedDeck = list[0]
             }
             return list
@@ -39,6 +40,10 @@
         }else {
         vm.load = true
       }
+    }
+
+    function selectedItemChange(value){
+      if(value){}
     }
 
     //apply deck choice

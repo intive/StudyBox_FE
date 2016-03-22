@@ -7,12 +7,17 @@
                      md-search-text-change="deck.getDecks(deck.searchText)"
                      md-items="item in deck.getDecks(deck.searchText)"
                      md-item-text="item.name"
-                     md-selected-item-change="deck.getDecks(deck.searchText)"
+                     md-selected-item-change="deck.selectedItemChange(item)"
                      md-min-length="0"
+                     md-input-maxlength="50"
                      md-floating-label="{{'deck-TYPE_NAME' | translate}}">
       <md-item-template>
-        <span md-highlight-text="ctrl.searchText">{{item.name}}</span>
+        <span md-highlight-text="deck.searchText">{{item.name}}</span>
       </md-item-template>
+      <div ng-messages="deckForm.deckField.$error">
+        <div ng-message="required">{{'deck-NAME_REQUIRED' | translate}}</div>
+        <div ng-message="maxlength">{{'deck-NAME_TO_LONG' | translate}}</div>
+      </div>
     </md-autocomplete>
     <div ng-if="deck.searchText" ng-click="deck.clear()" class="deck-clear">x</div>
 
@@ -20,7 +25,7 @@
       <md-button aria-label="selector"
                  class="md-fab fade deck-select-button"
                  ng-click="deck.selectDeck()"
-                 ng-disabled="deck.selectedDeck.name!=deck.searchText || !deck.searchText">
+                 ng-disabled="deck.selectedDeck.name!=deck.searchText || deckForm.deckField.$error">
         <md-tooltip md-direction="top">{{'deck-SELECT_DECK' | translate}}</md-tooltip>
         <md-icon  md-svg-src="assets/icons/ext.svg"></md-icon>
       </md-button>
