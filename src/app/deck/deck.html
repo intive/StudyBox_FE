@@ -16,7 +16,7 @@
       </md-item-template>
       <div ng-messages="deckForm.deckField.$error">
         <div ng-message="required">{{'deck-NAME_REQUIRED' | translate}}</div>
-        <div ng-message="maxlength">{{'deck-NAME_TO_LONG' | translate}}</div>
+        <div ng-message="maxlength">{{'deck-NAME_TOO_LONG' | translate}}</div>
       </div>
     </md-autocomplete>
     <div ng-if="deck.searchText" ng-click="deck.clear()" class="deck-clear">x</div>
