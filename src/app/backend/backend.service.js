@@ -105,7 +105,7 @@
       }
       var method = 'POST';
       var url = '/api/decks';
-      var data = {name: name};
+      var data = {name: name, isPublic: true};
 
       return newDeckPromise(method, url, data);
     }
@@ -191,7 +191,8 @@
           throw message;
         }
         var method = 'DELETE';
-        var url = '/api/flashcards/' + id;
+        /*jshint validthis:true */
+        var url = '/api/decks/' + this.id + '/flashcards/' + id;
         var data = {};
 
         return simplePromise(method, url, data);
@@ -207,7 +208,7 @@
         var url = '/api/decks/';
         /*jshint validthis:true */
         url += this.id;
-        var data = {name: new_name};
+        var data = {name: new_name, isPublic: true};
         var $this = this;
 
         var promise = $http({method: method, url: url, data: data})
