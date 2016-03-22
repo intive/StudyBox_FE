@@ -7,23 +7,11 @@
 
 
   /** @ngInject */
-  function AddCardController($stateParams, $document, BackendService) {
+  function AddCardController($stateParams, $document, BackendService, $window, $scope) {
     var vm = this;
 
     vm.deckId = $stateParams.deckId;
     vm.cardId = $stateParams.cardId;
-
-    vm.getDecks = function () {
-      //service will be used in future
-
-      return[
-        {id: 0, name: 'deck_0'},
-        {id: 12, name: 'deck_1'},
-        {id: 23, name: 'deck_2'},
-        {id: 34, name: 'deck_3'}];
-    };
-
-    vm.categories = vm.getDecks();
 
     vm.toggleStatus = false;
 
@@ -37,12 +25,34 @@
       vm.toggleStatus = !vm.toggleStatus;
     };
 
+    $scope.$watch('addCard.questionFile', function(newValue, oldValue) {
+      if ( newValue !== oldValue ) {
 
-    vm.submitForm = function()
+        vm.x=vm.questionFile;
+        vm.previewOfImg('questionImg');
+      }
+    });
+
+    vm.previewOfImg = function(fileName)
     {
+      $window.alert(vm.x);
 
-    }
+      var reader = new FileReader();
 
+
+      var imgtag = $document[0].querySelector('#'+fileName);
+      imgtag.title = selectedFile.name;
+
+      reader.onload = function(onLoadEvent) {
+        $scope.$apply(function() {
+
+          $window.alert(reader.result);
+        }
+      )};
+
+      readAsDataURL(vm.x)
+
+    };
   }
 
 })();
