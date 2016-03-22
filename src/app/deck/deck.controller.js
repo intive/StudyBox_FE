@@ -43,16 +43,18 @@
             else {
               vm.creation = vm.selectedDeck.name != query;
             }
-            DeckService.setCreation(vm.creation);
-            if(vm.creation){
-              DeckService.setDeckName(vm.searchText);
-            }
-            vm.name = DeckService.getDeckName();
-            vm.cre = DeckService.getCreation();
+            updateService();
             return list
           })
         }else {
         vm.load = true
+      }
+    }
+
+    function updateService(){
+      DeckService.setCreation(vm.creation);
+      if(vm.creation){
+        DeckService.setDeckName(vm.searchText);
       }
     }
 
@@ -107,8 +109,6 @@
           //load flashcards for selected deck
           getCards();
           DeckService.setCreation(vm.creation);
-          vm.name = DeckService.getDeckName();
-          vm.cre = DeckService.getCreation();
         }, function (e) {
           $log.error(e);
         });
