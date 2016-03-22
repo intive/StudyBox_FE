@@ -25,7 +25,7 @@
   .service('BackendService', BackendService);
 
   /** @ngInject */
-  function BackendService($http) {
+  function BackendService($http, $q) {
 
     this.getDeckById = getDeckById;
     this.getDecks = getDecks;
@@ -58,7 +58,7 @@
           return deck;
         },
         function error(response) {
-          return response;
+          return $q.reject(response.data);
         }
       );
 
@@ -79,7 +79,7 @@
           return jsonToDecks(response);
         },
         function error(response) {
-          return response;
+          return $q.reject(response.data);
         }
       );
 
@@ -125,7 +125,7 @@
           return deck;
         },
         function error(response) {
-          return response;
+          return $q.reject(response.data);
         }
       );
       return promise;
@@ -218,7 +218,7 @@
             return response.data;
           },
           function error(response) {
-            return response.data.message;
+            return $q.reject(response.data);
           }
         );
 
@@ -233,7 +233,7 @@
           return response.data;
         },
         function error(response) {
-          return response.data.message;
+          return $q.reject(response.data);
         }
       );
     }
