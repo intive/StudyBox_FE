@@ -36,7 +36,8 @@ function browserSyncInit(baseDir, browser) {
    * For more details and option, https://github.com/chimurai/http-proxy-middleware/blob/v0.9.0/README.md
    */
   server.middleware = proxyMiddleware('/api', {
-    target: 'http://localhost:3005',
+    // [2016-03-22 13:42] dla mocka: target: 'http://localhost:3005',
+    target: 'http://78.133.154.70:2000',
     pathRewrite: {
         '^/api' : ''
     },
