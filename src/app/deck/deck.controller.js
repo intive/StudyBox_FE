@@ -6,7 +6,7 @@
     .controller('DeckController', DeckController);
 
   /** @ngInject */
-  function DeckController($stateParams, $state, $window, BackendService, $log) {
+  function DeckController($stateParams, $state, $window, BackendService, $log, DeckService) {
     var vm = this;
     vm.deckId = $stateParams.deckId;
     vm.innerHeight = {height:$window.innerHeight+ 'px'};
@@ -43,9 +43,12 @@
             else {
               vm.creation = vm.selectedDeck.name != query;
             }
+            DeckService.setCreation(vm.creation);
             if(vm.creation){
-              //todo setname
+              DeckService.setDeckName(vm.searchText);
             }
+            vm.name = DeckService.getDeckName();
+            vm.cre = DeckService.getCreation();
             return list
           })
         }else {
@@ -103,6 +106,9 @@
           vm.selectedItem=vm.selectedDeck;
           //load flashcards for selected deck
           getCards();
+          DeckService.setCreation(vm.creation);
+          vm.name = DeckService.getDeckName();
+          vm.cre = DeckService.getCreation();
         }, function (e) {
           $log.error(e);
         });
