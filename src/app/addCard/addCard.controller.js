@@ -41,7 +41,7 @@
     vm.submitForm = function()
     {
 
-    }
+    };
 
   }
 
