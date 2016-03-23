@@ -6,7 +6,7 @@
     .controller('DeckController', DeckController);
 
   /** @ngInject */
-  function DeckController($stateParams, $state, $window, BackendService, $log, DeckService) {
+  function DeckController($stateParams, $state, $window, BackendService, $log) {
     var vm = this;
     vm.deckId = $stateParams.deckId;
     vm.innerHeight = {height:$window.innerHeight+ 'px'};
@@ -15,11 +15,11 @@
     vm.load = false;
     vm.getDecks = getDecks;
     vm.selectedItemChange = selectedItemChange;
+    vm.createDeck = createDeck;
     vm.selectDeck = selectDeck;
     vm.selectCard = selectCard;
     vm.deleteCard = deleteCard;
     vm.clear = clear;
-    vm.creation = false;
 
     function getDecks(query) {
       //for not loading list of deck on page init
@@ -43,7 +43,6 @@
             else {
               vm.creation = vm.selectedDeck.name != query;
             }
-            updateService();
             return list
           })
         }else {
@@ -51,17 +50,14 @@
       }
     }
 
-    function updateService(){
-      DeckService.setCreation(vm.creation);
-      if(vm.creation){
-        DeckService.setDeckName(vm.searchText);
-      }
-    }
-
     function selectedItemChange(value){
       if(value){vm.creation=false}
     }
-    //apply deck choice
+
+    function createDeck(){
+      $state.go("deck", {deckId: ''})
+    }
+
     function selectDeck(){
       $state.go("deck", {deckId: vm.selectedItem.id})
     }
@@ -104,11 +100,16 @@
     function initDeck(value){
       BackendService.getDeckById(value)
         .then(function (result) {
-          vm.selectedDeck=result;
-          vm.selectedItem=vm.selectedDeck;
           //load flashcards for selected deck
-          getCards();
-          DeckService.setCreation(vm.creation);
+          if(vm.deckId.length>0){
+            vm.creation = false;
+            vm.selectedDeck=result;
+            vm.selectedItem=vm.selectedDeck;
+            getCards();
+          }else{
+            vm.creation = true;
+            clear()
+          }
         }, function (e) {
           $log.error(e);
         });
