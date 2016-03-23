@@ -20,10 +20,10 @@ function RegistrationController($document, $log, $mdDialog) {
   //wysylanie formularza
   function submit(isValid, online) {
     if (isValid && online) {
-        vm.formStatus = "Formularz poprawny";
-        $log.info("formularz poprawny dla " +vm.data.email);
+      // vm.formStatus = "Formularz poprawny";
+      $log.info("formularz poprawny dla " +vm.data.email);
     }else{
-      vm.formStatus = "Formularz niepoprawny";
+      // vm.formStatus = "Formularz niepoprawny";
       $log.info("blad formularza");
     }
   }

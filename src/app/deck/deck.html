@@ -1,26 +1,41 @@
 <md-content class="md-padding" layout="column" ng-cloak>
   <form ng-submit="deck.selectDeck(deckForm.$valid)" name="deckForm" layout="row" layout-wrap >
     <md-autocomplete flex required
+                     ng-model="deck.searchText"
                      md-input-name="deckField"
-                     md-selected-item="deck.selectedDeck"
+                     md-selected-item="deck.selectedItem"
                      md-search-text="deck.searchText"
-                     md-search-text-change="deck.getDecks(deck.searchText)"
                      md-items="item in deck.getDecks(deck.searchText)"
                      md-item-text="item.name"
-                     md-selected-item-change="deck.getDecks(deck.searchText)"
+                     md-search-text-change="deck.getDecks(deck.searchText)"
+                     md-selected-item-change="deck.selectedItemChange(item)"
                      md-min-length="0"
+                     md-input-maxlength="50"
                      md-floating-label="{{'deck-TYPE_NAME' | translate}}">
       <md-item-template>
-        <span md-highlight-text="ctrl.searchText">{{item.name}}</span>
+        <span md-highlight-text="deck.searchText">{{item.name}}</span>
       </md-item-template>
+      <div ng-messages="deckForm.deckField.$error" ng-if="deckForm.deckField.$touched">
+        <div ng-message="required">{{'deck-NAME_REQUIRED' | translate}}</div>
+        <div ng-message="maxlength">{{'deck-NAME_TOO_LONG' | translate}}</div>
+      </div>
     </md-autocomplete>
     <div ng-if="deck.searchText" ng-click="deck.clear()" class="deck-clear">x</div>
 
     <div flex="20">
       <md-button aria-label="selector"
+                 class="md-fab fade deck-add-button"
+                 ng-if="deck.creation"
+                 ng-click="deck.createDeck()"
+                 ng-disabled="!deck.searchText">
+        <md-tooltip md-direction="top">{{'deck-CREATE_DECK' | translate}}</md-tooltip>
+        <md-icon md-svg-src="assets/icons/new.svg"></md-icon>
+      </md-button>
+      <md-button aria-label="selector"
                  class="md-fab fade deck-select-button"
+                 ng-if="deck.creation==false"
                  ng-click="deck.selectDeck()"
-                 ng-disabled="deck.selectedDeck.name!=deck.searchText || !deck.searchText">
+                 ng-disabled="deck.selectedDeck.name==deck.searchText">
         <md-tooltip md-direction="top">{{'deck-SELECT_DECK' | translate}}</md-tooltip>
         <md-icon  md-svg-src="assets/icons/ext.svg"></md-icon>
       </md-button>
