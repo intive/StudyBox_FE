@@ -2,7 +2,7 @@
     "deck-CREATE_DECK": "Utwórz nową talię",
     "deck-SELECT_DECK": "Wczytaj wybraną talię",
     "deck-TYPE_NAME": "Wpisz nazwę talii",
-    "deck-NAME_REQUIRED": "Nazwę talii jest wymagana",
+    "deck-NAME_REQUIRED": "Nazwa talii jest wymagana",
     "deck-NAME_TOO_LONG": "Zbyt długa nazwa (max 50 znaków)",
     "deck-REMOVE_CARD": "Usuń fiszkę",
 
