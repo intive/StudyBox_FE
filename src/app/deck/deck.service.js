@@ -8,7 +8,6 @@
   /** @ngInject */
   function DeckService() {
     var deckName;
-    var creation;
     return {
       setDeckName: function (name) {
         deckName = name
