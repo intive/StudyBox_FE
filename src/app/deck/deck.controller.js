@@ -59,7 +59,11 @@
 
     function createDeck() {
       DeckService.setDeckName(vm.searchText);
-      $state.go("deck", {deckId: ''})
+      if (vm.deckId.length>0){
+        $state.go("deck", {deckId: null});
+      } else{
+        $state.reload()
+      }
     }
 
     function selectDeck() {
@@ -113,7 +117,7 @@
             getCards();
           } else {
             vm.read = false;
-            clear()
+            vm.searchText = DeckService.getDeckName();
           }
         }, function (e) {
           $log.error(e);
