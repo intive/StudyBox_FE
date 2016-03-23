@@ -35,7 +35,7 @@
                  class="md-fab fade deck-select-button"
                  ng-if="deck.creation==false"
                  ng-click="deck.selectDeck()"
-                 ng-disabled="deck.selectedDeck.name==deck.searchText">
+                 ng-disabled="deck.selectedItem.id==deck.deckId">
         <md-tooltip md-direction="top">{{'deck-SELECT_DECK' | translate}}</md-tooltip>
         <md-icon  md-svg-src="assets/icons/ext.svg"></md-icon>
       </md-button>
