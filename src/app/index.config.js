@@ -48,51 +48,10 @@
       .definePalette('customAccent',
       customAccent);
 
-    var customWarn = {
-      '50': '#828282',
-      '100': '#757575',
-      '200': '#686868',
-      '300': '#5b5b5b',
-      '400': '#4f4f4f',
-      '500': '#424242',
-      '600': '#353535',
-      '700': '#282828',
-      '800': '#1c1c1c',
-      '900': '#0f0f0f',
-      'A100': '#8e8e8e',
-      'A200': '#9b9b9b',
-      'A400': '#a8a8a8',
-      'A700': '#020202'
-    };
-    $mdThemingProvider
-      .definePalette('customWarn',
-      customWarn);
-
-    var customBackground = {
-      '50': '#ffffff',
-      '100': '#ffffff',
-      '200': '#ffffff',
-      '300': '#ffffff',
-      '400': '#ffffff',
-      '500': '#FAFAFA',
-      '600': '#ededed',
-      '700': '#e0e0e0',
-      '800': '#d4d4d4',
-      '900': '#c7c7c7',
-      'A100': '#ffffff',
-      'A200': '#ffffff',
-      'A400': '#ffffff',
-      'A700': '#bababa'
-    };
-    $mdThemingProvider
-      .definePalette('customBackground',
-      customBackground);
 
     $mdThemingProvider.theme('default')
       .primaryPalette('customPrimary')
-      .accentPalette('customAccent')
-      .warnPalette('customWarn')
-      .backgroundPalette('customBackground')
+      .accentPalette('customAccent');
 
     // Enable log
     $logProvider.debugEnabled(true);
