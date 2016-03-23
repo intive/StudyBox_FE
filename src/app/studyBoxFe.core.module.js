@@ -10,7 +10,7 @@
       'ngSanitize',
       'ngMessages',
       'ngAria',
-      'file-model',
+      'ngFileUpload',
 
       /*3 rd party modules*/
       'ui.router',

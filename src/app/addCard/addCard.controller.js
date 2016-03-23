@@ -7,7 +7,7 @@
 
 
   /** @ngInject */
-  function AddCardController($stateParams, $document, BackendService, $window, $scope) {
+  function AddCardController($stateParams, $document, BackendService, $window) {
     var vm = this;
 
     vm.deckId = $stateParams.deckId;
@@ -25,34 +25,8 @@
       vm.toggleStatus = !vm.toggleStatus;
     };
 
-    $scope.$watch('addCard.questionFile', function(newValue, oldValue) {
-      if ( newValue !== oldValue ) {
-
-        vm.x=vm.questionFile;
-        vm.previewOfImg('questionImg');
-      }
-    });
-
-    vm.previewOfImg = function(fileName)
-    {
-      $window.alert(vm.x);
-
-      var reader = new FileReader();
 
 
-      var imgtag = $document[0].querySelector('#'+fileName);
-      imgtag.title = selectedFile.name;
-
-      reader.onload = function(onLoadEvent) {
-        $scope.$apply(function() {
-
-          $window.alert(reader.result);
-        }
-      )};
-
-      readAsDataURL(vm.x)
-
-    };
   }
 
 })();
