@@ -22,23 +22,32 @@
     </md-autocomplete>
     <div ng-if="deck.searchText" ng-click="deck.clear()" class="deck-clear">x</div>
 
-    <div flex="20">
-      <md-button aria-label="selector"
-                 class="md-fab fade deck-add-button"
-                 ng-if="deck.creation"
-                 ng-click="deck.createDeck()"
-                 ng-disabled="!deck.searchText">
-        <md-tooltip md-direction="top">{{'deck-CREATE_DECK' | translate}}</md-tooltip>
-        <md-icon md-svg-src="assets/icons/new.svg"></md-icon>
-      </md-button>
-      <md-button aria-label="selector"
-                 class="md-fab fade deck-select-button"
-                 ng-if="deck.creation==false"
-                 ng-click="deck.selectDeck()"
-                 ng-disabled="deck.selectedDeck.name==deck.searchText">
-        <md-tooltip md-direction="top">{{'deck-SELECT_DECK' | translate}}</md-tooltip>
-        <md-icon  md-svg-src="assets/icons/ext.svg"></md-icon>
-      </md-button>
+    <div class="fabSpeedDial" flex="20">
+        <md-fab-speed-dial md-open="decks.isOpen" md-direction="down" class="md-scale">
+          <md-fab-trigger>
+            <md-button aria-label="add" class="md-fab deck-add-button" ng-class="decks.isOpen == true ? 'rotate' : 'noclass'">
+              <md-icon md-svg-src="assets/icons/add.svg"></md-icon>
+            </md-button>
+          </md-fab-trigger>
+
+          <md-fab-actions>
+            <md-button aria-label="selector"
+                       class="md-fab md-mini fade deck-button"
+                       ng-click="deck.createDeck()"
+                       ng-disabled="!deck.searchText">
+              <md-tooltip md-direction="top">{{'deck-CREATE_DECK' | translate}}</md-tooltip>
+              <md-icon md-svg-src="assets/icons/new.svg"></md-icon>
+            </md-button>
+
+            <md-button aria-label="selector"
+                       class="md-fab md-mini fade deck-button"
+                       ng-click="deck.selectDeck()"
+                       ng-disabled="!deck.read || deck.selectedItem.id==deck.deckId">
+              <md-tooltip md-direction="top">{{'deck-SELECT_DECK' | translate}}</md-tooltip>
+              <md-icon  md-svg-src="assets/icons/ext.svg"></md-icon>
+            </md-button>
+          </md-fab-actions>
+        </md-fab-speed-dial>
     </div>
   </form>
 
