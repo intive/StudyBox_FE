@@ -9,40 +9,44 @@
   function config($logProvider, $mdThemingProvider) {
     // am conf theme
     var customPrimary = {
-      '50': '#34a9ff',
-      '100': '#1b9fff',
-      '200': '#0194ff',
-      '300': '#0085e7',
-      '400': '#0077cd',
-      '500': '#0068B4',
-      '600': '#00599a',
-      '700': '#004b81',
-      '800': '#003c67',
-      '900': '#002d4e',
-      'A100': '#4eb4ff',
-      'A200': '#67bfff',
-      'A400': '#81caff',
-      'A700': '#001e34'
+      '50': '#bee4ff',
+      '100': '#72c3ff',
+      '200': '#3aacff',
+      '300': '#008bf1',
+      '400': '#007ad3',
+      '500': '#0068b4',
+      '600': '#005695',
+      '700': '#004577',
+      '800': '#003358',
+      '900': '#00213a',
+      'A100': '#bee4ff',
+      'A200': '#72c3ff',
+      'A400': '#007ad3',
+      'A700': '#004577',
+      'contrastDefaultColor': 'light',
+      'contrastDarkColors': '50 100 200 A100 A200'
     };
     $mdThemingProvider
       .definePalette('customPrimary',
       customPrimary);
 
     var customAccent = {
-      '50': '#ff6aa8',
-      '100': '#ff5199',
-      '200': '#ff378a',
-      '300': '#ff1e7b',
-      '400': '#ff046c',
-      '500': '#EA0061',
-      '600': '#d00056',
-      '700': '#b7004c',
-      '800': '#9d0041',
-      '900': '#840037',
-      'A100': '#ff84b7',
-      'A200': '#ff9dc6',
-      'A400': '#ffb7d5',
-      'A700': '#6a002c'
+      '50': '#fff4f9',
+      '100': '#ffa8cc',
+      '200': '#ff70ab',
+      '300': '#ff2881',
+      '400': '#ff0a6f',
+      '500': '#ea0061',
+      '600': '#cb0054',
+      '700': '#ad0048',
+      '800': '#8e003b',
+      '900': '#70002e',
+      'A100': '#fff4f9',
+      'A200': '#ffa8cc',
+      'A400': '#ff0a6f',
+      'A700': '#ad0048',
+      'contrastDefaultColor': 'light',
+      'contrastDarkColors': '50 100 200 A100 A200'
     };
     $mdThemingProvider
       .definePalette('customAccent',
