@@ -10,18 +10,26 @@
     var deckName;
     var creation;
     return {
-        setDeckName: function (name) {
-          deckName=name
-        },
-        getDeckName: function () {
-          return deckName
-        },
-        setCreation: function (bool) {
-          creation=bool
-        },
-        getCreation: function () {
-          return creation
-        }
-      }
+      setDeckName: setDeckName,
+      getDeckName: getDeckName,
+      setCreation: setCreation,
+      getCreation: getCreation
+    };
+
+    function setDeckName(name) {
+      deckName=name
+    }
+
+    function getDeckName() {
+      return deckName
+    }
+
+    function setCreation(bool) {
+      creation=bool
+    }
+
+    function getCreation() {
+      return creation
+    }
   }
 })();
