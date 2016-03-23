@@ -3,11 +3,24 @@
 
   angular
     .module('studyBoxFe', [
-      /* shared modules */
-      'studyBoxFe.core',
+      /* Angular modules */
+      'ngAnimate',
+      'ngCookies',
+      'ngMaterial',
+      'ngSanitize',
+      'ngMessages',
+      'ngAria',
 
-      /*Features area*/
-      'studyBoxFe.services',
-      'studyBoxFe.layout'
+      /*3rd party modules*/
+      'ui.router',
+      'toastr',
+      'pascalprecht.translate',
+
+      /*team modules*/
+      'translator',
+      'backend',
+      'registration',
+      'deck'
+
     ]);
 })();
