@@ -27,7 +27,7 @@
                  class="md-fab fade deck-add-button"
                  ng-if="deck.creation"
                  ng-click="deck.createDeck()"
-                 ng-disabled="deck.searchText==''">
+                 ng-disabled="!deck.searchText">
         <md-tooltip md-direction="top">{{'deck-CREATE_DECK' | translate}}</md-tooltip>
         <md-icon md-svg-src="assets/icons/new.svg"></md-icon>
       </md-button>
