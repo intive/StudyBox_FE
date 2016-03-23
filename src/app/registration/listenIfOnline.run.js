@@ -7,7 +7,6 @@ angular
 
 /** @ngInject */
   function ifOnline($window, $rootScope) {
-
     $rootScope.online = navigator.onLine;
     //gdy utracimy polaczenie z internetem
     $window.addEventListener("offline", offline, false);

@@ -15,6 +15,7 @@
     "registration-PASSWORD_REPEAT": "POWTÓRZ HASŁO",
     "registration-PASSWORDS_DIFFERENT": "Hasła nie są takie same",
     "registration-INVALID_FORMAT": "Format wpisu jest nieprawidłowy",
+    "registration-TYPE_VALID_EMAIL": "Nieprawidłowy adres email",
 
     "login-FORM_TITLE":"Logowanie",
     "login-PASSWORD_FIELD": "HASŁO",
@@ -22,7 +23,9 @@
     "login-LOGIN_BUTTON": "ZALOGUJ SIĘ",
     "login-NEW_USER_ACCOUNT": "UTWÓRZ KONTO",
     "login-TYPE_VALID_EMAIL": "Nieprawidłowy adres email",
-    "login-INVALID_PASSWORD": "Błędne hasło",
+    "login-REQUIRED_FIELD": "To pole jest wymagane",
+    "login-FIELD_MIN_CHARS": "Niepoprawne hasło!",
+    "login-INVALID_FORMAT": "Niepoprawne hasło!",
 
     "addCard-WRITE_QUESTION": "Wpisz pytanie",
     "addCard-WRITE_HINT": "Wpisz podpowiedź",

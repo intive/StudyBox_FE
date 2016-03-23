@@ -1,0 +1,15 @@
+.splash {
+    display: none;
+
+    margin: 0 auto;
+}
+.splash img {
+    display: block;
+    overflow: hidden;
+
+    margin: 0 auto;
+    padding: 4em;
+}
+[ng-cloak].splash {
+    display: block !important;
+}

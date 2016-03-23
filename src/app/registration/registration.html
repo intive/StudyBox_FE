@@ -12,13 +12,14 @@
       <md-card-content>
         <div flex><h4>{{"registration-FORM_TITLE" | translate}}</h4></div>
         <div flex><h6>{{registration.formStatus}}</h6></div>
-        <form name="registrationForm" ng-submit="registration.submit(registrationForm.$valid, online)" novalidate >
+        <form name="registrationForm" ng-submit="registration.submit(registrationForm.$valid, online)" novalidate>
           <md-input-container class="md-block">
             <label>{{"registration-EMAIL_FIELD" | translate}}</label>
-            <input required type="email" name="email" ng-model="registration.data.email" ng-pattern="registration.emailRegex" ng-trim="false" />
+            <input required type="email" name="email" ng-model="registration.data.email" ng-trim="false" />
+            <!-- ng-pattern="registration.emailRegex" -->
             <div ng-messages="registrationForm.email.$error">
               <div ng-message="required">{{"registration-REQUIRED_FIELD" | translate}}</div>
-              <div ng-message="pattern">{{"registration-INVALID_FORMAT" | translate}}</div>
+              <div ng-message="email">{{"registration-TYPE_VALID_EMAIL" | translate}}</div>
             </div>
           </md-input-container>
 
@@ -43,7 +44,12 @@
           </md-input-container>
 
           <div layout="column" layout-align="center stretch">
-            <md-button class="md-raised md-primary" type="submit" ng-disabled="registrationForm.$invalid" ng-click="registration.showAlert($event, online)" >{{"registration-REGISTER_BUTTON" | translate}}</md-button>
+            <md-button
+            class="md-raised md-primary"
+            type="submit"
+            ng-click="registration.showAlert($event, online)" >
+            {{"registration-REGISTER_BUTTON" | translate}}
+            </md-button>
             <md-button ng-click="registration.reset()" ng-href="#/">{{"registration-CANCEL_BUTTON" | translate}}</md-button>
           </div>
         </form>
