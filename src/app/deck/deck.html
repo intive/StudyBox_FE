@@ -15,7 +15,7 @@
       <md-item-template>
         <span md-highlight-text="deck.searchText">{{item.name}}</span>
       </md-item-template>
-      <div ng-messages="deckForm.deckField.$error">
+      <div ng-messages="deckForm.deckField.$error" ng-if="deckForm.deckField.$touched">
         <div ng-message="required">{{'deck-NAME_REQUIRED' | translate}}</div>
         <div ng-message="maxlength">{{'deck-NAME_TOO_LONG' | translate}}</div>
       </div>
