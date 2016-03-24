@@ -35,6 +35,13 @@
     "addCard-ADD_TO_DECK": "Dodaj do talii",
     "addCard-START_TEST": "Rozpocznij test",
     "addCard-HINT": "Podpowiedź",
-    "addCard-ADD_DECK_FROM_FILE": "Dodaj talię z pliku"
+    "addCard-ADD_DECK_FROM_FILE": "Dodaj talię z pliku",
+
+	"navbar-PLACEHOLDER": "Wybierz talię",
+    "navbar-NOT_FOUND": "Nie znaleziono talii ",
+    "navbar-NOT_FOUND2": "Stwórz nową.",
+    "navbar-ADD": "Dodaj",
+    "navbar-NEW_DECK": "Nowa talia",
+    "navbar-NEW_CARD_FROM_FILE": "Nowa fiszka z pliku"
 
   }
