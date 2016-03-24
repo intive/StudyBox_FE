@@ -20,7 +20,9 @@
       'translator',
       'backend',
       'registration',
-      'deck'
+      'deck',
+	  'navbar',
+	  'decks'
 
     ]);
 })();
