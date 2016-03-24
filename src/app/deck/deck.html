@@ -1,7 +1,6 @@
 <md-content class="md-padding" layout="column" ng-cloak>
   <form ng-submit="deck.selectDeck(deckForm.$valid)" name="deckForm" layout="row" layout-wrap >
     <md-autocomplete flex required
-                     md-autofocus="true"
                      ng-model="deck.searchText"
                      md-input-name="deckField"
                      md-selected-item="deck.selectedDeck"

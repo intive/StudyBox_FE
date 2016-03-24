@@ -8,7 +8,7 @@
   /** @ngInject */
   function DeckService() {
     var deckName;
-    var deckObj;
+    var cardObj;
     return {
       setDeckName: setDeckName,
       getDeckName: getDeckName,
@@ -23,10 +23,10 @@
       return deckName
     }
     function setCardObj(obj) {
-      deckObj = obj
+      cardObj = obj
     }
     function getCardObj() {
-      return deckObj
+      return cardObj
     }
   }
 })();

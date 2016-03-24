@@ -6,12 +6,12 @@
     .controller('DeckController', DeckController);
 
   /** @ngInject */
-  function DeckController($stateParams, $state, $window, BackendService, $log, DeckService) {
+  function DeckController($stateParams, $state, BackendService, $log, DeckService) {
     var vm = this;
     vm.deckId = $stateParams.deckId;
     vm.selectedDeck = new BackendService.Deck();
     vm.decks = null;
-    vm.load = false;
+    vm.load = true;
     vm.getDecks = getDecks;
     vm.selectedDeckChange = selectedDeckChange;
     vm.createDeck = createDeck;
@@ -40,30 +40,38 @@
       }
     }
 
-    function selectedDeckChange(value) {
-      if (value) {
-        if (value.id){
-          selectDeck();
+    function selectedDeckChange(deck) {
+      if (deck) {
+        if (deck.id){
+          selectDeck(deck);
         } else {
-          createDeck();
+          createDeck(deck);
         }
       }
     }
 
-    function createDeck() {
-      DeckService.setDeckName(vm.searchText);
+    function createDeck(deck) {
+      $log.info('create');
+      DeckService.setDeckName(deck.name);
       if (vm.deckId.length>0){
+        $log.log('go');
         $state.go("deck", {deckId: null});
-        $state.reload();
+        clear();
       } else{
+        $log.log('relo');
         $state.reload();
       }
     }
 
-    function selectDeck() {
-      $state.go("deck", {deckId: vm.selectedDeck.id});
-      vm.searchText = vm.inputDeck.name;
-
+    function selectDeck(deck) {
+      $log.info('select');
+      if (deck.id != vm.deckId){
+        $log.log('inne');
+        $state.go("deck", {deckId: vm.selectedDeck.id});
+        clear();
+      } else {
+        $log.warn('to samo');
+      }
     }
 
     function selectCard(card) {
