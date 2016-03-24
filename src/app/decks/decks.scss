@@ -1,142 +1,19 @@
 .card-square{
 	width: 75%;
-	margin: 3em auto;
-	padding-top: 30%;
-	padding-bottom: 30%;
-  background: #0068B4;
+	margin: 2em auto;
+	padding-top: 75%;
+  background-color: #0068B4;
+  opacity:1;
+  transition:0.3s;
 }
 
 .title-square{
-	margin: auto auto;
-  color: white;
+  margin:-55% auto;
+  color: #FFFFFF;
 }
 
-.fill{
-  height:30em;
-}
-
-.fabSpeedDial .text-capitalize {
-  text-transform: capitalize; }
-.fabSpeedDial p.note {
-  font-size: 1.2rem; }
-.fabSpeedDial .lock-size {
-  min-width: 300px;
-  min-height: 300px;
-  height: 300px;
-  margin-bottom:-280px;
-
-  }
-
-.color-dial{
-  background:#EA0061 !important;
-  }
-
-.color-mini{
-  background:#424242 !important;
-  }
-
-.rotate{transform: rotate(135deg);
-background-color: #424242 !important;}
-
-
-.mode-search {
-  overflow: hidden;
-}
-.mode-search .form,
-.mode-search .icon-close {
-  opacity: 1;
-  transform: none;
-  pointer-events: all;
-}
-.mode-search .control .icon-search {
-  opacity: 0;
-}
-.mode-search .control .btn {
-  transform: scale(100);
-}
-
-.mode-search .fabSpeedDial{display:none;}
-
-
-.control {
-  width: 50%;
-  cursor: pointer;
-  position:relative;
-  left:0.5%;
-  top:10px;
-  margin-bottom:-52px;
-}
-.control .icon-search,
-.control .icon-close {
-  transition: 0.2s ease-in-out;
-}
-
-
-/* Button */
-.btn {
-  width: 56px;
-  height: 56px;
-  border-radius: 100%;
-  background-color: #EA0061;
-  outline: 0;
-  transform-origin: 50%;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.16), 0 2px 5px rgba(0, 0, 0, 0.23);
-  transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
-  position:relative;
-
-}
-
-
-.icon-search {
-position:relative;
-  top: 30%;
-  left: 30%;
-  font-size: 28px;
-}
-
-.icon-close {
-  position: fixed;
-  top: 70px;
-  right: 30px;
-  color: #EA0061;
-  font-size: 80px;
-  opacity: 0;
-  transform: translate(10px, 0) rotate(90deg);
-  transition: all 0.3s ease-in-out;
-}
-
-.form {
-  height: 80px;
-  position: absolute;
-  top: 50%;
-  left: 50px;
-  margin-top: -40px;
-  pointer-events: none;
-  opacity: 0;
-  transform: translate(40px, 0);
-  transition: all 0.3s ease-in-out;
-}
-.form input {
-  color: #ffe;
-  font-size: 54px;
-  border: 0;
-  background: transparent;
-  -webkit-appearance: none;
-  box-sizing: border-box;
-  outline: 0;
-  font-weight: 200;
-}
-.form ::-webkit-input-placeholder {
-  color: #EEF;
-}
-.form :-moz-placeholder {
-  color: #EEF;
-  opacity: 1;
-}
-.form ::-moz-placeholder {
-  color: #EEF;
-  opacity: 1;
-}
-.form :-ms-input-placeholder {
-  color: #EEF;
+.card-square:hover{
+  opacity:0.8;
+  cursor:pointer;
+  transition:0.3s;
 }
