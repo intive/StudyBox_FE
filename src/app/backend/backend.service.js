@@ -45,8 +45,7 @@
         throw message;
       }
       var method = 'GET';
-      var url = '/api/decks/';
-      url += id;
+      var url = '/api/decks/' + id;
 
       return promiseWithDeck(method, url);
     }
@@ -159,9 +158,8 @@
 
       function getFlashcards() {
         var method = 'GET';
-        var url = "/api/decks/";
         /*jshint validthis:true */
-        url += this.id + "/flashcards";
+        var url = "/api/decks/" + this.id + "/flashcards";
         var data = {};
 
         return simplePromise(method, url, data);
@@ -174,9 +172,8 @@
           throw message;
         }
         var method = 'POST';
-        var url = '/api/decks/';
         /*jshint validthis:true */
-        url += this.id + '/flashcards';
+        var url = '/api/decks/' + this.id + '/flashcards';
         var data = {question: question, answer: answer};
 
         return simplePromise(method, url, data);
@@ -190,10 +187,8 @@
           throw message;
         }
         var method = 'PUT';
-        var url = '/api/decks/';
         /*jshint validthis:true */
-        url += this.id + '/flashcards/';
-        url += id;
+        var url = '/api/decks/' + this.id + '/flashcards/' + id;
 
         var data = {question: question, answer: answer};
 
@@ -221,9 +216,8 @@
           throw message;
         }
         var method = 'PUT';
-        var url = '/api/decks/';
         /*jshint validthis:true */
-        url += this.id;
+        var url = '/api/decks/' + this.id;
         var data = {name: new_name, isPublic: true};
         var $this = this;
 
