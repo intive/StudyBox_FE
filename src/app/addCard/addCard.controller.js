@@ -7,7 +7,7 @@
 
 
   /** @ngInject */
-  function AddCardController($stateParams, $document, BackendService, DeckService, $window) {
+  function AddCardController($stateParams, $state, $document, BackendService, DeckService) {
     var vm = this;
 
     vm.deckId = $stateParams.deckId;
@@ -32,49 +32,29 @@
 
     vm.submitCard = function ()
     {
-      //$window.alert(vm.deckName);
-      BackendService.getDecks()
-        .then(function success(data) {
-          vm.decks = data;
-          $window.alert(vm.decks);},
-        function error(data){
-          var message = 'I cant get decks';
-          alert(message);
-          throw message;
-        });
-
+      alert('deckName: '+vm.deckName+'\n'+'deckId: ('+$stateParams.deckId+')\n'+'cardId: '+$stateParams.cardId+'\n'+'vm.question: '+vm.question+'\n'+'vm.answer: '+vm.answer);
       //Jeżeli pola nie są puste
-      if(vm.question!=null && vm.answer!=null)
+      if(angular.isDefined(vm.question) && angular.isDefined(vm.answer))
       {
-        if (vm.decks == null) {
-          //create request for deck list
-          vm.decks = BackendService.getDecks();
-        }
-        return vm.decks
-          .then(function (result) {
-
-            var list = query ? result.filter(queryFilter(query)) : result;
-            return list;
-            });
-
         if($stateParams.cardId != null)
         {
           //Edycja
-          BackendService.createNewDeck(vm.deckName)
+          BackendService.getDeckById($stateParams.deckId)
             .then(function success(data) {
-                vm.newDeck = data;
+              vm.newDeck = data;
 
-                vm.newDeck.updateFlashcard($stateParams.cardId, vm.question, vm.answer)
-                .then(function success(data) {
-                    $window.aler("Zaktualizowano fiszkę")
-                  },
-                  function error(data){
-                    var message = 'I cant update a flash card';
-                    alert(message);
-                    throw message;
-                  });
+              vm.newDeck.updateFlashcard($stateParams.cardId, vm.question, vm.answer)
+                .then(function success() {
+                  alert("Zedytowano fiszkę");
+                  $state.go("deck", {deckId: vm.newDeck.id});
+                },
+                function error(){
+                  var message = 'I cant update a flash card';
+                  alert(message);
+                  throw message;
+                });
             },
-            function error(data){
+            function error(){
               var message = 'I cant create new deck';
               alert(message);
               throw message;
@@ -82,16 +62,54 @@
         }
         else
         {
-          //Dodawanie nowej fiszki do znanej talii
-          vm.newDeck = BackendService.createNewDeck(vm.deckName);
-          vm.newDeck.createFlashcard(vm.question, vm.answer);
+          if($stateParams.deckId!=null)
+          {
+            alert('im here');
+            BackendService.getDeckById($stateParams.deckId)
+              .then(function success(data) {
+                vm.newDeck = data;
 
-          //Dodawanie nowej fiszki do nowej talii
-          vm.newDeck = BackendService.createNewDeck(vm.deckName);
-          vm.newDeck.createFlashcard(vm.question, vm.answer);
+                vm.newDeck.createFlashcard(vm.question, vm.answer)
+                  .then(function success() {
+                    alert("Dodano nową fiszkę do aktualnej talii");
+                    $state.go("deck", {deckId: vm.newDeck.id});
+                    $state.reload();
+                  },
+                  function error(){
+                    var message = 'I cant create a flash card';
+                    alert(message);
+                    throw message;
+                  });
+              },
+              function error(){
+                var message = 'I cant create new deck';
+                alert(message);
+                throw message;
+              });
+          }
+          else
+          {
+            BackendService.createNewDeck(vm.deckName)
+              .then(function success(data) {
+                vm.newDeck = data;
 
-          vm.newDeck = BackendService.getDeckById($stateParams.deckId);
-          vm.newDeck.createFlashcard(vm.question, vm.answer);
+                vm.newDeck.createFlashcard(vm.question, vm.answer)
+                  .then(function success() {
+                    alert("Dodano nową fiszkę do nowej talii");
+                    $state.go("deck", {deckId: vm.newDeck.id});
+                  },
+                  function error(){
+                    var message = 'I cant create a flash card';
+                    alert(message);
+                    throw message;
+                  });
+              },
+              function error(){
+                var message = 'I cant create new deck';
+                alert(message);
+                throw message;
+              });
+          }
         }
       }
 
