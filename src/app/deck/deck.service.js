@@ -12,8 +12,8 @@
     return {
       setDeckName: setDeckName,
       getDeckName: getDeckName,
-      setDeckObj: setCardObj,
-      getDeckObj: getCardObj
+      setCardObj: setCardObj,
+      getCardObj: getCardObj
     };
 
     function setDeckName(name) {
