@@ -20,6 +20,12 @@
 
     vm.toggleStatus = false;
 
+    alert(DeckService.deckObj);
+
+    //vm.$watch('DeckService.deckObj', function(newValue, oldValue) {
+    //  vm.counter = scope.counter + 1;
+    //});
+
     vm.toggleButton = function ()
     {
       if(vm.toggleStatus === false)
