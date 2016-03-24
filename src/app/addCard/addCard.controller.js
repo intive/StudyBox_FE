@@ -20,12 +20,6 @@
 
     vm.toggleStatus = false;
 
-    alert(DeckService.deckObj);
-
-    //vm.$watch('DeckService.deckObj', function(newValue, oldValue) {
-    //  vm.counter = scope.counter + 1;
-    //});
-
     vm.toggleButton = function ()
     {
       if(vm.toggleStatus === false)
@@ -69,9 +63,9 @@
         }
         else
         {
-          if($stateParams.deckId!=null)
+          if($stateParams.deckId!='')
           {
-            alert('im here');
+            //alert('im here');
             BackendService.getDeckById($stateParams.deckId)
               .then(function success(data) {
                 vm.newDeck = data;
@@ -80,6 +74,7 @@
                   .then(function success() {
                     alert("Dodano nową fiszkę do aktualnej talii");
                     $state.go("deck", {deckId: vm.newDeck.id});
+                    $state.reload();
                   },
                   function error(){
                     var message = 'I cant create a flash card';
