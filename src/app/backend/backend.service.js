@@ -2,6 +2,7 @@
  * INSTRUKCJA OBSŁUGI
  *
  * getDeckById(id) - zwraca talię po jej ID
+ * getDeckByName(name) - zwraca talię po nazwie
  * getDecks() - zwraca wszystkie talie (obiekty typu Deck)
  * createNewDeck(name) - tworzy (na serwerze) nową talię
  *
@@ -28,6 +29,7 @@
   function BackendService($http, $q) {
 
     this.getDeckById = getDeckById;
+    this.getDeckByName = getDeckByName;
     this.getDecks = getDecks;
     this.createNewDeck = createNewDeck;
 
@@ -63,6 +65,18 @@
       );
 
       return promise;
+    }
+
+    function getDeckByName(name) {
+      if(angular.isUndefined(name) ) {
+        var message = 'must specify deck name';
+        alert(message);
+        throw message;
+      }
+      var method = 'GET';
+      var url = '/api/decks?name=' + name;
+
+      return promiseWithDeck(method, url);
     }
 
     function getDecks() {
