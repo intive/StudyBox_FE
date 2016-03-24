@@ -67,6 +67,7 @@
     }
 
     function selectDeck() {
+      DeckService.setDeckName(vm.searchText);
       $state.go("deck", {deckId: vm.selectedItem.id})
     }
 
