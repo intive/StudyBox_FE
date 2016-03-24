@@ -277,10 +277,10 @@
 
      mockDeck.remove()
       .then(
-        function success(deck) {
+        function success() {
           $scope.valid = true;
         },
-        function error(data) {
+        function error() {
           $scope.valid = false;
         }
       );
