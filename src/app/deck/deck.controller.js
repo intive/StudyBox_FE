@@ -78,7 +78,7 @@
     function deleteCard(cardId) {
       vm.selectedDeck.removeFlashcard(cardId)
         .then(function (result) {
-          selectDeck();
+          getCards();
           $log.log(result);
         }, function (e) {
           $log.error(e);
