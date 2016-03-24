@@ -46,6 +46,7 @@
               vm.newDeck.updateFlashcard($stateParams.cardId, vm.question, vm.answer)
                 .then(function success() {
                   alert("Zedytowano fiszkę");
+                  $state.go("deck.addCard", {cardId: null});
                   $state.go("deck", {deckId: vm.newDeck.id});
                   $state.reload();
                 },
@@ -98,6 +99,7 @@
                   .then(function success() {
                     alert("Dodano nową fiszkę do nowej talii");
                     $state.go("deck", {deckId: vm.newDeck.id});
+                    $state.reload();
                   },
                   function error(){
                     var message = 'I cant create a flash card';
