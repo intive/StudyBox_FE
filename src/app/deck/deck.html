@@ -1,58 +1,36 @@
 <md-content class="md-padding" layout="column" ng-cloak>
   <form ng-submit="deck.selectDeck(deckForm.$valid)" name="deckForm" layout="row" layout-wrap >
     <md-autocomplete flex required
+                     md-autofocus="true"
                      ng-model="deck.searchText"
                      md-input-name="deckField"
-                     md-selected-item="deck.selectedItem"
+                     md-selected-item="deck.selectedDeck"
                      md-search-text="deck.searchText"
                      md-items="item in deck.getDecks(deck.searchText)"
                      md-item-text="item.name"
                      md-search-text-change="deck.getDecks(deck.searchText)"
-                     md-selected-item-change="deck.selectedItemChange(item)"
+                     md-selected-item-change="deck.selectedDeckChange(item)"
                      md-min-length="0"
                      md-input-maxlength="50"
+                     md-autoselect="true"
                      md-floating-label="{{'deck-TYPE_NAME' | translate}}">
       <md-item-template>
         <span md-highlight-text="deck.searchText">{{item.name}}</span>
+        <span ng-if="!item.id" class="add-deck">{{'deck-CREATE_DECK' | translate}}</span>
       </md-item-template>
+      <md-not-found>
+        <a ng-click="deck.deckCreate(deck.searchText)">Create a '{{deck.searchText}}'</a>
+      </md-not-found>
       <div ng-messages="deckForm.deckField.$error" ng-if="deckForm.deckField.$touched">
         <div ng-message="required">{{'deck-NAME_REQUIRED' | translate}}</div>
         <div ng-message="maxlength">{{'deck-NAME_TOO_LONG' | translate}}</div>
       </div>
     </md-autocomplete>
     <div ng-if="deck.searchText" ng-click="deck.clear()" class="deck-clear">x</div>
-
-    <div class="fabSpeedDial" flex="20">
-        <md-fab-speed-dial md-open="decks.isOpen" md-direction="down" class="md-scale">
-          <md-fab-trigger>
-            <md-button aria-label="add" class="md-fab deck-add-button" ng-class="decks.isOpen == true ? 'rotate' : 'noclass'">
-              <md-icon md-svg-src="assets/icons/add.svg"></md-icon>
-            </md-button>
-          </md-fab-trigger>
-
-          <md-fab-actions>
-            <md-button aria-label="selector"
-                       class="md-fab md-mini fade deck-button"
-                       ng-click="deck.createDeck()"
-                       ng-disabled="!deck.searchText">
-              <md-tooltip md-direction="top">{{'deck-CREATE_DECK' | translate}}</md-tooltip>
-              <md-icon md-svg-src="assets/icons/new.svg"></md-icon>
-            </md-button>
-
-            <md-button aria-label="selector"
-                       class="md-fab md-mini fade deck-button"
-                       ng-click="deck.selectDeck()"
-                       ng-disabled="!deck.read || deck.selectedItem.id==deck.deckId">
-              <md-tooltip md-direction="top">{{'deck-SELECT_DECK' | translate}}</md-tooltip>
-              <md-icon  md-svg-src="assets/icons/ext.svg"></md-icon>
-            </md-button>
-          </md-fab-actions>
-        </md-fab-speed-dial>
-    </div>
   </form>
 
-  <div ng-style="{{deck.innerHeight}}" >
-    <md-card ng-repeat="card in deck.cards" ng-click="deck.selectCard(card)">
+  <div>
+    <md-card ng-repeat="card in deck.cards" ng-click="deck.selectCard(card)" class="deck-card">
       <md-card-title>
         <md-card-title-text>
           <span class="md-headline">{{ card.question }}</span>
@@ -60,7 +38,7 @@
         </md-card-title-text>
       </md-card-title>
       <md-card-actions layout="row" layout-align="end center">
-        <md-button  ng-click="deck.deleteCard(card.id)">{{'deck-REMOVE_CARD' | translate}}</md-button>
+        <md-button  ng-click="deck.removeCard(card.id)">{{'deck-REMOVE_CARD' | translate}}</md-button>
       </md-card-actions>
     </md-card>
   </div>

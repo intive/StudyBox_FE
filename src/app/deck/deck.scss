@@ -3,8 +3,13 @@
 }
 
 .deck-card {
+  cursor: pointer;
   margin-bottom: 1em;
   margin-left: 1em;
+}
+.deck-card:hover {
+  cursor: hand;
+  transform: scale(1.1);
 }
 
 .deck-card-title {
@@ -67,5 +72,19 @@
   height: 1.2em;
 }
 .deck-clear:hover{
+  cursor: hand;
+}
+
+.add-deck{
+  position: relative;
+  z-index: 2;
+  cursor: pointer;
+  color: #0068B4;
+  padding: 0;
+  height: 1.2em;
+  float: right;
+}
+
+.add-deck:hover{
   cursor: hand;
 }
