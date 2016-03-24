@@ -79,6 +79,7 @@
     function deleteCard(cardId) {
       vm.selectedDeck.removeFlashcard(cardId)
         .then(function (result) {
+          $state.go("deck", {deckId: vm.selectedItem.id});
           getCards();
           $log.log(result);
         }, function (e) {
