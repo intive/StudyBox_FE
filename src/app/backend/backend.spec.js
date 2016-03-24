@@ -268,5 +268,30 @@
       expect($scope.valid).toBe(true);
       expect(typeof($scope.response)).toEqual(typeof(mockDeck));
     }));
+
+    it('can remove a deck', inject(function($httpBackend) {
+      var mockDeck = new BackendService.Deck();
+      mockDeck.id = '1';
+      mockDeck.name = 'test';
+      var $scope = {};
+
+     mockDeck.remove()
+      .then(
+        function success(deck) {
+          $scope.valid = true;
+        },
+        function error(data) {
+          $scope.valid = false;
+        }
+      );
+
+      $httpBackend
+      .when('DELETE')
+      .respond(204);
+
+      $httpBackend.flush();
+
+      expect($scope.valid).toBe(true);
+    }));
   });
 })();
