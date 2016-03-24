@@ -10,8 +10,7 @@
     var vm = this;
     vm.deckId = $stateParams.deckId;
     vm.selectedDeck = new BackendService.Deck();
-    vm.decks = null;
-    vm.load = true;
+    vm.load = false;
     vm.getDecks = getDecks;
     vm.selectedDeckChange = selectedDeckChange;
     vm.createDeck = createDeck;
