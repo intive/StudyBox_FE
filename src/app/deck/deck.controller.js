@@ -71,8 +71,9 @@
       $state.go("deck", {deckId: vm.selectedItem.id})
     }
 
-    function selectCard(value) {
-      $state.go("deck.addCard", {cardId: value})
+    function selectCard(card) {
+      DeckService.setCardObj(card);
+      $state.go("deck.addCard", {cardId: card.id})
     }
 
     function deleteCard(cardId) {

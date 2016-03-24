@@ -52,7 +52,7 @@
   </form>
 
   <div ng-style="{{deck.innerHeight}}" class="deck-cards">
-    <md-card ng-repeat="card in deck.cards" ng-click="deck.selectCard(card.id)">
+    <md-card ng-repeat="card in deck.cards" ng-click="deck.selectCard(card)">
       <md-card-title>
         <md-card-title-text>
           <span class="md-headline">{{ card.question }}</span>
