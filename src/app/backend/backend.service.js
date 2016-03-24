@@ -17,6 +17,7 @@
  *  updateFlashcard(id, question, answer) - uaktualnia fiszkę o wskazanym id
  *  removeFlashcard(id) - usuwa fiszkę
  *  changename(name) - zmienia nazwę talii
+ *  remove() - usuwa talię z bazy danych
  */
 
 (function() {
@@ -154,6 +155,7 @@
       this.updateFlashcard = updateFlashcard;
       this.removeFlashcard = removeFlashcard;
       this.changeName = changeName;
+      this.remove = remove;
 
       function getFlashcards() {
         var method = 'GET';
@@ -237,6 +239,15 @@
         );
 
         return promise;
+      }
+
+      function remove() {
+        var method = 'DELETE';
+        /*jshint validthis:true */
+        var url = '/api/decks/' + this.id;
+        var data = {};
+
+        return simplePromise(method, url, data);
       }
     }
 
