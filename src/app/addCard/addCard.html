@@ -26,8 +26,9 @@
           ng-model="addCard.question" rows="5"
           md-select-on-focus
           required></textarea>
-        <div style="text-align: center;">
-          <img ng-show="addCard.questionFile.$valid" ngf-thumbnail="questionFile" class="imgStyle">
+        <div class="display: inline-block;" ng-show="questionFile">
+          <md-button ng-click="questionFile=null;" aria-label="closeImg" class="closePosition">Usuń zdjęcie ✖</md-button>
+          <img style="text-align: center;" ng-show="addCard.questionFile.$valid" ngf-thumbnail="questionFile" class="imgStyle">
         </div>
 
       </md-input-container>
@@ -58,8 +59,9 @@
           placeholder='{{"addCard-WRITE_HINT" | translate}}'
           ng-model="addCard.hint" rows="5"
           md-select-on-focus></textarea>
-        <div style="text-align: center;">
-          <img ng-show="addCard.hintFile.$valid" ngf-thumbnail="hintFile" class="imgStyle">
+        <div class="display: inline-block;" ng-show="hintFile">
+          <md-button ng-click="hintFile=null;" aria-label="closeImg" class="closePosition">Usuń zdjęcie ✖</md-button>
+          <img style="text-align: center;" ng-show="addCard.hintFile.$valid" ngf-thumbnail="hintFile" class="imgStyle">
         </div>
       </md-input-container>
 
@@ -82,8 +84,9 @@
           ng-model="addCard.answer" rows="5"
           md-select-on-focus
           required></textarea>
-        <div style="text-align: center;">
-          <img ng-show="addCard.answerFile.$valid" ngf-thumbnail="answerFile" class="imgStyle">
+        <div class="display: inline-block;" ng-show="answerFile">
+          <md-button ng-click="answerFile=null;" aria-label="closeImg" class="closePosition">Usuń zdjęcie ✖</md-button>
+          <img style="text-align: center;" ng-show="addCard.answerFile.$valid" ngf-thumbnail="answerFile" class="imgStyle">
         </div>
       </md-input-container>
 
