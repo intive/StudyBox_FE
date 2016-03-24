@@ -277,10 +277,19 @@
 
      mockDeck.remove()
       .then(
+<<<<<<< HEAD
         function success() {
           $scope.valid = true;
         },
         function error() {
+=======
+        function success(response) {
+          $scope.response = response;
+          $scope.valid = true;
+        },
+        function error(response) {
+          $scope.response = response;
+>>>>>>> db4d202... Usunięcie ostrzeżeń
           $scope.valid = false;
         }
       );
