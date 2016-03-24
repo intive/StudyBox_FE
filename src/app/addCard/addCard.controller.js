@@ -32,7 +32,7 @@
 
     vm.submitCard = function ()
     {
-      alert('deckName: '+vm.deckName+'\n'+'deckId: ('+$stateParams.deckId+')\n'+'cardId: '+$stateParams.cardId+'\n'+'vm.question: '+vm.question+'\n'+'vm.answer: '+vm.answer);
+      //alert('deckName: '+vm.deckName+'\n'+'deckId: ('+$stateParams.deckId+')\n'+'cardId: '+$stateParams.cardId+'\n'+'vm.question: '+vm.question+'\n'+'vm.answer: '+vm.answer);
       //Jeżeli pola nie są puste
       if(angular.isDefined(vm.question) && angular.isDefined(vm.answer))
       {
@@ -46,7 +46,9 @@
               vm.newDeck.updateFlashcard($stateParams.cardId, vm.question, vm.answer)
                 .then(function success() {
                   alert("Zedytowano fiszkę");
+                  $state.go("deck.addCard", {cardId: null});
                   $state.go("deck", {deckId: vm.newDeck.id});
+                  $state.reload();
                 },
                 function error(){
                   var message = 'I cant update a flash card';
@@ -62,9 +64,9 @@
         }
         else
         {
-          if($stateParams.deckId!=null)
+          if($stateParams.deckId!='')
           {
-            alert('im here');
+            //alert('im here');
             BackendService.getDeckById($stateParams.deckId)
               .then(function success(data) {
                 vm.newDeck = data;
@@ -97,6 +99,7 @@
                   .then(function success() {
                     alert("Dodano nową fiszkę do nowej talii");
                     $state.go("deck", {deckId: vm.newDeck.id});
+                    $state.reload();
                   },
                   function error(){
                     var message = 'I cant create a flash card';

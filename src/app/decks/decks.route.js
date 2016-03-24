@@ -2,18 +2,19 @@
   'use strict';
 
   angular
-    .module('studyBoxFe')
+    .module('decks')
     .config(routerConfig);
 
   /** @ngInject */
   function routerConfig($stateProvider, $urlRouterProvider) {
     $stateProvider
-      .state('login', {
-        url: '/',
-        templateUrl: 'app/login/login.html',
-        controller: 'LoginController',
-        controllerAs: 'login'
-      })      
+      .state('decks', {
+        parent: 'navbar',
+        url: '/decks',
+        templateUrl: 'app/decks/decks.html',
+		controller: 'DecksController',
+		controllerAs: 'decks'
+      })
 
     $urlRouterProvider.otherwise('/');
   }

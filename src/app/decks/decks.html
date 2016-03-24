@@ -1,56 +1,13 @@
-<div ng-class="decks.SearchIsOpen == true ? 'mode-search' : 'noclass'">
-
-     <div class="control">
-        <div class="btn" ng-click="decks.toggle()">
-         <md-icon md-svg-src="assets/icons/search.svg" class="icon-search"></md-icon>
-        </div>
-     </div>
-
-    <div class="form">
-      <input class="input-search" type="text" placeholder="Start Typing"></input>
-    </div>
-
-          <div class="fabSpeedDial">
-            <div class="lock-size" layout="row" layout-align="end start">
-                <md-fab-speed-dial md-open="decks.isOpen" md-direction="down" class="md-scale">
-                  <md-fab-trigger>
-                    <md-button aria-label="add" class="md-fab color-dial" ng-class="decks.isOpen == true ? 'rotate' : 'noclass'">
-                      <md-tooltip md-direction="top">Dodaj</md-tooltip>
-                      <md-icon md-svg-src="assets/icons/add.svg"></md-icon>
-                    </md-button>
-                  </md-fab-trigger>
-
-                  <md-fab-actions>
-                    <md-button aria-label="deck" class="md-fab md-raised md-mini color-mini">
-                      <md-tooltip md-direction="left">Nowa talia</md-tooltip>
-                      <md-icon md-svg-src="assets/icons/new.svg"></md-icon>
-                    </md-button>
-
-                    <md-button aria-label="card" class="md-fab md-raised md-mini color-mini">
-                      <md-tooltip md-direction="left">Nowa fiszka</md-tooltip>
-                      <md-icon md-svg-src="assets/icons/card.svg"></md-icon>
-                    </md-button>
-
-                    <md-button aria-label="external file" class="md-fab md-raised md-mini color-mini">
-                      <md-tooltip md-direction="left">Nowa fiszka z pliku</md-tooltip>
-                      <md-icon md-svg-src="assets/icons/ext.svg"></md-icon>
-                    </md-button>
-                  </md-fab-actions>
-                </md-fab-speed-dial>
-            </div>
-          </div>
-
-      <div layout="horizontal" layout-wrap>
-        <div ng-repeat="deck in decks.categories" flex-sm="100" flex-xs="100" flex="25">
+<div layout="horizontal" layout-wrap>
+        <div ng-repeat="deck in decks.categories" flex-xs="100" flex-sm="50" flex="25">
             <md-card class="card-square" ui-sref="deck({ deckId: deck.id })">
-              <md-card-title class="title-square">
-                <md-card-title-text>
-                {{ deck.name }}
-                </md-card-title-text>
-              </md-card-title>
+              <div>
+              <div class="title-square">
+                          {{ deck.name }}
+              </div>
+             </div>
              </md-card>
         </div>
       </div>
-<div class="fill"></div>
 </div>
 
