@@ -21,8 +21,7 @@
       'backend',
       'registration',
       'deck',
-	  'navbar',
-	  'decks'
-
+      'navbar',
+      'decks'
     ]);
 })();
