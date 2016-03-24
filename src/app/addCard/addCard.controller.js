@@ -32,59 +32,70 @@
 
     vm.submitCard = function ()
     {
-      //$window.alert(angular.element($document[0].querySelector("input[name='deckForm']")).css("display", "none"));
-
       //$window.alert(vm.deckName);
+      BackendService.getDecks()
+        .then(function success(data) {
+          vm.decks = data;
+          $window.alert(vm.decks);},
+        function error(data){
+          var message = 'I cant get decks';
+          alert(message);
+          throw message;
+        });
 
       //Jeżeli pola nie są puste
       if(vm.question!=null && vm.answer!=null)
       {
-        if(vm.load)
-        {
-          if (vm.decks == null) {
-            //create request for deck list
-            vm.decks = BackendService.getDecks();
-          }
-          return vm.decks
-            .then(function (result) {
-
-              var list = query ? result.filter(queryFilter(query)) : result;
-              return list;
-              });
+        if (vm.decks == null) {
+          //create request for deck list
+          vm.decks = BackendService.getDecks();
         }
-        else vm.load = true;
+        return vm.decks
+          .then(function (result) {
 
-        $window.alert(vm.x);
+            var list = query ? result.filter(queryFilter(query)) : result;
+            return list;
+            });
 
         if($stateParams.cardId != null)
         {
           //Edycja
-          vm.newDeck = BackendService.createNewDeck(vm.deckName);
-          vm.newDeck.updateFlashcard($stateParams.cardId, vm.question, vm.answer);
+          BackendService.createNewDeck(vm.deckName)
+            .then(function success(data) {
+                vm.newDeck = data;
+
+                vm.newDeck.updateFlashcard($stateParams.cardId, vm.question, vm.answer)
+                .then(function success(data) {
+                    $window.aler("Zaktualizowano fiszkę")
+                  },
+                  function error(data){
+                    var message = 'I cant update a flash card';
+                    alert(message);
+                    throw message;
+                  });
+            },
+            function error(data){
+              var message = 'I cant create new deck';
+              alert(message);
+              throw message;
+            });
         }
         else
         {
-          ////Dodawanie nowej fiszki do znanej talii
-          //vm.newDeck = BackendService.createNewDeck(vm.deckName);
-          //vm.newDeck.createFlashcard(vm.question, vm.answer);
-          //
-          ////Dodawanie nowej fiszki do nowej talii
-          //vm.newDeck = BackendService.createNewDeck(vm.deckName);
-          //vm.newDeck.createFlashcard(vm.question, vm.answer);
-          //
-          //vm.newDeck = BackendService.getDeckById($stateParams.deckId);
-          //vm.newDeck.createFlashcard(vm.question, vm.answer);
+          //Dodawanie nowej fiszki do znanej talii
+          vm.newDeck = BackendService.createNewDeck(vm.deckName);
+          vm.newDeck.createFlashcard(vm.question, vm.answer);
+
+          //Dodawanie nowej fiszki do nowej talii
+          vm.newDeck = BackendService.createNewDeck(vm.deckName);
+          vm.newDeck.createFlashcard(vm.question, vm.answer);
+
+          vm.newDeck = BackendService.getDeckById($stateParams.deckId);
+          vm.newDeck.createFlashcard(vm.question, vm.answer);
         }
       }
 
-      //if nowy name
-      //$stateParams.deckId
-
-
-    };
-
-
-
+    }
   }
 
 })();
