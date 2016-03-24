@@ -2,15 +2,12 @@
   'use strict';
 
   angular
-    .module('studyBoxFe')
+    .module('decks')
     .controller('DecksController', DecksController);
 
   /** @ngInject */
   function DecksController(BackendService, $log) {
     var vm = this;
-    vm.isOpen = false;
-    vm.SearchIsOpen = false;
-    vm.toggle = toggle;
     vm.getDecks = getDecks;
 
     function getDecks() {
@@ -24,10 +21,6 @@
     }
 
     getDecks();
-
-    function toggle(){
-      vm.SearchIsOpen = !vm.SearchIsOpen;
-    }
 
     }
 
