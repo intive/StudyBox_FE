@@ -18,6 +18,15 @@
     vm.decks = null;
     vm.load = false;
 
+    if (vm.cardId){
+      vm.card = DeckService.getCardObj();
+      if (vm.card){
+        vm.question = vm.card.question;
+        vm.answer = vm.card.answer;
+        vm.editMode=true
+      }
+    }
+
     vm.toggleStatus = false;
 
     vm.toggleButton = function ()

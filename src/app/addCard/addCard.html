@@ -91,7 +91,10 @@
           </div>
         </md-input-container>
 
-        <md-button type="submit" class="md-raised addCardButtons addCardButton" ng-click="addCard.submitCard()" layout-align="end center">{{"addCard-ADD_TO_DECK" | translate}}</md-button>
+        <md-button type="submit" class="md-raised addCardButtons addCardButton" ng-click="addCard.submitCard()"
+                   ng-if="!addCard.editMode" layout-align="end center">{{"addCard-ADD_TO_DECK" | translate}}</md-button>
+        <md-button type="submit" class="md-raised addCardButtons addCardButton" ng-click="addCard.submitCard()"
+                   ng-if="addCard.editMode" layout-align="end center">{{"addCard-EDIT_CARD" | translate}}</md-button>
         </form>
       </md-content>
   </div>

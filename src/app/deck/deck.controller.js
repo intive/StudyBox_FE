@@ -50,26 +50,21 @@
     }
 
     function createDeck(deck) {
-      $log.info('create');
       DeckService.setDeckName(deck.name);
       if (vm.deckId.trim()){
-        $log.log('go');
         $state.go("deck", {deckId: null});
-        clear();
+        //odblokowanie ui ale nie działa autocomplete
+        //clear();
       } else{
-        $log.log('relo');
         $state.reload();
       }
     }
 
     function selectDeck(deck) {
-      $log.info('select');
       if (deck.id != vm.deckId){
-        $log.log('inne');
         $state.go("deck", {deckId: vm.selectedDeck.id});
-        clear();
-      } else {
-        $log.warn('to samo');
+        //odblokowanie ui ale nie działa autocomplete
+        //clear();
       }
     }
 
@@ -83,7 +78,7 @@
       if (vm.cards.length > 1){
         deleteCard(cardId)
       } else {
-        $log.warn('last one')
+        $log.warn('last one flashcard')
       }
     }
 
