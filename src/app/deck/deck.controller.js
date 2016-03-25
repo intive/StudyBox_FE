@@ -75,6 +75,7 @@
 
     function selectCard(card) {
       DeckService.setCardObj(card);
+      vm.selectedCardId = card.id;
       $state.go("deck.addCard", {cardId: card.id})
     }
 

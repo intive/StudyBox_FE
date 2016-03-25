@@ -29,7 +29,8 @@
   </form>
 
   <div>
-    <md-card ng-repeat="card in deck.cards" ng-click="deck.selectCard(card)" class="deck-card">
+    <md-card ng-repeat="card in deck.cards" ng-click="deck.selectCard(card)" class="deck-card"
+             ng-class="{selected: card.id === deck.selectedCardId}">
       <md-card-title>
         <md-card-title-text>
           <span class="md-headline">{{ card.question }}</span>
