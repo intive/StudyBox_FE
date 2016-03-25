@@ -52,7 +52,7 @@
     function createDeck(deck) {
       $log.info('create');
       DeckService.setDeckName(deck.name);
-      if (vm.deckId.length>0){
+      if (vm.deckId.trim()){
         $log.log('go');
         $state.go("deck", {deckId: null});
         clear();
@@ -126,7 +126,7 @@
       BackendService.getDeckById(value)
         .then(function (result) {
           //load flashcards for selected deck
-          if (vm.deckId.length > 0) {
+          if (vm.deckId.trim()) {
             vm.selectedDeck = result;
             vm.inputDeck = vm.selectedDeck;
             getCards();
