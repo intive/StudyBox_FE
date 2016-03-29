@@ -10,7 +10,6 @@
     $rootScope.online = $window.navigator.onLine;
     if (!$rootScope.online) {
         showOfflineAlert();
-        // alert('Offline! pierwszy');
     }
 
     function showOfflineAlert() {
@@ -39,12 +38,10 @@
 
     $window.addEventListener("offline", function() {
       showOfflineAlert();
-      // alert('Offline!');
     }, false);
 
     $window.addEventListener("online", function() {
         showOnlineAlert();
-        // alert('Online!');
     }, false);
   }
 
