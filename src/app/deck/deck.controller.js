@@ -53,6 +53,9 @@
       DeckService.setDeckObj(deck);
       if($stateParams.deckId){
         $stateParams.deckId = null;
+        if ($stateParams.cardId){
+          $state.go("deck.addCard", {cardId: null}, {notify: false});
+        }
         $state.go("deck", {deckId: null}, {notify: false});
         initDeck($stateParams.deckId);
       }
@@ -135,6 +138,7 @@
         //new deck no deck id
         vm.selectedDeck = DeckService.getDeckObj();
         vm.cards=[];
+        //$state.go("deck")
         //$state.go("deck.addCard", {cardId: null})
       }
 
