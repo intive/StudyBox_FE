@@ -12,8 +12,9 @@
 
     vm.deckId = $stateParams.deckId;
     vm.cardId = $stateParams.cardId;
-    vm.deckName=null;
-    vm.deckName=DeckService.getDeckName();
+    console.log('addd')
+    console.log(vm.deckId )
+    console.log(vm.cardId)
 
     vm.decks = null;
     vm.load = false;
@@ -45,7 +46,7 @@
       //Jeżeli pola nie są puste
       if(angular.isDefined(vm.question) && angular.isDefined(vm.answer))
       {
-        if($stateParams.cardId != null)
+        if($stateParams.cardId)
         {
           //Edycja
           BackendService.getDeckById($stateParams.deckId)
@@ -56,6 +57,7 @@
                 .then(function success() {
                   //alert("Zedytowano fiszkę");
                   $state.go("deck", {deckId: vm.newDeck.id});
+                  $state.reload()
                 },
                 function error(){
                   var message = 'I cant update a flash card';
@@ -71,7 +73,7 @@
         }
         else
         {
-          if($stateParams.deckId!='')
+          if($stateParams.deckId)
           {
             //alert('im here');
             BackendService.getDeckById($stateParams.deckId)
@@ -98,7 +100,7 @@
           }
           else
           {
-            BackendService.createNewDeck(vm.deckName)
+            BackendService.createNewDeck(DeckService.getDeckObj().name)
               .then(function success(data) {
                 vm.newDeck = data;
 
