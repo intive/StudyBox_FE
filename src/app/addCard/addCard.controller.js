@@ -12,9 +12,6 @@
 
     vm.deckId = $stateParams.deckId;
     vm.cardId = $stateParams.cardId;
-    console.log('addd')
-    console.log(vm.deckId )
-    console.log(vm.cardId)
 
     vm.decks = null;
     vm.load = false;
