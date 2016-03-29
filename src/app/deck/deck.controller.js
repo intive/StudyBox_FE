@@ -51,20 +51,22 @@
 
     function createDeck(deck) {
       DeckService.setDeckName(deck.name);
-      if (vm.deckId.trim()){
-        $state.go("deck", {deckId: null});
-        //odblokowanie ui ale nie działa autocomplete
-        //clear();
-      } else{
-        $state.reload();
+      console.log('create')
+      if (vm.deckId){
+        console.log('sure')
+        $state.go("deck", {deckId: null}, {notify: false});
+        vm.deckId = vm.selectedDeck.id;
+        initDeck(vm.deckId);
+        $state.go("deck.addCard", {cardId: null})
       }
     }
 
     function selectDeck(deck) {
       if (deck.id != vm.deckId){
-        $state.go("deck", {deckId: vm.selectedDeck.id});
-        //odblokowanie ui ale nie działa autocomplete
-        //clear();
+        $state.go("deck", {deckId: deck.id}, {notify: false});
+        vm.deckId = vm.selectedDeck.id;
+        initDeck(vm.deckId);
+        $state.go("deck.addCard", {cardId: null})
       }
     }
 
