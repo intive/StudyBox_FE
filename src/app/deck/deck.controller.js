@@ -50,23 +50,20 @@
     }
 
     function createDeck(deck) {
-      DeckService.setDeckName(deck.name);
-      console.log('create')
-      if (vm.deckId){
-        console.log('sure')
-        $state.go("deck", {deckId: null}, {notify: false});
-        vm.deckId = vm.selectedDeck.id;
+      //set new deck namename
+      DeckService.setDeckObj(deck);
+      if($stateParams.deckId){
+        vm.deckId = null;
+        $state.go("deck.addCard", {deckId: null}, {notify: false})
         initDeck(vm.deckId);
-        $state.go("deck.addCard", {cardId: null})
       }
     }
 
     function selectDeck(deck) {
       if (deck.id != vm.deckId){
         $state.go("deck", {deckId: deck.id}, {notify: false});
-        vm.deckId = vm.selectedDeck.id;
+        vm.deckId = deck.id;
         initDeck(vm.deckId);
-        $state.go("deck.addCard", {cardId: null})
       }
     }
 
@@ -120,19 +117,29 @@
 
     //init current selected deck
     function initDeck(value) {
-      BackendService.getDeckById(value)
-        .then(function (result) {
-          //load flashcards for selected deck
-          if (vm.deckId.trim()) {
-            vm.selectedDeck = result;
-            vm.inputDeck = vm.selectedDeck;
-            getCards();
-          } else {
-            vm.searchText = DeckService.getDeckName();
-          }
-        }, function (e) {
-          $log.error(e);
-        });
+      console.log(value);
+      if(value){
+        BackendService.getDeckById(value)
+          .then(function (result) {
+            //load flashcards for selected deck
+            if (vm.deckId.trim()) {
+              vm.selectedDeck = result;
+              getCards();
+              //clean for current cart edit
+              $state.go("deck.addCard", {cardId: null})
+            } else {
+              vm.selectedDeck = DeckService.getDeckObj().name;
+            }
+          }, function (e) {
+            $log.error(e);
+          });
+      } else {
+        //new deck no deck id
+        vm.selectedDeck = DeckService.getDeckObj().name;
+        vm.cards=[];
+        //$state.go("deck", {deckId: null})
+      }
+
     }
     initDeck(vm.deckId);
   }
