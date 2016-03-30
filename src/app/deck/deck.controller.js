@@ -126,7 +126,7 @@
               vm.selectedDeck = result;
               getCards();
             } else {
-              //vm.selectedDeck = DeckService.getDeckObj();
+              vm.selectedDeck = DeckService.getDeckObj();
             }
           }, function (e) {
             $log.error(e);
@@ -136,7 +136,7 @@
         vm.cards=[];
       }
       //clean card field
-      //$stateParams.cardId = null;
+      $stateParams.cardId = null;
       $state.reload('deck.addCard')
     }
     initDeck($stateParams.deckId);
