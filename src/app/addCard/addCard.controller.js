@@ -10,6 +10,8 @@
   function AddCardController($stateParams, $state, $document, BackendService, DeckService) {
     var vm = this;
 
+    console.log('addddd')
+
     vm.deckId = $stateParams.deckId;
     vm.cardId = $stateParams.cardId;
 
@@ -53,6 +55,7 @@
               vm.newDeck.updateFlashcard($stateParams.cardId, vm.question, vm.answer)
                 .then(function success() {
                   //alert("Zedytowano fiszkę");
+                  DeckService.setCardObj(vm.card);
                   $state.go("deck", {deckId: vm.newDeck.id});
                   $state.reload()
                 },
@@ -81,7 +84,7 @@
                   .then(function success() {
                     //alert("Dodano nową fiszkę do aktualnej talii");
                     $state.go("deck.addCard", {deckId: vm.newDeck.id});
-                    $state.reload();
+                    $state.reload("deck");
                   },
                   function error(){
                     var message = 'I cant create a flash card';
@@ -104,7 +107,7 @@
                 vm.newDeck.createFlashcard(vm.question, vm.answer)
                   .then(function success() {
                     //alert("Dodano nową fiszkę do nowej talii");
-                    $state.go("deck", {deckId: vm.newDeck.id});
+                    $state.go("deck.addCard", {deckId: vm.newDeck.id});
                   },
                   function error(){
                     var message = 'I cant create a flash card';

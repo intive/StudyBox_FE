@@ -53,26 +53,22 @@
       DeckService.setDeckObj(deck);
       if($stateParams.deckId){
         $stateParams.deckId = null;
-        if ($stateParams.cardId){
-          $state.go("deck.addCard", {cardId: null}, {notify: false});
-        }
-        $state.go("deck", {deckId: null}, {notify: false});
-        initDeck($stateParams.deckId);
+        $stateParams.cardId = null;
+        initDeck(null)
       }
     }
 
     function selectDeck(deck) {
       if (deck.id != $stateParams.deckId){
-        $state.go("deck", {deckId: deck.id}, {notify: false});
         $stateParams.deckId = deck.id;
-        initDeck($stateParams.deckId);
+        $stateParams.cardId = null;
+        initDeck(deck.id)
       }
     }
 
     function selectCard(card) {
       DeckService.setCardObj(card);
-      vm.selectedCardId = card.id;
-      $state.go("deck.addCard", {cardId: card.id})
+      $state.go("deck.addCard", {cardId: card.id}, {notify:true})
     }
 
     function removeCard(cardId){
@@ -86,7 +82,7 @@
     function deleteCard(cardId) {
       vm.selectedDeck.removeFlashcard(cardId)
         .then(function (result) {
-          $state.go("deck", {deckId: vm.selectedDeck.id});
+          $state.go("deck.addCard", {deckId: vm.selectedDeck.id, cardId: null});
           getCards();
           $log.log(result);
         }, function (e) {
@@ -117,17 +113,15 @@
         });
     }
 
-    //init current selected deck
+    //init current deck
     function initDeck(value) {
       if(value){
         BackendService.getDeckById(value)
           .then(function (result) {
             //load flashcards for selected deck
-            if ($stateParams.deckId.trim()) {
+            if ($stateParams.deckId) {
               vm.selectedDeck = result;
               getCards();
-              //clean for current cart edit
-              $state.go("deck.addCard", {cardId: null})
             } else {
               vm.selectedDeck = DeckService.getDeckObj();
             }
@@ -135,13 +129,12 @@
             $log.error(e);
           });
       } else {
-        //new deck no deck id
         vm.selectedDeck = DeckService.getDeckObj();
         vm.cards=[];
-        //$state.go("deck")
-        //$state.go("deck.addCard", {cardId: null})
       }
-
+      //clean card field
+      $stateParams.cardId = null;
+      $state.reload('deck.addCard')
     }
     initDeck($stateParams.deckId);
   }

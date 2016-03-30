@@ -15,7 +15,10 @@
       })
       .state('deck.addCard', {
         parent: 'deck',
-        url: '/:cardId?'
+        url: '/:cardId?',
+        templateUrl: 'app/addCard/addCard.html',
+        controller: 'AddCardController',
+        controllerAs: 'addCard'
       });
 
     $urlRouterProvider.otherwise('/');
