@@ -5,7 +5,7 @@
     .module('studyBoxFe')
     .controller('LoginController', LoginController);
 
-  function LoginController($log, $state) {
+  function LoginController($document, $log, $state, $rootScope, $mdDialog) {
     var vm = this;
     vm.formStatus = '';
     vm.submit = submit;
@@ -13,12 +13,26 @@
     vm.passwordRegex = /^[^\s]+$/;
 
     function submit(isValid) {
-      if (isValid) {
+      if (isValid && $rootScope.networkStatusOnline) {
         $log.info("Poprawne logowanie");
         $state.go("decks");
       }else{
         $log.info("błąd logowania");
+        if(!$rootScope.networkStatusOnline)
+          showOfflineLoginAlert();
       }
+    }
+
+    function showOfflineLoginAlert() {
+      $mdDialog.show(
+        $mdDialog.alert()
+          .parent(angular.element($document[0].querySelector('#popupContainer')))
+          .clickOutsideToClose(false)
+          .title('Uwaga!')
+          .textContent('Jesteś offline, nie możesz teraz się zalogować.')
+          .ariaLabel('Alert Dialog')
+          .ok('Rozumiem')
+      );
     }
   }
 })();

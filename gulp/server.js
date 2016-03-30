@@ -56,7 +56,8 @@ browserSync.use(browserSyncSpa({
 }));
 
 gulp.task('serve', ['watch'], function () {
-  jsonServer.start({port: 3005});
+  // [2016-03-24 22:10] mock
+  // jsonServer.start({port: 3005});
   browserSyncInit([path.join(conf.paths.tmp, '/serve'), conf.paths.src]);
 });
 
