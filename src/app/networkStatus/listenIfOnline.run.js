@@ -8,6 +8,7 @@
 /** @ngInject */
   function ifOnline($rootScope, $window, $mdDialog, $document) {
     $rootScope.online = $window.navigator.onLine;
+    $rootScope.networkStatusOnline = true;
     if (!$rootScope.online) {
         showOfflineAlert();
     }
@@ -16,7 +17,7 @@
       $mdDialog.show(
         $mdDialog.alert()
           .parent(angular.element($document[0].querySelector('#popupContainer')))
-          .clickOutsideToClose(true)
+          .clickOutsideToClose(false)
           .title('Uwaga!')
           .textContent('Utraciłeś połączenie z internetem. Spróbuj później.')
           .ariaLabel('Alert Dialog')
@@ -28,7 +29,7 @@
       $mdDialog.show(
         $mdDialog.alert()
           .parent(angular.element($document[0].querySelector('#popupContainer')))
-          .clickOutsideToClose(true)
+          .clickOutsideToClose(false)
           .title('Uwaga!')
           .textContent('Odzyskałeś połączenie z internetem, możesz kontynuować.')
           .ariaLabel('Alert Dialog')
@@ -38,10 +39,12 @@
 
     $window.addEventListener("offline", function() {
       showOfflineAlert();
+      $rootScope.networkStatusOnline = false;
     }, false);
 
     $window.addEventListener("online", function() {
         showOnlineAlert();
+        $rootScope.networkStatusOnline = true;
     }, false);
   }
 
