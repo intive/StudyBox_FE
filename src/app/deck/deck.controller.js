@@ -6,7 +6,7 @@
     .controller('DeckController', DeckController);
 
   /** @ngInject */
-  function DeckController($stateParams, $state, BackendService, $log, DeckService) {
+  function DeckController($stateParams, $state, BackendService, $log, DeckService, $mdDialog, $translate) {
     var vm = this;
     vm.selectedDeck = new BackendService.Deck();
     vm.load = false;
@@ -72,10 +72,12 @@
     }
 
     function removeCard(cardId){
+      console.log(vm.cards.length)
       if (vm.cards.length > 1){
         deleteCard(cardId)
       } else {
-        $log.warn('last one flashcard')
+        $log.warn('last one flashcard');
+        dialog(cardId)
       }
     }
 
@@ -123,7 +125,7 @@
               vm.selectedDeck = result;
               getCards();
             } else {
-              vm.selectedDeck = DeckService.getDeckObj();
+              //vm.selectedDeck = DeckService.getDeckObj();
             }
           }, function (e) {
             $log.error(e);
@@ -137,7 +139,26 @@
       $state.reload('deck.addCard')
     }
     initDeck($stateParams.deckId);
-  }
 
+    //DELETE LAST CARD DIALOG
+    function dialog(cardId) {
+      var confirm = $mdDialog.confirm()
+        .title($translate.instant("deck-REMOVE_LAST_CARD"))
+        .textContent($translate.instant("deck-REMOVE_DECK"))
+        //.ariaLabel('last')
+        .ok($translate.instant("deck-REMOVE_CARD"))
+        .cancel($translate.instant("deck-CANCEL"));
+        $mdDialog.show(confirm).then(function() {
+          //delete card
+          vm.selectedDeck.removeFlashcard(cardId).then(function() {
+            //delete deck
+            vm.selectedDeck.remove().then(function() {
+              $state.go('decks')
+            });
+        });
+
+      });
+    }
+  }
 
 })();
