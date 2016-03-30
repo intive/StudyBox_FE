@@ -74,7 +74,6 @@
     }
 
     function removeCard(cardId){
-      console.log(vm.cards.length)
       if (vm.cards.length > 1){
         deleteCard(cardId)
       } else {
