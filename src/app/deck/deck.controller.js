@@ -68,6 +68,8 @@
 
     function selectCard(card) {
       DeckService.setCardObj(card);
+      //for selecting on ui (ng-repeat)
+      vm.selectedCardId=card.id;
       $state.go("deck.addCard", {cardId: card.id}, {notify:true})
     }
 
@@ -135,7 +137,7 @@
         vm.cards=[];
       }
       //clean card field
-      $stateParams.cardId = null;
+      //$stateParams.cardId = null;
       $state.reload('deck.addCard')
     }
     initDeck($stateParams.deckId);
