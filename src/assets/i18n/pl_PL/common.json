@@ -5,9 +5,10 @@
     "deck-NAME_REQUIRED": "Nazwa talii jest wymagana",
     "deck-NAME_TOO_LONG": "Zbyt długa nazwa (max 50 znaków)",
     "deck-REMOVE_CARD": "Usuń fiszkę",
-    "deck-REMOVE_LAST_CARD": "Czy aby na pewno chcesz usunąć ostatnią fiszkę?",
-    "deck-REMOVE_DECK": "Usunięcię ostatniej fiszki spowoduje usunięcie talii",
-    "deck-CANCEL": "Anuluj",
+    "deck-REMOVE_CARD_MODAL": "Czy aby na pewno chcesz usunąć daną fiszkę ?",
+    "deck-REMOVE_LAST_CARD_MODAL": "Wraz z usunięciem tej fiszki , usunięta zostanie również obecna talia , czy aby na pewno chcesz usunąć daną fiszkę ?",
+    "deck-YES": "Tak",
+    "deck-NO": "Nie",
 
     "registration-FORM_TITLE": "Rejestracja",
     "registration-REQUIRED_FIELD": "To pole jest wymagane",
