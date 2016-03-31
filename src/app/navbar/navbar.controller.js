@@ -46,12 +46,12 @@
 
     function newDeck() {
       vm.searchText = null;
-      $state.go("deck")
+      $state.go("deck.addCard")
     }
 
     function changePage() {
       vm.searchText = null;
-      $state.go("deck", {deckId: vm.selectedItem.id})
+      $state.go("deck.addCard", {deckId: vm.selectedItem.id})
     }
 
     function querySearch (query) {

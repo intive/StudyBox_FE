@@ -7,26 +7,26 @@
 
   /** @ngInject */
   function DeckService() {
-    var deckName;
     var deckObj;
+    var cardObj;
     return {
-      setDeckName: setDeckName,
-      getDeckName: getDeckName,
+      setDeckObj: setDeckObj,
+      getDeckObj: getDeckObj,
       setCardObj: setCardObj,
       getCardObj: getCardObj
     };
 
-    function setDeckName(name) {
-      deckName = name
+    function setDeckObj(deck) {
+      deckObj = deck
     }
-    function getDeckName() {
-      return deckName
+    function getDeckObj() {
+      return deckObj
     }
     function setCardObj(obj) {
-      deckObj = obj
+      cardObj = obj
     }
     function getCardObj() {
-      return deckObj
+      return cardObj
     }
   }
 })();

@@ -1,10 +1,13 @@
 	{
-    "deck-CREATE_DECK": "Utwórz nową talię",
+    "deck-CREATE_DECK": "Utwórz talię",
     "deck-SELECT_DECK": "Wczytaj wybraną talię",
     "deck-TYPE_NAME": "Wpisz nazwę talii",
     "deck-NAME_REQUIRED": "Nazwa talii jest wymagana",
     "deck-NAME_TOO_LONG": "Zbyt długa nazwa (max 50 znaków)",
     "deck-REMOVE_CARD": "Usuń fiszkę",
+    "deck-REMOVE_LAST_CARD": "Czy aby na pewno chcesz usunąć ostatnią fiszkę?",
+    "deck-REMOVE_DECK": "Usunięcię ostatniej fiszki spowoduje usunięcie talii",
+    "deck-CANCEL": "Anuluj",
 
     "registration-FORM_TITLE": "Rejestracja",
     "registration-REQUIRED_FIELD": "To pole jest wymagane",
@@ -33,6 +36,7 @@
     "addCard-WRITE_HINT": "Wpisz podpowiedź",
     "addCard-WRITE_ANSWER": "Wpisz odpowiedź",
     "addCard-ADD_TO_DECK": "Dodaj do talii",
+    "addCard-EDIT_CARD": "Zapisz zmiany",
     "addCard-START_TEST": "Rozpocznij test",
     "addCard-HINT": "Podpowiedź",
     "addCard-ADD_DECK_FROM_FILE": "Dodaj talię z pliku",
