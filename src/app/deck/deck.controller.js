@@ -131,7 +131,7 @@
       var content = $translate.instant("deck-REMOVE_CARD_MODAL");
       //info for last card
       if (cardNo < 2) {
-        content = content.concat("\n"+ $translate.instant("deck-REMOVE_LAST_CARD_MODAL"))
+        content = ($translate.instant("deck-REMOVE_LAST_CARD_MODAL"))
       }
       var confirm = $mdDialog.confirm()
         .title($translate.instant("deck-REMOVE_CARD"))
