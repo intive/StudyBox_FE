@@ -69,8 +69,13 @@
     function selectCard(card) {
       DeckService.setCardObj(card);
       //for selecting on ui (ng-repeat)
-      vm.selectedCardId=card.id;
-      $state.go("deck.addCard", {cardId: card.id}, {notify:true})
+      if(card.id !=vm.selectedCardId) {
+        vm.selectedCardId = card.id;
+        $state.go("deck.addCard", {cardId: card.id}, {notify:true})
+      } else {
+        vm.selectedCardId = false
+        $state.go("deck.addCard", {cardId: null}, {notify:true})
+      }
     }
 
     function removeCard(cardId){
@@ -121,13 +126,8 @@
       if(value){
         BackendService.getDeckById(value)
           .then(function (result) {
-            //load flashcards for selected deck
-            if ($stateParams.deckId) {
-              vm.selectedDeck = result;
-              getCards();
-            } else {
-              vm.selectedDeck = DeckService.getDeckObj();
-            }
+            vm.selectedDeck = result;
+            getCards();
           }, function (e) {
             $log.error(e);
           });
@@ -136,6 +136,7 @@
         vm.cards=[];
       }
       //clean card field
+      vm.selectedDeck = DeckService.setDeckObj(null);
       $stateParams.cardId = null;
       $state.reload('deck.addCard')
     }
