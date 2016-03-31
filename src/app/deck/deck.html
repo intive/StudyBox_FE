@@ -1,5 +1,5 @@
 <md-content class="md-padding" layout="column" ng-cloak>
-  <form ng-submit="deck.selectedDeckChange(deckForm.$valid)" name="deckForm" layout="row" layout-wrap >
+  <form class="deck-autocomplete" ng-submit="deck.selectedDeckChange(deckForm.$valid)" name="deckForm" layout="row" layout-wrap >
     <md-autocomplete flex required
                      ng-model="deck.searchText"
                      md-input-name="deckField"
@@ -17,9 +17,6 @@
         <span md-highlight-text="deck.searchText">{{item.name}}</span>
         <span ng-if="!item.id" class="add-deck">{{'deck-CREATE_DECK' | translate}}</span>
       </md-item-template>
-      <md-not-found>
-        <a ng-click="deck.deckCreate(deck.searchText)">Create a '{{deck.searchText}}'</a>
-      </md-not-found>
       <div ng-messages="deckForm.deckField.$error" ng-if="deckForm.deckField.$touched">
         <div ng-message="required">{{'deck-NAME_REQUIRED' | translate}}</div>
         <div ng-message="maxlength">{{'deck-NAME_TOO_LONG' | translate}}</div>
