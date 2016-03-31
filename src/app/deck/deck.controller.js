@@ -79,23 +79,7 @@
     }
 
     function removeCard(cardId){
-      if (vm.cards.length > 1){
-        deleteCard(cardId)
-      } else {
-        $log.warn('last one flashcard');
-        dialog(cardId)
-      }
-    }
-
-    function deleteCard(cardId) {
-      vm.selectedDeck.removeFlashcard(cardId)
-        .then(function (result) {
-          $state.go("deck.addCard", {deckId: vm.selectedDeck.id, cardId: null});
-          getCards();
-          $log.log(result);
-        }, function (e) {
-          $log.error(e);
-        });
+      deleteCardDialog(cardId, vm.cards.length )
     }
 
     //LOCAL FUNCTIONS
@@ -142,25 +126,38 @@
     }
     initDeck($stateParams.deckId);
 
-    //DELETE LAST CARD DIALOG
-    function dialog(cardId) {
+    //DELETE CARD DIALOG
+    function deleteCardDialog(cardId, cardNo) {
+      var content = $translate.instant("deck-REMOVE_CARD_MODAL");
+      //info for last card
+      if (cardNo < 2) {
+        content = ($translate.instant("deck-REMOVE_LAST_CARD_MODAL"))
+      }
       var confirm = $mdDialog.confirm()
-        .title($translate.instant("deck-REMOVE_LAST_CARD"))
-        .textContent($translate.instant("deck-REMOVE_DECK"))
-        //.ariaLabel('last')
-        .ok($translate.instant("deck-REMOVE_CARD"))
-        .cancel($translate.instant("deck-CANCEL"));
-        $mdDialog.show(confirm).then(function() {
-          //delete card
-          vm.selectedDeck.removeFlashcard(cardId).then(function() {
-            //delete deck
-            vm.selectedDeck.remove().then(function() {
-              $state.go('decks')
-            });
-        });
+        .title($translate.instant("deck-REMOVE_CARD"))
+        .textContent(content)
+        .ok($translate.instant("deck-YES"))
+        .cancel($translate.instant("deck-NO"));
+      $mdDialog.show(confirm).then(function () {
+        //delete card
+        vm.selectedDeck.removeFlashcard(cardId)
+          .then(function (result) {
+            //delete deck if last card
+            if (cardNo < 2) {
+              $log.warn('last one flashcard');
+              vm.selectedDeck.remove().then(function () {
+                $state.go('decks')
+              });
+            } else {
+              $state.go("deck.addCard", {deckId: vm.selectedDeck.id, cardId: null});
+              getCards();
+              $log.log(result);
+            }
 
+          }, function (e) {
+            $log.error(e);
+          });
       });
     }
   }
-
 })();
