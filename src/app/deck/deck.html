@@ -1,50 +1,43 @@
 <md-content class="md-padding" layout="column" ng-cloak>
-  <form ng-submit="deck.selectDeck(deckForm.$valid)" name="deckForm" layout="row" layout-wrap >
+  <form class="deck-autocomplete" ng-submit="deck.selectedDeckChange(deckForm.$valid)" name="deckForm" layout="row" layout-wrap >
     <md-autocomplete flex required
+                     ng-model="deck.searchText"
                      md-input-name="deckField"
-                     md-selected-item="deck.selectedItem"
+                     md-selected-item="deck.selectedDeck"
                      md-search-text="deck.searchText"
-                     md-search-text-change="deck.getDecks(deck.searchText)"
                      md-items="item in deck.getDecks(deck.searchText)"
                      md-item-text="item.name"
-                     md-selected-item-change="deck.getDecks(deck.searchText)"
+                     md-search-text-change="deck.getDecks(deck.searchText)"
+                     md-selected-item-change="deck.selectedDeckChange(item)"
                      md-min-length="0"
+                     md-input-maxlength="50"
+                     md-autoselect="true"
                      md-floating-label="{{'deck-TYPE_NAME' | translate}}">
       <md-item-template>
-        <span md-highlight-text="ctrl.searchText">{{item.name}}</span>
+        <span md-highlight-text="deck.searchText">{{item.name}}</span>
+        <span ng-if="!item.id" class="add-deck">{{'deck-CREATE_DECK' | translate}}</span>
       </md-item-template>
+      <div ng-messages="deckForm.deckField.$error" ng-if="deckForm.deckField.$touched">
+        <div ng-message="required">{{'deck-NAME_REQUIRED' | translate}}</div>
+        <div ng-message="maxlength">{{'deck-NAME_TOO_LONG' | translate}}</div>
+      </div>
     </md-autocomplete>
     <div ng-if="deck.searchText" ng-click="deck.clear()" class="deck-clear">x</div>
-
-    <div flex="20">
-      <md-button aria-label="selector"
-                 class="md-fab fade deck-add-button"
-                 ng-if="deck.creation"
-                 ng-click="deck.createDeck(deck.searchText)"
-                 ng-disabled="deck.searchText==''">
-        <md-tooltip md-direction="top">{{'deck-CREATE_DECK' | translate}}</md-tooltip>
-        <md-icon md-svg-src="assets/icons/new.svg"></md-icon>
-      </md-button>
-      <md-button aria-label="selector"
-                 class="md-fab fade deck-select-button"
-                 ng-if="deck.creation==false"
-                 ng-click="deck.selectDeck()"
-                 ng-disabled="deck.selectedDeck.name==deck.searchText">
-        <md-tooltip md-direction="top">{{'deck-SELECT_DECK' | translate}}</md-tooltip>
-        <md-icon  md-svg-src="assets/icons/ext.svg"></md-icon>
-      </md-button>
-    </div>
   </form>
 
-  <md-card ng-repeat="card in deck.cards" ng-click="deck.selectCard(card.id)">
-    <md-card-title>
-      <md-card-title-text>
-        <span class="md-headline">{{ card.question }}</span>
-        <span class="md-subhead">{{ card.answer }}</span>
-      </md-card-title-text>
-    </md-card-title>
-    <md-card-actions layout="row" layout-align="end center">
-      <md-button  ng-click="deck.deleteCard(card.id)">{{'deck-REMOVE_CARD' | translate}}</md-button>
-    </md-card-actions>
-  </md-card>
+  <div>
+    <md-card ng-repeat="card in deck.cards" ng-click="deck.selectCard(card)" class="deck-card"
+             ng-class="{selected: card.id === deck.selectedCardId}">
+      <md-card-title>
+        <md-card-title-text>
+          <span class="md-headline">{{ card.question }}</span>
+          <span class="md-subhead">{{ card.answer }}</span>
+        </md-card-title-text>
+      </md-card-title>
+      <md-card-actions layout="row" layout-align="end center">
+        <md-button  ng-click="deck.removeCard(card.id)">{{'deck-REMOVE_CARD' | translate}}</md-button>
+      </md-card-actions>
+    </md-card>
+  </div>
 </md-content>
+

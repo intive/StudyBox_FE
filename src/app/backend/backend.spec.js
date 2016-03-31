@@ -240,5 +240,60 @@
       expect($scope.valid).toBe(true);
       expect(typeof($scope.response)).toEqual(typeof(mockDeck));
     }));
+
+    it('can fetch a deck by name', inject(function($httpBackend) {
+      var mockDeck = new BackendService.Deck();
+      mockDeck.id = '1';
+      mockDeck.name = 'test';
+      var $scope = {};
+
+      BackendService.getDeckByName('test')
+      .then(
+        function success(deck) {
+          $scope.response = deck;
+          $scope.valid = true;
+        },
+        function error(data) {
+          $scope.response = data;
+          $scope.valid = false;
+        }
+      );
+
+      $httpBackend
+      .when('GET')
+      .respond(200, mockDeck);
+
+      $httpBackend.flush();
+
+      expect($scope.valid).toBe(true);
+      expect(typeof($scope.response)).toEqual(typeof(mockDeck));
+    }));
+
+    it('can remove a deck', inject(function($httpBackend) {
+      var mockDeck = new BackendService.Deck();
+      mockDeck.id = '1';
+      mockDeck.name = 'test';
+      var $scope = {};
+
+     mockDeck.remove()
+      .then(
+        function success(response) {
+          $scope.response = response;
+          $scope.valid = true;
+        },
+        function error(response) {
+          $scope.response = response;
+          $scope.valid = false;
+        }
+      );
+
+      $httpBackend
+      .when('DELETE')
+      .respond(204);
+
+      $httpBackend.flush();
+
+      expect($scope.valid).toBe(true);
+    }));
   });
 })();

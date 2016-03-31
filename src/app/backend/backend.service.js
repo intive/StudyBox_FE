@@ -2,6 +2,7 @@
  * INSTRUKCJA OBSŁUGI
  *
  * getDeckById(id) - zwraca talię po jej ID
+ * getDeckByName(name) - zwraca talię po nazwie
  * getDecks() - zwraca wszystkie talie (obiekty typu Deck)
  * createNewDeck(name) - tworzy (na serwerze) nową talię
  *
@@ -16,6 +17,7 @@
  *  updateFlashcard(id, question, answer) - uaktualnia fiszkę o wskazanym id
  *  removeFlashcard(id) - usuwa fiszkę
  *  changename(name) - zmienia nazwę talii
+ *  remove() - usuwa talię z bazy danych
  */
 
 (function() {
@@ -25,9 +27,10 @@
   .service('BackendService', BackendService);
 
   /** @ngInject */
-  function BackendService($http) {
+  function BackendService($http, $q) {
 
     this.getDeckById = getDeckById;
+    this.getDeckByName = getDeckByName;
     this.getDecks = getDecks;
     this.createNewDeck = createNewDeck;
 
@@ -42,8 +45,7 @@
         throw message;
       }
       var method = 'GET';
-      var url = '/api/decks/';
-      url += id;
+      var url = '/api/decks/' + id;
 
       return promiseWithDeck(method, url);
     }
@@ -58,11 +60,23 @@
           return deck;
         },
         function error(response) {
-          return response;
+          return $q.reject(response.data);
         }
       );
 
       return promise;
+    }
+
+    function getDeckByName(name) {
+      if(angular.isUndefined(name) ) {
+        var message = 'must specify deck name';
+        alert(message);
+        throw message;
+      }
+      var method = 'GET';
+      var url = '/api/decks?name=' + name;
+
+      return promiseWithDeck(method, url);
     }
 
     function getDecks() {
@@ -79,7 +93,7 @@
           return jsonToDecks(response);
         },
         function error(response) {
-          return response;
+          return $q.reject(response.data);
         }
       );
 
@@ -105,7 +119,7 @@
       }
       var method = 'POST';
       var url = '/api/decks';
-      var data = {name: name};
+      var data = {name: name, isPublic: true};
 
       return newDeckPromise(method, url, data);
     }
@@ -125,7 +139,7 @@
           return deck;
         },
         function error(response) {
-          return response;
+          return $q.reject(response.data);
         }
       );
       return promise;
@@ -140,12 +154,12 @@
       this.updateFlashcard = updateFlashcard;
       this.removeFlashcard = removeFlashcard;
       this.changeName = changeName;
+      this.remove = remove;
 
       function getFlashcards() {
         var method = 'GET';
-        var url = "/api/decks/";
         /*jshint validthis:true */
-        url += this.id + "/flashcards";
+        var url = "/api/decks/" + this.id + "/flashcards";
         var data = {};
 
         return simplePromise(method, url, data);
@@ -158,9 +172,8 @@
           throw message;
         }
         var method = 'POST';
-        var url = '/api/decks/';
         /*jshint validthis:true */
-        url += this.id + '/flashcards';
+        var url = '/api/decks/' + this.id + '/flashcards';
         var data = {question: question, answer: answer};
 
         return simplePromise(method, url, data);
@@ -174,10 +187,8 @@
           throw message;
         }
         var method = 'PUT';
-        var url = '/api/decks/';
         /*jshint validthis:true */
-        url += this.id + '/flashcards/';
-        url += id;
+        var url = '/api/decks/' + this.id + '/flashcards/' + id;
 
         var data = {question: question, answer: answer};
 
@@ -191,7 +202,8 @@
           throw message;
         }
         var method = 'DELETE';
-        var url = '/api/flashcards/' + id;
+        /*jshint validthis:true */
+        var url = '/api/decks/' + this.id + '/flashcards/' + id;
         var data = {};
 
         return simplePromise(method, url, data);
@@ -204,10 +216,9 @@
           throw message;
         }
         var method = 'PUT';
-        var url = '/api/decks/';
         /*jshint validthis:true */
-        url += this.id;
-        var data = {name: new_name};
+        var url = '/api/decks/' + this.id;
+        var data = {name: new_name, isPublic: true};
         var $this = this;
 
         var promise = $http({method: method, url: url, data: data})
@@ -217,11 +228,20 @@
             return response.data;
           },
           function error(response) {
-            return response.data.message;
+            return $q.reject(response.data);
           }
         );
 
         return promise;
+      }
+
+      function remove() {
+        var method = 'DELETE';
+        /*jshint validthis:true */
+        var url = '/api/decks/' + this.id;
+        var data = {};
+
+        return simplePromise(method, url, data);
       }
     }
 
@@ -232,7 +252,7 @@
           return response.data;
         },
         function error(response) {
-          return response.data.message;
+          return $q.reject(response.data);
         }
       );
     }

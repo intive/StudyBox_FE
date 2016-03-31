@@ -18,7 +18,6 @@
     <!-- css files will be automatically insert here -->
     <!-- endinject -->
     <!-- endbuild -->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   </head>
   <body>
     <!--[if lt IE 10]>
@@ -26,7 +25,12 @@
     <![endif]-->
 
     <!-- this is test comment for pull request -->
-    <div ui-view></div>
+    <div class="splash" ng-cloak>
+      <img src="assets/images/StudyBoxLogo_m.png"/>
+    </div>
+    <div ng-cloak>
+      <div ui-view></div>
+    </div>
 
     <!-- build:js(src) scripts/vendor.js -->
     <!-- bower:js -->

@@ -1,5 +1,21 @@
 $graphite: #424242;
 
+.md-button.closePosition
+{
+  position: relative;
+  font-size: large;
+  float: right;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.imgStyle
+{
+  min-width: 30px;
+  max-width: 100%;
+  max-height:200rem;
+}
+
 .addCard
 {
   font-size: 1.6em;
@@ -10,13 +26,18 @@ $graphite: #424242;
   margin-top: 25px;
 }
 
-.camera
+.camera-position
 {
-  font-size: 35px !important;
   position: absolute;
   top: 25px;
-  right: 25px;
-  color: rgba(0,0,0,0.4);
+  right: 15px;
+}
+
+.camera
+{
+  width: 35px;
+  height: 35px;
+  opacity: 0.4;
 }
 
 .hintDiv
@@ -25,36 +46,33 @@ $graphite: #424242;
   background-color: lighten($graphite,66%);
 }
 
-.hintCardRemove
+.md-button.md-fab.hintCardRemove
 {
   font-size: 60px !important;
   position: relative;
   left: calc(50% - 44px);
-  color: rgba(0,0,0,0.4);
+  background-color: #969595 !important;
+  margin: 20px;
 }
 
-.hintCardAdd
+.md-button.md-fab.hintCardAdd
 {
   font-size: 60px !important;
   position: absolute;
   bottom: -30px;
-  right: -60px;
-  color: rgba(0,0,0,0.4);
+  right: -40px;
+  background-color: #969595 !important;
 }
 
-.hintCardAdd:focus {
-  outline: -webkit-focus-ring-color auto 0px;
-}
-
-.hintCardAdd:hover, .camera:hover
+.camera:hover
 {
   cursor: pointer;
-  color: rgba(0,0,0,0.6);
+  opacity: 0.6;
 }
 
 button.md-button.addCardButtons{
   //background-color: #EA0061;
-  font-size: 0.7em;
+  font-size: 0.6em;
   padding: 10px;
 }
 
@@ -78,7 +96,7 @@ md-select.siteParts
 
 @mixin partOfCard() {
   min-height: 8em;
-  padding: 25px;
+  padding: 25px 55px 25px 25px;
 }
 
 @mixin middleCard()
@@ -115,3 +133,5 @@ md-input-container .md-errors-spacer {
   min-height: 0;
 }
 
+.rotate{transform: rotate(135deg);
+  background-color: #424242 !important;}
