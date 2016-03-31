@@ -69,8 +69,13 @@
     function selectCard(card) {
       DeckService.setCardObj(card);
       //for selecting on ui (ng-repeat)
-      vm.selectedCardId=card.id;
-      $state.go("deck.addCard", {cardId: card.id}, {notify:true})
+      if(card.id !=vm.selectedCardId) {
+        vm.selectedCardId = card.id;
+        $state.go("deck.addCard", {cardId: card.id}, {notify:true})
+      } else {
+        vm.selectedCardId = false
+        $state.go("deck.addCard", {cardId: null}, {notify:true})
+      }
     }
 
     function removeCard(cardId){
