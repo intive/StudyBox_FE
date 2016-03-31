@@ -121,13 +121,8 @@
       if(value){
         BackendService.getDeckById(value)
           .then(function (result) {
-            //load flashcards for selected deck
-            if ($stateParams.deckId) {
-              vm.selectedDeck = result;
-              getCards();
-            } else {
-              vm.selectedDeck = DeckService.getDeckObj();
-            }
+            vm.selectedDeck = result;
+            getCards();
           }, function (e) {
             $log.error(e);
           });
@@ -136,6 +131,7 @@
         vm.cards=[];
       }
       //clean card field
+      vm.selectedDeck = DeckService.setDeckObj(null);
       $stateParams.cardId = null;
       $state.reload('deck.addCard')
     }
