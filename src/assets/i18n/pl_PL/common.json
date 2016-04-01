@@ -42,6 +42,8 @@
     "navbar-NOT_FOUND2": "Stwórz nową.",
     "navbar-ADD": "Dodaj",
     "navbar-NEW_DECK": "Nowa talia",
-    "navbar-NEW_CARD_FROM_FILE": "Nowa fiszka z pliku"
+    "navbar-NEW_CARD_FROM_FILE": "Nowa fiszka z pliku",
+    "navbar-PRIVATE_CARDS": "Moje talie",
+    "navbar-PUBLIC_CARDS": "Publiczne talie"
 
   }

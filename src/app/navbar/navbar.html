@@ -1,17 +1,70 @@
-<md-content>
+<md-content style="min-height: 100%">
 
   <md-toolbar class="md-menu-toolbar.md-primary">
     <md-toolbar-filler >
     </md-toolbar-filler>
 
 
-<div flex layout="row" layout-align="center center">
-        <md-button md-no-ink class="md-primary" ui-sref="decks">
+    <div flex layout="row" layout-align="space-around center">
+
+      <md-button ng-click="navbar.openLeftMenu()">
+        <md-icon md-svg-src="assets/icons/burger.svg"></md-icon>
+      </md-button>
+
+      <div flex></div>
+
+      <md-button md-no-ink class="md-primary" ui-sref="decks">
         <md-icon md-svg-src="assets/icons/studyBox.svg" ui-sref="decks"></md-icon>
-        </md-button>
-</div>
+      </md-button>
+
+      <div flex></div>
+
+      <md-button>
+      </md-button>
+
+    </div>
 
   </md-toolbar>
+
+<div layout="row">
+  <md-sidenav md-component-id="left" layout="column" style="position:fixed">
+
+    <md-toolbar class="md-theme-light" layout-align="start start">
+      <span flex></span>
+        <div layout="column" class="md-toolbar-bottom inset">
+          <span></span>
+          <img class="md-avatar sidenavImage" ng-src="assets/images/filled-logo.png">
+          <div>Firstname Lastname</div>
+          <div>email@domainname.com</div>
+        </div>
+    </md-toolbar>
+
+    <md-list>
+
+      <md-list-item md-ink-ripple
+              layout="row"
+              layout-align="start center"
+              ng-click="navbar.showPrivateCards()">
+
+        <md-icon md-svg-src="assets/icons/BlackDot.svg"></md-icon>
+        <span flex>{{'navbar-PRIVATE_CARDS' | translate}}</span>
+
+      </md-list-item>
+
+      <md-list-item md-ink-ripple
+              layout="row"
+              layout-align="start center"
+              ng-click="navbar.showPublicCards()">
+
+        <md-icon md-svg-src="assets/icons/BlackDot.svg"></md-icon>
+        <span flex>{{'navbar-PUBLIC_CARDS' | translate}}</span>
+
+      </md-list-item>
+
+    </md-list>
+
+  </md-sidenav>
+</div>
 
 <div layout="row" layout-align="end start" class="nav-buttons" ng-show="navbar.uiRouterState.current.name == 'decks'">
 

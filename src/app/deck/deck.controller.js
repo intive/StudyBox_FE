@@ -21,6 +21,7 @@
     vm.deleteCard = deleteCard;
     vm.clear = clear;
     vm.isOpen = false;
+    vm.test = "test";
 
     function getDecks(query) {
       //for not loading list of deck on page init

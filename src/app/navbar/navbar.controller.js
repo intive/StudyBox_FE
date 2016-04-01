@@ -7,9 +7,17 @@
 
 
   /** @ngInject */
-  function NavbarController($state, $timeout, $q, $log, $document, BackendService) {
+  function NavbarController($state, $timeout, $q,
+                            $log, $document, BackendService,
+                            $mdSidenav, $stateParams) {
     var vm = this;
-    vm.uiRouterState = $state
+    vm.uiRouterState = $state;
+
+    vm.access = $stateParams.access;
+
+    vm.openLeftMenu = openLeftMenu;
+    vm.showPrivateCards = showPrivateCards;
+    vm.showPublicCards = showPublicCards;
 
     vm.getDecks = getDecks;
     vm.decks = getDecks();
@@ -18,6 +26,20 @@
     vm.buttonClick = buttonClick;
     vm.changePage = changePage;
     vm.changeButton = angular.element($document[0].querySelector('#searchAutocomplete')).hasClass('searchForm');
+
+    function openLeftMenu() {
+      $mdSidenav('left').toggle();
+    }
+
+    function showPrivateCards() {
+      $state.go("decks", {access: 'private'});
+      $mdSidenav('left').toggle();
+    }
+
+    function showPublicCards() {
+      $state.go("decks", {access: 'public'});
+      $mdSidenav('left').toggle();
+    }
 
     function buttonClick(){
 
@@ -46,12 +68,19 @@
 
     function newDeck() {
       vm.searchText = null;
-      $state.go("deck")
+      $state.go("deck");
     }
 
     function changePage() {
       vm.searchText = null;
-      $state.go("deck", {deckId: vm.selectedItem.id})
+
+      var url;
+      if(vm.access == 'private')
+        url = 'deck';
+      else
+        url = 'deck-preview';
+
+      $state.go(url, {deckId: vm.selectedItem.id});
     }
 
     function querySearch (query) {
@@ -66,14 +95,14 @@
 
     function getDecks() {
 
-    BackendService.getDecks()
-        .then(function (result) {
-          vm.decks=result;
-          }, function (e) {
-           $log.error(e);
-        });
+      BackendService.getDecks(vm.access)
+      .then(function (result) {
+        vm.decks=result;
+      }, function (e) {
+        $log.error(e);
+      });
 
-      }
+    }
 
 
 
