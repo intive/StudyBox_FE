@@ -6,7 +6,7 @@
     .run(ifOnline);
 
 /** @ngInject */
-  function ifOnline($rootScope, $window, $mdDialog, $document) {
+  function ifOnline($rootScope, $window, $mdDialog, $document, $translate) {
     $rootScope.online = $window.navigator.onLine;
     $rootScope.networkStatusOnline = true;
     if (!$rootScope.online) {
@@ -18,10 +18,10 @@
         $mdDialog.alert()
           .parent(angular.element($document[0].querySelector('#popupContainer')))
           .clickOutsideToClose(false)
-          .title('Uwaga!')
-          .textContent('Utraciłeś połączenie z internetem. Spróbuj później.')
+          .title($translate.instant('networkAlert-WARNING'))
+          .textContent($translate.instant('networkAlert-LOST_CONNECTION'))
           .ariaLabel('Alert Dialog')
-          .ok('Rozumiem')
+          .ok($translate.instant('networkAlert-AGREE'))
       );
     }
 
@@ -30,10 +30,10 @@
         $mdDialog.alert()
           .parent(angular.element($document[0].querySelector('#popupContainer')))
           .clickOutsideToClose(false)
-          .title('Uwaga!')
-          .textContent('Odzyskałeś połączenie z internetem, możesz kontynuować.')
+          .title($translate.instant('networkAlert-WARNING'))
+          .textContent($translate.instant('networkAlert-CONNECTION_SET'))
           .ariaLabel('Alert Dialog')
-          .ok('Rozumiem')
+          .ok($translate.instant('networkAlert-AGREE'))
       );
     }
 

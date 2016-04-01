@@ -68,7 +68,7 @@
 
     function newDeck() {
       vm.searchText = null;
-      $state.go("deck");
+      $state.go("deck.addCard")
     }
 
     function changePage() {
@@ -76,7 +76,7 @@
 
       var url;
       if(vm.access == 'private')
-        url = 'deck';
+        url = 'deck.addCard';
       else
         url = 'deck-preview';
 

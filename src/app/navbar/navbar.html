@@ -29,10 +29,8 @@
 <div layout="row">
   <md-sidenav md-component-id="left" layout="column" style="position:fixed">
 
-    <md-toolbar class="md-theme-light" layout-align="start start">
-      <span flex></span>
-        <div layout="column" class="md-toolbar-bottom inset">
-          <span></span>
+    <md-toolbar class="md-theme-light">
+        <div layout="column" class="md-toolbar-bottom inset" layout-align="start start">
           <img class="md-avatar sidenavImage" ng-src="assets/images/filled-logo.png">
           <div>Firstname Lastname</div>
           <div>email@domainname.com</div>
@@ -116,7 +114,7 @@
                   </md-fab-trigger>
 
                   <md-fab-actions>
-                    <md-button aria-label="deck" class="md-fab md-raised md-mini color-mini" ui-sref="deck">
+                    <md-button aria-label="deck" class="md-fab md-raised md-mini color-mini" ui-sref="deck.addCard">
                       <md-tooltip md-direction="left">{{'navbar-NEW_DECK' | translate}}</md-tooltip>
                       <md-icon md-svg-src="assets/icons/new.svg"></md-icon>
                     </md-button>
