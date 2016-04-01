@@ -17,6 +17,7 @@
     vm.selectCard = selectCard;
     vm.removeCard = removeCard;
     vm.clear = clear;
+    vm.isOpen = false;
 
     function getDecks(query) {
       //for not loading list of deck on page init
@@ -31,10 +32,10 @@
             if (query){
               list.push({name:query});
             }
-            return list
-          })
+            return list;
+          });
       } else {
-        vm.load = true
+        vm.load = true;
       }
     }
 
@@ -54,7 +55,7 @@
       if($stateParams.deckId){
         $stateParams.deckId = null;
         $stateParams.cardId = null;
-        initDeck(null)
+        initDeck(null);
       }
     }
 
@@ -62,7 +63,7 @@
       if (deck.id != $stateParams.deckId){
         $stateParams.deckId = deck.id;
         $stateParams.cardId = null;
-        initDeck(deck.id)
+        initDeck(deck.id);
       }
     }
 
@@ -71,15 +72,15 @@
       //for selecting on ui (ng-repeat)
       if(card.id !=vm.selectedCardId) {
         vm.selectedCardId = card.id;
-        $state.go("deck.addCard", {cardId: card.id}, {notify:true})
+        $state.go("deck.addCard", {cardId: card.id}, {notify:true});
       } else {
-        vm.selectedCardId = false
-        $state.go("deck.addCard", {cardId: null}, {notify:true})
+        vm.selectedCardId = false;
+        $state.go("deck.addCard", {cardId: null}, {notify:true});
       }
     }
 
     function removeCard(cardId){
-      deleteCardDialog(cardId, vm.cards.length )
+      deleteCardDialog(cardId, vm.cards.length );
     }
 
     //LOCAL FUNCTIONS
@@ -122,7 +123,8 @@
       //clean card field
       vm.selectedDeck = DeckService.setDeckObj(null);
       $stateParams.cardId = null;
-      $state.reload('deck.addCard')
+      if($state.$current == 'deck.addCard')
+        $state.reload('deck.addCard');
     }
     initDeck($stateParams.deckId);
 
@@ -131,7 +133,7 @@
       var content = $translate.instant("deck-REMOVE_CARD_MODAL");
       //info for last card
       if (cardNo < 2) {
-        content = ($translate.instant("deck-REMOVE_LAST_CARD_MODAL"))
+        content = ($translate.instant("deck-REMOVE_LAST_CARD_MODAL"));
       }
       var confirm = $mdDialog.confirm()
         .title($translate.instant("deck-REMOVE_CARD"))
@@ -146,7 +148,7 @@
             if (cardNo < 2) {
               $log.warn('last one flashcard');
               vm.selectedDeck.remove().then(function () {
-                $state.go('decks')
+                $state.go('decks');
               });
             } else {
               $state.go("deck.addCard", {deckId: vm.selectedDeck.id, cardId: null});

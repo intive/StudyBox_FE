@@ -3,8 +3,10 @@
  *
  * getDeckById(id) - zwraca talię po jej ID
  * getDeckByName(name) - zwraca talię po nazwie
- * getDecks() - zwraca wszystkie talie (obiekty typu Deck)
- * createNewDeck(name) - tworzy (na serwerze) nową talię
+ * getDecks(access) - zwraca wszystkie talie (obiekty typu Deck)
+ *    access: 'public'|'private'|'all'
+ * createNewDeck(name, access) - tworzy (na serwerze) nową talię
+ *    access: 'public'|'private'
  *
  * Deck [klasa]:
  *  > pola:
@@ -23,8 +25,8 @@
 (function() {
   'use strict';
   angular
-  .module('backend')
-  .service('BackendService', BackendService);
+    .module('backend')
+    .service('BackendService', BackendService);
 
   /** @ngInject */
   function BackendService($http, $q) {
@@ -79,47 +81,95 @@
       return promiseWithDeck(method, url);
     }
 
-    function getDecks() {
+    function getDecks(access) {
+      if(angular.isUndefined(access))
+        access = 'all';
+
       var method = 'GET';
       var url = '/api/decks';
 
-      return promiseWithDecks(method, url);
+      return promiseWithDecks(method, url, access);
     }
 
-    function promiseWithDecks(method, url) {
+    function promiseWithDecks(method, url, access) {
       var promise = $http({method: method, url: url})
       .then(
         function success(response) {
-          return jsonToDecks(response);
+          return jsonToDecks(response, access);
         },
         function error(response) {
           return $q.reject(response.data);
         }
       );
 
-      function jsonToDecks(response) {
-        var decks = [];
-        for(var i = 0; i < response.data.length; i++) {
-          var deck = new Deck();
-          deck.name = response.data[i].name;
-          deck.id = response.data[i].id;
-          decks.push(deck);
-        }
-        return decks;
-      }
-
       return promise;
+
+      function jsonToDecks(response, access) {
+        if(access == 'public')
+          return publicDecks();
+        else if(access == 'private')
+          return privateDecks();
+        else if(access == 'all')
+          return allDecks();
+        else {
+          var message = 'access can be `private`|`public`|`all`';
+          alert(message);
+          throw message;
+        }
+
+        function allDecks() {
+          var decks = [];
+          for(var i = 0; i < response.data.length; i++) {
+            var deck = new Deck();
+            deck.name = response.data[i].name;
+            deck.id = response.data[i].id;
+            deck.isPublic = response.data[i].isPublic;
+            decks.push(deck);
+          }
+          return decks;
+        }
+
+        function publicDecks() {
+          var _allDecks = allDecks();
+          var decks = [];
+          for(var i = 0; i < _allDecks.length; i++) {
+            if(_allDecks[i].isPublic)
+              decks.push(_allDecks[i]);
+          }
+          return decks;
+        }
+
+        function privateDecks() {
+          var _allDecks = allDecks();
+          var decks = [];
+          for(var i = 0; i < _allDecks.length; i++) {
+            if(_allDecks[i].isPublic === false)
+              decks.push(_allDecks[i]);
+          }
+          return decks;
+        }
+
+      }
     }
 
-    function createNewDeck(name) {
+    function createNewDeck(name, access) {
       if(angular.isUndefined(name)) {
         var message = 'must specify deck name';
         alert(message);
         throw message;
       }
+
+      var isPublic;
+      if(access == 'public')
+        isPublic = true;
+      else if(access == 'private')
+        isPublic = false;
+      else
+        isPublic = false;
+
       var method = 'POST';
       var url = '/api/decks';
-      var data = {name: name, isPublic: true};
+      var data = {name: name, isPublic: isPublic};
 
       return newDeckPromise(method, url, data);
     }
