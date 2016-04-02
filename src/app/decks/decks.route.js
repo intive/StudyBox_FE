@@ -14,7 +14,10 @@
       templateUrl: 'app/decks/decks.html',
       controller: 'DecksController',
       controllerAs: 'decks',
-      params: {access: 'private'}
+      params: {
+        access: 'private',
+        loginRequired: false
+      }
     });
 
 

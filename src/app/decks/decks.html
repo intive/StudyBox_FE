@@ -11,7 +11,7 @@
       </md-card>
     </div>
 
-    <div ng-if="decks.access == 'public'">
+    <div ng-if="decks.access == 'public' || $stateParams.loginRequired === false">
       <md-card class="card-square" ui-sref="deck-preview({ deckId: deck.id })">
         <div>
           <div class="title-square">

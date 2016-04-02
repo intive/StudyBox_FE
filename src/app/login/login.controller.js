@@ -2,22 +2,24 @@
   'use strict';
 
   angular
-    .module('studyBoxFe')
+    .module('login')
     .controller('LoginController', LoginController);
 
-  function LoginController($document, $log, $state, $rootScope, $mdDialog, $translate) {
+  function LoginController($document, $log, $state, $rootScope, $mdDialog, $translate, LoginService) {
     var vm = this;
     vm.formStatus = '';
     vm.submit = submit;
-    vm.imagePath = "assets/images/StudyBoxLogo_xx.png";
     vm.passwordRegex = /^[^\s]+$/;
 
     function submit(isValid) {
       if (isValid && $rootScope.networkStatusOnline) {
+        var user = vm.data.email;
+        var pass = vm.data.password;
+        LoginService.doLogin(user, pass);
         $log.info("Poprawne logowanie");
         $state.go("decks");
       }else{
-        $log.info("błąd logowania");
+        $log.info("Błąd logowania");
         if(!$rootScope.networkStatusOnline)
           showOfflineLoginAlert();
       }

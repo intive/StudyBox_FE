@@ -32,6 +32,7 @@
     "login-REQUIRED_FIELD": "To pole jest wymagane",
     "login-FIELD_MIN_CHARS": "Niepoprawne hasło!",
     "login-INVALID_FORMAT": "Niepoprawne hasło!",
+    "login-TO_PUBLIC_SERVICE": "WEJDŹ ANONIMOWO",
 
     "addCard-WRITE_QUESTION": "Wpisz pytanie",
     "addCard-WRITE_HINT": "Wpisz podpowiedź",
