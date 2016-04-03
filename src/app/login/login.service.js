@@ -15,7 +15,12 @@
     /** ngInject */
     function LoginService() {
       var vm = this;
-      vm.isLogged = isLogged;
+      var loginService = {
+        isLogged: isLogged,
+        doLogin: doLogin,
+        doLogout: doLogout
+      };
+      return loginService;
 
       function isLogged() {
         return true;
@@ -29,11 +34,5 @@
       function doLogout() {
         return false;
       }
-
-      return {
-        isLogged: isLogged,
-        doLogin: doLogin,
-        doLogout: doLogout
-      };
     }
 })();
