@@ -6,9 +6,9 @@
     .controller('DeckController', DeckController);
 
   /** @ngInject */
-  function DeckController($stateParams, $state, BackendService, $log, DeckService, $mdDialog, $translate) {
+  function DeckController($stateParams, $state, BackendService, $log, $mdDialog, $translate, $scope) {
     var vm = this;
-    vm.selectedDeck = new BackendService.Deck();
+    $scope.selectedDeck = null;
     vm.load = false;
     vm.getDecks = getDecks;
     vm.selectedDeckChange = selectedDeckChange;
@@ -17,6 +17,11 @@
     vm.selectCard = selectCard;
     vm.removeCard = removeCard;
     vm.clear = clear;
+    $scope.setEmptyNameError = setEmptyNameError;
+
+    function setEmptyNameError(bool){
+      $scope.submitError=bool
+    }
 
     function getDecks(query) {
       //for not loading list of deck on page init
@@ -48,9 +53,8 @@
       }
     }
 
-    function createDeck(deck) {
+    function createDeck() {
       //set new deck name
-      DeckService.setDeckObj(deck);
       if($stateParams.deckId){
         $stateParams.deckId = null;
         $stateParams.cardId = null;
@@ -67,13 +71,12 @@
     }
 
     function selectCard(card) {
-      DeckService.setCardObj(card);
       //for selecting on ui (ng-repeat)
-      if(card.id !=vm.selectedCardId) {
-        vm.selectedCardId = card.id;
+      if(card.id != $stateParams.cardId) {
+        $scope.selectedCard = card;
         $state.go("deck.addCard", {cardId: card.id}, {notify:true})
       } else {
-        vm.selectedCardId = false
+        $scope.selectedCard = false;
         $state.go("deck.addCard", {cardId: null}, {notify:true})
       }
     }
@@ -93,11 +96,11 @@
     }
 
     function clear() {
-      vm.searchText = null;
+      $scope.searchText = null;
     }
 
     function getCards() {
-      vm.selectedDeck.getFlashcards()
+      $scope.selectedDeck.getFlashcards()
         .then(function (result) {
           vm.cards = result;
         }, function (e) {
@@ -110,17 +113,15 @@
       if(value){
         BackendService.getDeckById(value)
           .then(function (result) {
-            vm.selectedDeck = result;
+            $scope.selectedDeck = result;
             getCards();
           }, function (e) {
             $log.error(e);
           });
       } else {
-        vm.selectedDeck = DeckService.getDeckObj();
         vm.cards=[];
       }
       //clean card field
-      vm.selectedDeck = DeckService.setDeckObj(null);
       $stateParams.cardId = null;
       $state.reload('deck.addCard')
     }
@@ -140,16 +141,16 @@
         .cancel($translate.instant("deck-NO"));
       $mdDialog.show(confirm).then(function () {
         //delete card
-        vm.selectedDeck.removeFlashcard(cardId)
+        $scope.selectedDeck.removeFlashcard(cardId)
           .then(function (result) {
             //delete deck if last card
             if (cardNo < 2) {
               $log.warn('last one flashcard');
-              vm.selectedDeck.remove().then(function () {
+              $scope.selectedDeck.remove().then(function () {
                 $state.go('decks')
               });
             } else {
-              $state.go("deck.addCard", {deckId: vm.selectedDeck.id, cardId: null});
+              $state.go("deck.addCard", {deckId: $scope.selectedDeck.id, cardId: null});
               getCards();
               $log.log(result);
             }

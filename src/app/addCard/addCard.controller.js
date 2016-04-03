@@ -7,23 +7,20 @@
 
 
   /** @ngInject */
-  function AddCardController($stateParams, $state, $document, BackendService, DeckService) {
+  function AddCardController($stateParams, $state, $document, BackendService, $scope) {
     var vm = this;
     vm.deckId = $stateParams.deckId;
     vm.cardId = $stateParams.cardId;
-
     vm.decks = null;
     vm.load = false;
 
     if (vm.cardId){
-      vm.card = DeckService.getCardObj();
-      if (vm.card){
-        vm.question = vm.card.question;
-        vm.answer = vm.card.answer;
+      if ($scope.selectedCard){
+        vm.question = $scope.selectedCard.question;
+        vm.answer = $scope.selectedCard.answer;
         vm.editMode=true
       }
     }
-
     vm.toggleStatus = false;
 
     vm.toggleButton = function ()
@@ -38,7 +35,13 @@
 
     vm.submitCard = function ()
     {
-      //alert('deckName: '+vm.deckName+'\n'+'deckId: ('+$stateParams.deckId+')\n'+'cardId: '+$stateParams.cardId+'\n'+'vm.question: '+vm.question+'\n'+'vm.answer: '+vm.answer);
+    if (!$scope.searchText){
+      return $scope.setEmptyNameError(true)
+    }
+    if (!$scope.selectedDeck){
+      $log.warn("zmieniono nazwe talii");
+    }
+      //alert('deckName: '+vm.deckName+'\n'+'deckId: ('+$stateParams.deckId+')\n'+'cardId: '+$stateParams.cardId+'\n'+'$scope.question: '+$scope.question+'\n'+'$scope.answer: '+$scope.answer);
       //Jeżeli pola nie są puste
       if(angular.isDefined(vm.question) && angular.isDefined(vm.answer))
       {
@@ -48,11 +51,10 @@
           BackendService.getDeckById($stateParams.deckId)
             .then(function success(data) {
               vm.newDeck = data;
-
-              vm.newDeck.updateFlashcard($stateParams.cardId, vm.question, vm.answer)
+                console.log($scope.selectedDeck)
+              vm.newDeck.updateFlashcard(vm.cardId, vm.question, vm.answer)
                 .then(function success() {
                   //alert("Zedytowano fiszkę");
-                  DeckService.setCardObj(vm.card);
                   $state.go("deck", {deckId: vm.newDeck.id});
                   $state.reload()
                 },
@@ -97,7 +99,7 @@
           }
           else
           {
-            BackendService.createNewDeck(DeckService.getDeckObj().name)
+            BackendService.createNewDeck($scope.selectedDeck.name)
               .then(function success(data) {
                 vm.newDeck = data;
 
