@@ -5,7 +5,7 @@
     .module('studyBoxFe')
     .controller('LoginController', LoginController);
 
-  function LoginController($document, $log, $state, $rootScope, $mdDialog) {
+  function LoginController($document, $log, $state, $rootScope, $mdDialog, $translate) {
     var vm = this;
     vm.formStatus = '';
     vm.submit = submit;
@@ -28,10 +28,10 @@
         $mdDialog.alert()
           .parent(angular.element($document[0].querySelector('#popupContainer')))
           .clickOutsideToClose(false)
-          .title('Uwaga!')
-          .textContent('Jesteś offline, nie możesz teraz się zalogować.')
+          .title($translate.instant('networkAlert-WARNING'))
+          .textContent($translate.instant('networkAlert-OFFLINE_LOGIN'))
           .ariaLabel('Alert Dialog')
-          .ok('Rozumiem')
+          .ok($translate.instant('networkAlert-AGREE'))
       );
     }
   }

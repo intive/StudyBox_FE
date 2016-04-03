@@ -33,20 +33,22 @@
       vm.toggleStatus = !vm.toggleStatus;
     };
 
-    vm.submitCard = function ()
+    vm.submitCard = function (isValid)
     {
-    if (!$scope.searchText){
-      return $scope.setEmptyNameError(true)
-    }
-    if (!$scope.selectedDeck){
-      $log.warn("zmieniono nazwe talii");
-    }
+      //alert('deckName: '+vm.deckName+'\n'+'deckId: ('+$stateParams.deckId+')\n'+'cardId: '+$stateParams.cardId+'\n'+'vm.question: '+vm.question+'\n'+'vm.answer: '+vm.answer);
+      //gdy formularz nie przechodzi walidacji
+      if(isValid){
+        if (!$scope.searchText){
+          return $scope.setEmptyNameError(true)
+        }
+        if (!$scope.selectedDeck){
+          $log.warn("zmieniono nazwe talii");
+        }
       //alert('deckName: '+vm.deckName+'\n'+'deckId: ('+$stateParams.deckId+')\n'+'cardId: '+$stateParams.cardId+'\n'+'$scope.question: '+$scope.question+'\n'+'$scope.answer: '+$scope.answer);
       //Jeżeli pola nie są puste
-      if(angular.isDefined(vm.question) && angular.isDefined(vm.answer))
-      {
-        if($stateParams.cardId)
+        if(angular.isDefined(vm.question) && angular.isDefined(vm.answer))
         {
+          if($stateParams.cardId)
           //Edycja
           BackendService.getDeckById($stateParams.deckId)
             .then(function success(data) {
@@ -99,7 +101,7 @@
           }
           else
           {
-            BackendService.createNewDeck($scope.selectedDeck.name)
+            BackendService.createNewDeck(DeckService.getDeckObj().name)
               .then(function success(data) {
                 vm.newDeck = data;
 
