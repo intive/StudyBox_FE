@@ -48,7 +48,7 @@
         if (deck.id){
           selectDeck(deck);
         } else {
-          createDeck(deck);
+          createDeck();
         }
       }
     }
@@ -58,7 +58,7 @@
       if($stateParams.deckId){
         $stateParams.deckId = null;
         $stateParams.cardId = null;
-        initDeck(null)
+        initDeck(null);
       }
     }
 
