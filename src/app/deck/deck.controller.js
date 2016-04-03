@@ -48,7 +48,7 @@
         if (deck.id){
           selectDeck(deck);
         } else {
-          createDeck(deck);
+          createDeck();
         }
       }
     }
@@ -158,11 +158,11 @@
               //delete deck if last card
               if (cardNo < 2) {
                 $log.warn('last one flashcard');
-                vm.selectedDeck.remove().then(function () {
+                $scope.selectedDeck.remove().then(function () {
                   $state.go('decks');
                 });
               } else {
-                $state.go("deck.addCard", {deckId: vm.selectedDeck.id, cardId: null});
+                $state.go("deck.addCard", {deckId: $scope.selectedDeck.id, cardId: null});
                 getCards();
                 $log.log(result);
               }
