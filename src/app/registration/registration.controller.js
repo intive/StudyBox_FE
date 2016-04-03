@@ -6,7 +6,7 @@ angular
 .controller('RegistrationController', RegistrationController);
 
 /** @ngInject */
-function RegistrationController($document, $log, $window, $rootScope, $mdDialog) {
+function RegistrationController($document, $log, $window, $rootScope, $mdDialog, $translate) {
   var vm = this;
   vm.submit = submit;
   vm.reset = reset;
@@ -35,10 +35,10 @@ function RegistrationController($document, $log, $window, $rootScope, $mdDialog)
       $mdDialog.alert()
         .parent(angular.element($document[0].querySelector('#popupContainer')))
         .clickOutsideToClose(false)
-        .title('Uwaga!')
-        .textContent('Jesteś offline, nie możesz teraz się zarejestrować.')
+        .title($translate.instant('networkAlert-WARNING'))
+        .textContent($translate.instant('networkAlert-OFFLINE_REGISTRATION'))
         .ariaLabel('Alert Dialog')
-        .ok('Rozumiem')
+        .ok($translate.instant('networkAlert-AGREE'))
     );
   }
 }

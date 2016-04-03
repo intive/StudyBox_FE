@@ -19,6 +19,13 @@
         templateUrl: 'app/addCard/addCard.html',
         controller: 'AddCardController',
         controllerAs: 'addCard'
+      })
+      .state('deck-preview', {
+        parent: 'navbar',
+        url: '/deck-preview/:deckId',
+        controller: 'DeckController',
+        controllerAs: 'deck',
+        templateUrl: 'app/deck/deck-preview.page.html'
       });
 
     $urlRouterProvider.otherwise('/');

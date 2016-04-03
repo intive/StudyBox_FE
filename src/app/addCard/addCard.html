@@ -1,7 +1,7 @@
 <div layout="row" layout-xs="column" layout-sm="column" class="addCard">
   <div flex-gt-sm="65" flex-xs="grow" flex-sm="grow" layout-align="center stretch" class="separate">
     <md-content layout-padding class="siteParts" style="overflow: visible;">
-      <form>
+      <form name="addCardForm" ng-submit="addCard.submitCard(addCardForm.$valid)">
         <md-input-container class="md-block md-whiteframe-4dp middleCard" md-no-float>
 
           <div ngf-select
@@ -21,6 +21,7 @@
           </md-button>
           <textarea
             maxlength="1000"
+            minlength="2"
             class="question"
             placeholder='{{"addCard-WRITE_QUESTION" | translate}}'
             ng-model="addCard.question" rows="5"
@@ -55,6 +56,7 @@
           </div>
           <textarea
             maxlength="1000"
+            minlength="2"
             class="hint"
             placeholder='{{"addCard-WRITE_HINT" | translate}}'
             ng-model="addCard.hint" rows="5"
@@ -79,6 +81,7 @@
           </div>
           <textarea
             maxlength="1000"
+            minlength="2"
             class="answer"
             placeholder='{{"addCard-WRITE_ANSWER" | translate}}'
             ng-model="addCard.answer" rows="5"
@@ -90,9 +93,9 @@
           </div>
         </md-input-container>
 
-        <md-button type="submit" class="md-raised addCardButtons addCardButton" ng-click="addCard.submitCard()"
+        <md-button type="submit" class="md-raised addCardButtons addCardButton"
                    ng-if="!addCard.editMode" layout-align="end center">{{"addCard-ADD_TO_DECK" | translate}}</md-button>
-        <md-button type="submit" class="md-raised addCardButtons addCardButton" ng-click="addCard.submitCard()"
+        <md-button type="submit" class="md-raised addCardButtons addCardButton"
                    ng-if="addCard.editMode" layout-align="end center">{{"addCard-EDIT_CARD" | translate}}</md-button>
         </form>
       </md-content>
