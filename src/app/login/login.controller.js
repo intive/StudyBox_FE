@@ -5,7 +5,7 @@
     .module('login')
     .controller('LoginController', LoginController);
 
-  function LoginController($document, $log, $state, $rootScope, $mdDialog, $translate, LoginService) {
+  function LoginController($document, $log, $state, $rootScope, $mdDialog, $translate, LoginService, $cookies) {
     var vm = this;
     vm.formStatus = '';
     vm.submit = submit;
@@ -15,14 +15,19 @@
       if (isValid && $rootScope.networkStatusOnline) {
         var user = vm.data.email;
         var pass = vm.data.password;
-        LoginService.doLogin(user, pass);
-        $log.info("Poprawne logowanie");
-        $state.go("decks");
+        var loginUrl = "/";
+        var targetState = "decks";
+        LoginService.doLogin(user, pass, loginUrl)
+        .then(function(data){
+          $state.go(targetState);
+        });         
       }else{
         $log.info("Błąd logowania");
         if(!$rootScope.networkStatusOnline)
           showOfflineLoginAlert();
       }
+      var cookie = $cookies.get("token");
+      $log.info("Token kontroler: " + cookie);
     }
 
     function showOfflineLoginAlert() {

@@ -6,7 +6,7 @@
     .controller('DeckController', DeckController);
 
   /** @ngInject */
-  function DeckController($stateParams, $state, BackendService, $log, DeckService, $mdDialog, $translate) {
+  function DeckController($stateParams, $state, BackendService, $log, DeckService, $mdDialog, $translate, $rootScope) {
     var vm = this;
     vm.selectedDeck = new BackendService.Deck();
     vm.load = false;
@@ -19,12 +19,14 @@
     vm.clear = clear;
     vm.isOpen = false;
 
+    vm.access = $stateParams.access;
+
     function getDecks(query) {
       //for not loading list of deck on page init
       if (vm.load) {
         if (!vm.decks) {
           //create request for deck list
-          vm.decks = BackendService.getDecks();
+          vm.decks = BackendService.getDecks(vm.access);
         }
         return vm.decks
           .then(function (result) {
@@ -130,36 +132,48 @@
 
     //DELETE CARD DIALOG
     function deleteCardDialog(cardId, cardNo) {
-      var content = $translate.instant("deck-REMOVE_CARD_MODAL");
-      //info for last card
-      if (cardNo < 2) {
-        content = ($translate.instant("deck-REMOVE_LAST_CARD_MODAL"));
-      }
-      var confirm = $mdDialog.confirm()
-        .title($translate.instant("deck-REMOVE_CARD"))
-        .textContent(content)
-        .ok($translate.instant("deck-YES"))
-        .cancel($translate.instant("deck-NO"));
-      $mdDialog.show(confirm).then(function () {
-        //delete card
-        vm.selectedDeck.removeFlashcard(cardId)
-          .then(function (result) {
-            //delete deck if last card
-            if (cardNo < 2) {
-              $log.warn('last one flashcard');
-              vm.selectedDeck.remove().then(function () {
-                $state.go('decks');
-              });
-            } else {
-              $state.go("deck.addCard", {deckId: vm.selectedDeck.id, cardId: null});
-              getCards();
-              $log.log(result);
-            }
+      //if connection lost
+      if(!$rootScope.networkStatusOnline){
+        $mdDialog.show(
+          $mdDialog.alert()
+            .clickOutsideToClose(false)
+            .title($translate.instant('networkAlert-WARNING'))
+            .textContent($translate.instant('deck-OFFLINE_REMOVE_CARD_MODAL'))
+            .ariaLabel('Alert Dialog')
+            .ok($translate.instant('networkAlert-AGREE'))
+        );
+      }else{
+        var content = $translate.instant("deck-REMOVE_CARD_MODAL");
+        //info for last card
+        if (cardNo < 2) {
+          content = ($translate.instant("deck-REMOVE_LAST_CARD_MODAL"));
+        }
+        var confirm = $mdDialog.confirm()
+          .title($translate.instant("deck-REMOVE_CARD"))
+          .textContent(content)
+          .ok($translate.instant("deck-YES"))
+          .cancel($translate.instant("deck-NO"));
+        $mdDialog.show(confirm).then(function () {
+          //delete card
+          vm.selectedDeck.removeFlashcard(cardId)
+            .then(function (result) {
+              //delete deck if last card
+              if (cardNo < 2) {
+                $log.warn('last one flashcard');
+                vm.selectedDeck.remove().then(function () {
+                  $state.go('decks');
+                });
+              } else {
+                $state.go("deck.addCard", {deckId: vm.selectedDeck.id, cardId: null});
+                getCards();
+                $log.log(result);
+              }
 
-          }, function (e) {
-            $log.error(e);
-          });
-      });
+            }, function (e) {
+              $log.error(e);
+            });
+        });
+      }
     }
   }
 })();

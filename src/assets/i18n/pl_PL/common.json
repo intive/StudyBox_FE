@@ -7,8 +7,9 @@
     "deck-REMOVE_CARD": "Usuń fiszkę",
     "deck-REMOVE_CARD_MODAL": "Czy aby na pewno chcesz usunąć daną fiszkę ?",
     "deck-REMOVE_LAST_CARD_MODAL": "Wraz z usunięciem tej fiszki , usunięta zostanie również obecna talia , czy aby na pewno chcesz usunąć daną fiszkę ?",
-    "deck-YES": "Tak",
+    "deck-YES": "Usuń",
     "deck-NO": "Nie",
+    "deck-OFFLINE_REMOVE_CARD_MODAL": "Jesteś offline, nie możesz teraz usunąć fiszki.",
 
     "registration-FORM_TITLE": "Rejestracja",
     "registration-REQUIRED_FIELD": "To pole jest wymagane",
@@ -49,7 +50,7 @@
     "navbar-ADD": "Dodaj",
     "navbar-NEW_DECK": "Nowa talia",
     "navbar-NEW_CARD_FROM_FILE": "Nowa fiszka z pliku",
-    "navbar-PRIVATE_CARDS": "Moje talie",
+    "navbar-PRIVATE_CARDS": "Prywatne talie",
     "navbar-PUBLIC_CARDS": "Publiczne talie",
 
     "networkAlert-WARNING": "Uwaga!",
