@@ -5,7 +5,7 @@
     .module('login')
     .controller('LoginController', LoginController);
 
-  function LoginController($document, $log, $state, $rootScope, $mdDialog, $translate, LoginService, $cookies) {
+  function LoginController($document, $log, $state, $rootScope, $mdDialog, $translate, LoginService) {
     var vm = this;
     vm.formStatus = '';
     vm.submit = submit;
@@ -13,21 +13,25 @@
 
     function submit(isValid) {
       if (isValid && $rootScope.networkStatusOnline) {
-        var user = vm.data.email;
-        var pass = vm.data.password;
-        var loginUrl = "/";
+       /* var user = vm.data.email;
+        var pass = vm.data.password;*/
+        var pass = "123456"; //mock, to remove
+        var user= "patronat@blstream.com"; //mock, to remove
+        var loginUrl = "api/decks/";
         var targetState = "decks";
         LoginService.doLogin(user, pass, loginUrl)
         .then(function(data){
-          $state.go(targetState);
+          if(data.status === 200) {
+            $state.go(targetState);
+          }else{
+            alert("Logowanie nieudane!\n\n" + "HTTP: " + data.status + "\n" + data.statusText);
+          }          
         });         
       }else{
         $log.info("Błąd logowania");
         if(!$rootScope.networkStatusOnline)
           showOfflineLoginAlert();
       }
-      var cookie = $cookies.get("token");
-      $log.info("Token kontroler: " + cookie);
     }
 
     function showOfflineLoginAlert() {

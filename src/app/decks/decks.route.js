@@ -15,8 +15,7 @@
       controller: 'DecksController',
       controllerAs: 'decks',
       params: {
-        access: 'private',
-        loginRequired: false
+        access: 'private'
       }
     });
 

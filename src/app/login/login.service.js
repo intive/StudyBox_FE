@@ -2,7 +2,7 @@
 * Dokumentacja
 * 
 * isLogged(user) - zwraca true, jeśli użytkownik jest zalogowany, false w przeciwnym przypadku
-* doLogin(user, password, loginUrl) - wysyła żądanie logowania, zwraca promise
+* doLogin(user, password, loginUrl) - wysyła żądanie logowania, zwraca promise lub błąd
 * doLogout(user) - kasuje ciasteczko, zwraca true (sukces) lub false
 * 
 */
@@ -22,37 +22,38 @@
     return loginService;
 
     function isLogged() {
-      return true;
+      if (angular.isDefined($cookies.get("userID")) && angular.isDefined($cookies.get("token"))) {
+        return true;
+      } else {
+        return false;
+      }
     }
 
     function doLogin(user, pass, loginUrl) {
       var token = btoa(user + ":" + pass);
       var method = "GET";
       var loginResponse;
-      var result = "";
       if (angular.isDefined(user) && angular.isDefined(pass)) {
         setHeader(token);
         loginResponse = $http({method: method, url: loginUrl})
         .then(
           function successCallback(response) {            
-            setCookie(user, token);
-            var cookie = $cookies.get("token");
-            $log.info("Token: " + cookie);
-            $log.info("Z wnętrza: " + response.status);
-            alert("Witaj, użytkowniku!\n\nJesteś zalogowany jako: " + user);
-            return response.data;
+            setCookie(user, token);            
+            return response;
           },
           function errorCallback(response) {
             alert("Logowanie nieudane!\n\nHTTP " + response.status);
-            return $q.reject(response.data);
+            return $q.reject(response);
           });
-      }      
-      $log.info(loginResponse);
+      }
       return loginResponse;
     }
 
     function doLogout() {
-      return false;
+      $cookies.remove("userID");
+      $cookies.remove("token");
+      var logged = isLogged();
+      return !logged;
     }
 
     function setHeader(token) {
