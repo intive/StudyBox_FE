@@ -57,8 +57,8 @@
           var nameChange = true;
         }
         //Jeżeli pola nie są puste
+        var cardInDeck;
         if(angular.isDefined(vm.question) && angular.isDefined(vm.answer)) {
-          var cardInDeck;
           if($stateParams.cardId) {
             cardInDeck = editFlashCard()
           } else {
@@ -139,7 +139,7 @@
     }
 
     function createDeckWithFlashCard(){
-      return BackendService.createNewDeck(DeckService.getDeckObj().name)
+      return BackendService.createNewDeck(vm.newName)
         .then(function success(data) {
           vm.newDeck = data;
           return vm.newDeck.createFlashcard(vm.question, vm.answer)
