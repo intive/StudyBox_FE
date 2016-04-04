@@ -12,12 +12,15 @@
     vm.load = false;
     vm.getDecks = getDecks;
     vm.selectedDeckChange = selectedDeckChange;
+    vm.textChange = textChange;
     vm.createDeck = createDeck;
     vm.selectDeck = selectDeck;
     vm.selectCard = selectCard;
     vm.removeCard = removeCard;
     vm.clear = clear;
-    vm.isOpen = false;
+
+    vm.emptyNameError = DeckService.getEmptyNameError();
+
 
     function getDecks(query) {
       //for not loading list of deck on page init
@@ -39,6 +42,11 @@
       }
     }
 
+    function textChange(text) {
+      console.log('text change')
+      DeckService.setNewDeckName(text)
+    }
+
     function selectedDeckChange(deck) {
       if (deck) {
         if (deck.id){
@@ -50,7 +58,6 @@
     }
 
     function createDeck(deck) {
-      //set new deck name
       DeckService.setDeckObj(deck);
       if($stateParams.deckId){
         $stateParams.deckId = null;
@@ -60,6 +67,7 @@
     }
 
     function selectDeck(deck) {
+      DeckService.setDeckObj(deck);
       if (deck.id != $stateParams.deckId){
         $stateParams.deckId = deck.id;
         $stateParams.cardId = null;
@@ -112,6 +120,7 @@
         BackendService.getDeckById(value)
           .then(function (result) {
             vm.selectedDeck = result;
+            DeckService.setNewDeckName(vm.selectedDeck.name);
             getCards();
           }, function (e) {
             $log.error(e);
@@ -121,7 +130,10 @@
         vm.cards=[];
       }
       //clean card field
-      vm.selectedDeck = DeckService.setDeckObj(null);
+      if (!$stateParams.deckId){
+        DeckService.setNewDeckName(null);
+        vm.selectedDeck = DeckService.setDeckObj(null);
+      }
       $stateParams.cardId = null;
       if($state.$current == 'deck.addCard')
         $state.reload('deck.addCard');
@@ -151,26 +163,28 @@
           .textContent(content)
           .ok($translate.instant("deck-YES"))
           .cancel($translate.instant("deck-NO"));
-        $mdDialog.show(confirm).then(function () {
+          $mdDialog.show(confirm)
+          .then(function () {
           //delete card
-          vm.selectedDeck.removeFlashcard(cardId)
-            .then(function (result) {
-              //delete deck if last card
-              if (cardNo < 2) {
-                $log.warn('last one flashcard');
-                vm.selectedDeck.remove().then(function () {
-                  $state.go('decks');
-                });
-              } else {
-                $state.go("deck.addCard", {deckId: vm.selectedDeck.id, cardId: null});
-                getCards();
-                $log.log(result);
-              }
-
-            }, function (e) {
+          return vm.selectedDeck.removeFlashcard(cardId)
+           }, function (e) {
               $log.error(e);
+          })
+          .then(function (result) {
+          //delete deck if last card
+          if (cardNo < 2) {
+            $log.warn('last one flashcard');
+            vm.selectedDeck.remove().then(function () {
+              $state.go('decks');
             });
-        });
+          } else {
+            $state.go("deck.addCard", {deckId: vm.selectedDeck.id, cardId: null});
+            getCards();
+            $log.log(result);
+          }
+          }, function (e) {
+            $log.error(e);
+          });
       }
     }
   }

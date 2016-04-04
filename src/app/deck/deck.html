@@ -7,7 +7,7 @@
                      md-search-text="deck.searchText"
                      md-items="item in deck.getDecks(deck.searchText)"
                      md-item-text="item.name"
-                     md-search-text-change="deck.getDecks(deck.searchText)"
+                     md-search-text-change="deck.textChange(deck.searchText)"
                      md-selected-item-change="deck.selectedDeckChange(item)"
                      md-min-length="0"
                      md-input-maxlength="50"
@@ -17,7 +17,7 @@
         <span md-highlight-text="deck.searchText">{{item.name}}</span>
         <span ng-if="!item.id" class="add-deck">{{'deck-CREATE_DECK' | translate}}</span>
       </md-item-template>
-      <div ng-messages="deckForm.deckField.$error" ng-if="deckForm.deckField.$touched">
+      <div ng-messages="deckForm.deckField.$error" ng-if="deckForm.deckField.$touched || deck.emptyNameError">
         <div ng-message="required">{{'deck-NAME_REQUIRED' | translate}}</div>
         <div ng-message="maxlength">{{'deck-NAME_TOO_LONG' | translate}}</div>
       </div>

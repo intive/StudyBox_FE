@@ -7,7 +7,7 @@
 
 
   /** @ngInject */
-  function AddCardController($stateParams, $state, $document, BackendService, DeckService) {
+  function AddCardController($stateParams, $state, $document, BackendService, DeckService, $log) {
     var vm = this;
     vm.deckId = $stateParams.deckId;
     vm.cardId = $stateParams.cardId;
@@ -41,7 +41,24 @@
       //alert('deckName: '+vm.deckName+'\n'+'deckId: ('+$stateParams.deckId+')\n'+'cardId: '+$stateParams.cardId+'\n'+'vm.question: '+vm.question+'\n'+'vm.answer: '+vm.answer);
       //gdy formularz nie przechodzi walidacji
       if(isValid){
-      //Jeżeli pola nie są puste
+        vm.deck = DeckService.getDeckObj();
+        vm.newName = DeckService.getNewDeckName();
+
+        $log.log('deck');
+        $log.log(vm.deck);
+        $log.log(vm.newName);
+        //sprawdzenie nazwy talii
+        if (!vm.newName) {
+          $log.warn("pusta nazwa talii");
+          DeckService.setEmptyNameError(true)
+          $state.reload()
+        }
+        if (vm.deck && vm.newName != vm.deck.name) {
+          $log.warn("zmieniono nazwe talii");
+          return alert('zmieniono nazwe talii, not yet implemented');
+        }
+
+        //Jeżeli pola nie są puste
         if(angular.isDefined(vm.question) && angular.isDefined(vm.answer))
         {
           if($stateParams.cardId)
@@ -50,7 +67,6 @@
             BackendService.getDeckById($stateParams.deckId)
               .then(function success(data) {
                 vm.newDeck = data;
-
                 vm.newDeck.updateFlashcard($stateParams.cardId, vm.question, vm.answer)
                   .then(function success() {
                     //alert("Zedytowano fiszkę");
@@ -78,7 +94,6 @@
               BackendService.getDeckById($stateParams.deckId)
                 .then(function success(data) {
                   vm.newDeck = data;
-
                   vm.newDeck.createFlashcard(vm.question, vm.answer)
                     .then(function success() {
                       //alert("Dodano nową fiszkę do aktualnej talii");
@@ -99,10 +114,9 @@
             }
             else
             {
-              BackendService.createNewDeck(DeckService.getDeckObj().name)
+              BackendService.createNewDeck(DeckService.getNewDeckName())
                 .then(function success(data) {
                   vm.newDeck = data;
-
                   vm.newDeck.createFlashcard(vm.question, vm.answer)
                     .then(function success() {
                       //alert("Dodano nową fiszkę do nowej talii");
