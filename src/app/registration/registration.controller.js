@@ -6,7 +6,7 @@ angular
 .controller('RegistrationController', RegistrationController);
 
 /** @ngInject */
-function RegistrationController($document, $log, $window, $rootScope, $mdDialog, $translate) {
+function RegistrationController($document, $log, $window, $rootScope, $mdDialog, $translate,$http) {
   var vm = this;
   vm.submit = submit;
   vm.reset = reset;
@@ -19,6 +19,21 @@ function RegistrationController($document, $log, $window, $rootScope, $mdDialog,
     //gdy formularz jest poprawny oraz mamy polaczeneie z internetem
     if (isValid && $rootScope.networkStatusOnline) {
       $log.info("formularz poprawny dla " +vm.data.email);
+
+      $http({
+        method: 'POST',
+        url: '/api/users',
+        data: {
+          'email': "'"+vm.data.email+"'",
+          'name': "'"+vm.data.email+"'",
+          'password': "'"+vm.data.password+"'"
+        }
+      }).then(function successCallback(response) {
+        alert(angular.toJson (response.data));
+      }, function errorCallback(response) {
+        alert('Nie działa :(');
+      });
+
     }else{
       $log.info("blad formularza");
       if(!$rootScope.networkStatusOnline)
