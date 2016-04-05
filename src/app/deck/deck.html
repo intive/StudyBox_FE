@@ -24,6 +24,17 @@
     </md-autocomplete>
     <div ng-if="deck.searchText" ng-click="deck.clear()" class="deck-clear">x</div>
   </form>
+  <div class="deck-autocomplete">
+    <md-checkbox
+      class="md-primary"
+      ng-model="deck.deckAccess"
+      aria-label="deck access"
+      ng-true-value="'private'"
+      ng-false-value="'public'"
+      flex>
+    </md-checkbox>
+    <span class="deck-checkbox">{{deck.deckAccess | translate}}</span>
+  </div>
 
   <div>
     <md-card ng-repeat="card in deck.cards" ng-click="deck.selectCard(card)" class="deck-card"

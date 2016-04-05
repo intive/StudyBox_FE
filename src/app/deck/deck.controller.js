@@ -19,7 +19,7 @@
     vm.selectCard = selectCard;
     vm.removeCard = removeCard;
     vm.clear = clear;
-
+    vm.deckAccess = 'private';
     vm.emptyNameError = DeckService.getEmptyNameError();
 
 
@@ -57,6 +57,7 @@
         if (deck.id){
           selectDeck(deck);
         } else {
+          deck.access = vm.deckAccess;
           createDeck(deck);
         }
       }
@@ -82,7 +83,7 @@
 
     function changeDeckName() {
       if (!vm.selectedDeck){return}
-      vm.selectedDeck.changeName(vm.searchText)
+      vm.selectedDeck.changeName(vm.searchText, vm.deckAccess)
       .then(function success() {
         $state.go("deck.addCard", {deckId: vm.selectedDeck.id});
         $state.reload("deck");
