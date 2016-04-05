@@ -2,8 +2,8 @@
   'use strict';
 
   angular
-    .module('login')
-    .controller('LoginController', LoginController);
+  .module('login')
+  .controller('LoginController', LoginController);
 
   function LoginController($document, $log, $state, $rootScope, $mdDialog, $translate, LoginService) {
     var vm = this;
@@ -13,10 +13,8 @@
 
     function submit(isValid) {
       if (isValid && $rootScope.networkStatusOnline) {
-       /* var user = vm.data.email;
-        var pass = vm.data.password;*/
-        var pass = "123456"; //mock, to remove
-        var user= "patronat@blstream.com"; //mock, to remove
+        var user = vm.data.email;
+        var pass = vm.data.password;
         var loginUrl = "api/decks/";
         var targetState = "decks";
         LoginService.doLogin(user, pass, loginUrl)
@@ -37,13 +35,13 @@
     function showOfflineLoginAlert() {
       $mdDialog.show(
         $mdDialog.alert()
-          .parent(angular.element($document[0].querySelector('#popupContainer')))
-          .clickOutsideToClose(false)
-          .title($translate.instant('networkAlert-WARNING'))
-          .textContent($translate.instant('networkAlert-OFFLINE_LOGIN'))
-          .ariaLabel('Alert Dialog')
-          .ok($translate.instant('networkAlert-AGREE'))
-      );
+        .parent(angular.element($document[0].querySelector('#popupContainer')))
+        .clickOutsideToClose(false)
+        .title($translate.instant('networkAlert-WARNING'))
+        .textContent($translate.instant('networkAlert-OFFLINE_LOGIN'))
+        .ariaLabel('Alert Dialog')
+        .ok($translate.instant('networkAlert-AGREE'))
+        );
     }
   }
 })();
