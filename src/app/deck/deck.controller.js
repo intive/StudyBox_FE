@@ -83,17 +83,20 @@
     }
 
     function changeDeckName() {
-      if (!vm.selectedDeck){return}
-      vm.selectedDeck.changeName(vm.searchText, vm.deckAccess)
-      .then(function success() {
-        $state.go("deck.addCard", {deckId: vm.selectedDeck.id});
-        $state.reload("deck");
-      },
-      function error() {
-        var message = 'I cant update Deck name';
-        alert(message);
-        throw message;
-      })
+      if (!vm.selectedDeck){
+        DeckService.setNewDeckName(vm.searchText);
+      } else {
+        vm.selectedDeck.changeName(vm.searchText, vm.deckAccess)
+          .then(function success() {
+            $state.go("deck.addCard", {deckId: vm.selectedDeck.id});
+            $state.reload("deck");
+          },
+          function error() {
+            var message = 'I cant update Deck name';
+            alert(message);
+            throw message;
+          })
+      }
     }
 
     function selectCard(card) {
