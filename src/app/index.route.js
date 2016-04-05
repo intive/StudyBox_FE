@@ -12,8 +12,11 @@
         url: '/',
         templateUrl: 'app/login/login.html',
         controller: 'LoginController',
-        controllerAs: 'login'
-      })      
+        controllerAs: 'login',
+        params: {
+          loginRequired: false
+        }
+      });
 
     $urlRouterProvider.otherwise('/');
   }

@@ -2,22 +2,33 @@
   'use strict';
 
   angular
-    .module('studyBoxFe')
+    .module('login')
     .controller('LoginController', LoginController);
 
-  function LoginController($document, $log, $state, $rootScope, $mdDialog, $translate) {
+  function LoginController($document, $log, $state, $rootScope, $mdDialog, $translate, LoginService) {
     var vm = this;
     vm.formStatus = '';
     vm.submit = submit;
-    vm.imagePath = "assets/images/StudyBoxLogo_xx.png";
     vm.passwordRegex = /^[^\s]+$/;
 
     function submit(isValid) {
       if (isValid && $rootScope.networkStatusOnline) {
-        $log.info("Poprawne logowanie");
-        $state.go("decks");
+       /* var user = vm.data.email;
+        var pass = vm.data.password;*/
+        var pass = "123456"; //mock, to remove
+        var user= "patronat@blstream.com"; //mock, to remove
+        var loginUrl = "api/decks/";
+        var targetState = "decks";
+        LoginService.doLogin(user, pass, loginUrl)
+        .then(function(data){
+          if(data.status === 200) {
+            $state.go(targetState);
+          }else{
+            alert("Logowanie nieudane!\n\n" + "HTTP: " + data.status + "\n" + data.statusText);
+          }          
+        });         
       }else{
-        $log.info("błąd logowania");
+        $log.info("Błąd logowania");
         if(!$rootScope.networkStatusOnline)
           showOfflineLoginAlert();
       }

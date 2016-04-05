@@ -12,7 +12,10 @@
 			url: '/registration',
 			templateUrl: 'app/registration/registration.html',
 			controller: 'RegistrationController',
-			controllerAs: 'registration'
+			controllerAs: 'registration',
+			params: {
+				loginRequired: false
+			}
 		});
 
 		$urlRouterProvider

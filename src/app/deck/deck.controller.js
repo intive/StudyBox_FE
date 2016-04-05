@@ -23,12 +23,14 @@
     vm.emptyNameError = DeckService.getEmptyNameError();
 
 
+    vm.access = $stateParams.access;
+
     function getDecks(query) {
       //for not loading list of deck on page init
       if (vm.load) {
         if (!vm.decks) {
           //create request for deck list
-          vm.decks = BackendService.getDecks();
+          vm.decks = BackendService.getDecks(vm.access);
         }
         return vm.decks
           .then(function (result) {
