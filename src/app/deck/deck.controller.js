@@ -50,9 +50,9 @@
     }
 
     function selectedDeckChange(deck) {
-      console.log(deck)
-      console.log(vm.selectedDeck)
-      //todo changeDeckName()
+      if(deck === true){
+        return changeDeckName();
+      }
       if (deck) {
         if (deck.id){
           selectDeck(deck);
@@ -84,8 +84,7 @@
       if (!vm.selectedDeck){return}
       vm.selectedDeck.changeName(vm.searchText)
       .then(function success() {
-        $state.go("deck.addCard", {deckId: vm.newDeck.id});
-        $state.reload("deck");
+        $state.go("deck.addCard", {deckId: vm.selectedDeck.id});
       },
       function error() {
         var message = 'I cant update Deck name';
@@ -139,6 +138,7 @@
         BackendService.getDeckById(value)
           .then(function (result) {
             vm.selectedDeck = result;
+            vm.selectedItem = vm.selectedDeck;
             DeckService.setNewDeckName(vm.selectedDeck.name);
             getCards();
           }, function (e) {
@@ -146,16 +146,19 @@
           });
       } else {
         vm.selectedDeck = DeckService.getDeckObj();
+        vm.selectedItem = vm.selectedDeck;
         vm.cards=[];
       }
       //clean card field
       if (!$stateParams.deckId){
         DeckService.setNewDeckName(null);
         vm.selectedDeck = DeckService.setDeckObj(null);
+        vm.selectedItem = vm.selectedDeck;
       }
       $stateParams.cardId = null;
-      if($state.$current == 'deck.addCard')
+      if($state.$current == 'deck.addCard'){
         $state.reload('deck.addCard');
+      }
     }
     initDeck($stateParams.deckId);
 
