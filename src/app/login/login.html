@@ -5,7 +5,7 @@
       <md-card-title layout-align="center">
         <md-card-title-media>
           <div class="md-media-sm logo">
-              <img ng-src="{{login.imagePath}}" class="md-card-image">
+              <img ng-src="assets/images/StudyBoxLogo_xx.png" class="md-card-image">
           </div>
         </md-card-title-media>
       </md-card-title>
@@ -34,6 +34,7 @@
             <div layout="column" layout-align="center stretch">
               <md-button class="md-raised md-primary" type="submit">{{"login-LOGIN_BUTTON" | translate}}</md-button>
               <md-button ui-sref="registration">{{"login-NEW_USER_ACCOUNT" | translate}}</md-button>
+              <md-button ui-sref="decks({access: 'public'})">{{"login-TO_PUBLIC_SERVICE" | translate}}</md-button>
             </div>
         </form>
       </md-card-content>

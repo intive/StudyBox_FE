@@ -23,6 +23,7 @@
       'registration',
       'deck',
       'navbar',
-      'decks'
+      'decks',
+      'login'
     ]);
 })();
