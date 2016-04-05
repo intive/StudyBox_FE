@@ -16,6 +16,7 @@
     vm.selectDeck = selectDeck;
     vm.selectCard = selectCard;
     vm.removeCard = removeCard;
+    vm.lostNetworkConnection = lostNetworkConnection;
     vm.clear = clear;
     vm.isOpen = false;
 
@@ -130,19 +131,19 @@
     }
     initDeck($stateParams.deckId);
 
-    //DELETE CARD DIALOG
-    function deleteCardDialog(cardId, cardNo) {
-      //if connection lost
-      if(!$rootScope.networkStatusOnline){
-        $mdDialog.show(
+    function lostNetworkConnection(){
+      $mdDialog.show(
           $mdDialog.alert()
             .clickOutsideToClose(false)
             .title($translate.instant('networkAlert-WARNING'))
             .textContent($translate.instant('deck-OFFLINE_REMOVE_CARD_MODAL'))
             .ariaLabel('Alert Dialog')
             .ok($translate.instant('networkAlert-AGREE'))
-        );
-      }else{
+      );
+    }
+
+    //DELETE CARD DIALOG
+    function deleteCardDialog(cardId, cardNo) {
         var content = $translate.instant("deck-REMOVE_CARD_MODAL");
         //info for last card
         if (cardNo < 2) {
@@ -154,8 +155,12 @@
           .ok($translate.instant("deck-YES"))
           .cancel($translate.instant("deck-NO"));
         $mdDialog.show(confirm).then(function () {
-          //delete card
-          vm.selectedDeck.removeFlashcard(cardId)
+          //if connection lost
+          if(!$rootScope.networkStatusOnline){
+            lostNetworkConnection();
+          }else{
+            //delete card
+            vm.selectedDeck.removeFlashcard(cardId)
             .then(function (result) {
               //delete deck if last card
               if (cardNo < 2) {
@@ -172,8 +177,8 @@
             }, function (e) {
               $log.error(e);
             });
+          }
         });
-      }
     }
   }
 })();
