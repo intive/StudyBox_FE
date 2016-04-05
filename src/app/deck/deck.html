@@ -3,27 +3,38 @@
     <md-autocomplete flex required
                      ng-model="deck.searchText"
                      md-input-name="deckField"
-                     md-selected-item="deck.selectedDeck"
+                     md-selected-item="deck.selectedItem"
                      md-search-text="deck.searchText"
                      md-items="item in deck.getDecks(deck.searchText)"
                      md-item-text="item.name"
-                     md-search-text-change="deck.getDecks(deck.searchText)"
+                     md-search-text-change="deck.textChange(deck.searchText)"
                      md-selected-item-change="deck.selectedDeckChange(item)"
                      md-min-length="0"
                      md-input-maxlength="50"
-                     md-autoselect="true"
+                     md-autoselect="false"
                      md-floating-label="{{'deck-TYPE_NAME' | translate}}">
       <md-item-template>
         <span md-highlight-text="deck.searchText">{{item.name}}</span>
         <span ng-if="!item.id" class="add-deck">{{'deck-CREATE_DECK' | translate}}</span>
       </md-item-template>
-      <div ng-messages="deckForm.deckField.$error" ng-if="deckForm.deckField.$touched">
+      <div ng-messages="deckForm.deckField.$error" ng-if="deckForm.deckField.$touched || deck.emptyNameError">
         <div ng-message="required">{{'deck-NAME_REQUIRED' | translate}}</div>
         <div ng-message="maxlength">{{'deck-NAME_TOO_LONG' | translate}}</div>
       </div>
     </md-autocomplete>
     <div ng-if="deck.searchText" ng-click="deck.clear()" class="deck-clear">x</div>
   </form>
+  <div class="deck-autocomplete">
+    <md-checkbox
+      class="md-primary"
+      ng-model="deck.deckAccess"
+      aria-label="deck access"
+      ng-true-value="'private'"
+      ng-false-value="'public'"
+      flex>
+    </md-checkbox>
+    <span class="deck-checkbox">{{deck.deckAccess | translate}}</span>
+  </div>
 
   <div>
     <md-card ng-repeat="card in deck.cards" ng-click="deck.selectCard(card)" class="deck-card"

@@ -259,16 +259,25 @@
         return simplePromise(method, url, data);
       }
 
-      function changeName(new_name) {
+      function changeName(new_name, access) {
         if(angular.isUndefined(new_name) ) {
           var message = 'must specify new_name';
           alert(message);
           throw message;
         }
+
+        var isPublic;
+        if(access == 'public')
+          isPublic = true;
+        else if(access == 'private')
+          isPublic = false;
+        else
+          isPublic = false;
+
         var method = 'PUT';
         /*jshint validthis:true */
         var url = '/api/decks/' + this.id;
-        var data = {name: new_name, isPublic: true};
+        var data = {name: new_name, isPublic: isPublic};
         var $this = this;
 
         var promise = $http({method: method, url: url, data: data})
