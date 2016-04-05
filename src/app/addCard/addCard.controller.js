@@ -38,61 +38,61 @@
     function submitCard(isValid) {
       //alert('deckName: '+vm.deckName+'\n'+'deckId: ('+$stateParams.deckId+')\n'+'cardId: '+$stateParams.cardId+'\n'+'vm.question: '+vm.question+'\n'+'vm.answer: '+vm.answer);
       //gdy formularz nie przechodzi walidacji
-      if(isValid){
-        vm.deck = DeckService.getDeckObj();
-        vm.newName = DeckService.getNewDeckName();
-        //$log.log('deck');
-        //$log.log(vm.deck);
-        //$log.log(vm.newName);
+      if(!isValid){return}
+      vm.deck = DeckService.getDeckObj();
+      vm.newName = DeckService.getNewDeckName();
+      //$log.log('deck');
+      //$log.log(vm.deck);
+      //$log.log(vm.newName);
 
-        //sprawdzenie nazwy talii
-        if (!vm.newName) {
-          //todo
-          // zapis pytania i odp
-          $log.warn("pusta nazwa talii");
-          DeckService.setEmptyNameError(true);
-          return $state.reload()
-        }
-        //sprawdzenie zmiany nazwy talii
-        if (vm.deck && vm.newName != vm.deck.name) {
-          $log.warn("zmieniono nazwe talii");
-          var nameChange = true;
-        }
-        //Jeżeli pola nie są puste
-        var cardInDeck;
-        if(angular.isDefined(vm.question) && angular.isDefined(vm.answer)) {
-          if($stateParams.cardId) {
-            cardInDeck = editFlashCard()
+      //sprawdzenie nazwy talii
+      if (!vm.newName) {
+        //todo
+        // zapis pytania i odp
+        $log.warn("pusta nazwa talii");
+        DeckService.setEmptyNameError(true);
+        return $state.reload()
+      }
+      //sprawdzenie zmiany nazwy talii
+      if (vm.deck && vm.newName != vm.deck.name) {
+        $log.warn("zmieniono nazwe talii");
+        var nameChange = true;
+      }
+      //Jeżeli pola nie są puste
+      var cardInDeck;
+      if(angular.isDefined(vm.question) && angular.isDefined(vm.answer)) {
+        if($stateParams.cardId) {
+          cardInDeck = editFlashCard()
+        } else {
+          if($stateParams.deckId) {
+            cardInDeck = createFlashCard()
           } else {
-            if($stateParams.deckId) {
-              cardInDeck = createFlashCard()
-            } else {
-              cardInDeck = createDeckWithFlashCard()
-            }
+            cardInDeck = createDeckWithFlashCard()
           }
         }
-        //update deck name
-        if (nameChange) {
-          cardInDeck
-            .then(function success() {
-              return vm.newDeck.changeName(vm.newName)
-            },
-            function error() {
-              var message = 'I cant create/update card';
-              alert(message);
-              throw message;
-            })
-            .then(function success() {
-              $state.go("deck.addCard", {deckId: vm.newDeck.id});
-              $state.reload("deck");
-            },
-            function error() {
-              var message = 'I cant update Deck name';
-              alert(message);
-              throw message;
-            })
-        }
       }
+      //update deck name
+      if (nameChange) {
+        cardInDeck
+          .then(function success() {
+            return vm.newDeck.changeName(vm.newName)
+          },
+          function error() {
+            var message = 'I cant create/update card';
+            alert(message);
+            throw message;
+          })
+          .then(function success() {
+            $state.go("deck.addCard", {deckId: vm.newDeck.id});
+            $state.reload("deck");
+          },
+          function error() {
+            var message = 'I cant update Deck name';
+            alert(message);
+            throw message;
+          })
+      }
+
     }
 
     function editFlashCard(){
