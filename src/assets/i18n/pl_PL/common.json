@@ -1,4 +1,7 @@
 	{
+    "private": "Prywatna",
+    "public": "Publiczna",
+
     "deck-CREATE_DECK": "Utwórz talię",
     "deck-SELECT_DECK": "Wczytaj wybraną talię",
     "deck-TYPE_NAME": "Wpisz nazwę talii",
