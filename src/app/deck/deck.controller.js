@@ -18,6 +18,7 @@
     vm.selectDeck = selectDeck;
     vm.selectCard = selectCard;
     vm.removeCard = removeCard;
+    vm.lostNetworkConnection = lostNetworkConnection;
     vm.clear = clear;
     vm.deckAccess = 'private';
     vm.emptyNameError = DeckService.getEmptyNameError();
@@ -164,19 +165,19 @@
     }
     initDeck($stateParams.deckId);
 
-    //DELETE CARD DIALOG
-    function deleteCardDialog(cardId, cardNo) {
-      //if connection lost
-      if(!$rootScope.networkStatusOnline){
-        $mdDialog.show(
+    function lostNetworkConnection(){
+      $mdDialog.show(
           $mdDialog.alert()
             .clickOutsideToClose(false)
             .title($translate.instant('networkAlert-WARNING'))
             .textContent($translate.instant('deck-OFFLINE_REMOVE_CARD_MODAL'))
             .ariaLabel('Alert Dialog')
             .ok($translate.instant('networkAlert-AGREE'))
-        );
-      }else{
+      );
+    }
+
+    //DELETE CARD DIALOG
+    function deleteCardDialog(cardId, cardNo) {
         var content = $translate.instant("deck-REMOVE_CARD_MODAL");
         //info for last card
         if (cardNo < 2) {
@@ -187,14 +188,14 @@
           .textContent(content)
           .ok($translate.instant("deck-YES"))
           .cancel($translate.instant("deck-NO"));
-          $mdDialog.show(confirm)
-          .then(function () {
+      $mdDialog.show(confirm)
+        .then(function () {
           //delete card
           return vm.selectedDeck.removeFlashcard(cardId)
-           }, function (e) {
-              $log.error(e);
-          })
-          .then(function (result) {
+        }, function (e) {
+          $log.error(e);
+        })
+        .then(function (result) {
           //delete deck if last card
           if (cardNo < 2) {
             $log.warn('last one flashcard');
@@ -206,10 +207,9 @@
             getCards();
             $log.log(result);
           }
-          }, function (e) {
-            $log.error(e);
-          });
-      }
+        }, function (e) {
+          $log.error(e);
+        });
     }
   }
 })();
