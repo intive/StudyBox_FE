@@ -85,7 +85,7 @@
       vm.selectedDeck.changeName(vm.searchText)
       .then(function success() {
         $state.go("deck.addCard", {deckId: vm.selectedDeck.id});
-        $state.reload("deck");
+        $state.reload("deck.addCard");
       },
       function error() {
         var message = 'I cant update Deck name';
