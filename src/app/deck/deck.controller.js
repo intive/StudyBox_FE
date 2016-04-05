@@ -12,6 +12,7 @@
     vm.load = false;
     vm.getDecks = getDecks;
     vm.selectedDeckChange = selectedDeckChange;
+    vm.changeDeckName = changeDeckName;
     vm.textChange = textChange;
     vm.createDeck = createDeck;
     vm.selectDeck = selectDeck;
@@ -43,11 +44,13 @@
     }
 
     function textChange(text) {
-      console.log('text change')
       DeckService.setNewDeckName(text)
     }
 
     function selectedDeckChange(deck) {
+      console.log(deck)
+      console.log(vm.selectedDeck)
+      //todo changeDeckName()
       if (deck) {
         if (deck.id){
           selectDeck(deck);
@@ -73,6 +76,20 @@
         $stateParams.cardId = null;
         initDeck(deck.id);
       }
+    }
+
+    function changeDeckName() {
+      if (!vm.selectedDeck){return}
+      vm.selectedDeck.changeName(vm.searchText)
+      .then(function success() {
+        $state.go("deck.addCard", {deckId: vm.newDeck.id});
+        $state.reload("deck");
+      },
+      function error() {
+        var message = 'I cant update Deck name';
+        alert(message);
+        throw message;
+      })
     }
 
     function selectCard(card) {

@@ -47,6 +47,8 @@
 
         //sprawdzenie nazwy talii
         if (!vm.newName) {
+          //todo
+          // zapis pytania i odp
           $log.warn("pusta nazwa talii");
           DeckService.setEmptyNameError(true);
           return $state.reload()
