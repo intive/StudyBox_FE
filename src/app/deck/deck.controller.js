@@ -178,16 +178,16 @@
 
     //DELETE CARD DIALOG
     function deleteCardDialog(cardId, cardNo) {
-        var content = $translate.instant("deck-REMOVE_CARD_MODAL");
-        //info for last card
-        if (cardNo < 2) {
-          content = ($translate.instant("deck-REMOVE_LAST_CARD_MODAL"));
-        }
-        var confirm = $mdDialog.confirm()
-          .title($translate.instant("deck-REMOVE_CARD"))
-          .textContent(content)
-          .ok($translate.instant("deck-YES"))
-          .cancel($translate.instant("deck-NO"));
+      var content = $translate.instant("deck-REMOVE_CARD_MODAL");
+      //info for last card
+      if (cardNo < 2) {
+        content = ($translate.instant("deck-REMOVE_LAST_CARD_MODAL"));
+      }
+      var confirm = $mdDialog.confirm()
+        .title($translate.instant("deck-REMOVE_CARD"))
+        .textContent(content)
+        .ok($translate.instant("deck-YES"))
+        .cancel($translate.instant("deck-NO"));
       $mdDialog.show(confirm)
         .then(function () {
           //delete card
