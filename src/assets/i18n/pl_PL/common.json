@@ -23,6 +23,10 @@
     "registration-PASSWORDS_DIFFERENT": "Hasła nie są takie same",
     "registration-INVALID_FORMAT": "Format wpisu jest nieprawidłowy",
     "registration-TYPE_VALID_EMAIL": "Nieprawidłowy adres email",
+    "registration-DIALOG_TITLE": "Rejestracja",
+    "registration-DIALOG_TEXT_CONTENT_TRUE": "Prawidłowo utworzono konto :)",
+    "registration-DIALOG_TEXT_CONTENT_FALSE": "Wystąpiły problemy podczas tworzenia konta :(",
+    "registration-DIALOG_OK": "Logowanie",
 
     "login-FORM_TITLE":"Logowanie",
     "login-PASSWORD_FIELD": "HASŁO",
