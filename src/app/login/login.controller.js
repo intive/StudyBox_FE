@@ -15,9 +15,10 @@
       if (isValid && $rootScope.networkStatusOnline) {
         var user = vm.data.email;
         var pass = vm.data.password;
+        var name = vm.data.name;
         var loginUrl = "api/decks/";
         var targetState = "decks";
-        LoginService.doLogin(user, pass, loginUrl)
+        LoginService.doLogin(user, pass, name, loginUrl)
         .then(function(data){
           if(data.status === 200) {
             $state.go(targetState);
