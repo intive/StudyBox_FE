@@ -53,8 +53,8 @@
     "navbar-ADD": "Dodaj",
     "navbar-NEW_DECK": "Nowa talia",
     "navbar-NEW_CARD_FROM_FILE": "Nowa fiszka z pliku",
-    "navbar-PRIVATE_CARDS": "Prywatne talie",
-    "navbar-PUBLIC_CARDS": "Publiczne talie",
+    "navbar-PRIVATE_CARDS": "Moje talie",
+    "navbar-PUBLIC_CARDS": "Publiczne talie innych osób",
 
     "networkAlert-WARNING": "Uwaga!",
     "networkAlert-LOST_CONNECTION": "Utraciłeś połączenie z internetem. Spróbuj później!",
