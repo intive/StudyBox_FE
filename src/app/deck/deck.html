@@ -26,14 +26,16 @@
   </form>
   <div class="deck-autocomplete">
     <md-checkbox
+      ng-click="deck.changeDeckData()"
       class="md-primary"
       ng-model="deck.deckAccess"
       aria-label="deck access"
-      ng-true-value="'private'"
-      ng-false-value="'public'"
+      ng-true-value="'public'"
+      ng-false-value="'private'"
       flex>
     </md-checkbox>
-    <span class="deck-checkbox">{{deck.deckAccess | translate}}</span>
+    <span class="deck-checkbox">{{"public" | translate}}</span>
+    <!--<span ng-if="!deck.deckAccess" class="deck-checkbox">{{"private" | translate}}</span>-->
   </div>
 
   <div>

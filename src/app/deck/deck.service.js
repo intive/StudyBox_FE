@@ -9,15 +9,15 @@
   function DeckService() {
     var deckObj;
     var cardObj;
-    var newDeckName;
+    var newDeck = {name:null, isPrivate:true};
     var error;
     return {
       setDeckObj: setDeckObj,
       getDeckObj: getDeckObj,
       setCardObj: setCardObj,
       getCardObj: getCardObj,
-      setNewDeckName: setNewDeckName,
-      getNewDeckName: getNewDeckName,
+      setNewDeck: setNewDeck,
+      getNewDeck: getNewDeck,
       setEmptyNameError: setEmptyNameError,
       getEmptyNameError: getEmptyNameError
     };
@@ -34,11 +34,11 @@
     function getCardObj() {
       return cardObj
     }
-    function setNewDeckName(name) {
-      newDeckName = name
+    function setNewDeck(deck) {
+      newDeck = deck
     }
-    function getNewDeckName() {
-      return newDeckName
+    function getNewDeck() {
+      return newDeck
     }
     function setEmptyNameError(bool) {
       error = bool;
