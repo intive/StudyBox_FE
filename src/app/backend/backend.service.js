@@ -4,7 +4,7 @@
  * getDeckById(id) - zwraca talię po jej ID
  * getDeckByName(name) - zwraca talię po nazwie
  * getDecks(access) - zwraca wszystkie talie (obiekty typu Deck)
- *    access: 'public'|'private'|'all'
+ *    access: 'public'|'private'
  * createNewDeck(name, access) - tworzy (na serwerze) nową talię
  *    access: 'public'|'private'
  *
@@ -41,15 +41,18 @@
     /* *** */
 
     function getDeckById(id) {
-      if(angular.isUndefined(id) ) {
-        var message = 'must specify deck id';
-        alert(message);
-        throw message;
-      }
+      if(angular.isUndefined(id) )
+        show_error('must specify deck id');
+
       var method = 'GET';
       var url = '/api/decks/' + id;
 
       return promiseWithDeck(method, url);
+    }
+
+    function show_error(message) {
+      alert(message);
+      throw message;
     }
 
     function promiseWithDeck(method, url) {
@@ -70,11 +73,9 @@
     }
 
     function getDeckByName(name) {
-      if(angular.isUndefined(name) ) {
-        var message = 'must specify deck name';
-        alert(message);
-        throw message;
-      }
+      if(angular.isUndefined(name) )
+        show_error('must specify deck name');
+
       var method = 'GET';
       var url = '/api/decks?name=' + name;
 
@@ -83,19 +84,26 @@
 
     function getDecks(access) {
       if(angular.isUndefined(access))
-        access = 'all';
+        access = 'public';
 
       var method = 'GET';
-      var url = '/api/decks';
 
-      return promiseWithDecks(method, url, access);
+      var url;
+      if(access == 'private')
+        url = '/api/decks/me';
+      else if(access == 'public')
+        url = '/api/decks';
+      else
+        show_error('wrong access (must be `public`|`private`)');
+
+      return promiseWithDecks(method, url);
     }
 
-    function promiseWithDecks(method, url, access) {
+    function promiseWithDecks(method, url) {
       var promise = $http({method: method, url: url})
       .then(
         function success(response) {
-          return jsonToDecks(response, access);
+          return jsonToDecks(response);
         },
         function error(response) {
           return $q.reject(response.data);
@@ -104,60 +112,23 @@
 
       return promise;
 
-      function jsonToDecks(response, access) {
-        if(access == 'public')
-          return publicDecks();
-        else if(access == 'private')
-          return privateDecks();
-        else if(access == 'all')
-          return allDecks();
-        else {
-          var message = 'access can be `private`|`public`|`all`';
-          alert(message);
-          throw message;
+      function jsonToDecks(response) {
+        var decks = [];
+        for(var i = 0; i < response.data.length; i++) {
+          var deck = new Deck();
+          deck.name = response.data[i].name;
+          deck.id = response.data[i].id;
+          deck.isPublic = response.data[i].isPublic;
+          decks.push(deck);
         }
-
-        function allDecks() {
-          var decks = [];
-          for(var i = 0; i < response.data.length; i++) {
-            var deck = new Deck();
-            deck.name = response.data[i].name;
-            deck.id = response.data[i].id;
-            deck.isPublic = response.data[i].isPublic;
-            decks.push(deck);
-          }
-          return decks;
-        }
-
-        function publicDecks() {
-          var _allDecks = allDecks();
-          var decks = [];
-          for(var i = 0; i < _allDecks.length; i++) {
-            if(_allDecks[i].isPublic)
-              decks.push(_allDecks[i]);
-          }
-          return decks;
-        }
-
-        function privateDecks() {
-          var _allDecks = allDecks();
-          var decks = [];
-          for(var i = 0; i < _allDecks.length; i++) {
-            if(_allDecks[i].isPublic === false)
-              decks.push(_allDecks[i]);
-          }
-          return decks;
-        }
+        return decks;
 
       }
     }
 
     function createNewDeck(name, access) {
-      if(angular.isUndefined(name)) {
-        var message = 'must specify deck name';
-        alert(message);
-        throw message;
-      }
+      if(angular.isUndefined(name))
+        show_error('must specify deck name');
 
       var isPublic;
       if(access == 'public')
@@ -216,11 +187,9 @@
       }
 
       function createFlashcard(question, answer) {
-        if(angular.isUndefined(question) || angular.isUndefined(answer) ) {
-          var message = 'must specify question and answer';
-          alert(message);
-          throw message;
-        }
+        if(angular.isUndefined(question) || angular.isUndefined(answer) )
+          show_error('must specify question and answer');
+
         var method = 'POST';
         /*jshint validthis:true */
         var url = '/api/decks/' + this.id + '/flashcards';
@@ -231,11 +200,9 @@
 
       function updateFlashcard(id, question, answer) {
         if(angular.isUndefined(id) || angular.isUndefined(question) ||
-           angular.isUndefined(answer) ) {
-          var message = 'must specify id, question and answer';
-          alert(message);
-          throw message;
-        }
+           angular.isUndefined(answer) )
+          show_error('must specify id, question and answer');
+
         var method = 'PUT';
         /*jshint validthis:true */
         var url = '/api/decks/' + this.id + '/flashcards/' + id;
@@ -246,11 +213,9 @@
       }
 
       function removeFlashcard(id) {
-        if(angular.isUndefined(id) ) {
-          var message = 'must specify id';
-          alert(message);
-          throw message;
-        }
+        if(angular.isUndefined(id) )
+          show_error('must specify id');
+
         var method = 'DELETE';
         /*jshint validthis:true */
         var url = '/api/decks/' + this.id + '/flashcards/' + id;
@@ -260,11 +225,8 @@
       }
 
       function changeName(new_name, access) {
-        if(angular.isUndefined(new_name) ) {
-          var message = 'must specify new_name';
-          alert(message);
-          throw message;
-        }
+        if(angular.isUndefined(new_name) )
+          show_error('must specify new_name');
 
         var isPublic;
         if(access == 'public')
