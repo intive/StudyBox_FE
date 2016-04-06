@@ -12,13 +12,17 @@
     vm.load = false;
     vm.getDecks = getDecks;
     vm.selectedDeckChange = selectedDeckChange;
+    vm.changeDeckName = changeDeckName;
+    vm.textChange = textChange;
     vm.createDeck = createDeck;
     vm.selectDeck = selectDeck;
     vm.selectCard = selectCard;
     vm.removeCard = removeCard;
     vm.lostNetworkConnection = lostNetworkConnection;
     vm.clear = clear;
-    vm.isOpen = false;
+    vm.deckAccess = 'private';
+    vm.emptyNameError = DeckService.getEmptyNameError();
+
 
     vm.access = $stateParams.access;
 
@@ -42,18 +46,25 @@
       }
     }
 
+    function textChange(text) {
+      DeckService.setNewDeckName(text)
+    }
+
     function selectedDeckChange(deck) {
+      if(deck === true){
+        return changeDeckName();
+      }
       if (deck) {
         if (deck.id){
           selectDeck(deck);
         } else {
+          deck.access = vm.deckAccess;
           createDeck(deck);
         }
       }
     }
 
     function createDeck(deck) {
-      //set new deck name
       DeckService.setDeckObj(deck);
       if($stateParams.deckId){
         $stateParams.deckId = null;
@@ -63,6 +74,7 @@
     }
 
     function selectDeck(deck) {
+      DeckService.setDeckObj(deck);
       if (deck.id != $stateParams.deckId){
         $stateParams.deckId = deck.id;
         $stateParams.cardId = null;
@@ -70,7 +82,25 @@
       }
     }
 
+    function changeDeckName() {
+      if (!vm.selectedDeck){
+        DeckService.setNewDeckName(vm.searchText);
+      } else {
+        vm.selectedDeck.changeName(vm.searchText, vm.deckAccess)
+          .then(function success() {
+            $state.go("deck.addCard", {deckId: vm.selectedDeck.id});
+            $state.reload("deck");
+          },
+          function error() {
+            var message = 'I cant update Deck name';
+            alert(message);
+            throw message;
+          })
+      }
+    }
+
     function selectCard(card) {
+      $log.log('sssss')
       DeckService.setCardObj(card);
       //for selecting on ui (ng-repeat)
       if(card.id !=vm.selectedCardId) {
@@ -115,19 +145,27 @@
         BackendService.getDeckById(value)
           .then(function (result) {
             vm.selectedDeck = result;
+            vm.selectedItem = vm.selectedDeck;
+            DeckService.setNewDeckName(vm.selectedDeck.name);
             getCards();
           }, function (e) {
             $log.error(e);
           });
       } else {
         vm.selectedDeck = DeckService.getDeckObj();
+        vm.selectedItem = vm.selectedDeck;
         vm.cards=[];
       }
       //clean card field
-      vm.selectedDeck = DeckService.setDeckObj(null);
+      if (!$stateParams.deckId){
+        DeckService.setNewDeckName(null);
+        vm.selectedDeck = DeckService.setDeckObj(null);
+        vm.selectedItem = vm.selectedDeck;
+      }
       $stateParams.cardId = null;
-      if($state.$current == 'deck.addCard')
+      if($state.$current == 'deck.addCard'){
         $state.reload('deck.addCard');
+      }
     }
     initDeck($stateParams.deckId);
 
@@ -144,41 +182,45 @@
 
     //DELETE CARD DIALOG
     function deleteCardDialog(cardId, cardNo) {
-        var content = $translate.instant("deck-REMOVE_CARD_MODAL");
-        //info for last card
-        if (cardNo < 2) {
-          content = ($translate.instant("deck-REMOVE_LAST_CARD_MODAL"));
-        }
-        var confirm = $mdDialog.confirm()
-          .title($translate.instant("deck-REMOVE_CARD"))
-          .textContent(content)
-          .ok($translate.instant("deck-YES"))
-          .cancel($translate.instant("deck-NO"));
-        $mdDialog.show(confirm).then(function () {
-          //if connection lost
-          if(!$rootScope.networkStatusOnline){
+      var content = $translate.instant("deck-REMOVE_CARD_MODAL");
+      //info for last card
+      if (cardNo < 2) {
+        content = ($translate.instant("deck-REMOVE_LAST_CARD_MODAL"));
+      }
+      var confirm = $mdDialog.confirm()
+        .title($translate.instant("deck-REMOVE_CARD"))
+        .textContent(content)
+        .ok($translate.instant("deck-REMOVE_CARD"))
+        .cancel($translate.instant("deck-NO"));
+        $mdDialog.show(confirm)
+          .then(function () {
+            //if connection lost
+            if(!$rootScope.networkStatusOnline){
             lostNetworkConnection();
-          }else{
-            //delete card
-            vm.selectedDeck.removeFlashcard(cardId)
-            .then(function (result) {
-              //delete deck if last card
-              if (cardNo < 2) {
-                $log.warn('last one flashcard');
-                vm.selectedDeck.remove().then(function () {
-                  $state.go('decks');
+            } else {
+              //delete card
+              vm.selectedDeck.removeFlashcard(cardId)
+                .then(function (result) {
+                  //delete deck if last card
+                  if (cardNo < 2) {
+                    $log.warn('last one flashcard');
+                    vm.selectedDeck.remove().then(function () {
+                      $state.go('decks');
+                    });
+                  } else {
+                    $state.go("deck.addCard", {deckId: vm.selectedDeck.id, cardId: null});
+                    getCards();
+                    $log.log(result);
+                  }
+                }, function (e) {
+                  $log.error(e);
                 });
-              } else {
-                $state.go("deck.addCard", {deckId: vm.selectedDeck.id, cardId: null});
-                getCards();
-                $log.log(result);
-              }
-
-            }, function (e) {
-              $log.error(e);
-            });
+            }
           }
-        });
+          , function () {
+            $log.log('do nothing')
+          }
+        )
     }
   }
 })();
