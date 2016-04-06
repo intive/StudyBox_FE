@@ -9,7 +9,7 @@
     "deck-NAME_TOO_LONG": "Zbyt długa nazwa (max 50 znaków)",
     "deck-REMOVE_CARD": "Usuń fiszkę",
     "deck-REMOVE_CARD_MODAL": "Czy aby na pewno chcesz usunąć daną fiszkę?",
-    "deck-REMOVE_LAST_CARD_MODAL": "Wraz z usunięciem tej fiszki, usunięta zostanie również obecna talia, czy aby na pewno chcesz usunąć daną fiszkę?",
+    "deck-REMOVE_LAST_CARD_MODAL": "Wraz z usunięciem tej fiszki usunięta zostanie również obecna talia, czy aby na pewno chcesz usunąć daną fiszkę?",
     "deck-YES": "Tak",
     "deck-NO": "Nie",
     "deck-OFFLINE_REMOVE_CARD_MODAL": "Jesteś offline, nie możesz teraz usunąć fiszki.",
