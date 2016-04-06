@@ -52,6 +52,13 @@
   font-size: medium;
 }
 
+.deck-content,
+.deck-content > span {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  width: inherit;
+}
+
 .deck-button{
   padding-left: 5px;
   background: #0068B4 !important;
@@ -112,3 +119,4 @@
 .deck-checkbox {
   margin-top: 2em;
 }
+
