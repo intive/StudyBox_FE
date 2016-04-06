@@ -100,6 +100,7 @@
     }
 
     function selectCard(card) {
+      $log.log('sssss')
       DeckService.setCardObj(card);
       //for selecting on ui (ng-repeat)
       if(card.id !=vm.selectedCardId) {
@@ -193,26 +194,33 @@
         .cancel($translate.instant("deck-NO"));
         $mdDialog.show(confirm)
           .then(function () {
-            //delete card
-            vm.selectedDeck.removeFlashcard(cardId)
-              .then(function (result) {
-                //delete deck if last card
-                if (cardNo < 2) {
-                  $log.warn('last one flashcard');
-                  vm.selectedDeck.remove().then(function () {
-                    $state.go('decks');
-                  });
-                } else {
-                  $state.go("deck.addCard", {deckId: vm.selectedDeck.id, cardId: null});
-                  getCards();
-                  $log.log(result);
-                }
-              }, function (e) {
-                $log.error(e);
-              });
-          }, function (e) {
-            $log.error(e);
-          })
+            //if connection lost
+            if(!$rootScope.networkStatusOnline){
+            lostNetworkConnection();
+            } else {
+              //delete card
+              vm.selectedDeck.removeFlashcard(cardId)
+                .then(function (result) {
+                  //delete deck if last card
+                  if (cardNo < 2) {
+                    $log.warn('last one flashcard');
+                    vm.selectedDeck.remove().then(function () {
+                      $state.go('decks');
+                    });
+                  } else {
+                    $state.go("deck.addCard", {deckId: vm.selectedDeck.id, cardId: null});
+                    getCards();
+                    $log.log(result);
+                  }
+                }, function (e) {
+                  $log.error(e);
+                });
+            }
+          }
+          , function () {
+            $log.log('do nothing')
+          }
+        )
     }
   }
 })();
