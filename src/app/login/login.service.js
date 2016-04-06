@@ -1,9 +1,9 @@
 /**
 * Dokumentacja
 * 
-* isLogged(user) - zwraca true, jeśli użytkownik jest zalogowany, false w przeciwnym przypadku
+* isLogged() - zwraca true, jeśli użytkownik jest zalogowany, false w przeciwnym przypadku
 * doLogin(user, password, loginUrl) - wysyła żądanie logowania, zwraca promise lub błąd
-* doLogout(user) - kasuje ciasteczko, zwraca true (sukces) lub false
+* doLogout() - kasuje ciasteczko, zwraca true (sukces) lub false
 * 
 */
 (function() {
