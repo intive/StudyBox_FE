@@ -6,7 +6,7 @@
     .controller('DeckController', DeckController);
 
   /** @ngInject */
-  function DeckController($stateParams, $state, BackendService, $log, DeckService, $mdDialog, $translate, $rootScope) {
+  function DeckController($stateParams, $state, BackendService, $log, DeckService, $mdDialog, $translate) {
     var vm = this;
     vm.selectedDeck = new BackendService.Deck();
     vm.load = false;

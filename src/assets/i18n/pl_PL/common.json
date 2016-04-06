@@ -32,6 +32,7 @@
     "registration-DIALOG_OK": "Logowanie",
 
     "login-FORM_TITLE":"Logowanie",
+    "login-NAME_FIELD": "IMIĘ",
     "login-PASSWORD_FIELD": "HASŁO",
     "login-EMAIL_FIELD": "E-MAIL",
     "login-LOGIN_BUTTON": "ZALOGUJ SIĘ",
