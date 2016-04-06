@@ -42,7 +42,7 @@
     <md-card ng-repeat="card in deck.cards" ng-click="deck.selectCard(card)" class="deck-card"
              ng-class="{selected: card.id === deck.selectedCardId}">
       <md-card-title>
-        <md-card-title-text>
+        <md-card-title-text class="deck-content">
           <span class="md-headline">{{ card.question }}</span>
           <span class="md-subhead">{{ card.answer }}</span>
         </md-card-title-text>
