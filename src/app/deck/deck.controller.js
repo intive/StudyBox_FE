@@ -157,6 +157,7 @@
       } else {
         vm.selectedDeck = DeckService.getDeckObj();
         vm.selectedItem = vm.selectedDeck;
+        vm.deckAccess = 'private';
         vm.cards=[];
       }
       //clean card field

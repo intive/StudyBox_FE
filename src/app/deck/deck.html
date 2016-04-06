@@ -25,17 +25,17 @@
     <div ng-if="deck.searchText" ng-click="deck.clear()" class="deck-clear">x</div>
   </form>
   <div class="deck-autocomplete">
-    <md-checkbox
+
+    <md-switch
       ng-click="deck.changeDeckData()"
-      class="md-primary"
-      ng-model="deck.deckAccess"
-      aria-label="deck access"
-      ng-true-value="'public'"
-      ng-false-value="'private'"
-      flex>
-    </md-checkbox>
-    <span class="deck-checkbox">{{"public" | translate}}</span>
-    <!--<span ng-if="!deck.deckAccess" class="deck-checkbox">{{"private" | translate}}</span>-->
+       class="md-primary"
+       ng-model="deck.deckAccess"
+       aria-label="deck access"
+       ng-true-value="'public'"
+       ng-false-value="'private'"
+       flex>
+      <span class="deck-checkbox">{{ deck.deckAccess | translate}}</span>
+    </md-switch>
   </div>
 
   <div>
