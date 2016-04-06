@@ -174,7 +174,7 @@
       this.createFlashcard = createFlashcard;
       this.updateFlashcard = updateFlashcard;
       this.removeFlashcard = removeFlashcard;
-      this.changeName = changeName;
+      this.updateDeck = updateDeck;
       this.remove = remove;
 
       function getFlashcards() {
@@ -224,7 +224,7 @@
         return simplePromise(method, url, data);
       }
 
-      function changeName(new_name, access) {
+      function updateDeck(new_name, access) {
         if(angular.isUndefined(new_name) )
           show_error('must specify new_name');
 
