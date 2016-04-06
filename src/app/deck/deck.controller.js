@@ -190,7 +190,7 @@
       var confirm = $mdDialog.confirm()
         .title($translate.instant("deck-REMOVE_CARD"))
         .textContent(content)
-        .ok($translate.instant("deck-YES"))
+        .ok($translate.instant("deck-REMOVE_CARD"))
         .cancel($translate.instant("deck-NO"));
         $mdDialog.show(confirm)
           .then(function () {
