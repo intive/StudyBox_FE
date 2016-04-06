@@ -191,28 +191,28 @@
         .textContent(content)
         .ok($translate.instant("deck-YES"))
         .cancel($translate.instant("deck-NO"));
-      $mdDialog.show(confirm)
-        .then(function () {
-          //delete card
-          return vm.selectedDeck.removeFlashcard(cardId)
-        }, function (e) {
-          $log.error(e);
-        })
-        .then(function (result) {
-          //delete deck if last card
-          if (cardNo < 2) {
-            $log.warn('last one flashcard');
-            vm.selectedDeck.remove().then(function () {
-              $state.go('decks');
-            });
-          } else {
-            $state.go("deck.addCard", {deckId: vm.selectedDeck.id, cardId: null});
-            getCards();
-            $log.log(result);
-          }
-        }, function (e) {
-          $log.error(e);
-        });
+        $mdDialog.show(confirm)
+          .then(function () {
+            //delete card
+            vm.selectedDeck.removeFlashcard(cardId)
+              .then(function (result) {
+                //delete deck if last card
+                if (cardNo < 2) {
+                  $log.warn('last one flashcard');
+                  vm.selectedDeck.remove().then(function () {
+                    $state.go('decks');
+                  });
+                } else {
+                  $state.go("deck.addCard", {deckId: vm.selectedDeck.id, cardId: null});
+                  getCards();
+                  $log.log(result);
+                }
+              }, function (e) {
+                $log.error(e);
+              });
+          }, function (e) {
+            $log.error(e);
+          })
     }
   }
 })();
