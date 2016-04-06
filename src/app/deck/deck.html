@@ -14,8 +14,8 @@
                      md-autoselect="false"
                      md-floating-label="{{'deck-TYPE_NAME' | translate}}">
       <md-item-template>
-        <span md-highlight-text="deck.searchText">{{item.name}}</span>
         <span ng-if="!item.id" class="add-deck">{{'deck-CREATE_DECK' | translate}}</span>
+        <span md-highlight-text="deck.searchText">{{item.name}}</span>
       </md-item-template>
       <div ng-messages="deckForm.deckField.$error" ng-if="deckForm.deckField.$touched || deck.emptyNameError">
         <div ng-message="required">{{'deck-NAME_REQUIRED' | translate}}</div>

@@ -37,7 +37,7 @@
           .then(function (result) {
             var list = query ? result.filter(queryFilter(query)) : result;
             if (query){
-              list.push({name:query});
+              list.unshift({name:query});
             }
             return list;
           });
