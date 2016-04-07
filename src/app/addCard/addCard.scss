@@ -40,6 +40,19 @@ $graphite: #424242;
   opacity: 0.4;
 }
 
+.counter, .counterError
+{
+  position: absolute;
+  right: 15px;
+  top: 65px;
+  font-size: 12px;
+}
+
+.counterError
+{
+  color: red;
+}
+
 .hintDiv
 {
   padding: 0px;

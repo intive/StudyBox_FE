@@ -16,6 +16,8 @@
     vm.decks = null;
     vm.load = false;
     vm.toggleStatus = false;
+    vm.updateInput = updateInput;
+    vm.pasteFoo = pasteFoo;
 
     if (vm.cardId){
       vm.card = DeckService.getCardObj();
@@ -23,6 +25,19 @@
         vm.question = vm.card.question;
         vm.answer = vm.card.answer;
         vm.editMode=true
+      }
+    }
+
+    function updateInput(){
+      if(vm.paste){
+        vm.question = vm.question.substring(0, 10);
+        vm.paste = false;
+      }
+    }
+
+    function pasteFoo(){
+      if(event.ctrlKey && event.keyCode==86){
+        vm.paste = true;
       }
     }
 
@@ -41,14 +56,9 @@
       if(!isValid){return}
       vm.deck = DeckService.getDeckObj();
       vm.newDeck = DeckService.getNewDeck();
-      //$log.log('deck');
-      //$log.log(vm.deck);
-      //$log.log(vm.newName);
 
       //sprawdzenie nazwy talii
       if (!vm.newDeck) {
-        //todo
-        // zapis pytania i odp
         $log.warn("pusta nazwa talii");
         DeckService.setEmptyNameError(true);
         return $state.reload()
@@ -102,7 +112,7 @@
           return vm.deck.updateFlashcard($stateParams.cardId, vm.question, vm.answer)
         },
         function error(){
-          var message = 'I cant create new deck';
+          var message = 'I cant get deck';
           alert(message);
           throw message;
         })
@@ -125,7 +135,7 @@
           return vm.deck.createFlashcard(vm.question, vm.answer)
         },
         function error(){
-          var message = 'I cant create new deck';
+          var message = 'I cant get deck';
           alert(message);
           throw message;
         })
