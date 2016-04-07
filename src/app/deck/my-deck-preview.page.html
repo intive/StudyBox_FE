@@ -1,0 +1,56 @@
+<md-content class="md-padding" layout="column" ng-cloak>
+  <form class="deck-autocomplete" ng-submit="deck.selectedDeckChange(deckForm.$valid)" name="deckForm" layout="row" layout-wrap >
+    <md-autocomplete flex="30" required
+                     ng-model="deck.searchText"
+                     md-input-name="deckField"
+                     md-selected-item="deck.selectedItem"
+                     md-search-text="deck.searchText"
+                     md-items="item in deck.getDecks(deck.searchText)"
+                     md-item-text="item.name"
+                     md-search-text-change="deck.textChange(deck.searchText)"
+                     md-selected-item-change="deck.selectedDeckChange(item)"
+                     md-min-length="0"
+                     md-input-maxlength="50"
+                     md-autoselect="true"
+                     md-floating-label="{{'deck-TYPE_NAME' | translate}}">
+      <md-item-template>
+        <span ng-if="!item.id" class="add-deck">{{'deck-CREATE_DECK' | translate}}</span>
+        <span md-highlight-text="deck.searchText">{{item.name}}</span>
+      </md-item-template>
+      <div ng-messages="deckForm.deckField.$error" ng-if="deckForm.deckField.$touched || deck.emptyNameError">
+        <div ng-message="required">{{'deck-NAME_REQUIRED' | translate}}</div>
+        <div ng-message="maxlength">{{'deck-NAME_TOO_LONG' | translate}}</div>
+      </div>
+    </md-autocomplete>
+    <div ng-if="deck.searchText" ng-click="deck.clear()" class="deck-clear">x</div>
+
+    <md-button class="md-fab deck-edit-button" ng-click="deck.editDeck()">
+      <md-tooltip id="editDeckButtonTooltip" md-direction="top">{{'deck-EDIT_DECK' | translate}}</md-tooltip>
+      <md-icon md-svg-src="assets/icons/card.svg"></md-icon>
+    </md-button>
+
+  </form>
+
+
+  <div layout="horizontal" layout-wrap>
+    <md-card ng-repeat="card in deck.cards" ng-click="deck.selectCard(card)" class="deck-card"
+             ng-class="{selected: card.id === deck.selectedCardId}">
+      <md-card-title>
+        <md-card-title-text class="deck-content">
+          <span class="md-headline">{{ card.question }}</span>
+          <span class="md-subhead">{{ card.answer }}</span>
+        </md-card-title-text>
+      </md-card-title>
+      <md-card-actions layout="row" layout-align="end center">
+        <md-button class="deck-edit-button" ng-click="deck.editCard(card.id)">
+          <md-tooltip id="editCardButtonTooltip" md-direction="top">{{'deck-EDIT_CARD' | translate}}</md-tooltip>
+          <md-icon md-svg-src="assets/icons/card.svg"></md-icon>
+        </md-button>
+        <md-button class="deck-remove-button" ng-click="deck.removeCard(card.id)">
+          <md-tooltip id="aremoveCardButtonTooltip" md-direction="top">{{'deck-REMOVE_CARD' | translate}}</md-tooltip>
+          <md-icon md-svg-src="assets/icons/clear.svg"></md-icon>
+        </md-button>
+      </md-card-actions>
+    </md-card>
+  </div>
+</md-content>

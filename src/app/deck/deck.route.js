@@ -10,7 +10,7 @@
     $stateProvider
       .state('deck', {
         parent: 'navbar',
-        url: '/deck/:deckId?',
+        url: '/deck-edit/:deckId?',
         templateUrl: 'app/deck/deck.page.html',
         params: {access: 'private'}
       })
@@ -27,7 +27,14 @@
         controller: 'DeckController',
         controllerAs: 'deck',
         templateUrl: 'app/deck/deck-preview.page.html'
-      });
+      })
+      .state('my-deck-preview', {
+          parent: 'navbar',
+          url: '/my-deck-preview/:deckId',
+          controller: 'DeckController',
+          controllerAs: 'deck',
+          templateUrl: 'app/deck/my-deck-preview.page.html'
+        });
 
     $urlRouterProvider.otherwise('/');
   }

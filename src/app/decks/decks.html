@@ -3,7 +3,7 @@
 
     <div ng-if="decks.access == 'private'">
       <md-card class="card-square"
-               ui-sref="deck.addCard({ deckId: deck.id, access: 'private' })">
+               ui-sref="my-deck-preview({ deckId: deck.id, access: 'private' })">
         <div>
           <div class="title-square">
             {{ deck.name }}

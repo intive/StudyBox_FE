@@ -5,37 +5,57 @@
                      md-input-name="deckField"
                      md-selected-item="deck.selectedItem"
                      md-search-text="deck.searchText"
-                     md-items="item in deck.getDecks(deck.searchText)"
+                     md-items="item"
                      md-item-text="item.name"
-                     md-search-text-change="deck.textChange(deck.searchText)"
+                     md-search-text-change="deck.deckDataChange()"
                      md-selected-item-change="deck.selectedDeckChange(item)"
                      md-min-length="0"
                      md-input-maxlength="50"
                      md-autoselect="false"
                      md-floating-label="{{'deck-TYPE_NAME' | translate}}">
-      <md-item-template>
-        <span ng-if="!item.id" class="add-deck">{{'deck-CREATE_DECK' | translate}}</span>
-        <span md-highlight-text="deck.searchText">{{item.name}}</span>
-      </md-item-template>
+      <!--<md-item-template>-->
+        <!--&lt;!&ndash;<span ng-if="!item.id" class="add-deck">{{'deck-CREATE_DECK' | translate}}</span>&ndash;&gt;-->
+        <!--&lt;!&ndash;<span md-highlight-text="deck.searchText">{{item.name}}</span>&ndash;&gt;-->
+      <!--</md-item-template>-->
       <div ng-messages="deckForm.deckField.$error" ng-if="deckForm.deckField.$touched || deck.emptyNameError">
         <div ng-message="required">{{'deck-NAME_REQUIRED' | translate}}</div>
         <div ng-message="maxlength">{{'deck-NAME_TOO_LONG' | translate}}</div>
       </div>
     </md-autocomplete>
+    <!--<md-input-container flex>-->
+      <!--<label>{{'deck-TYPE_NAME' | translate}}</label>-->
+      <!--<input required-->
+             <!--name="deckField"-->
+             <!--ng-model="deck.selectedItem.name"-->
+             <!--md-maxlength="50">-->
+      <!--<div ng-messages="deckForm.deckField.$error" ng-if="deckForm.deckField.$touched || deck.emptyNameError">-->
+        <!--<div ng-message="required">{{'deck-NAME_REQUIRED' | translate}}</div>-->
+        <!--<div ng-message="md-maxlength">{{'deck-NAME_TOO_LONG' | translate}}</div>-->
+      <!--</div>-->
+    <!--</md-input-container>-->
+
     <div ng-if="deck.searchText" ng-click="deck.clear()" class="deck-clear">x</div>
   </form>
-  <div class="deck-autocomplete">
+  <div class="deck-autocomplete" layout="row">
+    <div flex="80">
+      <md-switch
+        ng-click="deck.deckDataChange()"
+        class="md-primary"
+        ng-model="deck.deckAccess"
+        aria-label="deck access"
+        ng-true-value="'public'"
+        ng-false-value="'private'"
+        flex>
+        <span class="deck-checkbox">{{ deck.deckAccess | translate}}</span>
+      </md-switch>
+    </div>
 
-    <md-switch
-      ng-click="deck.changeDeckData()"
-       class="md-primary"
-       ng-model="deck.deckAccess"
-       aria-label="deck access"
-       ng-true-value="'public'"
-       ng-false-value="'private'"
-       flex>
-      <span class="deck-checkbox">{{ deck.deckAccess | translate}}</span>
-    </md-switch>
+    <div>
+      <md-button ng-if="deck.deckId" class="md-fab deck-edit-button" ng-click="deck.saveDeck()">
+        <md-tooltip id="saveDeckButtonTooltip" md-direction="top">{{'deck-SAVE_DECK' | translate}}</md-tooltip>
+        <md-icon md-svg-src="assets/icons/card.svg"></md-icon>
+      </md-button>
+    </div>
   </div>
 
   <div>
@@ -48,7 +68,10 @@
         </md-card-title-text>
       </md-card-title>
       <md-card-actions layout="row" layout-align="end center">
-        <md-button  ng-click="deck.removeCard(card.id)">{{'deck-REMOVE_CARD' | translate}}</md-button>
+        <md-button ng-click="deck.removeCard(card.id)">
+          <md-tooltip id="addButtonTooltip" md-direction="right">{{'deck-REMOVE_CARD' | translate}}</md-tooltip>
+          <md-icon md-svg-src="assets/icons/card.svg"></md-icon>
+        </md-button>
       </md-card-actions>
     </md-card>
   </div>
