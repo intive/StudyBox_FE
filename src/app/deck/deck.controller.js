@@ -162,7 +162,6 @@
       }
       //clean card field
       if (!$stateParams.deckId){
-        DeckService.setNewDeck({name: null, access: vm.deckAccess});
         vm.selectedDeck = DeckService.setDeckObj(null);
         vm.selectedItem = vm.selectedDeck;
         vm.deckAccess = 'private';
