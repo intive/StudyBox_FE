@@ -19,8 +19,7 @@
     vm.showPrivateCards = showPrivateCards;
     vm.showPublicCards = showPublicCards;
 
-    vm.getDecks = getDecks;
-    vm.decks = getDecks();
+    vm.selectDeck = selectDeck;
     vm.querySearch  = querySearch;
     vm.newDeck = newDeck;
     vm.buttonClick = buttonClick;
@@ -47,12 +46,13 @@
 
       if(search.hasClass('searchForm'))
       {
+      vm.searchText = "";
       angular.element($document[0].querySelector('#searchButton')).addClass('darkButton');
       angular.element($document[0].querySelector('#searchButton2')).addClass('ng-hide');
       angular.element($document[0].querySelector('#searchButton3')).removeClass('ng-hide');
       angular.element($document[0].querySelector('#searchAutocomplete')).removeClass('searchForm');
       angular.element($document[0].querySelector('#searchAutocomplete')).addClass('showUp');
-      $timeout(function(){angular.element($document[0].querySelector('#searchInput')).focus();},302);
+      $timeout(function(){angular.element($document[0].querySelector('#searchInput')).focus();},330);
       }
       else
       {
@@ -66,13 +66,9 @@
     }
 
 
-    function newDeck() {
-      vm.searchText = null;
-      $state.go("deck.addCard")
-    }
+    function selectDeck(item) {
 
-    function changePage() {
-      vm.searchText = null;
+      if (item){
 
       var url;
       if(vm.access == 'private')
@@ -80,35 +76,79 @@
       else
         url = 'deck-preview';
 
-      $state.go(url, {deckId: vm.selectedItem.id});
+      $state.go(url, {deckId: item.id});
+
+
+      item = null;
+
+    }
+
+    }
+
+    function newDeck() {
+      vm.searchText = null;
+      $state.go("deck.addCard")
+    }
+
+    function changePage() {
+
+      var url;
+      if(vm.access == 'private')
+        url = 'deck.addCard';
+      else
+        url = 'deck-preview';
+
+
+      if (vm.selectedItem == null){
+        $state.go(url)
+  }
+  else
+  {
+
+
+
+          if (vm.searchText != "")
+          {
+            $state.go(url, {deckId: vm.selectedItem.id});
+          }
+          else
+          {
+
+            $state.go(url);
+          }
+
+}
+
     }
 
     function querySearch (query) {
-      var results = query ? vm.decks.filter( createFilterFor(query) ) : vm.decks,
-          deferred;
+
+        if (!vm.decks) {
+          vm.decks = BackendService.getDecks(vm.access);
+        }
+        return vm.decks
+          .then(function (result) {
+            var list = query ? result.filter(createFilterFor(query)) : result,
+            deferred;
 
 
-        deferred = $q.defer();
-        $timeout(function () { deferred.resolve( results ); }, Math.random() * 1000, false);
-        return deferred.promise;
-    }
+            deferred = $q.defer();
+            $timeout(function () { deferred.resolve( list ); }, Math.random() * 1000, false);
 
-    function getDecks() {
-
-      BackendService.getDecks(vm.access)
-      .then(function (result) {
-        vm.decks=result;
-      }, function (e) {
-        $log.error(e);
-      });
+            return deferred.promise;
+          });
 
     }
+
 
 
 
     function createFilterFor(query) {
+      var lowercaseQuery = angular.lowercase(query);
       return function filterFn(deck) {
-        return (deck.name.indexOf(query) === 0);
+        if(deck.name){
+          return (deck.name.toLowerCase().indexOf(lowercaseQuery) === 0);
+        }
       };
     }
 

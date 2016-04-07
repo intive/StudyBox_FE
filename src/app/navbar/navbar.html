@@ -66,7 +66,7 @@
 
 <div layout="row" layout-align="end start" class="nav-buttons" ng-show="navbar.uiRouterState.current.name == 'decks'">
 
-<outside-click class="searchArea">
+<outside-click class="searchArea" flex-sm="90" flex-xs="90" flex="30">
 
 <div layout="row" layout-align="end start">
 
@@ -80,6 +80,7 @@
           md-items="item in navbar.querySearch(navbar.searchText)"
           md-item-text="item.name"
           md-min-length="0"
+          md-selected-item-change="navbar.selectDeck(item)"
           placeholder="{{'navbar-PLACEHOLDER' | translate}}"
           md-input-id="searchInput"
           id="searchBar">
@@ -96,7 +97,7 @@
 </outside-click>
 
 
-<md-button aria-label="search" class="md-fab color-dial" ng-click="navbar.buttonClick()" id="searchButton">
+<md-button aria-label="search" ng-click="navbar.buttonClick()" id="searchButton">
 <md-icon md-svg-src="assets/icons/search.svg" id="searchButton2"></md-icon>
 <md-icon md-svg-src="assets/icons/clear.svg" id="searchButton3" class="ng-hide"></md-icon>
 </md-button>
