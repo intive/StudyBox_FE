@@ -21,8 +21,9 @@
             <md-icon md-svg-src="assets/icons/add_36px.svg" style="display: inline; " ></md-icon>
           </md-button>
           <textarea
-            maxlength="1000"
             minlength="2"
+            ng-keydown="addCard.pasteFoo()"
+            ng-change="addCard.updateInput()"
             class="question"
             placeholder='{{"addCard-WRITE_QUESTION" | translate}}'
             ng-model="addCard.question" rows="5"
@@ -31,6 +32,10 @@
           <div class="display: inline-block;" ng-show="questionFile">
             <md-button ng-click="questionFile=null;" aria-label="closeImg" class="closePosition">Usuń zdjęcie ✖</md-button>
             <img style="text-align: center;" ng-show="addCard.questionFile.$valid" ngf-thumbnail="questionFile" class="imgStyle">
+          </div>
+
+          <div class="counter">
+              {{addCard.question.length}}
           </div>
 
         </md-input-container>

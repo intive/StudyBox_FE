@@ -16,6 +16,8 @@
     vm.decks = null;
     vm.load = false;
     vm.toggleStatus = false;
+    vm.updateInput = updateInput;
+    vm.pasteFoo = pasteFoo;
 
     if (vm.cardId){
       vm.card = DeckService.getCardObj();
@@ -23,6 +25,19 @@
         vm.question = vm.card.question;
         vm.answer = vm.card.answer;
         vm.editMode=true
+      }
+    }
+
+    function updateInput(){
+      if(vm.paste){
+        vm.question = vm.question.substring(0, 10);
+        vm.paste = false;
+      }
+    }
+
+    function pasteFoo(){
+      if(event.ctrlKey && event.keyCode==86){
+        vm.paste = true;
       }
     }
 
