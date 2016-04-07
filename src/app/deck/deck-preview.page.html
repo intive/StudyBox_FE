@@ -9,7 +9,7 @@
             md-items="item in deck.getDecks(deck.searchText)"
             md-item-text="item.name"
             md-search-text-change="deck.getDecks(deck.searchText)"
-            md-selected-item-change="deck.selectedDeckChange(item)"
+            md-selected-item-change="deck.selectDeck(item)"
             md-min-length="0"
             md-input-maxlength="50"
             md-autoselect="true"

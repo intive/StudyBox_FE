@@ -47,7 +47,7 @@
 
     function deckDataChange() {
       vm.dataChanged = true;
-      DeckService.setNewDeck({name: vm.searchText, access:vm.deckAccess})
+      DeckService.setNewDeck({name: vm.searchText, access:vm.deckAccess});
     }
 
     function createDeck(){
@@ -69,7 +69,7 @@
           initDeck(deck.id);
         }
         else if (!deck.id) {
-          createDeck()
+          createDeck();
         }
       }
     }

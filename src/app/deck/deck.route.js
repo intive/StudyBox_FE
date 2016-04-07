@@ -10,13 +10,13 @@
     $stateProvider
       .state('deck', {
         parent: 'navbar',
-        url: '/deck-edit/:deckId?',
+        url: '/deck-edit/:deckId',
         templateUrl: 'app/deck/deck.page.html',
         params: {access: 'private'}
       })
       .state('deck.addCard', {
         parent: 'deck',
-        url: '/:cardId?',
+        url: '/:cardId',
         templateUrl: 'app/addCard/addCard.html',
         controller: 'AddCardController',
         controllerAs: 'addCard'
