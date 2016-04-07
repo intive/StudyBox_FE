@@ -58,7 +58,13 @@ visibility: visible;
 }
 
 .searchArea{
-width:38%;
+margin-top:-30px;
+}
+
+#searchButton{
+z-index:3;
+margin-top:-15px;
+margin-right:-5px;
 }
 
 .darkButton{
