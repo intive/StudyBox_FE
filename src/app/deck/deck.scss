@@ -67,6 +67,10 @@
   opacity: 0.6;
 }
 
+.deck-edit-button:disabled{
+  background-color: #cfcfcf !important;
+}
+
 .deck-remove-button{
   padding-left: 5px;
   background-color: #EA0061 !important;

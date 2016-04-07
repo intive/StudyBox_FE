@@ -24,7 +24,9 @@
       if (vm.card){
         vm.question = vm.card.question;
         vm.answer = vm.card.answer;
-        vm.editMode=true
+        vm.editMode=true;
+        console.log(vm.card);
+        $state.go("deck.addCard", {deckId:vm.deckId , cardId: vm.cardId});
       }
     }
 

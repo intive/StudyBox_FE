@@ -17,6 +17,7 @@
     vm.createDeck = createDeck;
     vm.selectDeck = selectDeck;
     vm.editDeck = editDeck;
+    vm.saveDeck = saveDeck;
     vm.selectCard = selectCard;
     vm.editCard = editCard;
     vm.removeCard = removeCard;
@@ -47,6 +48,7 @@
     }
 
     function deckDataChange() {
+      vm.dataChanged = true;
       DeckService.setNewDeck({name: vm.searchText, access:vm.deckAccess})
     }
 
@@ -65,7 +67,8 @@
       if($stateParams.deckId){
         $stateParams.deckId = null;
         $stateParams.cardId = null;
-        initDeck(null);
+        $state.go("deck.addCard", {deckId:null , cardId: null});
+        //initDeck(null);
       }
     }
 
@@ -83,6 +86,19 @@
       }
     }
 
+    function saveDeck(){
+      vm.selectedDeck.updateDeck(vm.searchText, vm.deckAccess)
+        .then(function success() {
+          $state.go("deck.addCard", {deckId: vm.selectedDeck.id});
+          $state.reload("deck");
+        },
+        function error() {
+          var message = 'I cant update Deck name';
+          alert(message);
+          throw message;
+        })
+    }
+
     function selectCard(card) {
       DeckService.setCardObj(card);
       //for selecting on ui (ng-repeat)
@@ -96,7 +112,8 @@
     }
 
     function editCard(cardId){
-      $state.go("deck.addCard", {deckId:vm.selectedDeck.id , cardId: cardId});
+      console.log(cardId)
+      $state.go("deck.addCard", {deckId: vm.selectedDeck.id , cardId: cardId});
     }
 
     function removeCard(cardId){
