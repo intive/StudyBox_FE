@@ -8,13 +8,13 @@
                      md-items="item in deck.getDecks(deck.searchText)"
                      md-item-text="item.name"
                      md-search-text-change="deck.textChange(deck.searchText)"
-                     md-selected-item-change="deck.selectedDeckChange(item)"
+                     md-selected-item-change="deck.selectDeck(item)"
                      md-min-length="0"
                      md-input-maxlength="50"
                      md-autoselect="true"
                      md-floating-label="{{'deck-TYPE_NAME' | translate}}">
       <md-item-template>
-        <span ng-if="!item.id" class="add-deck">{{'deck-CREATE_DECK' | translate}}</span>
+        <span ng-if="!item.id" class="add-deck" >{{'deck-CREATE_DECK' | translate}}</span>
         <span md-highlight-text="deck.searchText">{{item.name}}</span>
       </md-item-template>
       <div ng-messages="deckForm.deckField.$error" ng-if="deckForm.deckField.$touched || deck.emptyNameError">
@@ -42,7 +42,7 @@
         </md-card-title-text>
       </md-card-title>
       <md-card-actions layout="row" layout-align="end center">
-        <md-button class="deck-edit-button" ng-click="deck.editCard(card.id)">
+        <md-button class="deck-edit-button" ng-click="deck.editCard(card)">
           <md-tooltip id="editCardButtonTooltip" md-direction="top">{{'deck-EDIT_CARD' | translate}}</md-tooltip>
           <md-icon md-svg-src="assets/icons/card.svg"></md-icon>
         </md-button>

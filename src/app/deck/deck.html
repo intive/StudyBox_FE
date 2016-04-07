@@ -43,7 +43,7 @@
       </md-button>
     </div>
   </div>
-
+  <span layout="row"><hr flex/></span>
   <div>
     <md-card ng-repeat="card in deck.cards" ng-click="deck.selectCard(card)" class="deck-card"
              ng-class="{selected: card.id === deck.selectedCardId}">
@@ -54,9 +54,9 @@
         </md-card-title-text>
       </md-card-title>
       <md-card-actions layout="row" layout-align="end center">
-        <md-button ng-click="deck.removeCard(card.id)">
-          <md-tooltip id="addButtonTooltip" md-direction="right">{{'deck-REMOVE_CARD' | translate}}</md-tooltip>
-          <md-icon md-svg-src="assets/icons/card.svg"></md-icon>
+        <md-button class="deck-remove-button" ng-click="deck.removeCard(card.id)">
+          <md-tooltip id="removeCardButtonTooltip" md-direction="top">{{'deck-REMOVE_CARD' | translate}}</md-tooltip>
+          <md-icon md-svg-src="assets/icons/clear.svg"></md-icon>
         </md-button>
       </md-card-actions>
     </md-card>

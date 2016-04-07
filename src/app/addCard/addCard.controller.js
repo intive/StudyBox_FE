@@ -11,6 +11,7 @@
     var vm = this;
     vm.deckId = $stateParams.deckId;
     vm.cardId = $stateParams.cardId;
+    vm.deck = DeckService.getDeckObj();
     vm.submitCard = submitCard;
     vm.toggleButton = toggleButton;
     vm.decks = null;
@@ -25,8 +26,6 @@
         vm.question = vm.card.question;
         vm.answer = vm.card.answer;
         vm.editMode=true;
-        console.log(vm.card);
-        $state.go("deck.addCard", {deckId:vm.deckId , cardId: vm.cardId});
       }
     }
 
@@ -56,7 +55,6 @@
       //alert('deckName: '+vm.deckName+'\n'+'deckId: ('+$stateParams.deckId+')\n'+'cardId: '+$stateParams.cardId+'\n'+'vm.question: '+vm.question+'\n'+'vm.answer: '+vm.answer);
       //gdy formularz nie przechodzi walidacji
       if(!isValid){return}
-      vm.deck = DeckService.getDeckObj();
       vm.newDeck = DeckService.getNewDeck();
 
       //sprawdzenie nazwy talii
@@ -120,7 +118,8 @@
         })
         .then(function success() {
           DeckService.setCardObj(vm.card);
-          $state.go("deck", {deckId: vm.deck.id});
+          setCardToService()
+          $state.go("deck.addCard", {deckId: vm.deck.id, cardId: null});
           $state.reload()
         },
         function error(){
@@ -142,6 +141,7 @@
           throw message;
         })
         .then(function success() {
+          setCardToService()
           $state.go("deck.addCard", {deckId: vm.deck.id});
           $state.reload("deck");
         },
@@ -164,13 +164,22 @@
           throw message;
         })
         .then(function success() {
-          $state.go("deck.addCard", {deckId: vm.deck.id});
+          $state.go("deck.addCard", {deckId: vm.deck.id, cardId: null});
         },
         function error(){
           var message = 'I cant create a flash card';
           alert(message);
           throw message;
         });
+    }
+
+    function setCardToService(){
+      var card = {
+        id: $stateParams.cardId,
+        question: vm.question,
+        answer: vm.answer
+      };
+      DeckService.setCardObj(card);
     }
 
   }

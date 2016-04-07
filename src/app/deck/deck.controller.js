@@ -12,9 +12,7 @@
     vm.selectedDeck = new BackendService.Deck();
     vm.load = false;
     vm.getDecks = getDecks;
-    vm.selectedDeckChange = selectedDeckChange;
     vm.deckDataChange = deckDataChange;
-    vm.createDeck = createDeck;
     vm.selectDeck = selectDeck;
     vm.editDeck = editDeck;
     vm.saveDeck = saveDeck;
@@ -52,37 +50,27 @@
       DeckService.setNewDeck({name: vm.searchText, access:vm.deckAccess})
     }
 
-    function selectedDeckChange(deck) {
-      if (deck) {
-        if (deck.id){
-          selectDeck(deck);
-        } else {
-          createDeck(deck);
-        }
-      }
+    function createDeck(){
+      $state.go("deck.addCard", {deckId:null , cardId: null});
     }
 
-    function createDeck(deck) {
-      DeckService.setDeckObj(deck);
-      if($stateParams.deckId){
-        $stateParams.deckId = null;
-        $stateParams.cardId = null;
-        $state.go("deck.addCard", {deckId:null , cardId: null});
-        //initDeck(null);
-      }
-    }
 
     function editDeck(){
       $state.go("deck.addCard", {deckId:vm.selectedDeck.id , cardId: null});
     }
 
     function selectDeck(deck) {
-      DeckService.setDeckObj(deck);
-      if (deck.id != $stateParams.deckId){
-        $stateParams.deckId = deck.id;
-        $stateParams.cardId = null;
-        $state.go($state.current, {deckId: deck.id}, {notify:false});
-        initDeck(deck.id);
+      if (deck) {
+        DeckService.setDeckObj(deck);
+        if (deck.id && deck.id != $stateParams.deckId) {
+          $stateParams.deckId = deck.id;
+          $stateParams.cardId = null;
+          $state.go($state.current, {deckId: deck.id}, {notify: false});
+          initDeck(deck.id);
+        }
+        else if (!deck.id) {
+          createDeck()
+        }
       }
     }
 
@@ -103,17 +91,21 @@
       DeckService.setCardObj(card);
       //for selecting on ui (ng-repeat)
       if(card.id !=vm.selectedCardId) {
-        vm.selectedCardId = card.id;
+        pickUpCard(card.id);
         $state.go($state.current, {cardId: card.id}, {notify:true});
       } else {
-        vm.selectedCardId = false;
+        pickUpCard(false);
         $state.go($state.current, {cardId: null}, {notify:true});
       }
     }
 
-    function editCard(cardId){
-      console.log(cardId)
-      $state.go("deck.addCard", {deckId: vm.selectedDeck.id , cardId: cardId});
+    function pickUpCard(cardId) {
+      vm.selectedCardId = cardId;
+    }
+
+    function editCard(card){
+      DeckService.setCardObj(card);
+      $state.go("deck.addCard", {deckId: vm.selectedDeck.id , cardId: card.id});
     }
 
     function removeCard(cardId){
@@ -162,21 +154,11 @@
           });
       } else {
         vm.selectedDeck = DeckService.getDeckObj();
-        vm.selectedItem = vm.selectedDeck;
-        vm.deckAccess = 'private';
-        vm.cards=[];
-        $state.go('deck.addCard');
-      }
-      //clean card field
-      if (!$stateParams.deckId){
-        vm.selectedDeck = DeckService.setDeckObj(null);
+        DeckService.setDeckObj(null);
         vm.selectedItem = vm.selectedDeck;
         vm.deckAccess = 'private';
       }
-      $stateParams.cardId = null;
-      if($state.$current == 'deck.addCard'){
-        $state.reload('deck.addCard');
-      }
+      pickUpCard($stateParams.cardId);
     }
     initDeck($stateParams.deckId);
 
