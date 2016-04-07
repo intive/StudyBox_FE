@@ -6,7 +6,7 @@
     .controller('DeckController', DeckController);
 
   /** @ngInject */
-  function DeckController($stateParams, $state, BackendService, $log, DeckService, $mdDialog, $translate, $rootScope) {
+  function DeckController($stateParams, $state, BackendService, $log, DeckService, $mdDialog, $translate) {
     var vm = this;
     vm.selectedDeck = new BackendService.Deck();
     vm.load = false;
@@ -18,7 +18,6 @@
     vm.selectDeck = selectDeck;
     vm.selectCard = selectCard;
     vm.removeCard = removeCard;
-    vm.lostNetworkConnection = lostNetworkConnection;
     vm.clear = clear;
     vm.emptyNameError = DeckService.getEmptyNameError();
 
@@ -173,17 +172,6 @@
     }
     initDeck($stateParams.deckId);
 
-    function lostNetworkConnection(){
-      $mdDialog.show(
-          $mdDialog.alert()
-            .clickOutsideToClose(false)
-            .title($translate.instant('networkAlert-WARNING'))
-            .textContent($translate.instant('deck-OFFLINE_REMOVE_CARD_MODAL'))
-            .ariaLabel('Alert Dialog')
-            .ok($translate.instant('networkAlert-AGREE'))
-      );
-    }
-
     //DELETE CARD DIALOG
     function deleteCardDialog(cardId, cardNo) {
       var content = $translate.instant("deck-REMOVE_CARD_MODAL");
@@ -198,28 +186,23 @@
         .cancel($translate.instant("deck-NO"));
         $mdDialog.show(confirm)
           .then(function () {
-            //if connection lost
-            if(!$rootScope.networkStatusOnline){
-            lostNetworkConnection();
-            } else {
               //delete card
-              vm.selectedDeck.removeFlashcard(cardId)
-                .then(function (result) {
-                  //delete deck if last card
-                  if (cardNo < 2) {
-                    $log.warn('last one flashcard');
-                    vm.selectedDeck.remove().then(function () {
-                      $state.go('decks');
-                    });
-                  } else {
-                    $state.go("deck.addCard", {deckId: vm.selectedDeck.id, cardId: null});
-                    getCards();
-                    $log.log(result);
-                  }
-                }, function (e) {
-                  $log.error(e);
-                });
-            }
+            vm.selectedDeck.removeFlashcard(cardId)
+              .then(function (result) {
+                //delete deck if last card
+                if (cardNo < 2) {
+                  $log.warn('last one flashcard');
+                  vm.selectedDeck.remove().then(function () {
+                    $state.go('decks');
+                  });
+                } else {
+                  $state.go("deck.addCard", {deckId: vm.selectedDeck.id, cardId: null});
+                  getCards();
+                  $log.log(result);
+                }
+              }, function (e) {
+                $log.error(e);
+              });
           }
           , function () {
             $log.log('do nothing')
