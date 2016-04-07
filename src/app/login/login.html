@@ -14,14 +14,6 @@
         <form name="loginForm" ng-submit="login.submit(loginForm.$valid)" novalidate>
 
             <md-input-container class="md-block">
-              <label>{{"login-NAME_FIELD" | translate}}</label>
-              <input required type="text" name="name" minlength="2" ng-model="login.data.name" />
-              <div ng-messages="loginForm.name.$error">
-                <div ng-message="required">{{"login-REQUIRED_FIELD" | translate}}</div>
-              </div>
-            </md-input-container>
-
-            <md-input-container class="md-block">
               <label>{{"login-EMAIL_FIELD" | translate}}</label>
               <input required type="email" name="email" ng-model="login.data.email" />
               <div ng-messages="loginForm.email.$error">

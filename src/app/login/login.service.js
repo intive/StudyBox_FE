@@ -29,7 +29,7 @@
       }
     }
 
-    function doLogin(user, pass, userName, loginUrl) {
+    function doLogin(user, pass, loginUrl) {
       var token = btoa(user + ":" + pass);
       var method = "GET";
       var loginResponse;
@@ -38,7 +38,7 @@
         loginResponse = $http({method: method, url: loginUrl})
         .then(
           function successCallback(response) {            
-            setCookie(user, token, userName);            
+            setCookie(user, token);            
             return response;
           },
           function errorCallback(response) {
@@ -52,7 +52,6 @@
     function doLogout() {
       $cookies.remove("userMail");
       $cookies.remove("token");
-      $cookies.remove("name");
       var logged = isLogged();
       return !logged;
     }
@@ -61,10 +60,9 @@
       $http.defaults.headers.common.Authorization = "Basic " + token;
     }
 
-    function setCookie(user, token, userName) {
+    function setCookie(user, token) {
       $cookies.put("userMail", user);
       $cookies.put("token", token);
-      $cookies.put("name", userName);
     }
   }
 })();
