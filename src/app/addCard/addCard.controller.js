@@ -118,9 +118,9 @@
         })
         .then(function success() {
           DeckService.setCardObj(vm.card);
-          setCardToService()
+          setCardToService();
           $state.go("deck.addCard", {deckId: vm.deck.id, cardId: null});
-          $state.reload()
+          $state.reload();
         },
         function error(){
           var message = 'I cant update a flash card';
@@ -141,7 +141,7 @@
           throw message;
         })
         .then(function success() {
-          setCardToService()
+          setCardToService();
           $state.go("deck.addCard", {deckId: vm.deck.id});
           $state.reload("deck");
         },
