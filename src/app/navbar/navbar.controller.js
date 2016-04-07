@@ -20,7 +20,6 @@
     vm.showPublicCards = showPublicCards;
 
     vm.selectDeck = selectDeck;
-    vm.loaded = false;
     vm.querySearch  = querySearch;
     vm.newDeck = newDeck;
     vm.buttonClick = buttonClick;
