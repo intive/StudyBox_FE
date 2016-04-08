@@ -22,8 +22,10 @@
           </md-button>
           <textarea
             minlength="2"
-            ng-keydown="addCard.pasteFoo()"
-            ng-change="addCard.updateInput()"
+            ng-paste="addCard.pasteChecker()"
+            ng-change="addCard.trimInput(addCard)"
+            ng-focus="addCard.questionFocus=true"
+            ng-blur="addCard.questionFocus=false"
             class="question"
             placeholder='{{"addCard-WRITE_QUESTION" | translate}}'
             ng-model="addCard.question" rows="5"
@@ -34,7 +36,7 @@
             <img style="text-align: center;" ng-show="addCard.questionFile.$valid" ngf-thumbnail="questionFile" class="imgStyle">
           </div>
 
-          <div class="counter">
+          <div ng-class="addCard.question.length > 1000 ? 'counterError' : 'counter'">
               {{addCard.question.length}}
           </div>
 
@@ -86,8 +88,11 @@
             </i>
           </div>
           <textarea
-            maxlength="1000"
             minlength="2"
+            ng-paste="addCard.pasteChecker()"
+            ng-change="addCard.trimInput(addCard)"
+            ng-focus="addCard.answerFocus=true"
+            ng-blur="addCard.answerFocus=false"
             class="answer"
             placeholder='{{"addCard-WRITE_ANSWER" | translate}}'
             ng-model="addCard.answer" rows="5"
@@ -96,6 +101,10 @@
           <div class="display: inline-block;" ng-show="answerFile">
             <md-button ng-click="answerFile=null;" aria-label="closeImg" class="closePosition">Usuń zdjęcie ✖</md-button>
             <img style="text-align: center;" ng-show="addCard.answerFile.$valid" ngf-thumbnail="answerFile" class="imgStyle">
+          </div>
+
+          <div ng-class="addCard.answer.length > 1000 ? 'counterError' : 'counter'">
+              {{addCard.answer.length}}
           </div>
         </md-input-container>
 
