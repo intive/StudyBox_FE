@@ -57,7 +57,7 @@
       //gdy formularz nie przechodzi walidacji
       if(!isValid) return;
       if(!vm.answer || vm.answer.length > 1000) return;
-      if(!vm.question || vm.answer.question > 1000) return;
+      if(!vm.question || vm.question.length > 1000) return;
 
       vm.deck = DeckService.getDeckObj();
       vm.newDeck = DeckService.getNewDeck();
