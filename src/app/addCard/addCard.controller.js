@@ -54,9 +54,11 @@
     }
 
     function submitCard(isValid) {
-      //alert('deckName: '+vm.deckName+'\n'+'deckId: ('+$stateParams.deckId+')\n'+'cardId: '+$stateParams.cardId+'\n'+'vm.question: '+vm.question+'\n'+'vm.answer: '+vm.answer);
       //gdy formularz nie przechodzi walidacji
-      if(!isValid){return}
+      if(!isValid) return;
+      if(!vm.answer || vm.answer.length > 1000) return;
+      if(!vm.question || vm.answer.question > 1000) return;
+
       vm.deck = DeckService.getDeckObj();
       vm.newDeck = DeckService.getNewDeck();
 
@@ -73,7 +75,6 @@
       }
       //Jeżeli pola nie są puste
       var cardInDeck;
-      if((angular.isDefined(vm.question) && angular.isDefined(vm.answer)) && (vm.question.length <= 1000 && vm.answer.length <= 1000)) {
         if($stateParams.cardId) {
           cardInDeck = editFlashCard()
         } else {
@@ -83,7 +84,6 @@
             cardInDeck = createDeckWithFlashCard()
           }
         }
-      }
       //update deck name
       if (nameChange) {
         cardInDeck
