@@ -9,7 +9,7 @@
   /** @ngInject */
   function NavbarController($state, $timeout, $q,
     $log, $document, BackendService,
-    $mdSidenav, $stateParams, LoginService) {
+    $mdSidenav, $stateParams, LoginHelper) {
     var vm = this;
     vm.uiRouterState = $state;
 
@@ -29,7 +29,7 @@
     vm.userLogout = userLogout;
 
     function userLogout() {
-      LoginService.doLogout();
+      LoginHelper.doLogout();
       $mdSidenav('left').toggle();
       $state.go('login');
     }
