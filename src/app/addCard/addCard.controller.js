@@ -17,8 +17,8 @@
     vm.decks = null;
     vm.load = false;
     vm.toggleStatus = false;
-    vm.updateInput = updateInput;
-    vm.pasteFoo = pasteFoo;
+    vm.trimInput = trimInput;
+    vm.pasteChecker = pasteChecker;
 
     if (vm.cardId){
       vm.card = DeckService.getCardObj();
@@ -29,17 +29,20 @@
       }
     }
 
-    function updateInput(){
+    function trimInput(field){
       if(vm.paste){
-        vm.question = vm.question.substring(0, 10);
+        if(vm.questionFocus){
+          field.question = field.question.substring(0, 1000);
+        }
+        else if(vm.answerFocus){
+          field.answer = field.answer.substring(0, 1000);
+        }
         vm.paste = false;
       }
     }
 
-    function pasteFoo(){
-      if(event.ctrlKey && event.keyCode==86){
+    function pasteChecker(){
         vm.paste = true;
-      }
     }
 
     function toggleButton() {
@@ -52,9 +55,11 @@
     }
 
     function submitCard(isValid) {
-      //alert('deckName: '+vm.deckName+'\n'+'deckId: ('+$stateParams.deckId+')\n'+'cardId: '+$stateParams.cardId+'\n'+'vm.question: '+vm.question+'\n'+'vm.answer: '+vm.answer);
       //gdy formularz nie przechodzi walidacji
-      if(!isValid){return}
+      if(!isValid) return;
+      if(!vm.answer || vm.answer.length > 1000) return;
+      if(!vm.question || vm.question.length > 1000) return;
+
       vm.newDeck = DeckService.getNewDeck();
 
       //sprawdzenie nazwy talii
@@ -70,7 +75,6 @@
       }
       //Jeżeli pola nie są puste
       var cardInDeck;
-      if(angular.isDefined(vm.question) && angular.isDefined(vm.answer)) {
         if($stateParams.cardId) {
           cardInDeck = editFlashCard()
         } else {
@@ -80,7 +84,6 @@
             cardInDeck = createDeckWithFlashCard()
           }
         }
-      }
       //update deck name
       if (nameChange) {
         cardInDeck
