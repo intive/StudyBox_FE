@@ -16,8 +16,8 @@
     vm.decks = null;
     vm.load = false;
     vm.toggleStatus = false;
-    vm.updateInput = updateInput;
-    vm.pasteFoo = pasteFoo;
+    vm.trimInput = trimInput;
+    vm.pasteChecker = pasteChecker;
 
     if (vm.cardId){
       vm.card = DeckService.getCardObj();
@@ -28,17 +28,20 @@
       }
     }
 
-    function updateInput(){
+    function trimInput(field){
       if(vm.paste){
-        vm.question = vm.question.substring(0, 10);
+        if(vm.questionFocus){
+          field.question = field.question.substring(0, 1000);
+        }
+        else if(vm.answerFocus){
+          field.answer = field.answer.substring(0, 1000);
+        }
         vm.paste = false;
       }
     }
 
-    function pasteFoo(){
-      if(event.ctrlKey && event.keyCode==86){
+    function pasteChecker(){
         vm.paste = true;
-      }
     }
 
     function toggleButton() {
@@ -70,7 +73,7 @@
       }
       //Jeżeli pola nie są puste
       var cardInDeck;
-      if(angular.isDefined(vm.question) && angular.isDefined(vm.answer)) {
+      if((angular.isDefined(vm.question) && angular.isDefined(vm.answer)) && (vm.question.length <= 1000 && vm.answer.length <= 1000)) {
         if($stateParams.cardId) {
           cardInDeck = editFlashCard()
         } else {
