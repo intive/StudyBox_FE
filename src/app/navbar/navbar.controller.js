@@ -2,14 +2,14 @@
   'use strict';
 
   angular
-    .module('navbar')
-    .controller('NavbarController', NavbarController);
+  .module('navbar')
+  .controller('NavbarController', NavbarController);
 
 
   /** @ngInject */
   function NavbarController($state, $timeout, $q,
-                            $log, $document, BackendService,
-                            $mdSidenav, $stateParams) {
+    $log, $document, BackendService,
+    $mdSidenav, $stateParams, LoginService) {
     var vm = this;
     vm.uiRouterState = $state;
 
@@ -25,6 +25,14 @@
     vm.buttonClick = buttonClick;
     vm.changePage = changePage;
     vm.changeButton = angular.element($document[0].querySelector('#searchAutocomplete')).hasClass('searchForm');
+
+    vm.userLogout = userLogout;
+
+    function userLogout() {
+      LoginService.doLogout();
+      $mdSidenav('left').toggle();
+      $state.go('login');
+    }
 
     function openLeftMenu() {
       $mdSidenav('left').toggle();
@@ -46,21 +54,21 @@
 
       if(search.hasClass('searchForm'))
       {
-      vm.searchText = "";
-      angular.element($document[0].querySelector('#searchButton')).addClass('darkButton');
-      angular.element($document[0].querySelector('#searchButton2')).addClass('ng-hide');
-      angular.element($document[0].querySelector('#searchButton3')).removeClass('ng-hide');
-      angular.element($document[0].querySelector('#searchAutocomplete')).removeClass('searchForm');
-      angular.element($document[0].querySelector('#searchAutocomplete')).addClass('showUp');
-      $timeout(function(){angular.element($document[0].querySelector('#searchInput')).focus();},330);
+        vm.searchText = "";
+        angular.element($document[0].querySelector('#searchButton')).addClass('darkButton');
+        angular.element($document[0].querySelector('#searchButton2')).addClass('ng-hide');
+        angular.element($document[0].querySelector('#searchButton3')).removeClass('ng-hide');
+        angular.element($document[0].querySelector('#searchAutocomplete')).removeClass('searchForm');
+        angular.element($document[0].querySelector('#searchAutocomplete')).addClass('showUp');
+        $timeout(function(){angular.element($document[0].querySelector('#searchInput')).focus();},330);
       }
       else
       {
-      angular.element($document[0].querySelector('#searchButton')).removeClass('darkButton');
-      angular.element($document[0].querySelector('#searchButton2')).removeClass('ng-hide');
-      angular.element($document[0].querySelector('#searchButton3')).addClass('ng-hide');
-      angular.element($document[0].querySelector('#searchAutocomplete')).removeClass('showUp');
-      angular.element($document[0].querySelector('#searchAutocomplete')).addClass('searchForm');
+        angular.element($document[0].querySelector('#searchButton')).removeClass('darkButton');
+        angular.element($document[0].querySelector('#searchButton2')).removeClass('ng-hide');
+        angular.element($document[0].querySelector('#searchButton3')).addClass('ng-hide');
+        angular.element($document[0].querySelector('#searchAutocomplete')).removeClass('showUp');
+        angular.element($document[0].querySelector('#searchAutocomplete')).addClass('searchForm');
       }
 
     }
@@ -70,18 +78,18 @@
 
       if (item){
 
-      var url;
-      if(vm.access == 'private')
-        url = 'deck.addCard';
-      else
-        url = 'deck-preview';
+        var url;
+        if(vm.access == 'private')
+          url = 'deck.addCard';
+        else
+          url = 'deck-preview';
 
-      $state.go(url, {deckId: item.id});
+        $state.go(url, {deckId: item.id});
 
 
-      item = null;
+        item = null;
 
-    }
+      }
 
     }
 
@@ -101,42 +109,42 @@
 
       if (vm.selectedItem == null){
         $state.go(url)
-  }
-  else
-  {
+      }
+      else
+      {
 
 
 
-          if (vm.searchText != "")
-          {
-            $state.go(url, {deckId: vm.selectedItem.id});
-          }
-          else
-          {
+        if (vm.searchText != "")
+        {
+          $state.go(url, {deckId: vm.selectedItem.id});
+        }
+        else
+        {
 
-            $state.go(url);
-          }
+          $state.go(url);
+        }
 
-}
+      }
 
     }
 
     function querySearch (query) {
 
-        if (!vm.decks) {
-          vm.decks = BackendService.getDecks(vm.access);
-        }
-        return vm.decks
-          .then(function (result) {
-            var list = query ? result.filter(createFilterFor(query)) : result,
-            deferred;
+      if (!vm.decks) {
+        vm.decks = BackendService.getDecks(vm.access);
+      }
+      return vm.decks
+      .then(function (result) {
+        var list = query ? result.filter(createFilterFor(query)) : result,
+        deferred;
 
 
-            deferred = $q.defer();
-            $timeout(function () { deferred.resolve( list ); }, Math.random() * 1000, false);
+        deferred = $q.defer();
+        $timeout(function () { deferred.resolve( list ); }, Math.random() * 1000, false);
 
-            return deferred.promise;
-          });
+        return deferred.promise;
+      });
 
     }
 
