@@ -3,15 +3,13 @@
 
   angular
     .module('deck')
-    .controller('DeckController', DeckController);
+    .controller('DeckEditController', DeckEditController);
 
   /** @ngInject */
-  function DeckController($stateParams, $state, BackendService, $log, DeckService, $mdDialog, $translate) {
+  function DeckEditController($stateParams, $state, BackendService, $log, DeckService, $mdDialog, $translate) {
     var vm = this;
     vm.deckId = $stateParams.deckId;
     vm.selectedDeck = new BackendService.Deck();
-    vm.load = false;
-    vm.getDecks = getDecks;
     vm.deckDataChange = deckDataChange;
     vm.selectDeck = selectDeck;
     vm.editDeck = editDeck;
@@ -21,33 +19,22 @@
     vm.removeCard = removeCard;
     vm.clear = clear;
     vm.emptyNameError = DeckService.getEmptyNameError();
-
-
     vm.access = $stateParams.access;
 
-    function getDecks(query) {
-      //for not loading list of deck on page init
-      if (vm.load) {
-        if (!vm.decks) {
-          //create request for deck list
-          vm.decks = BackendService.getDecks(vm.access);
+    function deckDataChange(item) {
+      if (item) return;
+      if (vm.selectedDeck.name == vm.searchText) {
+        if (vm.selectedDeck.isPublic == accessToBool(vm.deckAccess)){
+          vm.dataChanged = false;
         }
-        return vm.decks
-          .then(function (result) {
-            var list = query ? result.filter(queryFilter(query)) : result;
-            if (query){
-              list.unshift({name:query});
-            }
-            return list;
-          });
       } else {
-        vm.load = true;
+        vm.dataChanged = true;
+        DeckService.setNewDeck({name: vm.searchText, access:vm.deckAccess});
       }
     }
 
-    function deckDataChange() {
-      vm.dataChanged = true;
-      DeckService.setNewDeck({name: vm.searchText, access:vm.deckAccess});
+    function accessToBool(access){
+      return access === 'public';
     }
 
     function createDeck(){
@@ -113,15 +100,6 @@
     }
 
     //LOCAL FUNCTIONS
-    function queryFilter(query) {
-      var lowercaseQuery = angular.lowercase(query);
-      return function filterFn(deck) {
-        if(deck.name){
-          return (deck.name.toLowerCase().indexOf(lowercaseQuery) === 0);
-        }
-      };
-    }
-
     function clear() {
       vm.searchText = null;
     }
@@ -147,8 +125,10 @@
             } else {
               vm.deckAccess = 'private';
             }
+            vm.searchText = vm.selectDeck.name;
             DeckService.setNewDeck({name: vm.selectedDeck.name, access: vm.deckAccess});
             getCards();
+            vm.dataChanged = false;
           }, function (e) {
             $log.error(e);
           });
@@ -157,6 +137,7 @@
         DeckService.setDeckObj(null);
         vm.selectedItem = vm.selectedDeck;
         vm.deckAccess = 'private';
+        vm.dataChanged = false;
       }
       pickUpCard($stateParams.cardId);
     }
