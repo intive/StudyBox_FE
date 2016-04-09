@@ -3,110 +3,96 @@
 
   angular
     .module('deck')
-    .controller('DeckController', DeckController);
+    .controller('DeckEditController', DeckEditController);
 
   /** @ngInject */
-  function DeckController($stateParams, $state, BackendService, $log, DeckService, $mdDialog, $translate) {
+  function DeckEditController($stateParams, $state, BackendService, $log, DeckService, $mdDialog, $translate) {
     var vm = this;
+    vm.deckId = $stateParams.deckId;
     vm.selectedDeck = new BackendService.Deck();
-    vm.load = false;
-    vm.getDecks = getDecks;
-    vm.selectedDeckChange = selectedDeckChange;
-    vm.changeDeckData = changeDeckData;
-    vm.textChange = textChange;
-    vm.createDeck = createDeck;
+    vm.deckDataChange = deckDataChange;
     vm.selectDeck = selectDeck;
+    vm.editDeck = editDeck;
+    vm.saveDeck = saveDeck;
     vm.selectCard = selectCard;
+    vm.editCard = editCard;
     vm.removeCard = removeCard;
     vm.clear = clear;
     vm.emptyNameError = DeckService.getEmptyNameError();
-
-
     vm.access = $stateParams.access;
 
-    function getDecks(query) {
-      //for not loading list of deck on page init
-      if (vm.load) {
-        if (!vm.decks) {
-          //create request for deck list
-          vm.decks = BackendService.getDecks(vm.access);
+    function deckDataChange(item) {
+      if (item) return;
+      if (vm.selectedDeck.name == vm.searchText) {
+        if (vm.selectedDeck.isPublic == accessToBool(vm.deckAccess)){
+          vm.dataChanged = false;
         }
-        return vm.decks
-          .then(function (result) {
-            var list = query ? result.filter(queryFilter(query)) : result;
-            if (query){
-              list.unshift({name:query});
-            }
-            return list;
-          });
       } else {
-        vm.load = true;
+        vm.dataChanged = true;
+        DeckService.setNewDeck({name: vm.searchText, access:vm.deckAccess});
       }
     }
 
-    function textChange(text) {
-      DeckService.setNewDeck({name:text, access:vm.deckAccess})
+    function accessToBool(access){
+      return access === 'public';
     }
 
-    function selectedDeckChange(deck) {
-      if(deck === true){
-        return changeDeckData();
-      }
-      if (deck) {
-        if (deck.id){
-          selectDeck(deck);
-        } else {
-          deck.access = vm.deckAccess;
-          createDeck(deck);
-        }
-      }
+    function createDeck(){
+      $state.go("deck.addCard", {deckId:null , cardId: null});
     }
 
-    function createDeck(deck) {
-      DeckService.setDeckObj(deck);
-      if($stateParams.deckId){
-        $stateParams.deckId = null;
-        $stateParams.cardId = null;
-        initDeck(null);
-      }
+
+    function editDeck(){
+      $state.go("deck.addCard", {deckId:vm.selectedDeck.id , cardId: null});
     }
 
     function selectDeck(deck) {
-      DeckService.setDeckObj(deck);
-      if (deck.id != $stateParams.deckId){
-        $stateParams.deckId = deck.id;
-        $stateParams.cardId = null;
-        initDeck(deck.id);
+      if (deck) {
+        DeckService.setDeckObj(deck);
+        if (deck.id && deck.id != $stateParams.deckId) {
+          $stateParams.deckId = deck.id;
+          $stateParams.cardId = null;
+          $state.go($state.current, {deckId: deck.id}, {notify: false});
+          initDeck(deck.id);
+        }
+        else if (!deck.id) {
+          createDeck();
+        }
       }
     }
 
-    function changeDeckData() {
-      if (!vm.selectedDeck){
-        DeckService.setNewDeck({name: vm.searchText, access: vm.deckAccess});
-      } else {
-        vm.selectedDeck.updateDeck(vm.searchText, vm.deckAccess)
-          .then(function success() {
-            $state.go("deck.addCard", {deckId: vm.selectedDeck.id});
-            $state.reload("deck");
-          },
-          function error() {
-            var message = 'I cant update Deck name';
-            alert(message);
-            throw message;
-          })
-      }
+    function saveDeck(){
+      vm.selectedDeck.updateDeck(vm.searchText, vm.deckAccess)
+        .then(function success() {
+          $state.go("deck.addCard", {deckId: vm.selectedDeck.id});
+          $state.reload("deck");
+        },
+        function error() {
+          var message = 'I cant update Deck name';
+          alert(message);
+          throw message;
+        })
     }
 
     function selectCard(card) {
       DeckService.setCardObj(card);
       //for selecting on ui (ng-repeat)
       if(card.id !=vm.selectedCardId) {
-        vm.selectedCardId = card.id;
-        $state.go("deck.addCard", {cardId: card.id}, {notify:true});
+        pickUpCard(card.id);
+        $state.go($state.current, {cardId: card.id}, {notify:true});
       } else {
-        vm.selectedCardId = false;
-        $state.go("deck.addCard", {cardId: null}, {notify:true});
+        pickUpCard(false);
+        $state.go($state.current, {cardId: null}, {notify:true});
       }
+    }
+
+    function pickUpCard(cardId) {
+      vm.selectedCardId = cardId;
+    }
+
+    function editCard(card){
+      DeckService.setCardObj(card);
+      $state.go("deck.addCard", {deckId: vm.selectedDeck.id , cardId: card.id});
     }
 
     function removeCard(cardId){
@@ -114,15 +100,6 @@
     }
 
     //LOCAL FUNCTIONS
-    function queryFilter(query) {
-      var lowercaseQuery = angular.lowercase(query);
-      return function filterFn(deck) {
-        if(deck.name){
-          return (deck.name.toLowerCase().indexOf(lowercaseQuery) === 0);
-        }
-      };
-    }
-
     function clear() {
       vm.searchText = null;
     }
@@ -148,27 +125,21 @@
             } else {
               vm.deckAccess = 'private';
             }
+            vm.searchText = vm.selectDeck.name;
             DeckService.setNewDeck({name: vm.selectedDeck.name, access: vm.deckAccess});
             getCards();
+            vm.dataChanged = false;
           }, function (e) {
             $log.error(e);
           });
       } else {
         vm.selectedDeck = DeckService.getDeckObj();
+        DeckService.setDeckObj(null);
         vm.selectedItem = vm.selectedDeck;
         vm.deckAccess = 'private';
-        vm.cards=[];
+        vm.dataChanged = false;
       }
-      //clean card field
-      if (!$stateParams.deckId){
-        vm.selectedDeck = DeckService.setDeckObj(null);
-        vm.selectedItem = vm.selectedDeck;
-        vm.deckAccess = 'private';
-      }
-      $stateParams.cardId = null;
-      if($state.$current == 'deck.addCard'){
-        $state.reload('deck.addCard');
-      }
+      pickUpCard($stateParams.cardId);
     }
     initDeck($stateParams.deckId);
 
