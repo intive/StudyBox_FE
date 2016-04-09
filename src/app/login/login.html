@@ -21,7 +21,7 @@
               <div ng-messages="loginForm.email.$error" 
               role="alert" 
               md-auto-hide="false" 
-              ng-if="loginForm.email.$touched">
+              ng-show="loginForm.email.$touched">
                 <div ng-message="required">{{"login-REQUIRED_FIELD" | translate}}</div>
                 <div ng-message="email">{{"login-TYPE_VALID_EMAIL" | translate}}</div>
               </div>
@@ -37,7 +37,7 @@
               <div ng-messages="loginForm.password.$error"
               role="alert" 
               md-auto-hide="false"
-              ng-if="loginForm.password.$touched"
+              ng-show="loginForm.password.$touched"
               >
                 <div ng-message="required">{{"login-REQUIRED_FIELD" | translate}}</div>
                 <div ng-message="minlength">{{"login-FIELD_MIN_CHARS" | translate}}</div>
