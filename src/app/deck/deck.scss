@@ -8,28 +8,6 @@
 
 .deck-card {
   cursor: pointer;
-  margin-left: 1em;
-  margin-bottom: 10px;
-}
-
-.deck-card.selected {
-  margin-bottom: 2px;
-  transform: scale(1.02);
-  border: solid 1px #CCC;
-  -moz-box-shadow: 1px 1px 5px #999;
-  -webkit-box-shadow: 1px 1px 5px #999;
-  box-shadow: 1px 1px 5px #999;
-}
-
-.deck-card:hover,
-.deck-card.selected:hover{
-  margin-bottom: 0;
-  cursor: hand;
-  transform: scale(1.04);
-  border: solid 1px #CCC;
-  -moz-box-shadow: 1px 1px 5px #999;
-  -webkit-box-shadow: 1px 1px 5px #999;
-  box-shadow: 1px 1px 5px #999;
 }
 
 .deck-card-title {
@@ -59,23 +37,36 @@
   width: inherit;
 }
 
-.deck-button{
+.deck-edit-button{
   padding-left: 5px;
   background: #0068B4 !important;
+  opacity: 0.6;
 }
 
-.deck-button:disabled{
-  background: #cfcfcf !important;
-}
-
-.deck-add-button{
-  padding-left: 5px;
-  background-color: #EA0061 !important;
-}
-
-.deck-add-button:disabled{
+.deck-edit-button:disabled{
   background-color: #cfcfcf !important;
 }
+
+.deck-remove-button{
+  padding-left: 5px;
+  background-color: #EA0061 !important;
+  opacity: 0.6;
+}
+
+.selected .deck-edit-button,
+.selected .deck-remove-button,
+{
+  opacity: 0.7;
+}
+
+.deck-edit-button:hover,
+.deck-remove-button:hover,
+.selected .deck-edit-button:hover,
+.selected .deck-remove-button:hover {
+  opacity: 0.9;
+}
+
+
 
 /* The starting CSS styles for the enter animation */
 .fade.ng-enter {

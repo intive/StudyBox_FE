@@ -1,0 +1,56 @@
+<md-content class="md-padding" layout="column" ng-cloak>
+  <form class="deck-autocomplete" ng-submit="myDeckPreview.selectedDeckChange(deckForm.$valid)" name="deckForm" layout="row" layout-wrap >
+    <md-autocomplete flex="30" required
+                     ng-model="myDeckPreview.searchText"
+                     md-input-name="deckField"
+                     md-selected-item="myDeckPreview.selectedItem"
+                     md-search-text="myDeckPreview.searchText"
+                     md-items="item in myDeckPreview.getDecks(myDeckPreview.searchText)"
+                     md-item-text="item.name"
+                     md-selected-item-change="myDeckPreview.selectDeck(item)"
+                     md-min-length="0"
+                     md-input-maxlength="50"
+                     md-autoselect="true"
+                     md-floating-label="{{'deck-TYPE_NAME' | translate}}">
+      <md-item-template>
+        <span ng-if="!item.id" class="add-deck" >{{'deck-CREATE_DECK' | translate}}</span>
+        <span md-highlight-text="myDeckPreview.searchText">{{item.name}}</span>
+      </md-item-template>
+      <div ng-messages="deckForm.deckField.$error" ng-if="deckForm.deckField.$touched">
+        <div ng-message="required">{{'deck-NAME_REQUIRED' | translate}}</div>
+        <div ng-message="maxlength">{{'deck-NAME_TOO_LONG' | translate}}</div>
+      </div>
+    </md-autocomplete>
+    <div ng-if="myDeckPreview.searchText" ng-click="myDeckPreview.clear()" class="deck-clear">x</div>
+
+    <md-button class="md-fab deck-edit-button" ng-click="myDeckPreview.editDeck()">
+      <md-tooltip id="editDeckButtonTooltip" md-direction="top">{{'deck-EDIT_DECK' | translate}}</md-tooltip>
+      <md-icon md-svg-src="assets/icons/card.svg"></md-icon>
+    </md-button>
+
+  </form>
+
+
+  <div layout="horizontal" layout-wrap>
+    <md-card ng-repeat="card in myDeckPreview.cards" ng-click="myDeckPreview.selectCard(card)" class="deck-card"
+             ng-class="{'md-whiteframe-15dp': hover, 'md-whiteframe-8dp': card.id === myDeckPreview.selectedCardId}"
+             ng-mouseenter="hover = true" ng-mouseleave="hover = false">
+      <md-card-title>
+        <md-card-title-text class="deck-content">
+          <span class="md-headline">{{ card.question }}</span>
+          <span class="md-subhead">{{ card.answer }}</span>
+        </md-card-title-text>
+      </md-card-title>
+      <md-card-actions layout="row" layout-align="end center">
+        <md-button class="deck-edit-button" ng-click="myDeckPreview.editCard(card)">
+          <md-tooltip id="editCardButtonTooltip" md-direction="top">{{'deck-EDIT_CARD' | translate}}</md-tooltip>
+          <md-icon md-svg-src="assets/icons/card.svg"></md-icon>
+        </md-button>
+        <md-button class="deck-remove-button" ng-click="myDeckPreview.removeCard(card.id)">
+          <md-tooltip id="removeCardButtonTooltip" md-direction="top">{{'deck-REMOVE_CARD' | translate}}</md-tooltip>
+          <md-icon md-svg-src="assets/icons/clear.svg"></md-icon>
+        </md-button>
+      </md-card-actions>
+    </md-card>
+  </div>
+</md-content>

@@ -11,6 +11,7 @@
     var vm = this;
     vm.deckId = $stateParams.deckId;
     vm.cardId = $stateParams.cardId;
+    vm.deck = DeckService.getDeckObj();
     vm.submitCard = submitCard;
     vm.toggleButton = toggleButton;
     vm.decks = null;
@@ -24,7 +25,7 @@
       if (vm.card){
         vm.question = vm.card.question;
         vm.answer = vm.card.answer;
-        vm.editMode=true
+        vm.editMode=true;
       }
     }
 
@@ -59,7 +60,6 @@
       if(!vm.answer || vm.answer.length > 1000) return;
       if(!vm.question || vm.question.length > 1000) return;
 
-      vm.deck = DeckService.getDeckObj();
       vm.newDeck = DeckService.getNewDeck();
 
       //sprawdzenie nazwy talii
@@ -121,8 +121,9 @@
         })
         .then(function success() {
           DeckService.setCardObj(vm.card);
-          $state.go("deck", {deckId: vm.deck.id});
-          $state.reload()
+          setCardToService();
+          $state.go("deck.addCard", {deckId: vm.deck.id, cardId: null});
+          $state.reload();
         },
         function error(){
           var message = 'I cant update a flash card';
@@ -143,6 +144,7 @@
           throw message;
         })
         .then(function success() {
+          setCardToService();
           $state.go("deck.addCard", {deckId: vm.deck.id});
           $state.reload("deck");
         },
@@ -165,13 +167,22 @@
           throw message;
         })
         .then(function success() {
-          $state.go("deck.addCard", {deckId: vm.deck.id});
+          $state.go("deck.addCard", {deckId: vm.deck.id, cardId: null});
         },
         function error(){
           var message = 'I cant create a flash card';
           alert(message);
           throw message;
         });
+    }
+
+    function setCardToService(){
+      var card = {
+        id: $stateParams.cardId,
+        question: vm.question,
+        answer: vm.answer
+      };
+      DeckService.setCardObj(card);
     }
 
   }

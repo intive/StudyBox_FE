@@ -2,29 +2,33 @@
 
     <md-autocomplete
             flex="30"
-            ng-model="deck.searchText"
+            ng-model="deckPreview.searchText"
             md-input-name="deckField"
-            md-selected-item="deck.selectedItem"
-            md-search-text="deck.searchText"
-            md-items="item in deck.getDecks(deck.searchText)"
+            md-selected-item="deckPreview.selectedItem"
+            md-search-text="deckPreview.searchText"
+            md-items="item in deckPreview.getDecks(deckPreview.searchText)"
             md-item-text="item.name"
-            md-search-text-change="deck.getDecks(deck.searchText)"
-            md-selected-item-change="deck.selectedDeckChange(item)"
+            md-search-text-change="deckPreview.getDecks(deckPreview.searchText)"
+            md-selected-item-change="deckPreview.selectDeck(item)"
             md-min-length="0"
             md-input-maxlength="50"
             md-autoselect="true"
             md-floating-label="{{'deck-TYPE_NAME' | translate}}">
       <md-item-template>
-        <span md-highlight-text="deck.searchText">{{item.name}}</span>
+        <span md-highlight-text="deckPreview.searchText">{{item.name}}</span>
       </md-item-template>
     </md-autocomplete>
-    <div ng-if="deck.searchText" ng-click="deck.clear()" class="deck-clear">x</div>
+    <div ng-if="deckPreview.searchText" ng-click="deckPreview.clear()" class="deck-clear">x</div>
 </div>
 
 
 <div layout="horizontal" layout-wrap>
-  <md-card ng-repeat="card in deck.cards"
-           flex-xs="100" flex-sm="50" flex="25">
+  <md-card ng-repeat="card in deckPreview.cards"
+           ng-click="deckPreview.selectCard(card)"
+           class="deck-card"
+           flex-xs="100" flex-sm="50" flex="25"
+           ng-class="{'md-whiteframe-15dp': hover, 'md-whiteframe-8dp': card.id === deckPreview.selectedCardId}"
+           ng-mouseenter="hover = true" ng-mouseleave="hover = false">
 
     <md-card-title>
       <md-card-title-text class="deck-content">
