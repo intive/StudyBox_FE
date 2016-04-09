@@ -33,7 +33,8 @@
 
   <div layout="horizontal" layout-wrap>
     <md-card ng-repeat="card in myDeckPreview.cards" ng-click="myDeckPreview.selectCard(card)" class="deck-card"
-             ng-class="{selected: card.id === myDeckPreview.selectedCardId}">
+             ng-class="{'md-whiteframe-15dp': hover, 'md-whiteframe-8dp': card.id === myDeckPreview.selectedCardId}"
+             ng-mouseenter="hover = true" ng-mouseleave="hover = false">
       <md-card-title>
         <md-card-title-text class="deck-content">
           <span class="md-headline">{{ card.question }}</span>
