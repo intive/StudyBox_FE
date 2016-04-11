@@ -23,11 +23,13 @@
     </md-autocomplete>
     <div ng-if="myDeckPreview.searchText" ng-click="myDeckPreview.clear()" class="deck-clear">x</div>
 
-    <md-button class="md-fab deck-edit-button" ng-click="myDeckPreview.editDeck()">
+    <div class="deck-button">
       <md-tooltip id="editDeckButtonTooltip" md-direction="top">{{'deck-EDIT_DECK' | translate}}</md-tooltip>
-      <md-icon md-svg-src="assets/icons/card.svg"></md-icon>
-    </md-button>
-
+      <md-icon
+        class="deck-edit-button" ng-click="myDeckPreview.editDeck()"
+        md-svg-src="assets/icons/card.svg">
+      </md-icon>
+    </div>
   </form>
 
 
@@ -42,14 +44,18 @@
         </md-card-title-text>
       </md-card-title>
       <md-card-actions layout="row" layout-align="end center">
-        <md-button class="deck-edit-button" ng-click="myDeckPreview.editCard(card)">
+        <div class="card-button">
           <md-tooltip id="editCardButtonTooltip" md-direction="top">{{'deck-EDIT_CARD' | translate}}</md-tooltip>
-          <md-icon md-svg-src="assets/icons/card.svg"></md-icon>
-        </md-button>
-        <md-button class="deck-remove-button" ng-click="myDeckPreview.removeCard(card.id)">
+          <md-icon class="deck-edit-button"
+                   md-svg-src="assets/icons/card.svg"
+                   ng-click="myDeckPreview.editCard(card)"></md-icon>
+        </div>
+        <div class="card-button">
           <md-tooltip id="removeCardButtonTooltip" md-direction="top">{{'deck-REMOVE_CARD' | translate}}</md-tooltip>
-          <md-icon md-svg-src="assets/icons/clear.svg"></md-icon>
-        </md-button>
+          <md-icon class="deck-remove-button"
+                   md-svg-src="assets/icons/clear.svg"
+                   ng-click="myDeckPreview.removeCard(card.id)"></md-icon>
+        </div>
       </md-card-actions>
     </md-card>
   </div>

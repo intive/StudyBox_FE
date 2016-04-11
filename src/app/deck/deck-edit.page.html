@@ -34,12 +34,12 @@
       </md-switch>
     </div>
 
-    <div>
-      <md-button ng-if="deckEdit.deckId" class="md-fab deck-edit-button"
-                 ng-click="deckEdit.saveDeck()" ng-disabled="!deckEdit.dataChanged">
-        <md-tooltip id="saveDeckButtonTooltip" md-direction="top">{{'deck-SAVE_DECK' | translate}}</md-tooltip>
-        <md-icon md-svg-src="assets/icons/card.svg"></md-icon>
-      </md-button>
+    <div class="deck-button">
+      <md-tooltip id="saveDeckButtonTooltip" md-direction="top">{{'deck-SAVE_DECK' | translate}}</md-tooltip>
+      <md-icon
+        ng-if="deckEdit.deckId && deckEdit.dataChanged" class="deck-edit-button"
+        ng-click="deckEdit.saveDeck()"
+        md-svg-src="assets/icons/card.svg"></md-icon>
     </div>
   </div>
   <span layout="row"><hr flex/></span>
@@ -54,10 +54,11 @@
         </md-card-title-text>
       </md-card-title>
       <md-card-actions layout="row" layout-align="end center">
-        <md-button class="deck-remove-button" ng-click="deckEdit.removeCard(card.id)">
-          <md-tooltip id="removeCardButtonTooltip" md-direction="top">{{'deck-REMOVE_CARD' | translate}}</md-tooltip>
-          <md-icon md-svg-src="assets/icons/clear.svg"></md-icon>
-        </md-button>
+        <div class="card-button">
+          <md-icon class="deck-remove-button"
+                   md-svg-src="assets/icons/clear.svg"
+                   ng-click="deckEdit.removeCard(card.id)"></md-icon>
+        </div>
       </md-card-actions>
     </md-card>
   </div>

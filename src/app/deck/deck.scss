@@ -37,20 +37,24 @@
   width: inherit;
 }
 
-.deck-edit-button{
-  padding-left: 5px;
-  background: #0068B4 !important;
-  opacity: 0.6;
+.deck-edit-button>svg{
+  fill: #bdbdbd;
+}
+.deck-edit-button:hover>svg{
+  cursor: hand;
+  fill: #0068B4;
 }
 
-.deck-edit-button:disabled{
-  background-color: #cfcfcf !important;
+.deck-remove-button>svg{
+  fill: #bdbdbd;
+}
+.deck-remove-button:hover>svg{
+  cursor: hand;
+  fill: #EA0061;
 }
 
-.deck-remove-button{
-  padding-left: 5px;
-  background-color: #EA0061 !important;
-  opacity: 0.6;
+.deck-edit-button:disabled>svg{
+  fill: #fafafa;
 }
 
 .selected .deck-edit-button,
@@ -85,26 +89,28 @@
   margin-top: 1.5em;
   left: -1.5em;
   cursor: pointer;
-  color: #0068B4;
+  color: #bdbdbd;
   padding: 0;
   height: 1.2em;
 }
 .deck-clear:hover{
   cursor: hand;
+  color: #EA0061;
 }
 
-.add-deck{
+.deck-button{
   position: relative;
   z-index: 2;
   cursor: pointer;
-  color: #0068B4;
-  padding: 0;
+  padding-top: 1.6em;
   height: 1.2em;
   float: right;
 }
 
-.add-deck:hover{
-  cursor: hand;
+.card-button{
+  position: relative;
+  float: right;
+  padding: 0 0.3em;
 }
 
 .deck-checkbox {
