@@ -23,12 +23,13 @@
 
     function deckDataChange(item) {
       if (item) return;
+      vm.dataChanged = true;
       if (vm.selectedDeck.name == vm.searchText) {
         if (vm.selectedDeck.isPublic == accessToBool(vm.deckAccess)){
           vm.dataChanged = false;
         }
-      } else {
-        vm.dataChanged = true;
+      }
+      if (vm.dataChanged){
         DeckService.setNewDeck({name: vm.searchText, access:vm.deckAccess});
       }
     }
