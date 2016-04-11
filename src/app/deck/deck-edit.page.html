@@ -55,6 +55,7 @@
       </md-card-title>
       <md-card-actions layout="row" layout-align="end center">
         <div class="card-button">
+          <md-tooltip id="removeCardButtonTooltip" md-direction="top">{{'deck-REMOVE_CARD' | translate}}</md-tooltip>
           <md-icon class="deck-remove-button"
                    md-svg-src="assets/icons/clear.svg"
                    ng-click="deckEdit.removeCard(card.id)"></md-icon>
