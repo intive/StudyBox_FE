@@ -12,7 +12,10 @@
     vm.passwordRegex = /^[^\s]+$/;
 
     function submit(isValid) {
-      if (isValid && $rootScope.networkStatusOnline) {
+      if(!isValid){
+        return;
+      }
+      if ($rootScope.networkStatusOnline) {
         var user = vm.data.email;
         var pass = vm.data.password;
         var loginUrl = "api/decks/";
@@ -26,8 +29,6 @@
           }          
         });         
       }else{
-        $log.info("Błąd logowania");
-        if(!$rootScope.networkStatusOnline)
           showOfflineLoginAlert();
       }
     }
