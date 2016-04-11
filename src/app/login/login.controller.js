@@ -5,7 +5,7 @@
   .module('login')
   .controller('LoginController', LoginController);
 
-  function LoginController($document, $log, $state, $rootScope, $mdDialog, $translate, LoginService) {
+  function LoginController($state, LoginService) {
     var vm = this;
     vm.formStatus = '';
     vm.submit = submit;
@@ -15,34 +15,18 @@
       if(!isValid){
         return;
       }
-      if ($rootScope.networkStatusOnline) {
-        var user = vm.data.email;
-        var pass = vm.data.password;
-        var loginUrl = "api/decks/";
-        var targetState = "decks";
-        LoginService.doLogin(user, pass, loginUrl)
-        .then(function(data){
-          if(data.status === 200) {
-            $state.go(targetState);
-          }else{
-            alert("Logowanie nieudane!\n\n" + "HTTP: " + data.status + "\n" + data.statusText);
-          }          
-        });         
-      }else{
-          showOfflineLoginAlert();
-      }
-    }
-
-    function showOfflineLoginAlert() {
-      $mdDialog.show(
-        $mdDialog.alert()
-        .parent(angular.element($document[0].querySelector('#popupContainer')))
-        .clickOutsideToClose(false)
-        .title($translate.instant('networkAlert-WARNING'))
-        .textContent($translate.instant('networkAlert-OFFLINE_LOGIN'))
-        .ariaLabel('Alert Dialog')
-        .ok($translate.instant('networkAlert-AGREE'))
-        );
+      var user = vm.data.email;
+      var pass = vm.data.password;
+      var loginUrl = "api/decks/";
+      var targetState = "decks";
+      LoginService.doLogin(user, pass, loginUrl)
+      .then(function(data){
+        if(data.status === 200) {
+          $state.go(targetState);
+        }else{
+          alert("Logowanie nieudane!\n\n" + "HTTP: " + data.status + "\n" + data.statusText);
+        }          
+      });         
     }
   }
 })();
