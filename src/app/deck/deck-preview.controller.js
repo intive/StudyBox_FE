@@ -6,7 +6,7 @@
     .controller('DeckPreviewController', DeckPreviewController);
 
   /** @ngInject */
-  function DeckPreviewController($stateParams, $state, BackendService, $log, DeckService, $mdDialog, $translate) {
+  function DeckPreviewController($stateParams, $state, BackendService, $log, DeckService) {
     var vm = this;
     vm.deckId = $stateParams.deckId;
     vm.selectedDeck = new BackendService.Deck();
@@ -67,6 +67,15 @@
     //LOCAL FUNCTIONS
     function clear() {
       vm.searchText = null;
+    }
+
+    function queryFilter(query) {
+      var lowercaseQuery = angular.lowercase(query);
+      return function filterFn(deck) {
+        if(deck.name){
+          return (deck.name.toLowerCase().indexOf(lowercaseQuery) === 0);
+        }
+      };
     }
 
     function getCards() {
