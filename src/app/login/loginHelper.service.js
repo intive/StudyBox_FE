@@ -2,7 +2,7 @@
   'use strict';
   angular
   .module('login')
-  .service('LoginHelper', LoginHelper);
+  .service('LoginHelperService', LoginHelper);
 
   /**ngInject*/
   function LoginHelper($cookies) {

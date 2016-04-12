@@ -13,7 +13,7 @@
   .service('LoginService', LoginService);
 
   /** ngInject */
-  function LoginService($http, $log, $q, LoginHelper) {
+  function LoginService($http, $log, $q, LoginHelperService) {
     var loginService = {
       doLogin: doLogin
     };
@@ -28,7 +28,7 @@
         loginResponse = $http({method: method, url: loginUrl})
         .then(
           function successCallback(response) {            
-            LoginHelper.setCookie(user, token);            
+            LoginHelperService.setCookie(user, token);            
             return response;
           },
           function errorCallback(response) {
