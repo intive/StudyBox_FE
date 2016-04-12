@@ -23,19 +23,19 @@
 
 
 <div layout="horizontal" layout-wrap>
-  <md-card ng-repeat="card in deckPreview.cards"
-           ng-click="deckPreview.selectCard(card)"
-           class="deck-card"
-           flex-xs="100" flex-sm="50" flex="25"
-           ng-class="{'md-whiteframe-15dp': hover, 'md-whiteframe-8dp': card.id === deckPreview.selectedCardId}"
-           ng-mouseenter="hover = true" ng-mouseleave="hover = false">
+  <div ng-repeat="card in deckPreview.cards" flex-xs="100" flex-sm="50" flex="33">
+    <md-card ng-click="deckPreview.selectCard(card)"
+             class="deck-card"
+             ng-class="{'md-whiteframe-15dp': hover, 'md-whiteframe-8dp': card.id === deckPreview.selectedCardId}"
+             ng-mouseenter="hover = true" ng-mouseleave="hover = false">
 
-    <md-card-title>
-      <md-card-title-text class="deck-content">
-        <span class="md-headline">{{ card.question }}</span>
-        <span class="md-subhead">{{ card.answer }}</span>
-      </md-card-title-text>
-    </md-card-title>
+      <md-card-title>
+        <md-card-title-text class="deck-content">
+          <span class="md-headline">{{ card.question }}</span>
+          <span class="md-subhead">{{ card.answer }}</span>
+        </md-card-title-text>
+      </md-card-title>
 
-  </md-card>
+    </md-card>
+  </div>
 </div>

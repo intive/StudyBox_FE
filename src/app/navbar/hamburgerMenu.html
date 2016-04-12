@@ -1,0 +1,36 @@
+<div layout="row">
+  <md-sidenav md-component-id="left" layout="column" style="position:fixed">
+
+    <md-toolbar class="md-theme-light">
+        <div layout="column" class="md-toolbar-bottom inset" layout-align="start start">
+          <img class="md-avatar sidenavImage" ng-src="assets/images/filled-logo.png">
+          <div class="md-subhead" id="email">email@domainname.com</div>
+        </div>
+    </md-toolbar>
+
+    <md-list>
+
+      <md-list-item md-ink-ripple
+              layout="row"
+              layout-align="start center"
+              ng-click="navbar.showPrivateCards()">
+
+        <md-icon md-svg-src="assets/icons/BlackDot.svg"></md-icon>
+        <span flex>{{'navbar-PRIVATE_CARDS' | translate}}</span>
+
+      </md-list-item>
+
+      <md-list-item md-ink-ripple
+              layout="row"
+              layout-align="start center"
+              ng-click="navbar.showPublicCards()">
+
+        <md-icon md-svg-src="assets/icons/BlackDot.svg"></md-icon>
+        <span flex>{{'navbar-PUBLIC_CARDS' | translate}}</span>
+
+      </md-list-item>
+
+    </md-list>
+
+  </md-sidenav>
+</div>
