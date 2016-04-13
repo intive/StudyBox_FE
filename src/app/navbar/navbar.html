@@ -13,7 +13,7 @@
          flex-sm="90" flex-xs="90" flex="30"
          layout="row" layout-align="end start">
 
-      <form ng-submit="navbar.changePage()" id="searchAutocomplete" class="searchForm">
+      <form ng-submit="navbar.changePage()" id="searchAutocomplete" ng-class="{'searchForm': !expand, 'showUp': expand}">
 
             <md-autocomplete
                 md-selected-item="navbar.selectedItem"
@@ -40,9 +40,9 @@
       </form>
     </div>
 
-    <md-button aria-label="search" ng-click="navbar.buttonClick()" id="searchButton">
-      <md-icon md-svg-src="assets/icons/search.svg" id="searchButton2"></md-icon>
-      <md-icon md-svg-src="assets/icons/clear.svg" id="searchButton3" class="ng-hide"></md-icon>
+    <md-button aria-label="search" ng-init="expand = false" ng-click="expand = !expand" id="searchButton" ng-class="{darkButton: expand}">
+      <md-icon md-svg-src="assets/icons/search.svg" id="searchButton2" ng-class="{'ng-hide': expand}"></md-icon>
+      <md-icon md-svg-src="assets/icons/clear.svg" id="searchButton3" ng-class="{'ng-hide': !expand}"></md-icon>
     </md-button>
 
     <new-deck-fab></new-deck-fab>
