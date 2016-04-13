@@ -1,29 +1,46 @@
 <md-content style="min-height: 100%">
 
-  <md-toolbar class="md-menu-toolbar.md-primary">
-    <md-toolbar-filler >
-    </md-toolbar-filler>
+  <top-navbar-elements></top-navbar-elements>
 
+  <hamburger-menu></hamburger-menu>
 
-    <div flex layout="row" layout-align="space-around center">
+  <div layout="row"
+       layout-align="end start"
+       class="nav-buttons"
+       ng-show="navbar.uiRouterState.current.name == 'decks'">
 
-      <md-button ng-click="navbar.openLeftMenu()">
-        <md-icon md-svg-src="assets/icons/burger.svg"></md-icon>
-      </md-button>
+    <div class="searchArea"
+         flex-sm="90" flex-xs="90" flex="30"
+         layout="row" layout-align="end start">
 
-      <div flex></div>
+      <form ng-submit="navbar.changePage()" id="searchAutocomplete" class="searchForm">
 
-      <md-button md-no-ink class="md-primary" ui-sref="decks">
-        <md-icon md-svg-src="assets/icons/studyBox.svg" ui-sref="decks"></md-icon>
-      </md-button>
+            <md-autocomplete
+                md-selected-item="navbar.selectedItem"
+                md-search-text="navbar.searchText"
+                md-items="item in navbar.querySearch(navbar.searchText)"
+                md-item-text="item.name"
+                md-min-length="0"
+                md-selected-item-change="navbar.selectDeck(item)"
+                placeholder="{{'navbar-PLACEHOLDER' | translate}}"
+                md-input-id="searchInput"
+                id="searchBar">
 
-      <div flex></div>
+              <md-item-template>
+                <span md-highlight-text="navbar.searchText" md-highlight-flags="^i">{{item.name}}</span>
+              </md-item-template>
 
-      <md-button>
-      </md-button>
+              <md-not-found>
+                <a ng-click="navbar.newDeck()">
+                  {{'navbar-NOT_FOUND' | translate}} "{{navbar.searchText}}". {{'navbar-NOT_FOUND2' | translate}}
+                </a>
+              </md-not-found>
 
+            </md-autocomplete>
+      </form>
     </div>
 
+<<<<<<< HEAD
   </md-toolbar>
 
 <div layout="row">
@@ -129,20 +146,19 @@
                       <md-tooltip md-direction="left">{{'navbar-NEW_DECK' | translate}}</md-tooltip>
                       <md-icon md-svg-src="assets/icons/new.svg"></md-icon>
                     </md-button>
+=======
+    <md-button aria-label="search" ng-click="navbar.buttonClick()" id="searchButton">
+      <md-icon md-svg-src="assets/icons/search.svg" id="searchButton2"></md-icon>
+      <md-icon md-svg-src="assets/icons/clear.svg" id="searchButton3" class="ng-hide"></md-icon>
+    </md-button>
+>>>>>>> d5235e51fd87d7173b123cb2f459188de262acfe
 
-                    <md-button aria-label="external file" class="md-fab md-raised md-mini color-mini">
-                      <md-tooltip md-direction="left">{{'navbar-NEW_CARD_FROM_FILE' | translate}}</md-tooltip>
-                      <md-icon md-svg-src="assets/icons/ext.svg"></md-icon>
-                    </md-button>
-                  </md-fab-actions>
-                </md-fab-speed-dial>
-            </div>
-          </div>
+    <new-deck-fab></new-deck-fab>
 
-        </div>
+  </div>
 
   <md-content layout-padding>
-    <div ui-view>    </div>
+    <div ui-view></div>
   </md-content>
 
 </md-content>

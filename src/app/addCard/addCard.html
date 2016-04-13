@@ -22,6 +22,7 @@
           </md-button>
           <textarea
             minlength="2"
+            maxlength="1000"
             ng-paste="addCard.pasteChecker()"
             ng-change="addCard.trimInput(addCard)"
             ng-focus="addCard.questionFocus=true"
@@ -36,7 +37,7 @@
             <img style="text-align: center;" ng-show="addCard.questionFile.$valid" ngf-thumbnail="questionFile" class="imgStyle">
           </div>
 
-          <div ng-class="addCard.question.length > 1000 ? 'counterError' : 'counter'">
+          <div ng-class="addCard.question.length == 1000 ? 'counterError' : 'counter'">
               {{addCard.question.length}}
           </div>
 
@@ -89,6 +90,7 @@
           </div>
           <textarea
             minlength="2"
+            maxlength="1000"
             ng-paste="addCard.pasteChecker()"
             ng-change="addCard.trimInput(addCard)"
             ng-focus="addCard.answerFocus=true"
@@ -103,7 +105,7 @@
             <img style="text-align: center;" ng-show="addCard.answerFile.$valid" ngf-thumbnail="answerFile" class="imgStyle">
           </div>
 
-          <div ng-class="addCard.answer.length > 1000 ? 'counterError' : 'counter'">
+          <div ng-class="addCard.answer.length == 1000 ? 'counterError' : 'counter'">
               {{addCard.answer.length}}
           </div>
         </md-input-container>
