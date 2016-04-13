@@ -5,8 +5,8 @@
   .factory('LoginInterceptor', LoginInterceptor);
 
   /**ngInject*/
-  function LoginInterceptor(LoginHelper) {
-    var token = LoginHelper.getToken();
+  function LoginInterceptor(LoginHelperService) {
+    var token = LoginHelperService.getToken();
     var loginInterceptor = {
       request: request
     };

@@ -13,21 +13,11 @@
   .service('LoginService', LoginService);
 
   /** ngInject */
-  function LoginService($http, $log, $q, $cookies) {
+  function LoginService($http, $log, $q, LoginHelperService) {
     var loginService = {
-      isLogged: isLogged,
-      doLogin: doLogin,
-      doLogout: doLogout
+      doLogin: doLogin
     };
     return loginService;
-
-    function isLogged() {
-      if (angular.isDefined($cookies.get("userMail")) && angular.isDefined($cookies.get("token"))) {
-        return true;
-      } else {
-        return false;
-      }
-    }
 
     function doLogin(user, pass, loginUrl) {
       var token = btoa(user + ":" + pass);
@@ -38,7 +28,7 @@
         loginResponse = $http({method: method, url: loginUrl})
         .then(
           function successCallback(response) {            
-            setCookie(user, token);            
+            LoginHelperService.setCookie(user, token);            
             return response;
           },
           function errorCallback(response) {
@@ -49,20 +39,9 @@
       return loginResponse;
     }
 
-    function doLogout() {
-      $cookies.remove("userMail");
-      $cookies.remove("token");
-      var logged = isLogged();
-      return !logged;
-    }
-
     function setHeader(token) {
       $http.defaults.headers.common.Authorization = "Basic " + token;
     }
 
-    function setCookie(user, token) {
-      $cookies.put("userMail", user);
-      $cookies.put("token", token);
-    }
   }
 })();
