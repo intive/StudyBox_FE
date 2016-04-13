@@ -4,6 +4,7 @@
  *  createNewTip(deckId,flashCardId,content) - tworzy nową podpowiedź w decku o podanym ID, dla karty o podanym ID o danej treści. Zwraca obiekt Tip z jego id i contentem.
  *  getTipById(deckId,flashcardId,tipId) - pobiera nam dane podpowiedzi z wybranego decka i karty po jej ID. Zwraca obiekt Tip z jego id i contentem.
  *  getAllTips(deckId,flashcardId) - pobiera wszystkie podpowiedzi z danego decka, z danej karty. Zwraca tablicę obiektów typu Tip.
+ *  updateTip(deckId,flashcardId,tipId,content) - zamienia treść podpowiedzi o danym ID, która znajduje się w danym decku i wybranej karcie na content. Zwraca obiekt Tip z jego id i aktualnym contentem.
  *
  *  Tip [klasa]:
  *  > pola:
@@ -104,6 +105,32 @@
           return $q.reject(response.data);
         }
       );
+    }
+
+    function updateTip(deckId,flashcardId,tipId,content)
+    {
+      if(angular.isUndefined(deckId) ) show_error('Must specify deck id');
+      if(angular.isUndefined(flashcardId) ) show_error('Must specify flash card id');
+      if(angular.isUndefined(tipId) ) show_error('Must specify tip id');
+      if(angular.isUndefined(content) ) show_error('Must specify content of tip');
+
+      var method = 'PUT';
+      var url = '/api/decks/'+deckId+'/flashcards/'+flashcardId+'/tips/'+tipId;
+      var data = {prompt: content};
+
+      return $http({method: method, url: url, data: data})
+        .then(
+        function success(response) {
+          var tip = new Tip();
+          tip.id = response.data.id;
+          tip.content = response.data.prompt;
+          return tip;
+        },
+        function error(response) {
+          return $q.reject(response.data);
+        }
+      );
+
     }
 
   }
