@@ -7,7 +7,7 @@
 
 
   /** @ngInject */
-  function NavbarController($state, $timeout, $q, $log, $document, BackendService, $mdSidenav, $stateParams) {
+  function NavbarController($state, $timeout, $q, $log, $document, BackendService, $mdSidenav, $stateParams, LoginHelperService) {
 
     var vm = this;
     vm.uiRouterState = $state;
@@ -47,12 +47,12 @@
       $mdSidenav('left').toggle();
     }
 
-    function buttonClick(){
+    function buttonClick(e){
+      $log.info(vm.searchText);
+      //var search = angular.element($document[0].querySelector('#searchAutocomplete'));
 
-      var search = angular.element($document[0].querySelector('#searchAutocomplete'));
-
-      if(search.hasClass('searchForm')) {
-
+      //if(search.hasClass('searchForm')) {
+if(e) {
         vm.searchText = "";
         angular.element($document[0].querySelector('#searchButton')).addClass('darkButton');
         angular.element($document[0].querySelector('#searchButton2')).addClass('ng-hide');
