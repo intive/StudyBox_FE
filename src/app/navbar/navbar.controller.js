@@ -123,9 +123,8 @@
     function createFilterFor(query) {
       var lowercaseQuery = angular.lowercase(query);
       return function filterFn(deck) {
-        if(deck.name){
+        if(deck.name)
           return (deck.name.toLowerCase().indexOf(lowercaseQuery) === 0);
-        }
       };
     }
   }
