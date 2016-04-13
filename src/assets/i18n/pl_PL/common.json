@@ -39,8 +39,8 @@
     "login-PASSWORD_FIELD": "HASŁO",
     "login-EMAIL_FIELD": "E-MAIL",
     "login-LOGIN_BUTTON": "ZALOGUJ SIĘ",
-    "login-NEW_USER_ACCOUNT": "UTWÓRZ KONTO",
-    "login-TYPE_VALID_EMAIL": "Nieprawidłowy adres email",
+    "login-NEW_USER_ACCOUNT": "UTWÓRZ NOWEGO UŻYTKOWNIKA",
+    "login-TYPE_VALID_EMAIL": "Niepoprawny e-mail!",
     "login-REQUIRED_FIELD": "To pole jest wymagane",
     "login-FIELD_MIN_CHARS": "Niepoprawne hasło!",
     "login-INVALID_FORMAT": "Niepoprawne hasło!",
@@ -63,6 +63,7 @@
     "navbar-NEW_CARD_FROM_FILE": "Nowa fiszka z pliku",
     "navbar-PRIVATE_CARDS": "Moje talie",
     "navbar-PUBLIC_CARDS": "Publiczne talie innych osób",
+    "navbar-USER_LOGOUT": "WYLOGUJ SIĘ",
 
     "networkAlert-WARNING": "Uwaga!",
     "networkAlert-LOST_CONNECTION": "Brak połączenia z internetem. Spróbuj później!",

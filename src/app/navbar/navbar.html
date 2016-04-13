@@ -40,10 +40,118 @@
       </form>
     </div>
 
+<<<<<<< HEAD
+  </md-toolbar>
+
+<div layout="row">
+  <md-sidenav md-component-id="left" layout="column" style="position:fixed">
+
+    <md-toolbar class="md-theme-light">
+        <div layout="column" class="md-toolbar-bottom inset" layout-align="start start">
+          <img class="md-avatar sidenavImage" ng-src="assets/images/filled-logo.png">
+          <div class="md-title">Firstname Lastname</div>
+          <div class="md-subhead">email@domainname.com</div>
+        </div>
+    </md-toolbar>
+
+    <md-list>
+
+      <md-list-item md-ink-ripple
+              layout="row"
+              layout-align="start center"
+              ng-click="navbar.showPrivateCards()">
+
+        <md-icon md-svg-src="assets/icons/BlackDot.svg"></md-icon>
+        <span flex>{{'navbar-PRIVATE_CARDS' | translate}}</span>
+
+      </md-list-item>
+
+      <md-list-item md-ink-ripple
+              layout="row"
+              layout-align="start center"
+              ng-click="navbar.showPublicCards()">
+
+        <md-icon md-svg-src="assets/icons/BlackDot.svg"></md-icon>
+        <span flex>{{'navbar-PUBLIC_CARDS' | translate}}</span>
+
+      </md-list-item>
+
+      <md-divider></md-divider>
+      <md-list-item md-ink-ripple
+              layout="row"
+              layout-align="start center"
+              ng-click="navbar.userLogout()">
+
+        <md-icon md-svg-src="assets/icons/logout.svg"></md-icon>
+        <span flex>{{'navbar-USER_LOGOUT' | translate}}</span>
+      </md-list-item>
+
+    </md-list>
+
+  </md-sidenav>
+</div>
+
+<div layout="row" layout-align="end start" class="nav-buttons" ng-show="navbar.uiRouterState.current.name == 'decks'">
+
+<outside-click class="searchArea" flex-sm="90" flex-xs="90" flex="30">
+
+<div layout="row" layout-align="end start">
+
+<form ng-submit="navbar.changePage()" id="searchAutocomplete" class="searchForm">
+
+
+      <md-autocomplete
+
+          md-selected-item="navbar.selectedItem"
+          md-search-text="navbar.searchText"
+          md-items="item in navbar.querySearch(navbar.searchText)"
+          md-item-text="item.name"
+          md-min-length="0"
+          md-selected-item-change="navbar.selectDeck(item)"
+          placeholder="{{'navbar-PLACEHOLDER' | translate}}"
+          md-input-id="searchInput"
+          id="searchBar">
+
+        <md-item-template>
+          <span md-highlight-text="navbar.searchText" md-highlight-flags="^i">{{item.name}}</span>
+        </md-item-template>
+        <md-not-found>
+          <a ng-click="navbar.newDeck()">{{'navbar-NOT_FOUND' | translate}} "{{navbar.searchText}}". {{'navbar-NOT_FOUND2' | translate}}</a>
+        </md-not-found>
+      </md-autocomplete>
+</form>
+</div>
+</outside-click>
+
+
+<md-button aria-label="search" ng-click="navbar.buttonClick()" id="searchButton">
+<md-icon md-svg-src="assets/icons/search.svg" id="searchButton2"></md-icon>
+<md-icon md-svg-src="assets/icons/clear.svg" id="searchButton3" class="ng-hide"></md-icon>
+</md-button>
+
+
+
+   <div class="fabSpeedDial">
+            <div class="lock-size">
+                <md-fab-speed-dial md-open="navbar.isOpen" md-direction="down" class="md-scale">
+                  <md-fab-trigger>
+                    <md-button aria-label="add" class="md-fab color-dial" ng-class="navbar.isOpen == true ? 'rotate' : ''">
+                      <md-tooltip md-direction="top">{{'navbar-ADD' | translate}}</md-tooltip>
+                      <md-icon md-svg-src="assets/icons/add.svg"></md-icon>
+                    </md-button>
+                  </md-fab-trigger>
+
+                  <md-fab-actions>
+                    <md-button aria-label="deck" class="md-fab md-raised md-mini color-mini" ui-sref="deck.addCard">
+                      <md-tooltip md-direction="left">{{'navbar-NEW_DECK' | translate}}</md-tooltip>
+                      <md-icon md-svg-src="assets/icons/new.svg"></md-icon>
+                    </md-button>
+=======
     <md-button aria-label="search" ng-click="navbar.buttonClick()" id="searchButton">
       <md-icon md-svg-src="assets/icons/search.svg" id="searchButton2"></md-icon>
       <md-icon md-svg-src="assets/icons/clear.svg" id="searchButton3" class="ng-hide"></md-icon>
     </md-button>
+>>>>>>> d5235e51fd87d7173b123cb2f459188de262acfe
 
     <new-deck-fab></new-deck-fab>
 

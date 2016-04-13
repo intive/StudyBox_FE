@@ -2,14 +2,12 @@
   'use strict';
 
   angular
-    .module('navbar')
-    .controller('NavbarController', NavbarController);
+  .module('navbar')
+  .controller('NavbarController', NavbarController);
 
 
   /** @ngInject */
-  function NavbarController($state, $timeout, $q,
-                            $log, $document, BackendService,
-                            $mdSidenav, $stateParams) {
+  function NavbarController($state, $timeout, $q, $log, $document, BackendService, $mdSidenav, $stateParams) {
 
     var vm = this;
     vm.uiRouterState = $state;
@@ -26,6 +24,14 @@
     vm.buttonClick = buttonClick;
     vm.changePage = changePage;
     vm.changeButton = angular.element($document[0].querySelector('#searchAutocomplete')).hasClass('searchForm');
+
+    vm.userLogout = userLogout;
+
+    function userLogout() {
+      LoginHelperService.doLogout();
+      $mdSidenav('left').toggle();
+      $state.go('login');
+    }
 
     function openLeftMenu() {
       $mdSidenav('left').toggle();
@@ -48,15 +54,13 @@
       if(search.hasClass('searchForm')) {
 
         vm.searchText = "";
-
         angular.element($document[0].querySelector('#searchButton')).addClass('darkButton');
         angular.element($document[0].querySelector('#searchButton2')).addClass('ng-hide');
         angular.element($document[0].querySelector('#searchButton3')).removeClass('ng-hide');
         angular.element($document[0].querySelector('#searchAutocomplete')).removeClass('searchForm');
         angular.element($document[0].querySelector('#searchAutocomplete')).addClass('showUp');
         $timeout(function(){angular.element($document[0].querySelector('#searchInput')).focus();},330);
-      }
-      else {
+      } else {
         angular.element($document[0].querySelector('#searchButton')).removeClass('darkButton');
         angular.element($document[0].querySelector('#searchButton2')).removeClass('ng-hide');
         angular.element($document[0].querySelector('#searchButton3')).addClass('ng-hide');
@@ -67,15 +71,13 @@
 
     function selectDeck(item) {
       if (item) {
-
         var url;
-        if(vm.access == 'private')
+        if(vm.access == 'private') {
           url = 'deck.addCard';
-        else
+        } else {
           url = 'deck-preview';
-
+        }
         $state.go(url, {deckId: item.id});
-
         item = null;
       }
     }
@@ -88,15 +90,15 @@
     function changePage() {
 
       var url;
-      if(vm.access == 'private')
+      if(vm.access == 'private') {
         url = 'deck.addCard';
-      else
+      } else {
         url = 'deck-preview';
+      }
 
-      if (vm.selectedItem === null)
+      if (vm.selectedItem === null) {
         $state.go(url);
-
-      else {
+      } else {
         if (vm.searchText !== "")
           $state.go(url, {deckId: vm.selectedItem.id});
         else
@@ -115,7 +117,6 @@
           deferred;
           deferred = $q.defer();
           $timeout(function () { deferred.resolve( list ); }, Math.random() * 1000, false);
-
           return deferred.promise;
       });
     }
