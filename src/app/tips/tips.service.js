@@ -5,6 +5,7 @@
  *  getTipById(deckId,flashcardId,tipId) - pobiera nam dane podpowiedzi z wybranego decka i karty po jej ID. Zwraca obiekt Tip z jego id i contentem.
  *  getAllTips(deckId,flashcardId) - pobiera wszystkie podpowiedzi z danego decka, z danej karty. Zwraca tablicę obiektów typu Tip.
  *  updateTip(deckId,flashcardId,tipId,content) - zamienia treść podpowiedzi o danym ID, która znajduje się w danym decku i wybranej karcie na content. Zwraca obiekt Tip z jego id i aktualnym contentem.
+ *  deleteTip(deckId,flashcardId,tipId) - usuwa wybraną podpowiedź, która nazjduje się w podanej tali i należy do podanej karty.
  *
  *  Tip [klasa]:
  *  > pola:
@@ -131,6 +132,26 @@
         }
       );
 
+    }
+
+    function deleteTip(deckId,flashcardId,tipId)
+    {
+      if(angular.isUndefined(deckId) ) show_error('Must specify deck id');
+      if(angular.isUndefined(flashcardId) ) show_error('Must specify flash card id');
+      if(angular.isUndefined(tipId) ) show_error('Must specify tip id');
+
+      var method = 'DELETE';
+      var url = '/api/decks/'+deckId+'/flashcards/'+flashcardId+'/tips/'+tipId;
+
+      return $http({method: method, url: url})
+        .then(
+        function success(response) {
+          return response.data;
+        },
+        function error(response) {
+          return $q.reject(response.data);
+        }
+      );
     }
 
   }
