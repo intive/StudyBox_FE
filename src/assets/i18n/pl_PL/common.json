@@ -53,7 +53,10 @@
     "addCard-EDIT_CARD": "Zapisz zmiany",
     "addCard-START_TEST": "Rozpocznij test",
     "addCard-HINT": "Dodaj podpowiedź",
+    "addCard-ANOTHER_HINT": "Dodaj kolejną podpowiedź",
     "addCard-ADD_DECK_FROM_FILE": "Dodaj talię z pliku",
+    "addCard-REMOVE_IMAGE": "Usuń zdjęcie",
+    "addCard-REMOVE_HINT": "Usuń podpowiedź",
 
     "navbar-PLACEHOLDER": "Wybierz talię",
     "navbar-NOT_FOUND": "Nie znaleziono talii ",

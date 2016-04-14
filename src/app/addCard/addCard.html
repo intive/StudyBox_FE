@@ -16,8 +16,10 @@
             </i>
           </div>
 
-          <md-button md-open="AddCardController.toggleStatus" id="addButton" hide-xs hide-sm aria-label="add" class="md-fab color-dial hintCardAdd" ng-class="addCard.toggleStatus == true ? 'rotate' : 'noclass'" ng-click="addCard.toggleButton()">
-            <md-tooltip id="addButtonTooltip" md-direction="right">{{"addCard-HINT" | translate}}</md-tooltip>
+          <md-button id="addButton" hide-xs hide-sm aria-label="add"
+                    class="md-fab color-dial hintCardAdd"
+                    ng-click="addCard.addHint()">
+            <md-tooltip id="addButtonTooltip" md-direction="right">{{addCard.addHintTranslate}}</md-tooltip>
             <md-icon md-svg-src="assets/icons/add_36px.svg" style="display: inline; " ></md-icon>
           </md-button>
           <textarea
@@ -33,7 +35,9 @@
             md-select-on-focus
             required></textarea>
           <div class="display: inline-block;" ng-show="questionFile">
-            <md-button ng-click="questionFile=null;" aria-label="closeImg" class="closePosition">Usuń zdjęcie ✖</md-button>
+            <md-button ng-click="questionFile=null;"
+                      aria-label="closeImg"
+                      class="closePosition">{{"addCard-REMOVE_IMAGE" | translate}}</md-button>
             <img style="text-align: center;" ng-show="addCard.questionFile.$valid" ngf-thumbnail="questionFile" class="imgStyle">
           </div>
 
@@ -45,36 +49,51 @@
 
         <!--RWD BUTTON:-->
         <md-input-container class="md-block hintDiv md-whiteframe-4dp middleCard" md-no-float hide-gt-sm show-sm show-xs>
-          <md-button md-open="AddCardController.toggleStatus" id="hiddenIcon" aria-label="add hint" class="md-fab color-dial hintCardRemove" ng-class="addCard.toggleStatus == true ? 'rotate' : 'noclass'" ng-click="addCard.toggleButton()">
-            <md-tooltip id="addButtonTooltip" md-direction="right">{{"addCard-HINT" | translate}}</md-tooltip>
+          <md-button id="hiddenIcon"
+                    aria-label="add hint"
+                    class="md-fab color-dial hintCardRemove"
+                    ng-click="addCard.addHint()">
+            <md-tooltip id="addButtonTooltip" md-direction="top">{{addCard.addHintTranslate}}</md-tooltip>
             <md-icon md-svg-src="assets/icons/add_36px.svg" style="display: inline; " ></md-icon>
           </md-button>
         </md-input-container>
 
         <!--HINT AREA:-->
-        <md-input-container class="md-block md-whiteframe-4dp middleCard" id="hint" md-no-float style="display: none;">
-          <div ngf-select
-               ng-model="hintFile"
-               name="hintFile"
-               ngf-pattern="'image/*'"
-               ngf-accept="'image/*'"
-               ngf-max-size="50MB" >
-            <i class="camera-position">
-              <md-icon md-svg-src="assets/icons/photo_camera_36px.svg" class="camera"></md-icon>
-            </i>
-          </div>
-          <textarea
-            maxlength="1000"
-            minlength="2"
-            class="hint"
-            placeholder='{{"addCard-WRITE_HINT" | translate}}'
-            ng-model="addCard.hint" rows="5"
-            md-select-on-focus></textarea>
-          <div class="display: inline-block;" ng-show="hintFile">
-            <md-button ng-click="hintFile=null;" aria-label="closeImg" class="closePosition">Usuń zdjęcie ✖</md-button>
-            <img style="text-align: center;" ng-show="addCard.hintFile.$valid" ngf-thumbnail="hintFile" class="imgStyle">
-          </div>
-        </md-input-container>
+        <div ng-repeat="hint in addCard.hints track by $index">
+          <md-input-container class="md-block md-whiteframe-4dp middleCard" md-no-float style="display: block;">
+            <div ngf-select
+                 ng-model="hintFile"
+                 name="hintFile"
+                 ngf-pattern="'image/*'"
+                 ngf-accept="'image/*'"
+                 ngf-max-size="50MB" >
+              <i class="camera-position">
+                <md-icon md-svg-src="assets/icons/photo_camera_36px.svg" class="camera"></md-icon>
+              </i>
+            </div>
+            <textarea
+              maxlength="1000"
+              minlength="2"
+              class="hint"
+              placeholder='{{"addCard-WRITE_HINT" | translate}}'
+              ng-model="hint.inputArea" rows="5"
+              md-select-on-focus></textarea>
+            <div class="display: inline-block;" ng-show="hintFile">
+              <md-button ng-click="hintFile=null;" aria-label="closeImg" class="closePosition">{{"addCard-REMOVE_IMAGE" | translate}}</md-button>
+              <img style="text-align: center;" ng-show="addCard.hintFile.$valid" ngf-thumbnail="hintFile" class="imgStyle">
+            </div>
+
+            <div ng-class="hint.inputArea.length == 1000 ? 'counterError' : 'counter'">
+              {{hint.inputArea.length}}
+            </div>
+            <div class="removeHint">
+              <md-tooltip  md-direction="top">{{"addCard-REMOVE_HINT" | translate}}</md-tooltip>
+              <md-icon class="deck-remove-button"
+                   md-svg-src="assets/icons/clear.svg"
+                   ng-click="addCard.removeHint($index)"></md-icon>
+            </div>
+          </md-input-container>
+        </div>
 
         <!--ANSWER AREA:-->
         <md-input-container class="md-block md-whiteframe-4dp middleCard" md-no-float>
