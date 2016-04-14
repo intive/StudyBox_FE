@@ -7,7 +7,7 @@
 
 
   /** @ngInject */
-  function AddCardController($stateParams, $state, $document, BackendService, DeckService, $log) {
+  function AddCardController($stateParams, $state, $document, BackendService, DeckService, $log, LoginHelperService, $translate) {
     var vm = this;
     vm.deckId = $stateParams.deckId;
     vm.cardId = $stateParams.cardId;
@@ -19,6 +19,12 @@
     vm.toggleStatus = false;
     vm.trimInput = trimInput;
     vm.pasteChecker = pasteChecker;
+
+    if(!LoginHelperService.isLogged())
+    {
+      alert($translate.instant('authenticationWarning'));
+      $state.go("login");
+    }
 
     if (vm.cardId){
       vm.card = DeckService.getCardObj();

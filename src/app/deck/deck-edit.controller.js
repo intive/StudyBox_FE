@@ -6,7 +6,7 @@
     .controller('DeckEditController', DeckEditController);
 
   /** @ngInject */
-  function DeckEditController($stateParams, $state, BackendService, $log, DeckService, $mdDialog, $translate) {
+  function DeckEditController($stateParams, $state, BackendService, $log, DeckService, $mdDialog, LoginHelperService, $translate) {
     var vm = this;
     vm.deckId = $stateParams.deckId;
     vm.selectedDeck = new BackendService.Deck();
@@ -20,6 +20,12 @@
     vm.clear = clear;
     vm.emptyNameError = DeckService.getEmptyNameError();
     vm.access = $stateParams.access;
+
+    if(!LoginHelperService.isLogged())
+    {
+      alert($translate.instant('authenticationWarning'));
+      $state.go("login");
+    }
 
     function deckDataChange(item) {
       if (item) return;
