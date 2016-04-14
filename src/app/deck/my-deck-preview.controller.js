@@ -6,7 +6,7 @@
     .controller('MyDeckPreviewController', MyDeckPreviewController);
 
   /** @ngInject */
-  function MyDeckPreviewController($stateParams, $state, BackendService, $log, DeckService, $mdDialog, $translate) {
+  function MyDeckPreviewController($stateParams, $state, BackendService, $log, DeckService, $mdDialog, LoginHelperService, $translate) {
     var vm = this;
     vm.deckId = $stateParams.deckId;
     vm.selectedDeck = new BackendService.Deck();
@@ -19,6 +19,11 @@
     vm.removeCard = removeCard;
     vm.clear = clear;
 
+    if(!LoginHelperService.isLogged())
+    {
+      alert($translate.instant('authenticationWarning'));
+      $state.go("login");
+    }
 
     vm.access = $stateParams.access;
 

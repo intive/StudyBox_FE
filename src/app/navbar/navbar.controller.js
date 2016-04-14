@@ -22,7 +22,6 @@
     vm.querySearch  = querySearch;
     vm.newDeck = newDeck;
     vm.changePage = changePage;
-    vm.changeButton = angular.element($document[0].querySelector('#searchAutocomplete')).hasClass('searchForm');
 
     vm.userLogout = userLogout;
 
