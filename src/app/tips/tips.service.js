@@ -22,7 +22,7 @@
   /** @ngInject */
   function TipsService($http, $q) {
 
-    function show_error(message) {
+    function throw_error(message) {
       alert(message);
       throw message;
     }
@@ -35,9 +35,9 @@
 
     function createNewTip(deckId,flashcardId,content)
     {
-      if(angular.isUndefined(deckId) ) show_error('Must specify deck id');
-      if(angular.isUndefined(flashcardId) ) show_error('Must specify flash card id');
-      if(angular.isUndefined(content) ) show_error('Must specify content of tip');
+      if(angular.isUndefined(deckId) ) throw_error('Must specify deck id');
+      if(angular.isUndefined(flashcardId) ) throw_error('Must specify flash card id');
+      if(angular.isUndefined(content) ) throw_error('Must specify content of tip');
 
       var method = 'POST';
       var url = '/api/decks/'+deckId+'/flashcards/'+flashcardId+'/tips';
@@ -61,9 +61,9 @@
     function getTipById(deckId,flashcardId,tipId)
     {
 
-      if(angular.isUndefined(deckId) ) show_error('Must specify deck id');
-      if(angular.isUndefined(flashcardId) ) show_error('Must specify flash card id');
-      if(angular.isUndefined(tipId) ) show_error('Must specify content of tip id');
+      if(angular.isUndefined(deckId) ) throw_error('Must specify deck id');
+      if(angular.isUndefined(flashcardId) ) throw_error('Must specify flash card id');
+      if(angular.isUndefined(tipId) ) throw_error('Must specify content of tip id');
 
       var method = 'GET';
       var url = '/api/decks/'+deckId+'/flashcards/'+flashcardId+'/tips/'+tipId;
@@ -84,8 +84,8 @@
 
     function getAllTips(deckId,flashcardId)
     {
-      if(angular.isUndefined(deckId) ) show_error('Must specify deck id');
-      if(angular.isUndefined(flashcardId) ) show_error('Must specify flash card id');
+      if(angular.isUndefined(deckId) ) throw_error('Must specify deck id');
+      if(angular.isUndefined(flashcardId) ) throw_error('Must specify flash card id');
 
       var method = 'GET';
       var url = '/api/decks/'+deckId+'/flashcards/'+flashcardId+'/tips';
@@ -110,10 +110,10 @@
 
     function updateTip(deckId,flashcardId,tipId,content)
     {
-      if(angular.isUndefined(deckId) ) show_error('Must specify deck id');
-      if(angular.isUndefined(flashcardId) ) show_error('Must specify flash card id');
-      if(angular.isUndefined(tipId) ) show_error('Must specify tip id');
-      if(angular.isUndefined(content) ) show_error('Must specify content of tip');
+      if(angular.isUndefined(deckId) ) throw_error('Must specify deck id');
+      if(angular.isUndefined(flashcardId) ) throw_error('Must specify flash card id');
+      if(angular.isUndefined(tipId) ) throw_error('Must specify tip id');
+      if(angular.isUndefined(content) ) throw_error('Must specify content of tip');
 
       var method = 'PUT';
       var url = '/api/decks/'+deckId+'/flashcards/'+flashcardId+'/tips/'+tipId;
@@ -136,9 +136,9 @@
 
     function deleteTip(deckId,flashcardId,tipId)
     {
-      if(angular.isUndefined(deckId) ) show_error('Must specify deck id');
-      if(angular.isUndefined(flashcardId) ) show_error('Must specify flash card id');
-      if(angular.isUndefined(tipId) ) show_error('Must specify tip id');
+      if(angular.isUndefined(deckId) ) throw_error('Must specify deck id');
+      if(angular.isUndefined(flashcardId) ) throw_error('Must specify flash card id');
+      if(angular.isUndefined(tipId) ) throw_error('Must specify tip id');
 
       var method = 'DELETE';
       var url = '/api/decks/'+deckId+'/flashcards/'+flashcardId+'/tips/'+tipId;
