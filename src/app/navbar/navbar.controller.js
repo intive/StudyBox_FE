@@ -21,7 +21,6 @@
     vm.selectDeck = selectDeck;
     vm.querySearch  = querySearch;
     vm.newDeck = newDeck;
-    vm.buttonClick = buttonClick;
     vm.changePage = changePage;
     vm.changeButton = angular.element($document[0].querySelector('#searchAutocomplete')).hasClass('searchForm');
 
@@ -45,28 +44,6 @@
     function showPublicCards() {
       $state.go("decks", {access: 'public'});
       $mdSidenav('left').toggle();
-    }
-
-    function buttonClick(){
-      $log.info(vm.searchText);
-      var search = angular.element($document[0].querySelector('#searchAutocomplete'));
-
-      if(search.hasClass('searchForm')) {
-
-        vm.searchText = "";
-        angular.element($document[0].querySelector('#searchButton')).addClass('darkButton');
-        angular.element($document[0].querySelector('#searchButton2')).addClass('ng-hide');
-        angular.element($document[0].querySelector('#searchButton3')).removeClass('ng-hide');
-        angular.element($document[0].querySelector('#searchAutocomplete')).removeClass('searchForm');
-        angular.element($document[0].querySelector('#searchAutocomplete')).addClass('showUp');
-        $timeout(function(){angular.element($document[0].querySelector('#searchInput')).focus();},330);
-      } else {
-        angular.element($document[0].querySelector('#searchButton')).removeClass('darkButton');
-        angular.element($document[0].querySelector('#searchButton2')).removeClass('ng-hide');
-        angular.element($document[0].querySelector('#searchButton3')).addClass('ng-hide');
-        angular.element($document[0].querySelector('#searchAutocomplete')).removeClass('showUp');
-        angular.element($document[0].querySelector('#searchAutocomplete')).addClass('searchForm');
-      }
     }
 
     function selectDeck(item) {
