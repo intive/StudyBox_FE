@@ -24,15 +24,16 @@
       var method = "GET";
       var loginResponse;
       if (angular.isDefined(user) && angular.isDefined(pass)) {
+        LoginHelperService.setCookie(user, token);
         setHeader(token);
         loginResponse = $http({method: method, url: loginUrl})
         .then(
           function successCallback(response) {            
-            LoginHelperService.setCookie(user, token);            
             return response;
           },
           function errorCallback(response) {
             alert("Logowanie nieudane!\n\nHTTP " + response.status);
+            LoginHelperService.setCookie("", "");
             return $q.reject(response);
           });
       }

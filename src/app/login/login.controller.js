@@ -24,7 +24,7 @@
         if(data.status === 200) {
           $state.go(targetState);
         }else{
-          alert("Logowanie nieudane!\n\n" + "HTTP: " + data.status + "\n" + data.statusText);
+          alert("Kontroler: logowanie nieudane!\n\n" + "HTTP: " + data.status + "\n" + data.statusText);
         }          
       });         
     }
