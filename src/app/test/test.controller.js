@@ -40,12 +40,8 @@
       vm.result = answer;
       if (vm.current+1 < vm.cards.length){
         vm.current +=1;
-
-        setTimeout(function() {
-          vm.mode = 'question';
-          vm.result = null;
-        }, 70);
-
+        vm.mode = 'question';
+        vm.result = null;
       } else {
 
         var confirm = $mdDialog.confirm()
