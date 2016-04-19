@@ -20,6 +20,6 @@
       function remove() {}
     }
 
-    return Tip;
+    return {Tip: Tip};
   }
 })();
