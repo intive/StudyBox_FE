@@ -22,6 +22,8 @@
     vm.addHint = addHint;
     vm.removeHint = removeHint;
     vm.addHintTranslate = $translate.instant("addCard-HINT");
+    vm.maxHintCount = 5;
+    vm.trimString = trimString;
 
     if (vm.cardId){
       vm.card = DeckService.getCardObj();
@@ -48,8 +50,12 @@
         vm.paste = true;
     }
 
+    function trimString(str) {
+      return str.replace(/^\s+|\s+$/g, '');
+    }
+
     function addHint(){
-      if(vm.hints.length < 5){
+      if(vm.hints.length < vm.maxHintCount){
         vm.hintNumber = vm.hints.length + 1;
         vm.hints.push({'id':'id' + vm.hintNumber});
         vm.addHintTranslate = $translate.instant("addCard-ANOTHER_HINT");
@@ -67,6 +73,10 @@
       if(!isValid) return;
       if(!vm.answer || vm.answer.length > 1000) return;
       if(!vm.question || vm.question.length > 1000) return;
+
+      //ucina spacje przed i za
+      vm.question = trimString(vm.question);
+      vm.answer = trimString(vm.answer);
 
       vm.newDeck = DeckService.getNewDeck();
 
