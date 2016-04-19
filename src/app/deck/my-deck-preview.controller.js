@@ -53,7 +53,6 @@
 
     function selectDeck(deck) {
       if (deck) {
-        DeckService.setDeckObj(deck);
         if (deck.id && deck.id != $stateParams.deckId) {
           $stateParams.deckId = deck.id;
           $stateParams.cardId = null;
@@ -132,8 +131,6 @@
             $log.error(e);
           });
       } else {
-        vm.selectedDeck = DeckService.getDeckObj();
-        DeckService.setDeckObj(null);
         vm.selectedItem = vm.selectedDeck;
         vm.deckAccess = 'private';
       }
