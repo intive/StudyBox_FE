@@ -6,7 +6,7 @@
     .controller('TestController', TestController);
 
   /** @ngInject */
-  function TestController(BackendService, $log, $stateParams) {
+  function TestController(BackendService, $log, $stateParams, $mdDialog, $state, $translate) {
     var vm = this;
     vm.mode = 'question';
     vm.answer = answer;
@@ -40,12 +40,26 @@
       vm.result = answer;
       if (vm.current+1 < vm.cards.length){
         vm.current +=1;
-        vm.mode = 'question';
+
+        setTimeout(function() {
+          vm.mode = 'question';
+          vm.result = null;
+        }, 70);
+
       } else {
-        $log.log('finish');
-        $log.log(vm.yes);
-        $log.log(vm.no);
-        $log.log(vm.mode);
+
+        var confirm = $mdDialog.confirm()
+          .title($translate.instant('test-CONGRATS'))
+          .textContent($translate.instant('test-SCORE')+vm.yes+'/'+vm.cards.length)
+          .ariaLabel('Score')
+          .ok($translate.instant('test-RETEST'))
+          .cancel($translate.instant('navbar-PRIVATE_CARDS'));
+        $mdDialog.show(confirm).then(function() {
+          $state.reload();
+        }, function() {
+          $state.go("decks", {access: 'private'});
+        });
+
       }
     }
 

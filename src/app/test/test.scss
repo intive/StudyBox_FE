@@ -68,7 +68,7 @@
     opacity: 0;
   }
   50% {
-    opacity: 0.3;
+    opacity: 0;
   }
   100% {
     opacity: 1;
@@ -80,7 +80,7 @@
     opacity: 0;
   }
   50% {
-    opacity: 0.3;
+    opacity: 0;
   }
   100% {
     opacity: 1;
@@ -111,11 +111,16 @@
   }
 }
 
-
 .yes-card {
+  -webkit-animation: yay 0.7s ease-out;
+  -moz-animation: yay 0.7s ease-out;
+  -o-animation: yay 0.7s ease-out;
   animation: yay 0.7s ease-out;
 }
 .nope-card {
+  -webkit-animation: nope 0.7s ease-out;
+  -moz-animation: nope 0.7s ease-out;
+  -o-animation: nope 0.7s ease-out;
   animation: nope 0.7s ease-out;
 }
 
@@ -204,5 +209,45 @@
   to {
     transform: rotate(-40deg) translateY(-80px);
     opacity: 0;
+  }
+}
+
+.new-card {
+  -webkit-animation: newCard 0.5s ease-out;
+  -moz-animation: newCard 0.5s ease-out;
+  -o-animation: newCard 0.5s ease-out;
+  animation: newCard 0.5s ease-out;
+}
+
+@keyframes newCard {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@-webkit-keyframes new {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@-moz-keyframes new {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@-o-keyframes new {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }

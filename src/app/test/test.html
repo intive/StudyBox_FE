@@ -3,49 +3,9 @@
     <md-icon class="test-logo" md-svg-src="assets/icons/studyBox.svg"></md-icon>
     {{test.selectedDeck.name}}
   </h3>
-    <md-card class="md-whiteframe-8dp deck-card"
-             ng-class="{'flip-card': test.mode == 'answer'}">
-      <md-card-title class="test-answer" ng-click="test.mode = 'answer'">
-        <md-card-title-text class="deck-content">
-        <span class="md-headline">
-          <question ng-if="test.mode == 'question'" content="{{test.cards[test.current].question}}"></question>
-          <hint ng-if="test.mode == 'hint'" content="{{test.cards[test.current].question}}"></hint>
-          <answer class="card-rotate" ng-if="test.mode == 'answer'" content="{{test.cards[test.current].answer}}"></answer>
-        </span>
-        </md-card-title-text>
-      </md-card-title>
-      <span layout="row"><hr flex/></span>
-      <md-card-actions layout="row" layout-align="end center">
-        <div ng-if="test.mode == 'question'" class="card-button">
-          <button ng-click="test.mode = 'hint'">HINT</button>
-        </div>
-        <div ng-if="test.mode == 'hint'" class="card-button">
-          <button><<</button>
-          <button ng-click="test.mode = 'question'">NO HINT</button>
-          <button>>></button>
-        </div>
-        <div class="card-button card-rotate" ng-if="test.mode == 'answer'"
-             layout="row" layout-algin="center center">
-          <div class="card-button">
-            <md-tooltip id="no" md-direction="top">{{'test-DONT_KNOWN' | translate}}</md-tooltip>
-            <md-icon class="deck-remove-button"
-                     md-svg-src="assets/icons/clear.svg"
-                     ng-click="test.answer(false)">
-            </md-icon>
-          </div>
-
-          <div class="card-button">
-            <md-tooltip id="yes" md-direction="top">{{'test-KNOWN' | translate}}</md-tooltip>
-            <md-icon class="deck-edit-button"
-                     md-svg-src="assets/icons/ok.svg"
-                     ng-click="test.answer(true)">
-
-            </md-icon>
-          </div>
-
-        </div>
-      </md-card-actions>
-    </md-card>
+  <question ng-if="test.mode == 'question'" content="{{test.cards[test.current].question}}"></question>
+  <hint ng-if="test.mode == 'hint'" content="{{test.cards[test.current].question}}"></hint>
+  <answer  ng-if="test.mode == 'answer'" content="{{test.cards[test.current].answer}}"></answer>
 
   <h3>
     {{test.current+1}} / {{test.cards.length}}

@@ -9,10 +9,7 @@
   function AnswerDirective() {
     return {
       restrict: 'E',
-      template: '{{content}}',
-      scope:{
-        content: "@"
-      }
+      templateUrl: 'app/test/answer.html'
     };
   }
 
