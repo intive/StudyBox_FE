@@ -29,6 +29,7 @@
             ng-change="addCard.trimInput(addCard)"
             ng-focus="addCard.questionFocus=true"
             ng-blur="addCard.questionFocus=false"
+            ng-trim="false"
             class="question"
             placeholder='{{"addCard-WRITE_QUESTION" | translate}}'
             ng-model="addCard.question" rows="5"
@@ -75,6 +76,7 @@
               maxlength="1000"
               minlength="2"
               class="hint"
+              ng-trim="false"
               placeholder='{{"addCard-WRITE_HINT" | translate}}'
               ng-model="hint.inputArea" rows="5"
               md-select-on-focus></textarea>
@@ -114,6 +116,7 @@
             ng-change="addCard.trimInput(addCard)"
             ng-focus="addCard.answerFocus=true"
             ng-blur="addCard.answerFocus=false"
+            ng-trim="false"
             class="answer"
             placeholder='{{"addCard-WRITE_ANSWER" | translate}}'
             ng-model="addCard.answer" rows="5"
