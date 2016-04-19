@@ -29,7 +29,7 @@
     .service('BackendService', BackendService);
 
   /** @ngInject */
-  function BackendService($http, $q, DeckFactory) {
+  function BackendService($http, $q) {
 
     this.getDeckById = getDeckById;
     this.getDeckByName = getDeckByName;
