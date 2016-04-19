@@ -1,12 +1,15 @@
-<div layout="column" layout-align="center center" flex>
+<div layout="row" layout-align="center center" flex>
   <h3>
     <md-icon class="test-logo" md-svg-src="assets/icons/studyBox.svg"></md-icon>
     {{test.selectedDeck.name}}
   </h3>
-  <question ng-if="test.mode == 'question'" content="{{test.cards[test.current].question}}"></question>
-  <hint ng-if="test.mode == 'hint'" content="{{test.cards[test.current].question}}"></hint>
-  <answer  ng-if="test.mode == 'answer'" content="{{test.cards[test.current].answer}}"></answer>
-
+</div>
+<div layout="row" layout-align="center center" layout-wrap>
+  <question flex-xs="100" flex-gt-xs="45" flex-gt-sm="30" ng-if="test.mode == 'question'" content="{{test.cards[test.current].question}}"></question>
+  <hint flex-xs="100" flex-gt-xs="45" flex-gt-sm="30"  ng-if="test.mode == 'hint'" content="{{test.cards[test.current].question}}"></hint>
+  <answer flex-xs="100" flex-gt-xs="45" flex-gt-sm="30"  ng-if="test.mode == 'answer'" content="{{test.cards[test.current].answer}}"></answer>
+</div>
+<div layout="row" layout-align="center center" flex>
   <h3>
     {{test.current+1}} / {{test.cards.length}}
   </h3>
