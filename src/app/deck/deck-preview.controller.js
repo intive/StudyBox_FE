@@ -15,6 +15,10 @@
     vm.getDecks = getDecks;
     vm.selectDeck = selectDeck;
 
+    vm.hints = ['podpowiedź 1', 'podpowiedź 2', 'podpowiedź 3'];
+    vm.toggledHints = null;
+    vm.toggleHints = toggleHints;
+
     vm.access = $stateParams.access;
 
     function getDecks(query) {
@@ -113,6 +117,13 @@
       pickUpCard($stateParams.cardId);
     }
     initDeck($stateParams.deckId);
+
+    function toggleHints(id) {
+      if(vm.toggledHints == id)
+        vm.toggledHints = null;
+      else
+        vm.toggledHints = id;
+    }
 
   }
 })();
