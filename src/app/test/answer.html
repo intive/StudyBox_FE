@@ -1,0 +1,31 @@
+<md-card class="md-whiteframe-8dp deck-card"
+         ng-class="{'flip-card': test.mode == 'answer'}">
+  <md-card-title class="test-answer">
+    <md-card-title-text class="deck-content card-rotate">
+        <span class="md-headline">
+          {{test.cards[test.current].answer}}
+        </span>
+    </md-card-title-text>
+  </md-card-title>
+  <span layout="row"><hr flex/></span>
+  <md-card-actions >
+    <div class="card-rotate" layout="row" layout-align="center center">
+      <div class="card-button" layout="row" layout-align="center center" flex="50">
+        <md-tooltip id="no" md-direction="top">{{'test-DONT_KNOWN' | translate}}</md-tooltip>
+        <md-icon class="deck-remove-button"
+                 md-svg-src="assets/icons/clear.svg"
+                 ng-click="test.answer(false)">
+        </md-icon>
+      </div>
+      <div class="card-button" layout="row" layout-align="center center" flex="50">
+        <md-tooltip id="yes" md-direction="top">{{'test-KNOWN' | translate}}</md-tooltip>
+        <md-icon class="deck-edit-button"
+                 md-svg-src="assets/icons/ok.svg"
+                 ng-click="test.answer(true)">
+
+        </md-icon>
+      </div>
+    </div>
+  </md-card-actions>
+</md-card>
+

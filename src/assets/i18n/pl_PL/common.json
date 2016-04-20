@@ -73,6 +73,13 @@
     "networkAlert-CONNECTION_SET": "Odzyskałeś połączenie z internetem, możesz kontynuować.",
     "networkAlert-AGREE": "Rozumiem",
     "networkAlert-OFFLINE_REGISTRATION": "Jesteś offline, nie możesz teraz się zarejestrować.",
-    "networkAlert-OFFLINE_LOGIN": "Jesteś offline, nie możesz teraz się zalogować."
+    "networkAlert-OFFLINE_LOGIN": "Jesteś offline, nie możesz teraz się zalogować.",
+
+    "test-KNOWN": "Znam odpowiedź",
+    "test-DONT_KNOWN": "Nie znam odpowiedzi",
+    "test-HINT": "Podpowiedź",
+    "test-CONGRATS": "Gratulacje!",
+    "test-SCORE": "Twój wynik to ",
+    "test-RETEST": "Popraw wynik"
 
   }

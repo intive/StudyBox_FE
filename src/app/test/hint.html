@@ -1,0 +1,19 @@
+<md-card class="md-whiteframe-8dp deck-card"
+         ng-class="{'flip-card': test.mode == 'answer'}">
+  <md-card-title class="test-answer" ng-click="test.mode = 'answer'">
+    <md-card-title-text class="deck-content">
+        <span class="md-headline">
+        {{test.cards[test.current].hint}}
+        </span>
+    </md-card-title-text>
+  </md-card-title>
+  <span layout="row"><hr flex/></span>
+  <md-card-actions layout="row" layout-align="center center">
+    <div class="card-button">
+      <md-button ng-click="test.mode = 'question'" class="md-raised"><<</md-button>
+      <md-button ng-click="test.mode = 'question'" class="md-raised">{{'test-HINT' | translate}}</md-button>
+      <md-button ng-click="test.mode = 'question'" class="md-raised">>></md-button>
+    </div>
+  </md-card-actions>
+</md-card>
+
