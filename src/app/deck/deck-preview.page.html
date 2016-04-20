@@ -31,8 +31,29 @@
 
       <md-card-title>
         <md-card-title-text class="deck-content">
+
           <span class="md-headline">{{ card.question }}</span>
+
+          <div id="{{ card.id }}" ng-show="deckPreview.toggledHints == card.id">
+            <p ng-repeat="hint in deckPreview.hints">
+              <i class="md-subhead">{{ hint }}</i>
+            </p>
+          </div>
+
           <span class="md-subhead">{{ card.answer }}</span>
+
+          <md-button class="show-tips-button"
+                     ng-click="deckPreview.toggleHints(card.id)"
+                     aria-label="...">
+            <md-icon ng-show="deckPreview.toggledHints !== card.id"
+                     md-svg-src="assets/icons/expand_more.svg" style="display:inline">
+            </md-icon>
+
+            <md-icon ng-show="deckPreview.toggledHints === card.id"
+                     md-svg-src="assets/icons/expand_less.svg" style="display:inline">
+            </md-icon>
+          </md-button>
+
         </md-card-title-text>
       </md-card-title>
 
