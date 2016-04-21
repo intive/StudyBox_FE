@@ -9,6 +9,7 @@
     var loginHelper = {
       isLogged: isLogged,
       getToken: getToken,
+      getUserEmail: getUserEmail,
       doLogout: doLogout,
       setCookie: setCookie
     };
@@ -25,6 +26,11 @@
     function getToken() {
       var token = $cookies.get('token');
       return token;
+    }
+
+    function getUserEmail() {
+      var email = $cookies.get("userMail");
+      return email;
     }
 
     function doLogout() {
