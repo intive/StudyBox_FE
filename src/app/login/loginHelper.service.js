@@ -5,7 +5,7 @@
   .service('LoginHelperService', LoginHelper);
 
   /**ngInject*/
-  function LoginHelper($cookies) {
+  function LoginHelper($cookies,$translate) {
     var loginHelper = {
       isLogged: isLogged,
       getToken: getToken,
@@ -30,6 +30,7 @@
 
     function getUserEmail() {
       var email = $cookies.get("userMail");
+      if (email == null) email = $translate.instant("login-GUEST");
       return email;
     }
 
