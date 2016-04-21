@@ -40,7 +40,7 @@
       </form>
     </div>
 
-    <md-button aria-label="search" ng-init="expand = false" ng-click="expand = !expand" id="searchButton" ng-class="{darkButton: expand}">
+    <md-button aria-label="search" ng-init="expand = false" ng-click="expand = !expand" id="searchButton" ng-class="{darkButton: expand}" ng-show="navbar.access == 'public'">
       <md-icon md-svg-src="assets/icons/search.svg" id="searchButton2" ng-class="{'ng-hide': expand}"></md-icon>
       <md-icon md-svg-src="assets/icons/clear.svg" id="searchButton3" ng-class="{'ng-hide': !expand}"></md-icon>
     </md-button>

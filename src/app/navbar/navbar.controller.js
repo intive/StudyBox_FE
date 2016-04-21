@@ -7,7 +7,7 @@
 
 
   /** @ngInject */
-  function NavbarController($state, $timeout, $q, $log, $document, BackendService, $mdSidenav, $stateParams, LoginHelperService, md5) {
+  function NavbarController($state, $timeout, $q, $log, $document, BackendService, $mdSidenav, $stateParams, LoginHelperService, md5, $mdDialog, $translate) {
 
     var vm = this;
     vm.uiRouterState = $state;
@@ -22,13 +22,32 @@
     vm.querySearch  = querySearch;
     vm.newDeck = newDeck;
     vm.changePage = changePage;
-    vm.changeButton = angular.element($document[0].querySelector('#searchAutocomplete')).hasClass('searchForm');
 
     vm.userLogout = userLogout;
 
     vm.getUserEmail = getUserEmail;
     vm.isLogged = isLogged;
     vm.generateGravatarUrl = generateGravatarUrl;
+
+    vm.checkIfLogged = checkIfLogged;
+
+    function checkIfLogged(ev){
+
+      if(!isLogged())
+      {
+          var confirm = $mdDialog.confirm()
+                .title($translate.instant('navbar-DIALOG_TITLE'))
+                .textContent($translate.instant('navbar-DIALOG_TEXT_CONTENT'))
+                .ariaLabel($translate.instant('navbar-DIALOG_ARIA_LABEL'))
+                .targetEvent(ev)
+                .ok($translate.instant('navbar-DIALOG_OK'))
+                .cancel($translate.instant('navbar-DIALOG_CANCEL'));
+          $mdDialog.show(confirm).then(function() {
+            $state.go("login");
+          });
+      }
+
+    }
 
     function generateGravatarUrl(email)
     {

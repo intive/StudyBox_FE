@@ -70,6 +70,12 @@
     "navbar-PRIVATE_CARDS": "Moje talie",
     "navbar-PUBLIC_CARDS": "Publiczne talie innych osób",
     "navbar-USER_LOGOUT": "WYLOGUJ SIĘ",
+    "navbar-DIALOG_TITLE": "Nie jesteś zalogowany.",
+    "navbar-DIALOG_TEXT_CONTENT": "Aby skorzystać z tej funkcji musisz się zalogować.",
+    "navbar-DIALOG_ARIA_LABEL": "Zaloguj się",
+    "navbar-DIALOG_OK": "Zaloguj",
+    "navbar-DIALOG_CANCEL": "Anuluj",
+
 
     "networkAlert-WARNING": "Uwaga!",
     "networkAlert-LOST_CONNECTION": "Brak połączenia z internetem. Spróbuj później!",
@@ -83,8 +89,6 @@
     "test-HINT": "Podpowiedź",
     "test-CONGRATS": "Gratulacje!",
     "test-SCORE": "Twój wynik to ",
-    "test-RETEST": "Popraw wynik",
-
-    "authenticationWarning": "Nie masz uprawnień by zobaczyć tę stronę. Zaloguj się."
+    "test-RETEST": "Popraw wynik"
 
   }
