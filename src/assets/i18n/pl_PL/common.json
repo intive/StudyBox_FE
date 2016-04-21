@@ -45,6 +45,7 @@
     "login-FIELD_MIN_CHARS": "Niepoprawne hasło!",
     "login-INVALID_FORMAT": "Niepoprawne hasło!",
     "login-TO_PUBLIC_SERVICE": "WEJDŹ ANONIMOWO",
+    "login-GUEST": "GOŚĆ",
 
     "addCard-WRITE_QUESTION": "Wpisz pytanie",
     "addCard-WRITE_HINT": "Wpisz podpowiedź",

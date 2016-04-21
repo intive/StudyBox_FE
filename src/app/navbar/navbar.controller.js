@@ -7,7 +7,7 @@
 
 
   /** @ngInject */
-  function NavbarController($state, $timeout, $q, $log, $document, BackendService, $mdSidenav, $stateParams, LoginHelperService) {
+  function NavbarController($state, $timeout, $q, $log, $document, BackendService, $mdSidenav, $stateParams, LoginHelperService, md5) {
 
     var vm = this;
     vm.uiRouterState = $state;
@@ -25,6 +25,27 @@
     vm.changeButton = angular.element($document[0].querySelector('#searchAutocomplete')).hasClass('searchForm');
 
     vm.userLogout = userLogout;
+
+    vm.getUserEmail = getUserEmail;
+    vm.isLogged = isLogged;
+    vm.generateGravatarUrl = generateGravatarUrl;
+
+    function generateGravatarUrl(email)
+    {
+      var url = email.trim();
+      url = url.toLowerCase();
+      url = md5.createHash(url || '');
+      url = url+"?s=100&d=mm";
+      return url;
+    }
+
+    function isLogged() {
+      return LoginHelperService.isLogged();
+    }
+
+    function getUserEmail() {
+      return LoginHelperService.getUserEmail();
+    }
 
     function userLogout() {
       LoginHelperService.doLogout();
