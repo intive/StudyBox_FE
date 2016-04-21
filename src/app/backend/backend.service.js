@@ -62,6 +62,7 @@
           var deck = new Deck();
           deck.id = response.data.id;
           deck.name = response.data.name;
+          deck.isPublic = response.data.publicVisible;
           return deck;
         },
         function error(response) {

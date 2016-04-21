@@ -10,7 +10,8 @@
     var vm = this;
     vm.deckId = $stateParams.deckId;
     vm.selectedDeck = new BackendService.Deck();
-    vm.deckDataChange = deckDataChange;
+    vm.deckDataChange = deckNameChange;
+    vm.deckDataChange = deckAccessChange;
     vm.selectDeck = selectDeck;
     vm.editDeck = editDeck;
     vm.saveDeck = saveDeck;
@@ -21,17 +22,21 @@
     vm.emptyNameError = DeckService.getEmptyNameError();
     vm.access = $stateParams.access;
 
-    function deckDataChange(item) {
+    function deckNameChange(item) {
       if (item) return;
       if (!vm.selectedDeck){
         DeckService.setNewDeck({name: vm.searchText, access:vm.deckAccess});
-        return;
+      } else if (vm.selectedDeck.name != vm.searchText) {
+        vm.nameChanged = true;
       }
-      if (vm.selectedDeck.name != vm.searchText) {
-        vm.dataChanged = true;
-      } else vm.dataChanged = vm.selectedDeck.isPublic != accessToBool(vm.deckAccess);
-      if (vm.dataChanged){
+    }
+
+    function deckAccessChange() {
+      if (!vm.selectedDeck){
         DeckService.setNewDeck({name: vm.searchText, access:vm.deckAccess});
+      } else {
+        vm.deckAccess = vm.selectedDeck.isPublic != accessToBool(vm.deckAccess);
+        saveDeck()
       }
     }
 
