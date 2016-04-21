@@ -43,6 +43,7 @@
     }
 
     function createDeck(){
+      DeckService.setDeckObj({name: vm.searchText});
       $state.go("deck.addCard", {deckId:null , cardId: null});
     }
 
