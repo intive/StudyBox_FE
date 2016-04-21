@@ -23,7 +23,7 @@
       <md-tooltip id="saveDeckButtonTooltip" md-direction="top">{{'deck-SAVE_DECK' | translate}}</md-tooltip>
       <md-icon
         class="deck-edit-button"
-        ng-click="deckEdit.saveDeck()"
+        ng-click="deckEdit.saveDeck(deckEdit.searchText)"
         md-svg-src="assets/icons/save.svg"></md-icon>
     </div>
 

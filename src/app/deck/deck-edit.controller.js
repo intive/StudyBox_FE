@@ -10,8 +10,8 @@
     var vm = this;
     vm.deckId = $stateParams.deckId;
     vm.selectedDeck = new BackendService.Deck();
-    vm.deckDataChange = deckNameChange;
-    vm.deckDataChange = deckAccessChange;
+    vm.deckNameChange = deckNameChange;
+    vm.deckAccessChange = deckAccessChange;
     vm.selectDeck = selectDeck;
     vm.editDeck = editDeck;
     vm.saveDeck = saveDeck;
@@ -26,9 +26,9 @@
       if (item) return;
       if (!vm.selectedDeck){
         DeckService.setNewDeck({name: vm.searchText, access:vm.deckAccess});
-      } else if (vm.selectedDeck.name != vm.searchText) {
-        vm.nameChanged = true;
+        return;
       }
+      vm.nameChanged = vm.selectedDeck.name != vm.searchText;
     }
 
     function deckAccessChange() {
@@ -36,7 +36,7 @@
         DeckService.setNewDeck({name: vm.searchText, access:vm.deckAccess});
       } else {
         vm.deckAccess = vm.selectedDeck.isPublic != accessToBool(vm.deckAccess);
-        saveDeck()
+        saveDeck(vm.selectedDeck.name)
       }
     }
 
@@ -68,8 +68,8 @@
       }
     }
 
-    function saveDeck(){
-      vm.selectedDeck.updateDeck(vm.searchText, vm.deckAccess)
+    function saveDeck(name){
+      vm.selectedDeck.updateDeck(name, vm.deckAccess)
         .then(function success() {
           $state.go("deck.addCard", {deckId: vm.selectedDeck.id});
           $state.reload("deck");
@@ -135,7 +135,7 @@
             vm.searchText = vm.selectDeck.name;
             DeckService.setNewDeck({name: vm.selectedDeck.name, access: vm.deckAccess});
             getCards();
-            vm.dataChanged = false;
+            vm.nameChanged = false;
           }, function (e) {
             $log.error(e);
           });

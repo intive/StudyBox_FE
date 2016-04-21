@@ -247,6 +247,8 @@
         .then(
           function success(response) {
             $this.name = response.data.name;
+            $this.isPublic = response.data.publicVisible;
+            console.log(response)
             return response.data;
           },
           function error(response) {
