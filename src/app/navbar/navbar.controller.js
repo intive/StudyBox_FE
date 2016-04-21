@@ -26,6 +26,17 @@
 
     vm.userLogout = userLogout;
 
+    vm.getUserEmail = getUserEmail;
+    vm.isLogged = isLogged;
+
+    function isLogged() {
+      return LoginHelperService.isLogged();
+    }
+
+    function getUserEmail() {
+      return LoginHelperService.getUserEmail();
+    }
+
     function userLogout() {
       LoginHelperService.doLogout();
       $mdSidenav('left').toggle();

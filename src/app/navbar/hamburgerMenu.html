@@ -4,7 +4,7 @@
     <md-toolbar class="md-theme-light">
         <div layout="column" class="md-toolbar-bottom inset" layout-align="start start">
           <img class="md-avatar sidenavImage" ng-src="assets/images/filled-logo.png">
-          <div class="md-subhead" id="email">{{ LoginHelperService.getUserEmail() }}</div>
+          <div class="md-subhead" id="email">{{ navbar.getUserEmail() }}</div>
         </div>
     </md-toolbar>
 
@@ -36,7 +36,7 @@
                  layout="row"
                  layout-align="start center"
                  ng-click="navbar.userLogout()"
-                 ng-if="LoginHelperService.isLogged()">
+                 ng-if="navbar.isLogged()">
         <md-icon md-svg-src="assets/icons/logout.svg"></md-icon>
         <span flex>{{'navbar-USER_LOGOUT' | translate}}</span>
       </md-list-item>
