@@ -49,12 +49,15 @@
         vm.mode = 'question';
         vm.result = null;
       } else {
-
+        var retest = $translate.instant('test-BEAT')
+        if (vm.yes == vm.cards.length){
+          retest = $translate.instant('test-RETEST')
+        }
         var confirm = $mdDialog.confirm()
           .title($translate.instant('test-CONGRATS'))
           .textContent($translate.instant('test-SCORE')+vm.yes+'/'+vm.cards.length)
           .ariaLabel('Score')
-          .ok($translate.instant('test-RETEST'))
+          .ok(retest)
           .cancel($translate.instant('navbar-PRIVATE_CARDS'));
         $mdDialog.show(confirm).then(function() {
           $state.reload();
