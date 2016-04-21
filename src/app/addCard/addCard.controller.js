@@ -201,7 +201,8 @@
       var card = {
         id: $stateParams.cardId,
         question: vm.question,
-        answer: vm.answer
+        answer: vm.answer,
+        isHidden: vm.isHidden
       };
       DeckService.setCardObj(card);
     }
