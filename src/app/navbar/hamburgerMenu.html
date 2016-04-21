@@ -2,8 +2,8 @@
   <md-sidenav md-component-id="left" layout="column" style="position:fixed">
 
     <md-toolbar class="md-theme-light">
-        <div layout="column" class="md-toolbar-bottom inset" layout-align="start start">
-          <img class="md-avatar sidenavImage" ng-src="http://www.gravatar.com/avatar/{{ navbar.generateGravatarUrl(navbar.getUserEmail()) }}">
+        <div layout="column"  layout-align="center center" class="md-toolbar-bottom inset">
+          <img ng-src="http://www.gravatar.com/avatar/{{ navbar.generateGravatarUrl(navbar.getUserEmail()) }}" class="md-avatar">
           <div class="md-subhead" id="email">{{ navbar.getUserEmail() }}</div>
         </div>
     </md-toolbar>
