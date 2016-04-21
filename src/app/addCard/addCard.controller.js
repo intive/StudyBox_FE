@@ -7,7 +7,7 @@
 
 
   /** @ngInject */
-  function AddCardController($stateParams, $state, $document, BackendService, DeckService, $log, $translate) {
+  function AddCardController($stateParams, $state, BackendService, DeckService, $log, $translate) {
     var vm = this;
     vm.deckId = $stateParams.deckId;
     vm.cardId = $stateParams.cardId;
