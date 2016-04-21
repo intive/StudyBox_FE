@@ -24,6 +24,8 @@
     vm.addHintTranslate = $translate.instant("addCard-HINT");
     vm.maxHintCount = 5;
     vm.trimString = trimString;
+    vm.changeVisibility = changeVisibility;
+    vm.isHidden = false;
 
     if (vm.cardId){
       vm.card = DeckService.getCardObj();
@@ -31,6 +33,7 @@
         vm.question = vm.card.question;
         vm.answer = vm.card.answer;
         vm.editMode=true;
+        vm.isHidden = vm.card.isHidden;
       }
     }
 
@@ -130,7 +133,7 @@
       return BackendService.getDeckById($stateParams.deckId)
         .then(function success(data) {
           vm.deck = data;
-          return vm.deck.updateFlashcard($stateParams.cardId, vm.question, vm.answer)
+          return vm.deck.updateFlashcard($stateParams.cardId, vm.question, vm.answer, vm.isHidden)
         },
         function error(){
           var message = 'I cant get deck';
@@ -154,7 +157,7 @@
       return BackendService.getDeckById($stateParams.deckId)
         .then(function success(data) {
           vm.deck = data;
-          return vm.deck.createFlashcard(vm.question, vm.answer)
+          return vm.deck.createFlashcard(vm.question, vm.answer, vm.isHidden)
         },
         function error(){
           var message = 'I cant get deck';
@@ -177,7 +180,7 @@
       return BackendService.createNewDeck(vm.newDeck.name, vm.newDeck.access)
         .then(function success(data) {
           vm.deck = data;
-          return vm.deck.createFlashcard(vm.question, vm.answer)
+          return vm.deck.createFlashcard(vm.question, vm.answer, vm.isHidden)
         },
         function error(){
           var message = 'I cant create new deck';
@@ -201,6 +204,10 @@
         answer: vm.answer
       };
       DeckService.setCardObj(card);
+    }
+
+    function changeVisibility(){
+      vm.isHidden = !vm.isHidden;
     }
 
   }
