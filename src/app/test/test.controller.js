@@ -17,18 +17,24 @@
     BackendService.getDeckById($stateParams.deckId)
       .then(function (result) {
         vm.selectedDeck = result;
-        getCards();
+         getCards(false);
       }, function (e) {
         $log.error(e);
       });
 
-    function getCards() {
+    function getCards(isHidden) {
       vm.selectedDeck.getFlashcards()
         .then(function (result) {
-          vm.cards = result;
+          vm.cards = result.filter(hideFilter(isHidden))
         }, function (e) {
           $log.error(e);
         });
+    }
+
+    function hideFilter(isHidden) {
+      return function filterFn(card) {
+        return (card.isHidden === isHidden);
+      };
     }
 
     function answer(answer) {
