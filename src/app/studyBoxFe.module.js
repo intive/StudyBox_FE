@@ -26,6 +26,7 @@
       'navbar',
       'decks',
       'login',
-      'test'
+      'test',
+      'tips'
     ]);
 })();

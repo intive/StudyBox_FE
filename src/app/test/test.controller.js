@@ -6,11 +6,13 @@
     .controller('TestController', TestController);
 
   /** @ngInject */
-  function TestController(BackendService, $log, $stateParams, $mdDialog, $state, $translate) {
+  function TestController(BackendService, TipsService, $log, $stateParams, $mdDialog, $state, $translate) {
     var vm = this;
     vm.mode = 'question';
     vm.answer = answer;
-    vm.current = 0;
+    vm.getTips = getTips;
+    vm.currentQuestion = 0;
+    vm.currentTip = 0;
     vm.yes = 0;
     vm.no = 0;
 
@@ -28,6 +30,11 @@
           vm.cards = result.filter(hideFilter(isHidden))
         }, function (e) {
           $log.error(e);
+        })
+        .then(function () {
+          getTips()
+        }, function (e) {
+          $log.error(e);
         });
     }
 
@@ -37,6 +44,18 @@
       };
     }
 
+    function getTips() {
+      TipsService.getAllTips(vm.selectedDeck.id, vm.cards[vm.currentQuestion].id)
+        .then(function (result) {
+          if (result.length > 0){
+            vm.cards[vm.currentQuestion].tips = result;
+          }
+        }, function (e) {
+          $log.error(e);
+        });
+    }
+
+
     function answer(answer) {
       if (answer){
         vm.yes +=1;
@@ -44,8 +63,9 @@
         vm.no +=1;
       }
       vm.result = answer;
-      if (vm.current+1 < vm.cards.length){
-        vm.current +=1;
+      vm.currentTip = 0;
+      if (vm.currentQuestion+1 < vm.cards.length){
+        vm.currentQuestion +=1;
         vm.mode = 'question';
         vm.result = null;
       } else {
