@@ -12,7 +12,17 @@
         parent: 'navbar',
         url: '/deck-edit/:deckId',
         templateUrl: 'app/deck/deck.page.html',
-        params: {access: 'private'}
+        params: {access: 'private'},
+        onEnter: function(LoginHelperService, $state, $stateParams, $translate){
+
+          var deckId = $stateParams.deckId;
+
+          if(!LoginHelperService.isLogged())
+             {
+              alert($translate.instant('authenticationWarning'));
+              $state.go("login/:deckId/:deckEdit", {"deckId": deckId, "deckEdit": "d-e"})
+             }
+        }
       })
       .state('deck.addCard', {
         parent: 'deck',
@@ -33,7 +43,17 @@
           url: '/my-deck-preview/:deckId',
           controller: 'MyDeckPreviewController',
           controllerAs: 'myDeckPreview',
-          templateUrl: 'app/deck/my-deck-preview.page.html'
+          templateUrl: 'app/deck/my-deck-preview.page.html',
+          onEnter: function(LoginHelperService, $state, $stateParams, $translate){
+
+            var deckId = $stateParams.deckId;
+
+            if(!LoginHelperService.isLogged())
+               {
+                alert($translate.instant('authenticationWarning'));
+                $state.go("login/:deckId/:deckEdit", {"deckId": deckId, "deckEdit": null})
+               }
+        }
         });
 
     $urlRouterProvider.otherwise('/');
