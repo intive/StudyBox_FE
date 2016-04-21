@@ -14,6 +14,7 @@
 
       /*3rd party modules*/
       'ui.router',
+      'angular-md5',
       'toastr',
       'pascalprecht.translate',
 

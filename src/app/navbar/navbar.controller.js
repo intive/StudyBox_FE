@@ -28,6 +28,14 @@
 
     vm.getUserEmail = getUserEmail;
     vm.isLogged = isLogged;
+    vm.generateGravatarUrl = generateGravatarUrl;
+
+    function generateGravatarUrl(email)
+    {
+      var url = email.trim();
+      url = url.toLowerCase();
+      url = md5(url);
+    }
 
     function isLogged() {
       return LoginHelperService.isLogged();
