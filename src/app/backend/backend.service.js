@@ -186,19 +186,19 @@
         return simplePromise(method, url, data);
       }
 
-      function createFlashcard(question, answer) {
+      function createFlashcard(question, answer, isHidden) {
         if(angular.isUndefined(question) || angular.isUndefined(answer) )
           show_error('must specify question and answer');
 
         var method = 'POST';
         /*jshint validthis:true */
         var url = '/api/decks/' + this.id + '/flashcards';
-        var data = {question: question, answer: answer};
+        var data = {question: question, answer: answer, isHidden: isHidden};
 
         return simplePromise(method, url, data);
       }
 
-      function updateFlashcard(id, question, answer) {
+      function updateFlashcard(id, question, answer, isHidden) {
         if(angular.isUndefined(id) || angular.isUndefined(question) ||
            angular.isUndefined(answer) )
           show_error('must specify id, question and answer');
@@ -207,7 +207,7 @@
         /*jshint validthis:true */
         var url = '/api/decks/' + this.id + '/flashcards/' + id;
 
-        var data = {question: question, answer: answer};
+        var data = {question: question, answer: answer, isHidden: isHidden};
 
         return simplePromise(method, url, data);
       }
