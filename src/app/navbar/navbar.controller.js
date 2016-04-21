@@ -7,7 +7,7 @@
 
 
   /** @ngInject */
-  function NavbarController($state, $timeout, $q, $log, $document, BackendService, $mdSidenav, $stateParams, LoginHelperService) {
+  function NavbarController($state, $timeout, $q, $log, $document, BackendService, $mdSidenav, $stateParams, LoginHelperService, md5) {
 
     var vm = this;
     vm.uiRouterState = $state;
@@ -34,7 +34,9 @@
     {
       var url = email.trim();
       url = url.toLowerCase();
-      url = md5(url);
+      url = md5.createHash(url || '');
+      url = url+"?s=100&d=mm";
+      return url;
     }
 
     function isLogged() {
