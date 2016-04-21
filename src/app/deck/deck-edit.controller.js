@@ -23,6 +23,10 @@
 
     function deckDataChange(item) {
       if (item) return;
+      if (!vm.selectedDeck){
+        DeckService.setNewDeck({name: vm.searchText, access:vm.deckAccess});
+        return;
+      }
       if (vm.selectedDeck.name != vm.searchText) {
         vm.dataChanged = true;
       } else vm.dataChanged = vm.selectedDeck.isPublic != accessToBool(vm.deckAccess);

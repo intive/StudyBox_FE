@@ -19,18 +19,16 @@
     <!-- endinject -->
     <!-- endbuild -->
   </head>
-  <body>
+  <body ui-view>
     <!--[if lt IE 10]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
     <!-- this is test comment for pull request -->
-    <div class="splash" ng-cloak>
-      <img src="assets/images/StudyBoxLogo_m.png"/>
-    </div>
-    <div ng-cloak style="height: 100%">
-      <div ui-view style="height: 100%"></div>
-    </div>
+    
+    <md-content ng-cloak layout="row" layout-align="center center">
+        <img src="assets/images/StudyBoxLogo_m.png"/>
+    </md-content>
 
     <!-- build:js(src) scripts/vendor.js -->
     <!-- bower:js -->

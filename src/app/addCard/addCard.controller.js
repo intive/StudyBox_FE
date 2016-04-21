@@ -7,18 +7,23 @@
 
 
   /** @ngInject */
-  function AddCardController($stateParams, $state, $document, BackendService, DeckService, $log) {
+  function AddCardController($stateParams, $state, $document, BackendService, DeckService, $log, $translate) {
     var vm = this;
     vm.deckId = $stateParams.deckId;
     vm.cardId = $stateParams.cardId;
     vm.deck = DeckService.getDeckObj();
     vm.submitCard = submitCard;
-    vm.toggleButton = toggleButton;
     vm.decks = null;
     vm.load = false;
     vm.toggleStatus = false;
     vm.trimInput = trimInput;
     vm.pasteChecker = pasteChecker;
+    vm.hints = [];
+    vm.addHint = addHint;
+    vm.removeHint = removeHint;
+    vm.addHintTranslate = $translate.instant("addCard-HINT");
+    vm.maxHintCount = 5;
+    vm.trimString = trimString;
 
     if (vm.cardId){
       vm.card = DeckService.getCardObj();
@@ -45,13 +50,22 @@
         vm.paste = true;
     }
 
-    function toggleButton() {
-      if(vm.toggleStatus === false)
-        angular.element($document[0].querySelector('#hint')).css("display", "block");
-      else
-        angular.element($document[0].querySelector('#hint')).css("display", "none");
+    function trimString(str) {
+      return str.replace(/^\s+|\s+$/g, '');
+    }
 
-      vm.toggleStatus = !vm.toggleStatus;
+    function addHint(){
+      if(vm.hints.length < vm.maxHintCount){
+        vm.hintNumber = vm.hints.length + 1;
+        vm.hints.push({'id':'id' + vm.hintNumber});
+        vm.addHintTranslate = $translate.instant("addCard-ANOTHER_HINT");
+      }
+    }
+
+    function removeHint(index){
+      vm.hints.splice(index, 1);
+      if(vm.hints.length == 0)
+        vm.addHintTranslate = $translate.instant("addCard-HINT");
     }
 
     function submitCard(isValid) {
@@ -59,6 +73,10 @@
       if(!isValid) return;
       if(!vm.answer || vm.answer.length > 1000) return;
       if(!vm.question || vm.question.length > 1000) return;
+
+      //ucina spacje przed i za
+      vm.question = trimString(vm.question);
+      vm.answer = trimString(vm.answer);
 
       vm.newDeck = DeckService.getNewDeck();
 

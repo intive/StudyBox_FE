@@ -53,7 +53,10 @@
     "addCard-EDIT_CARD": "Zapisz zmiany",
     "addCard-START_TEST": "Rozpocznij test",
     "addCard-HINT": "Dodaj podpowiedź",
+    "addCard-ANOTHER_HINT": "Dodaj kolejną podpowiedź",
     "addCard-ADD_DECK_FROM_FILE": "Dodaj talię z pliku",
+    "addCard-REMOVE_IMAGE": "Usuń zdjęcie",
+    "addCard-REMOVE_HINT": "Usuń podpowiedź",
 
     "navbar-PLACEHOLDER": "Wybierz talię",
     "navbar-NOT_FOUND": "Nie znaleziono talii ",
@@ -70,6 +73,13 @@
     "networkAlert-CONNECTION_SET": "Odzyskałeś połączenie z internetem, możesz kontynuować.",
     "networkAlert-AGREE": "Rozumiem",
     "networkAlert-OFFLINE_REGISTRATION": "Jesteś offline, nie możesz teraz się zarejestrować.",
-    "networkAlert-OFFLINE_LOGIN": "Jesteś offline, nie możesz teraz się zalogować."
+    "networkAlert-OFFLINE_LOGIN": "Jesteś offline, nie możesz teraz się zalogować.",
+
+    "test-KNOWN": "Znam odpowiedź",
+    "test-DONT_KNOWN": "Nie znam odpowiedzi",
+    "test-HINT": "Podpowiedź",
+    "test-CONGRATS": "Gratulacje!",
+    "test-SCORE": "Twój wynik to ",
+    "test-RETEST": "Popraw wynik"
 
   }
