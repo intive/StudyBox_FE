@@ -13,13 +13,12 @@
         url: '/deck-edit/:deckId',
         templateUrl: 'app/deck/deck.page.html',
         params: {access: 'private'},
-        onEnter: function(LoginHelperService, $state, $stateParams, $translate){
+        onEnter: function(LoginHelperService, $state, $stateParams){
 
           var deckId = $stateParams.deckId;
 
           if(!LoginHelperService.isLogged())
              {
-              alert($translate.instant('authenticationWarning'));
               $state.go("login/:deckId/:deckEdit", {"deckId": deckId, "deckEdit": "d-e"})
              }
         }
@@ -44,13 +43,12 @@
           controller: 'MyDeckPreviewController',
           controllerAs: 'myDeckPreview',
           templateUrl: 'app/deck/my-deck-preview.page.html',
-          onEnter: function(LoginHelperService, $state, $stateParams, $translate){
+          onEnter: function(LoginHelperService, $state, $stateParams){
 
             var deckId = $stateParams.deckId;
 
             if(!LoginHelperService.isLogged())
                {
-                alert($translate.instant('authenticationWarning'));
                 $state.go("login/:deckId/:deckEdit", {"deckId": deckId, "deckEdit": null})
                }
         }
