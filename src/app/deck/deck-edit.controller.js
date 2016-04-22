@@ -25,18 +25,18 @@
     function deckNameChange(item) {
       if (item) return;
       if (!vm.selectedDeck){
-        DeckService.setNewDeck({name: vm.searchText, access:vm.deckAccess});
+        DeckService.setNewDeck({name: vm.searchText, access:accessToBool(vm.deckAccess)});
         return;
       }
       vm.nameChanged = vm.selectedDeck.name != vm.searchText;
     }
 
     function deckAccessChange() {
+      var access= !accessToBool(vm.deckAccess)
       if (!vm.selectedDeck){
-        DeckService.setNewDeck({name: vm.searchText, access:vm.deckAccess});
+        DeckService.setNewDeck({name: vm.searchText, access:access});
       } else {
-        vm.deckAccess = vm.selectedDeck.isPublic != accessToBool(vm.deckAccess);
-        saveDeck(vm.selectedDeck.name)
+        saveDeck(vm.selectedDeck.name, access)
       }
     }
 
@@ -68,8 +68,11 @@
       }
     }
 
-    function saveDeck(name){
-      vm.selectedDeck.updateDeck(name, vm.deckAccess)
+    function saveDeck(name, access){
+      if (access===undefined){
+        access = accessToBool(vm.deckAccess)
+      }
+      vm.selectedDeck.updateDeck(name, access)
         .then(function success() {
           $state.go("deck.addCard", {deckId: vm.selectedDeck.id});
           $state.reload("deck");
