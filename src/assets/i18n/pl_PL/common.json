@@ -89,6 +89,7 @@
     "test-HINT": "Podpowiedź",
     "test-CONGRATS": "Gratulacje!",
     "test-SCORE": "Twój wynik to ",
-    "test-RETEST": "Popraw wynik"
+    "test-BEAT": "Popraw wynik",
+    "test-RETEST": "Powtórz test"
 
   }
