@@ -62,6 +62,7 @@
           var deck = new Deck();
           deck.id = response.data.id;
           deck.name = response.data.name;
+          deck.isPublic = response.data.publicVisible;
           return deck;
         },
         function error(response) {
@@ -246,6 +247,8 @@
         .then(
           function success(response) {
             $this.name = response.data.name;
+            $this.isPublic = response.data.publicVisible;
+            console.log(response)
             return response.data;
           },
           function error(response) {
