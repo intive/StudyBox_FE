@@ -131,17 +131,9 @@
       if(angular.isUndefined(name))
         show_error('must specify deck name');
 
-      var isPublic;
-      if(access == 'public')
-        isPublic = true;
-      else if(access == 'private')
-        isPublic = false;
-      else
-        isPublic = false;
-
       var method = 'POST';
       var url = '/api/decks';
-      var data = {name: name, isPublic: isPublic};
+      var data = {name: name, isPublic: access};
 
       return newDeckPromise(method, url, data);
     }
@@ -229,18 +221,10 @@
         if(angular.isUndefined(new_name) )
           show_error('must specify new_name');
 
-        var isPublic;
-        if(access == 'public')
-          isPublic = true;
-        else if(access == 'private')
-          isPublic = false;
-        else
-          isPublic = false;
-
         var method = 'PUT';
         /*jshint validthis:true */
         var url = '/api/decks/' + this.id;
-        var data = {name: new_name, isPublic: isPublic};
+        var data = {name: new_name, isPublic: access};
         var $this = this;
 
         var promise = $http({method: method, url: url, data: data})
@@ -248,7 +232,7 @@
           function success(response) {
             $this.name = response.data.name;
             $this.isPublic = response.data.publicVisible;
-            console.log(response)
+
             return response.data;
           },
           function error(response) {
