@@ -6,9 +6,12 @@
     .controller('DecksController', DecksController);
 
   /** @ngInject */
-  function DecksController(BackendService, $log, $stateParams) {
+  function DecksController(BackendService, $log, $stateParams,
+                           orderByLocaleAwareConfig) {
     var vm = this;
     vm.getDecks = getDecks;
+
+    orderByLocaleAwareConfig.localeId = 'pl';
 
     function getDecks() {
       vm.access = $stateParams.access;
@@ -21,7 +24,6 @@
     }
 
     getDecks();
-
   }
 
 })();
