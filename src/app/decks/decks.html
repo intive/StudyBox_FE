@@ -1,5 +1,5 @@
 <div layout="horizontal" layout-wrap>
-  <div ng-repeat="deck in decks.categories | orderBy:'name'" flex-xs="100" flex-sm="50" flex="25">
+  <div ng-repeat="deck in decks.categories |orderByLocaleAware:'+@name'" flex-xs="100" flex-sm="50" flex="25">
 
     <div ng-if="decks.access == 'private'">
       <md-card class="card-square"
