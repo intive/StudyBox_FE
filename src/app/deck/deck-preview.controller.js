@@ -6,7 +6,7 @@
     .controller('DeckPreviewController', DeckPreviewController);
 
   /** @ngInject */
-  function DeckPreviewController($stateParams, $state, BackendService, $log, DeckService) {
+  function DeckPreviewController($stateParams, $state, BackendService, $log, DeckService, $mdDialog, $mdMedia, $document, $scope) {
     var vm = this;
     vm.deckId = $stateParams.deckId;
     vm.selectedDeck = new BackendService.Deck();
@@ -14,6 +14,8 @@
     vm.clear = clear;
     vm.getDecks = getDecks;
     vm.selectDeck = selectDeck;
+    vm.hintsListDialog = hintsListDialog;
+    vm.cancelDialog = cancelDialog;
 
     vm.access = $stateParams.access;
 
@@ -39,7 +41,6 @@
 
     function selectDeck(deck) {
       if (!deck) return;
-      DeckService.setDeckObj(deck);
       if (deck.id && deck.id != $stateParams.deckId) {
         $stateParams.deckId = deck.id;
         $stateParams.cardId = null;
@@ -107,8 +108,6 @@
             $log.error(e);
           });
       } else {
-        vm.selectedDeck = DeckService.getDeckObj();
-        DeckService.setDeckObj(null);
         vm.selectedItem = vm.selectedDeck;
         vm.deckAccess = 'private';
         vm.dataChanged = false;
@@ -116,6 +115,24 @@
       pickUpCard($stateParams.cardId);
     }
     initDeck($stateParams.deckId);
+
+  function hintsListDialog(ev) {
+    var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'));
+    $mdDialog.show({
+      controller: DeckPreviewController,
+      templateUrl: 'app/deck/hintsList.html',
+      parent: angular.element($document.body),
+      targetEvent: ev,
+      scope: $scope,
+      preserveScope: true,
+      clickOutsideToClose:true,
+      fullscreen: useFullScreen
+    });
+  }
+
+  function cancelDialog(){
+    $mdDialog.hide();
+  }
 
   }
 })();

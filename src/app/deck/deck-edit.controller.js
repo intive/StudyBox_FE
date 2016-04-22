@@ -10,7 +10,8 @@
     var vm = this;
     vm.deckId = $stateParams.deckId;
     vm.selectedDeck = new BackendService.Deck();
-    vm.deckDataChange = deckDataChange;
+    vm.deckNameChange = deckNameChange;
+    vm.deckAccessChange = deckAccessChange;
     vm.selectDeck = selectDeck;
     vm.editDeck = editDeck;
     vm.saveDeck = saveDeck;
@@ -21,13 +22,21 @@
     vm.emptyNameError = DeckService.getEmptyNameError();
     vm.access = $stateParams.access;
 
-    function deckDataChange(item) {
+    function deckNameChange(item) {
       if (item) return;
-      if (vm.selectedDeck.name != vm.searchText) {
-        vm.dataChanged = true;
-      } else vm.dataChanged = vm.selectedDeck.isPublic != accessToBool(vm.deckAccess);
-      if (vm.dataChanged){
-        DeckService.setNewDeck({name: vm.searchText, access:vm.deckAccess});
+      if (!vm.selectedDeck){
+        DeckService.setNewDeck({name: vm.searchText, access:accessToBool(vm.deckAccess)});
+        return;
+      }
+      vm.nameChanged = vm.selectedDeck.name != vm.searchText;
+    }
+
+    function deckAccessChange() {
+      var access= !accessToBool(vm.deckAccess)
+      if (!vm.selectedDeck){
+        DeckService.setNewDeck({name: vm.searchText, access:access});
+      } else {
+        saveDeck(vm.selectedDeck.name, access)
       }
     }
 
@@ -59,8 +68,11 @@
       }
     }
 
-    function saveDeck(){
-      vm.selectedDeck.updateDeck(vm.searchText, vm.deckAccess)
+    function saveDeck(name, access){
+      if (access===undefined){
+        access = accessToBool(vm.deckAccess)
+      }
+      vm.selectedDeck.updateDeck(name, access)
         .then(function success() {
           $state.go("deck.addCard", {deckId: vm.selectedDeck.id});
           $state.reload("deck");
@@ -126,7 +138,7 @@
             vm.searchText = vm.selectDeck.name;
             DeckService.setNewDeck({name: vm.selectedDeck.name, access: vm.deckAccess});
             getCards();
-            vm.dataChanged = false;
+            vm.nameChanged = false;
           }, function (e) {
             $log.error(e);
           });

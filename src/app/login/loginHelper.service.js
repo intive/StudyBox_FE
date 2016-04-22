@@ -5,10 +5,11 @@
   .service('LoginHelperService', LoginHelper);
 
   /**ngInject*/
-  function LoginHelper($cookies) {
+  function LoginHelper($cookies,$translate) {
     var loginHelper = {
       isLogged: isLogged,
       getToken: getToken,
+      getUserEmail: getUserEmail,
       doLogout: doLogout,
       setCookie: setCookie
     };
@@ -25,6 +26,12 @@
     function getToken() {
       var token = $cookies.get('token');
       return token;
+    }
+
+    function getUserEmail() {
+      var email = $cookies.get("userMail");
+      if (email == null) email = $translate.instant("login-GUEST");
+      return email;
     }
 
     function doLogout() {

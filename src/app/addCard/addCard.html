@@ -29,6 +29,7 @@
             ng-change="addCard.trimInput(addCard)"
             ng-focus="addCard.questionFocus=true"
             ng-blur="addCard.questionFocus=false"
+            ng-trim="false"
             class="question"
             placeholder='{{"addCard-WRITE_QUESTION" | translate}}'
             ng-model="addCard.question" rows="5"
@@ -75,6 +76,7 @@
               maxlength="1000"
               minlength="2"
               class="hint"
+              ng-trim="false"
               placeholder='{{"addCard-WRITE_HINT" | translate}}'
               ng-model="hint.inputArea" rows="5"
               md-select-on-focus></textarea>
@@ -114,6 +116,7 @@
             ng-change="addCard.trimInput(addCard)"
             ng-focus="addCard.answerFocus=true"
             ng-blur="addCard.answerFocus=false"
+            ng-trim="false"
             class="answer"
             placeholder='{{"addCard-WRITE_ANSWER" | translate}}'
             ng-model="addCard.answer" rows="5"
@@ -129,6 +132,15 @@
           </div>
         </md-input-container>
 
+        <i ng-click="addCard.changeVisibility()" class="visibility">
+          <md-icon md-svg-src="assets/icons/visibility_36px.svg" class="camera" ng-if="!addCard.isHidden">
+            <md-tooltip md-direction="bottom">{{"addCard-HIDE_FLASHCARD" | translate}}</md-tooltip>
+          </md-icon>
+          <md-icon md-svg-src="assets/icons/visibility_off_36px.svg" class="camera" ng-if="addCard.isHidden">
+            <md-tooltip md-direction="bottom">{{"addCard-REVEAL_FLASHCARD" | translate}}</md-tooltip>
+          </md-icon>
+        </i>
+
         <md-button type="submit" class="md-raised addCardButtons addCardButton"
                    ng-if="!addCard.editMode" layout-align="end center">{{"addCard-ADD_TO_DECK" | translate}}</md-button>
         <md-button type="submit" class="md-raised addCardButtons addCardButton"
@@ -140,7 +152,7 @@
   <div flex-gt-sm="35" flex-xs="grow" flex-sm="grow" class="separate">
 
     <div layout="column" layout-align="center stretch" class="siteParts">
-      <md-button class="md-raised addCardButtons" style="margin-top:0px;">{{"addCard-START_TEST" | translate}}</md-button>
+      <md-button class="md-raised addCardButtons" ui-sref="test({ deckId: addCard.deckId})" style="margin-top:0px;">{{"addCard-START_TEST" | translate}}</md-button>
 
       <md-button class="md-raised addCardButtons">{{"addCard-ADD_DECK_FROM_FILE" | translate}}</md-button>
     </div>

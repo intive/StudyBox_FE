@@ -2,9 +2,9 @@
   <md-sidenav md-component-id="left" layout="column" style="position:fixed">
 
     <md-toolbar class="md-theme-light">
-        <div layout="column" class="md-toolbar-bottom inset" layout-align="start start">
-          <img class="md-avatar sidenavImage" ng-src="assets/images/filled-logo.png">
-          <div class="md-subhead" id="email">email@domainname.com</div>
+        <div layout="column"  layout-align="center center" class="md-toolbar-bottom inset">
+          <img ng-src="http://www.gravatar.com/avatar/{{ navbar.generateGravatarUrl(navbar.getUserEmail()) }}" class="md-avatar">
+          <div class="md-subhead" id="email">{{ navbar.getUserEmail() }}</div>
         </div>
     </md-toolbar>
 
@@ -35,7 +35,8 @@
       <md-list-item md-ink-ripple
                  layout="row"
                  layout-align="start center"
-                 ng-click="navbar.userLogout()">
+                 ng-click="navbar.userLogout()"
+                 ng-if="navbar.isLogged()">
         <md-icon md-svg-src="assets/icons/logout.svg"></md-icon>
         <span flex>{{'navbar-USER_LOGOUT' | translate}}</span>
       </md-list-item>
