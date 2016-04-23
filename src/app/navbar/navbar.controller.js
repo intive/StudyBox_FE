@@ -29,12 +29,10 @@
     vm.isLogged = isLogged;
     vm.generateGravatarUrl = generateGravatarUrl;
 
-    vm.checkIfLogged = checkIfLogged;
+    vm.notLogged = notLogged;
 
-    function checkIfLogged(ev){
+    function notLogged(ev){
 
-      if(!isLogged())
-      {
           var confirm = $mdDialog.confirm()
                 .title($translate.instant('navbar-DIALOG_TITLE'))
                 .textContent($translate.instant('navbar-DIALOG_TEXT_CONTENT'))
@@ -47,7 +45,6 @@
           });
       }
 
-    }
 
     function generateGravatarUrl(email)
     {
