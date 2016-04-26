@@ -32,11 +32,11 @@
     }
 
     function deckAccessChange() {
-      var access= !accessToBool(vm.deckAccess)
+      var access= !accessToBool(vm.deckAccess);
       if (!vm.selectedDeck){
         DeckService.setNewDeck({name: vm.searchText, access:access});
       } else {
-        saveDeck(vm.selectedDeck.name, access)
+        saveDeck(vm.selectedDeck.name, access);
       }
     }
 
@@ -69,8 +69,8 @@
     }
 
     function saveDeck(name, access){
-      if (access===undefined){
-        access = accessToBool(vm.deckAccess)
+      if (angular.isUndefined(access)){
+        access = accessToBool(vm.deckAccess);
       }
       vm.selectedDeck.updateDeck(name, access)
         .then(function success() {
@@ -81,7 +81,7 @@
           var message = 'I cant update Deck name';
           alert(message);
           throw message;
-        })
+        });
     }
 
     function selectCard(card) {
