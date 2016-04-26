@@ -6,7 +6,8 @@
     .controller('TestController', TestController);
 
   /** @ngInject */
-  function TestController(BackendService, TipsService, $log, $stateParams, $mdDialog, $state, $translate) {
+  function TestController(BackendService, TipsService, $log, $stateParams,
+                          $mdDialog, $state, $translate) {
     var vm = this;
     vm.mode = 'question';
     vm.answer = answer;
@@ -27,12 +28,12 @@
     function getCards(isHidden) {
       vm.selectedDeck.getFlashcards()
         .then(function (result) {
-          vm.cards = result.filter(hideFilter(isHidden))
+          vm.cards = result.filter(hideFilter(isHidden));
         }, function (e) {
           $log.error(e);
         })
         .then(function () {
-          getTips()
+          getTips();
         }, function (e) {
           $log.error(e);
         });
@@ -55,7 +56,6 @@
         });
     }
 
-
     function answer(answer) {
       if (answer){
         vm.yes +=1;
@@ -69,24 +69,36 @@
         vm.mode = 'question';
         vm.result = null;
       } else {
-        var retest = $translate.instant('test-BEAT')
-        if (vm.yes == vm.cards.length){
-          retest = $translate.instant('test-RETEST')
-        }
-        var confirm = $mdDialog.confirm()
-          .title($translate.instant('test-CONGRATS'))
-          .textContent($translate.instant('test-SCORE')+vm.yes+'/'+vm.cards.length)
-          .ariaLabel('Score')
-          .ok(retest)
-          .cancel($translate.instant('navbar-PRIVATE_CARDS'));
-        $mdDialog.show(confirm).then(function() {
-          $state.reload();
-        }, function() {
-          $state.go("decks", {access: 'private'});
-        });
-
+        vm.showDialog(vm.yes, vm.cards.length);
       }
     }
+
+    vm.showDialog = function(correct, all) {
+      var allCorrect = (correct == all) ? true : false;
+
+      var wrong = all - correct;
+
+      $mdDialog.show({
+        bindToController: true,
+        locals: {
+          correct: correct,
+          wrong: wrong,
+          allCorrect: allCorrect
+        },
+        templateUrl: 'app/test/dialog.html',
+        controller: TestController,
+        controllerAs: 'test'
+      });
+    };
+
+    vm.closeDialog = function() {
+      $state.reload();
+    };
+
+    vm.goToPrivateDecks = function() {
+      $mdDialog.hide();
+      $state.go("decks", {access: 'private'});
+    };
 
   }
 
