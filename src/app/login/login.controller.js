@@ -5,7 +5,7 @@
   .module('login')
   .controller('LoginController', LoginController);
 
-  function LoginController($state, LoginService, $stateParams) {
+  function LoginController($state, LoginService, $stateParams, LoginHelperService, $log) {
     var vm = this;
     vm.formStatus = '';
     vm.submit = submit;
@@ -25,7 +25,8 @@
       LoginService.doLogin(user, pass, loginUrl)
       .then(function(data){
         if(data.status === 200) {
-
+          $log.info("Kontroler: " + data);
+          var token = LoginHelperService.getToken();         
           if(vm.deckId)
           {
             if(vm.deckEdit)
@@ -34,7 +35,7 @@
             }
             else
             {
-            $state.go("my-deck-preview", {"deckId": vm.deckId})
+            $state.go("my-deck-preview", {"deckId": vm.deckId});
             }
           }
           else
