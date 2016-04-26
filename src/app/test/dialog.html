@@ -1,0 +1,24 @@
+<md-dialog aria-label="List dialog">
+  <md-dialog-content>
+    <md-list>
+      <md-list-item ng-if="test.allCorrect">
+        {{'test-CONGRATS' | translate}}
+      </md-list-item>
+      <md-list-item>
+        {{'test-SCORE' | translate}}:
+      </md-list-item>
+
+      <canvas id="dialog-chart">
+      </canvas>
+
+    </md-list>
+  </md-dialog-content>
+  <md-dialog-actions>
+    <md-button ng-click="test.goToPrivateDecks()" class="md-primary">
+      {{'navbar-PRIVATE_CARDS' | translate}}
+    </md-button>
+    <md-button ng-click="test.closeDialog()" class="md-primary">
+      {{'test-BEAT' | translate}}
+    </md-button>
+  </md-dialog-actions>
+</md-dialog>

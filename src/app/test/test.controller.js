@@ -6,7 +6,8 @@
     .controller('TestController', TestController);
 
   /** @ngInject */
-  function TestController(BackendService, TipsService, $log, $stateParams, $mdDialog, $state, $translate) {
+  function TestController(BackendService, TipsService, $log, $stateParams,
+                          $mdDialog, $state, $translate) {
     var vm = this;
     vm.mode = 'question';
     vm.answer = answer;
@@ -27,12 +28,12 @@
     function getCards(isHidden) {
       vm.selectedDeck.getFlashcards()
         .then(function (result) {
-          vm.cards = result.filter(hideFilter(isHidden))
+          vm.cards = result.filter(hideFilter(isHidden));
         }, function (e) {
           $log.error(e);
         })
         .then(function () {
-          getTips()
+          getTips();
         }, function (e) {
           $log.error(e);
         });
@@ -55,7 +56,6 @@
         });
     }
 
-
     function answer(answer) {
       if (answer){
         vm.yes +=1;
@@ -69,24 +69,75 @@
         vm.mode = 'question';
         vm.result = null;
       } else {
-        var retest = $translate.instant('test-BEAT')
+        var retest = $translate.instant('test-BEAT');
         if (vm.yes == vm.cards.length){
-          retest = $translate.instant('test-RETEST')
+          retest = $translate.instant('test-RETEST');
         }
-        var confirm = $mdDialog.confirm()
-          .title($translate.instant('test-CONGRATS'))
-          .textContent($translate.instant('test-SCORE')+vm.yes+'/'+vm.cards.length)
-          .ariaLabel('Score')
-          .ok(retest)
-          .cancel($translate.instant('navbar-PRIVATE_CARDS'));
-        $mdDialog.show(confirm).then(function() {
-          $state.reload();
-        }, function() {
-          $state.go("decks", {access: 'private'});
-        });
 
+        vm.showDialog(vm.yes, vm.cards.length);
       }
     }
+
+    vm.showDialog = function(correct, all) {
+      var allCorrect = false;
+      if(correct == all)
+        allCorrect = true;
+
+      var wrong = all - correct;
+
+      $mdDialog.show({
+        bindToController: true,
+        locals: {allCorrect: allCorrect},
+        onComplete: function() {
+          vm.paintPieChart(correct, wrong);
+        },
+        templateUrl: 'app/test/dialog.html',
+        controller: TestController,
+        controllerAs: 'test'
+      });
+    };
+
+    vm.closeDialog = function() {
+      $state.reload();
+    };
+
+    vm.goToPrivateDecks = function() {
+      $mdDialog.hide();
+      $state.go("decks", {access: 'private'});
+    };
+
+    vm.paintPieChart = function(correct, wrong) {
+      var canvas = document.getElementById("dialog-chart");
+      var ctx = canvas.getContext("2d");
+      var lastend = 0;
+      var data = [wrong, correct];
+      var myTotal = 0;
+      var red = '#C24642';
+      var green = '#369EAD';
+      var myColor = [red, green];
+
+      for(var e = 0; e < data.length; e++) {
+        myTotal += data[e];
+      }
+
+      for (var i = 0; i < data.length; i++) {
+        ctx.fillStyle = myColor[i];
+        ctx.beginPath();
+        ctx.moveTo(canvas.width/2,canvas.height/2);
+        ctx.arc(canvas.width/2,canvas.height/2,canvas.height/2,
+                lastend,lastend+(Math.PI*2*(data[i]/myTotal)),false);
+        ctx.lineTo(canvas.width/2,canvas.height/2);
+        ctx.fill();
+        lastend += Math.PI*2*(data[i]/myTotal);
+      }
+
+      var font_px = 30;
+      ctx.font = font_px + "px Arial";
+      ctx.fillStyle = '#FFFFFF';
+      ctx.textAlign = 'center';
+      var all = correct + wrong;
+      ctx.fillText(correct+"/"+all, canvas.width/2, canvas.height/2 + font_px/3);
+    };
 
   }
 
