@@ -70,6 +70,7 @@
     "navbar-PRIVATE_CARDS": "Moje talie",
     "navbar-PUBLIC_CARDS": "Publiczne talie innych osób",
     "navbar-USER_LOGOUT": "WYLOGUJ SIĘ",
+    "navbar-USER_LOGIN": "ZALOGUJ SIĘ",
     "navbar-DIALOG_TITLE": "Nie jesteś zalogowany.",
     "navbar-DIALOG_TEXT_CONTENT": "Aby skorzystać z tej funkcji musisz się zalogować.",
     "navbar-DIALOG_ARIA_LABEL": "Zaloguj się",
