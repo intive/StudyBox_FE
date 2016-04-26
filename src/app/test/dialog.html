@@ -8,8 +8,7 @@
         {{'test-SCORE' | translate}}:
       </md-list-item>
 
-      <canvas id="dialog-chart">
-      </canvas>
+      <pie-chart correct="{{test.correct}}" wrong="{{test.wrong}}"></pie-chart>
 
     </md-list>
   </md-dialog-content>
@@ -18,7 +17,15 @@
       {{'navbar-PRIVATE_CARDS' | translate}}
     </md-button>
     <md-button ng-click="test.closeDialog()" class="md-primary">
-      {{'test-BEAT' | translate}}
+
+      <div ng-if="test.allCorrect == true">
+        {{'test-RETEST' | translate}}
+      </div>
+
+      <div ng-if="test.allCorrect == false">
+        {{'test-BEAT' | translate}}
+      </div>
+
     </md-button>
   </md-dialog-actions>
 </md-dialog>
