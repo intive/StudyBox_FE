@@ -158,3 +158,14 @@ md-input-container .md-errors-spacer {
 
 .rotate{transform: rotate(135deg);
   background-color: #424242 !important;}
+
+.visibility{
+position:absolute;
+  margin-left:20px;
+  margin-top:20px;
+}
+
+.visibility:focus{
+   outline: none;
+   border: 0;
+}

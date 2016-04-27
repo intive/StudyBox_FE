@@ -17,6 +17,7 @@
       'angular-md5',
       'toastr',
       'pascalprecht.translate',
+      'orderByLocaleAware',
 
       /*team modules*/
       'translator',
@@ -26,6 +27,7 @@
       'navbar',
       'decks',
       'login',
-      'test'
+      'test',
+      'tips'
     ]);
 })();

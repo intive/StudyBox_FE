@@ -6,26 +6,51 @@
     .controller('TestController', TestController);
 
   /** @ngInject */
-  function TestController(BackendService, $log, $stateParams, $mdDialog, $state, $translate) {
+  function TestController(BackendService, TipsService, $log, $stateParams,
+                          $mdDialog, $state, $translate) {
     var vm = this;
     vm.mode = 'question';
     vm.answer = answer;
-    vm.current = 0;
+    vm.getTips = getTips;
+    vm.currentQuestion = 0;
+    vm.currentTip = 0;
     vm.yes = 0;
     vm.no = 0;
 
     BackendService.getDeckById($stateParams.deckId)
       .then(function (result) {
         vm.selectedDeck = result;
-        getCards();
+         getCards(false);
       }, function (e) {
         $log.error(e);
       });
 
-    function getCards() {
+    function getCards(isHidden) {
       vm.selectedDeck.getFlashcards()
         .then(function (result) {
-          vm.cards = result;
+          vm.cards = result.filter(hideFilter(isHidden));
+        }, function (e) {
+          $log.error(e);
+        })
+        .then(function () {
+          getTips();
+        }, function (e) {
+          $log.error(e);
+        });
+    }
+
+    function hideFilter(isHidden) {
+      return function filterFn(card) {
+        return (card.isHidden === isHidden);
+      };
+    }
+
+    function getTips() {
+      TipsService.getAllTips(vm.selectedDeck.id, vm.cards[vm.currentQuestion].id)
+        .then(function (result) {
+          if (result.length > 0){
+            vm.cards[vm.currentQuestion].tips = result;
+          }
         }, function (e) {
           $log.error(e);
         });
@@ -38,26 +63,42 @@
         vm.no +=1;
       }
       vm.result = answer;
-      if (vm.current+1 < vm.cards.length){
-        vm.current +=1;
+      vm.currentTip = 0;
+      if (vm.currentQuestion+1 < vm.cards.length){
+        vm.currentQuestion +=1;
         vm.mode = 'question';
         vm.result = null;
       } else {
-
-        var confirm = $mdDialog.confirm()
-          .title($translate.instant('test-CONGRATS'))
-          .textContent($translate.instant('test-SCORE')+vm.yes+'/'+vm.cards.length)
-          .ariaLabel('Score')
-          .ok($translate.instant('test-RETEST'))
-          .cancel($translate.instant('navbar-PRIVATE_CARDS'));
-        $mdDialog.show(confirm).then(function() {
-          $state.reload();
-        }, function() {
-          $state.go("decks", {access: 'private'});
-        });
-
+        vm.showDialog(vm.yes, vm.cards.length);
       }
     }
+
+    vm.showDialog = function(correct, all) {
+      var allCorrect = (correct == all) ? true : false;
+
+      var wrong = all - correct;
+
+      $mdDialog.show({
+        bindToController: true,
+        locals: {
+          correct: correct,
+          wrong: wrong,
+          allCorrect: allCorrect
+        },
+        templateUrl: 'app/test/dialog.html',
+        controller: TestController,
+        controllerAs: 'test'
+      });
+    };
+
+    vm.closeDialog = function() {
+      $state.reload();
+    };
+
+    vm.goToPrivateDecks = function() {
+      $mdDialog.hide();
+      $state.go("decks", {access: 'private'});
+    };
 
   }
 

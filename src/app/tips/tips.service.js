@@ -21,6 +21,11 @@
 
   /** @ngInject */
   function TipsService($http, $q) {
+    this.createNewTip = createNewTip;
+    this.getTipById = getTipById;
+    this.getAllTips = getAllTips;
+    this.updateTip = updateTip;
+    this.deleteTip = deleteTip;
 
     function throw_error(message) {
       alert(message);

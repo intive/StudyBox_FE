@@ -5,12 +5,12 @@
   </h3>
 </div>
 <div layout="row" layout-align="center center" layout-wrap>
-  <question flex-xs="100" flex-gt-xs="45" flex-gt-sm="30" ng-if="test.mode == 'question'" content="{{test.cards[test.current].question}}"></question>
-  <hint flex-xs="100" flex-gt-xs="45" flex-gt-sm="30"  ng-if="test.mode == 'hint'" content="{{test.cards[test.current].question}}"></hint>
-  <answer flex-xs="100" flex-gt-xs="45" flex-gt-sm="30"  ng-if="test.mode == 'answer'" content="{{test.cards[test.current].answer}}"></answer>
+  <question flex-xs="100" flex-gt-xs="45" flex-gt-sm="30" ng-if="test.mode == 'question'" content="{{test.cards[test.currentQuestion].question}}"></question>
+  <hint flex-xs="100" flex-gt-xs="45" flex-gt-sm="30"  ng-if="test.mode == 'hint'" content="{{test.cards[test.currentQuestion].tips}}"></hint>
+  <answer flex-xs="100" flex-gt-xs="45" flex-gt-sm="30"  ng-if="test.mode == 'answer'" content="{{test.cards[test.currentQuestion].answer}}"></answer>
 </div>
 <div layout="row" layout-align="center center" flex>
   <h3>
-    {{test.current+1}} / {{test.cards.length}}
+    {{test.currentQuestion+1}} / {{test.cards.length}}
   </h3>
 </div>
