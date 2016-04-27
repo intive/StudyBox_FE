@@ -18,9 +18,16 @@
       this.update = update;
       this.remove = remove;
 
+      //**//
+
+      function throw_error(message) {
+        alert(message);
+        throw message;
+      }
+
       function update(new_prompt)
       {
-        if(angular.isUndefined(new_prompt) ) throw_error('Must specify content of tip');
+        if(!new_prompt) throw_error('Must specify content of tip');
 
         var method = 'PUT';
         var url = '/api/decks/'+this.deckId+'/flashcards/'+this.flashcardId+'/tips/'+this.id;
