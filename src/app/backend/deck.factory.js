@@ -60,6 +60,8 @@
       function jsonToFlashcard(data) {
         var flashcard = new Flashcard();
         flashcard.id = data.id;
+        /*jshint validthis:true */
+        flashcard.deckId = this.id;
         flashcard.question = data.question;
         flashcard.answer = data.answer;
         try {
