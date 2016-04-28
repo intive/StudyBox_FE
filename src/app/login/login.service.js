@@ -24,7 +24,6 @@
       var loginResponse = $http({method: method, url: loginUrl})
         .then(
           function successCallback(response) {
-            $log.info("S: " + response);                       
             return response;
           },
           function errorCallback(response) {
