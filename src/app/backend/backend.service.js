@@ -83,9 +83,11 @@
       return promiseWithDeck(method, url);
     }
 
-    function getDecks(access) {
+    function getDecks(access, count) {
       if(angular.isUndefined(access))
         access = 'public';
+      if(angular.isUndefined(count))
+        count = false;
 
       var method = 'GET';
 
@@ -96,6 +98,9 @@
         url = '/api/decks';
       else
         show_error('wrong access (must be `public`|`private`)');
+
+      if(count)
+        url = url+'?flashcardsCount=true';
 
       return promiseWithDecks(method, url);
     }
@@ -120,6 +125,8 @@
           deck.name = response.data[i].name;
           deck.id = response.data[i].id;
           deck.isPublic = response.data[i].isPublic;
+          if(response.data[i].flashcardsCount)
+            deck.flashcardsCount = response.data[i].flashcardsCount;
           decks.push(deck);
         }
         return decks;

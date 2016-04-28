@@ -15,7 +15,7 @@
 
     function getDecks() {
       vm.access = $stateParams.access;
-      BackendService.getDecks(vm.access)
+      BackendService.getDecks(vm.access, true)
       .then(function (result) {
         vm.categories=result;
       }, function (e) {
