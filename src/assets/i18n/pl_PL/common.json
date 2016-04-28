@@ -16,6 +16,9 @@
     "deck-YES": "Tak",
     "deck-NO": "Anuluj",
     "deck-OFFLINE_REMOVE_CARD_MODAL": "Jesteś offline, nie możesz teraz usunąć fiszki.",
+    "deck-HIDE_FLASHCARD": "Ukryj fiszkę",
+    "deck-REVEAL_FLASHCARD": "Odkryj fiszskę",
+    "deck-HIDDEN": "Fiszka ukryta",
 
     "registration-FORM_TITLE": "Rejestracja",
     "registration-REQUIRED_FIELD": "To pole jest wymagane",
@@ -58,8 +61,6 @@
     "addCard-ADD_DECK_FROM_FILE": "Dodaj talię z pliku",
     "addCard-REMOVE_IMAGE": "Usuń zdjęcie",
     "addCard-REMOVE_HINT": "Usuń podpowiedź",
-    "addCard-HIDE_FLASHCARD": "Ukryj fiszkę",
-    "addCard-REVEAL_FLASHCARD": "Odkryj fiszskę",
 
     "navbar-PLACEHOLDER": "Wybierz talię",
     "navbar-NOT_FOUND": "Nie znaleziono talii ",

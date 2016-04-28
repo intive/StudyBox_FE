@@ -24,7 +24,6 @@
     vm.addHintTranslate = $translate.instant("addCard-HINT");
     vm.maxHintCount = 5;
     vm.trimString = trimString;
-    vm.changeVisibility = changeVisibility;
     vm.isHidden = false;
 
     if (vm.cardId){
@@ -205,10 +204,6 @@
         isHidden: vm.isHidden
       };
       DeckService.setCardObj(card);
-    }
-
-    function changeVisibility(){
-      vm.isHidden = !vm.isHidden;
     }
 
   }

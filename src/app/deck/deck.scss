@@ -117,3 +117,11 @@
   margin-top: 2em;
 }
 
+.focusOn:focus{
+   outline: none;
+   border: 0;
+}
+
+.visibility:hover{
+    cursor: default;
+}

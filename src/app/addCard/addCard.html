@@ -132,15 +132,6 @@
           </div>
         </md-input-container>
 
-        <i ng-click="addCard.changeVisibility()" class="visibility">
-          <md-icon md-svg-src="assets/icons/visibility_36px.svg" class="camera" ng-if="!addCard.isHidden">
-            <md-tooltip md-direction="bottom">{{"addCard-HIDE_FLASHCARD" | translate}}</md-tooltip>
-          </md-icon>
-          <md-icon md-svg-src="assets/icons/visibility_off_36px.svg" class="camera" ng-if="addCard.isHidden">
-            <md-tooltip md-direction="bottom">{{"addCard-REVEAL_FLASHCARD" | translate}}</md-tooltip>
-          </md-icon>
-        </i>
-
         <md-button type="submit" class="md-raised addCardButtons addCardButton"
                    ng-if="!addCard.editMode" layout-align="end center">{{"addCard-ADD_TO_DECK" | translate}}</md-button>
         <md-button type="submit" class="md-raised addCardButtons addCardButton"
