@@ -13,7 +13,8 @@
       <md-list-item md-ink-ripple
               layout="row"
               layout-align="start center"
-              ng-click="navbar.showPrivateCards()">
+              ng-click="navbar.showPrivateCards()"
+              ng-if="navbar.isLogged()">
 
         <md-icon md-svg-src="assets/icons/account_circle.svg"></md-icon>
         <span flex>{{'navbar-PRIVATE_CARDS' | translate}}</span>

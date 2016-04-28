@@ -21,12 +21,12 @@
         <div ng-message="maxlength">{{'deck-NAME_TOO_LONG' | translate}}</div>
       </div>
     </md-autocomplete>
-    <div ng-if="myDeckPreview.searchText" ng-click="myDeckPreview.clear()" class="deck-clear">x</div>
+    <div ng-if="myDeckPreview.searchText" ng-click="myDeckPreview.clear()" class="deck-clear focusOn">x</div>
 
     <div class="deck-button">
       <md-tooltip id="editDeckButtonTooltip" md-direction="top">{{'deck-EDIT_DECK' | translate}}</md-tooltip>
       <md-icon
-        class="deck-edit-button" ng-click="myDeckPreview.editDeck()"
+        class="deck-edit-button focusOn" ng-click="myDeckPreview.editDeck()"
         md-svg-src="assets/icons/card.svg">
       </md-icon>
     </div>
@@ -44,15 +44,27 @@
         </md-card-title-text>
       </md-card-title>
       <md-card-actions layout="row" layout-align="end center">
+        <div class="card-button" ng-if="!card.isHidden">
+          <md-tooltip id="hideCardButtonTooltip" md-direction="top">{{'deck-HIDE_FLASHCARD' | translate}}</md-tooltip>
+          <md-icon class="deck-edit-button focusOn"
+                   md-svg-src="assets/icons/visibility_36px.svg"
+                   ng-click="myDeckPreview.changeVisibility(card)"></md-icon>
+        </div>
+        <div class="card-button" ng-if="card.isHidden">
+          <md-tooltip id="revealCardButtonTooltip" md-direction="top">{{'deck-REVEAL_FLASHCARD' | translate}}</md-tooltip>
+          <md-icon class="deck-edit-button focusOn"
+                   md-svg-src="assets/icons/visibility_off_36px.svg"
+                   ng-click="myDeckPreview.changeVisibility(card)"></md-icon>
+        </div>
         <div class="card-button">
           <md-tooltip id="editCardButtonTooltip" md-direction="top">{{'deck-EDIT_CARD' | translate}}</md-tooltip>
-          <md-icon class="deck-edit-button"
+          <md-icon class="deck-edit-button focusOn"
                    md-svg-src="assets/icons/card.svg"
                    ng-click="myDeckPreview.editCard(card)"></md-icon>
         </div>
         <div class="card-button">
           <md-tooltip id="removeCardButtonTooltip" md-direction="top">{{'deck-REMOVE_CARD' | translate}}</md-tooltip>
-          <md-icon class="deck-remove-button"
+          <md-icon class="deck-remove-button focusOn"
                    md-svg-src="assets/icons/clear.svg"
                    ng-click="myDeckPreview.removeCard(card.id)"></md-icon>
         </div>
