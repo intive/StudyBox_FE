@@ -23,30 +23,25 @@
       var loginUrl = "api/decks/";
       var targetState = "decks";
       LoginService.doLogin(user, pass, loginUrl)
-      .then(function(data){
-        if(data.status === 200) {
+      .then(
+        function(data) {
           $log.info("Kontroler: " + data);
-          var token = LoginHelperService.getToken();         
-          if(vm.deckId)
-          {
-            if(vm.deckEdit)
-            {
-            $state.go("deck.addCard", {"deckId": vm.deckId , cardId: null});
+          //var token = LoginHelperService.getToken();
+          //LoginHelperService.setCookie(user, token);
+          //$log.info("cookie is set");       
+          if(vm.deckId) {
+            if(vm.deckEdit) {
+              $state.go("deck.addCard", {"deckId": vm.deckId , cardId: null});
+            } else {
+              $state.go("my-deck-preview", {"deckId": vm.deckId});
             }
-            else
-            {
-            $state.go("my-deck-preview", {"deckId": vm.deckId});
-            }
-          }
-          else
-          {
+          } else {
             $state.go(targetState);
           }
-
-        }else{
+        },
+        function(data){
           alert("Kontroler: logowanie nieudane!\n\n" + "HTTP: " + data.status + "\n" + data.statusText);
-        }
-      });
+        });
     }
   }
 })();

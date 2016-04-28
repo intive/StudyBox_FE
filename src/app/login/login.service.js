@@ -22,15 +22,11 @@
     function doLogin(user, pass, loginUrl) {
       var token = btoa(user + ":" + pass);
       var method = "GET";
-      var loginResponse;
-      if (angular.isDefined(user) && angular.isDefined(pass)) {
-        setHeader(token);
-        loginResponse = $http({method: method, url: loginUrl})
+      setHeader(token);
+      var loginResponse = $http({method: method, url: loginUrl})
         .then(
           function successCallback(response) {
-            LoginHelperService.setCookie(user, token);
-            $log.info("cookie is set");
-            $log.info(response.code);                       
+            $log.info("S: " + response.code);                       
             return response;
           },
           function errorCallback(response) {
@@ -38,7 +34,6 @@
             LoginHelperService.setCookie();
             return $q.reject(response);
           });
-      }
       return loginResponse;
     }
 
