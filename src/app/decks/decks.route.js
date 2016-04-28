@@ -16,10 +16,13 @@
       controllerAs: 'decks',
       params: {
         access: 'private'
+      },
+      onEnter: function($state, $stateParams, LoginHelperService) {
+        if ($stateParams.access === 'private' && !LoginHelperService.isLogged()) {
+          $state.go('login');
+        }
       }
     });
-
-
 
     $urlRouterProvider.otherwise('/');
   }

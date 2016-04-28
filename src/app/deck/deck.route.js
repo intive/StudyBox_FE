@@ -19,7 +19,7 @@
 
           if(!LoginHelperService.isLogged())
              {
-              $state.go("login/:deckId/:deckEdit", {"deckId": deckId, "deckEdit": "d-e"})
+              $state.go("login/:deckId/:deckEdit", {"deckId": deckId, "deckEdit": "d-e"});
              }
         }
       })
@@ -49,7 +49,7 @@
 
             if(!LoginHelperService.isLogged())
                {
-                $state.go("login/:deckId/:deckEdit", {"deckId": deckId, "deckEdit": null})
+                $state.go("login/:deckId/:deckEdit", {"deckId": deckId, "deckEdit": null});
                }
         }
         });
