@@ -17,12 +17,12 @@
         <div ng-message="maxlength">{{'deck-NAME_TOO_LONG' | translate}}</div>
       </div>
     </md-autocomplete>
-    <div ng-if="deckEdit.searchText" ng-click="deckEdit.clear()" class="deck-clear">x</div>
+    <div ng-if="deckEdit.searchText" ng-click="deckEdit.clear()" class="deck-clear focusOn">x</div>
 
     <div class="deck-button" ng-if="deckEdit.nameChanged" >
       <md-tooltip id="saveDeckButtonTooltip" md-direction="top">{{'deck-SAVE_DECK' | translate}}</md-tooltip>
       <md-icon
-        class="deck-edit-button"
+        class="deck-edit-button focusOn"
         ng-click="deckEdit.saveDeck(deckEdit.searchText)"
         md-svg-src="assets/icons/save.svg"></md-icon>
     </div>
@@ -56,6 +56,18 @@
         </md-card-title-text>
       </md-card-title>
       <md-card-actions layout="row" layout-align="end center">
+        <div class="card-button" ng-if="!card.isHidden">
+          <md-tooltip id="hideCardButtonTooltip" md-direction="top">{{'deck-HIDE_FLASHCARD' | translate}}</md-tooltip>
+          <md-icon class="deck-edit-button focusOn"
+                   md-svg-src="assets/icons/visibility_36px.svg"
+                   ng-click="deckEdit.changeVisibility(card)"></md-icon>
+        </div>
+        <div class="card-button" ng-if="card.isHidden">
+          <md-tooltip id="revealCardButtonTooltip" md-direction="top">{{'deck-REVEAL_FLASHCARD' | translate}}</md-tooltip>
+          <md-icon class="deck-edit-button focusOn"
+                   md-svg-src="assets/icons/visibility_off_36px.svg"
+                   ng-click="deckEdit.changeVisibility(card)"></md-icon>
+        </div>
         <div class="card-button">
           <md-tooltip id="removeCardButtonTooltip" md-direction="top">{{'deck-REMOVE_CARD' | translate}}</md-tooltip>
           <md-icon class="deck-remove-button"

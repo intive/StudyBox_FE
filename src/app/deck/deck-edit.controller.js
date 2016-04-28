@@ -21,6 +21,23 @@
     vm.clear = clear;
     vm.emptyNameError = DeckService.getEmptyNameError();
     vm.access = $stateParams.access;
+    vm.changeVisibility = changeVisibility;
+
+    function changeVisibility(card){
+      return BackendService.getDeckById($stateParams.deckId)
+        .then(function success(data) {
+          vm.deck = data;
+          return vm.deck.updateFlashcard(card.id, card.question, card.answer, !card.isHidden)
+        },
+        function error(){
+          var message = 'I cant get deck';
+          alert(message);
+          throw message;
+        })
+        .then(function reload(){
+          $state.reload();
+        })
+    }
 
     function deckNameChange(item) {
       if (item) return;
