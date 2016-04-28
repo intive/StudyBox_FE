@@ -24,7 +24,8 @@
       <md-list-item md-ink-ripple
               layout="row"
               layout-align="start center"
-              ng-click="navbar.showPublicCards()">
+              ng-click="navbar.showPublicCards()"
+              ng-if="navbar.isLogged()">
 
         <md-icon md-svg-src="assets/icons/public.svg"></md-icon>
         <span flex>{{'navbar-PUBLIC_CARDS' | translate}}</span>
