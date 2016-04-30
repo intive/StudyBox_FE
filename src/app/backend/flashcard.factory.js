@@ -59,6 +59,8 @@
 
       function jsonToTip(data) {
         var tip = new Tip();
+        tip.deckId = this.deckId;
+        tip.flashcardId = this.id;
         tip.id = data.id;
         tip.essence = data.essence;
         tip.difficult = data.difficult;
