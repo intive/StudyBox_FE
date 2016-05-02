@@ -34,8 +34,8 @@
           alert(message);
           throw message;
         })
-        .then(function reload(){
-          $state.reload();
+        .then(function change(){
+          card.isHidden = !card.isHidden;
         })
     }
 
