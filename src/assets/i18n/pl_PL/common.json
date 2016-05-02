@@ -19,6 +19,9 @@
     "deck-HIDE_FLASHCARD": "Ukryj fiszkę",
     "deck-REVEAL_FLASHCARD": "Odkryj fiszskę",
     "deck-HIDDEN": "Fiszka ukryta",
+    "deck-ALL_HIDDEN_TITLE": "Nie można rozpocząć egzaminu",
+    "deck-ALL_HIDDEN_TEXT_CONTENT": "Wszystkie fiszki są ukryte!",
+    "deck-ALL_HIDDEN_OK": "Rozumiem",
 
     "registration-FORM_TITLE": "Rejestracja",
     "registration-REQUIRED_FIELD": "To pole jest wymagane",
