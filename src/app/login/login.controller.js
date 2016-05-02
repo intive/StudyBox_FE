@@ -28,12 +28,17 @@
       LoginService.doLogin(user, pass, loginUrl)
       .then(
         function(data) {
-          $log.info("Kontroler: " + data);                 
+          $log.info("Kontroler: " + data);
           if(vm.deckId) {
-            if(vm.deckEdit) {
+            if(vm.deckEdit == "d-e") {
               $state.go("deck.addCard", {"deckId": vm.deckId , cardId: null});
             } else {
+              if(vm.deckEdit == "d-p"){
+              $state.go("deck-preview", {"deckId": vm.deckId});
+              }
+              else{
               $state.go("my-deck-preview", {"deckId": vm.deckId});
+              }
             }
           } else {
             $state.go(targetState);

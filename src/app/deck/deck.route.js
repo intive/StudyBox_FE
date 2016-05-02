@@ -27,7 +27,7 @@
               $state.go("decks");
             }
             else{
-              $state.go("login");
+              $state.go("decks", {access: "public"});
             }
           }
           else{
@@ -60,13 +60,20 @@
             .then(function success() {
           },
           function error(data){
+            if(data.code == 400 || data.code == 404){
               alert(data.message);
               if(LoginHelperService.isLogged()){
                 $state.go("decks");
               }
               else{
-                $state.go("login");
+                $state.go("decks", {access: "public"});
               }
+            }
+            else{
+            alert(data.message);
+            $state.go("login/:deckId/:deckEdit", {"deckId": deckId, "deckEdit": "d-p"});
+            LoginHelperService.doLogout();
+          }
           })
           }
       })
@@ -90,7 +97,7 @@
                 $state.go("decks");
               }
               else{
-                $state.go("login");
+                $state.go("decks", {access: "public"});
               }
             }
             else{
