@@ -21,7 +21,7 @@
           .then(function success() {
         },
         function error(data){
-          if(data.code == 400){
+          if(data.code == 400 || data.code == 404){
             alert(data.message);
             if(LoginHelperService.isLogged()){
               $state.go("decks");
