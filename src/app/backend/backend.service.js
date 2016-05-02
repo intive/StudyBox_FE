@@ -126,6 +126,7 @@
           deck.name = response.data[i].name;
           deck.id = response.data[i].id;
           deck.isPublic = response.data[i].isPublic;
+          deck.creatorEmail = response.data[i].creatorEmail;
           if(response.data[i].flashcardsCount)
             deck.flashcardsCount = response.data[i].flashcardsCount;
           decks.push(deck);
