@@ -171,7 +171,6 @@
     function Deck() {
       this.id = null;
       this.name = null;
-      this.creatorEmail = null;
 
       this.getFlashcards = getFlashcards;
       this.createFlashcard = createFlashcard;
