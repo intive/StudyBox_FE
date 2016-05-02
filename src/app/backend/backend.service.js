@@ -63,6 +63,7 @@
           deck.id = response.data.id;
           deck.name = response.data.name;
           deck.isPublic = response.data.publicVisible;
+          deck.creatorEmail = response.data.creatorEmail;
           return deck;
         },
         function error(response) {
@@ -169,6 +170,7 @@
     function Deck() {
       this.id = null;
       this.name = null;
+      this.creatorEmail = null;
 
       this.getFlashcards = getFlashcards;
       this.createFlashcard = createFlashcard;
