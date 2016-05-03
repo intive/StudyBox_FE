@@ -16,6 +16,9 @@
         onEnter: function(LoginHelperService, $state, $stateParams, BackendService, $translate){
 
           var deckId = $stateParams.deckId;
+          if(deckId == ""){
+            $state.go("login")
+          }
 
           BackendService.getDeckById(deckId)
           .then(function success(data) {
@@ -95,6 +98,9 @@
           onEnter: function(LoginHelperService, $state, $stateParams, BackendService, $translate){
 
             var deckId = $stateParams.deckId;
+            if(deckId == ""){
+            $state.go("login")
+          }
 
             BackendService.getDeckById(deckId)
             .then(function success(data) {
