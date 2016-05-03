@@ -52,6 +52,7 @@
     "login-INVALID_FORMAT": "Niepoprawne hasło!",
     "login-TO_PUBLIC_SERVICE": "WEJDŹ ANONIMOWO",
     "login-GUEST": "GOŚĆ",
+    "login-OTHER_ACCOUNT": "ZALOGUJ SIĘ NA INNE KONTO",
 
     "addCard-WRITE_QUESTION": "Wpisz pytanie",
     "addCard-WRITE_HINT": "Wpisz podpowiedź",
