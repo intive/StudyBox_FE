@@ -24,9 +24,9 @@ function RegistrationController($document, $log, $window, $rootScope, $mdDialog,
         method: 'POST',
         url: '/api/users',
         data: {
-          'email': "'"+vm.data.email+"'",
-          'name': "''",
-          'password': "'"+vm.data.password+"'"
+          'email': vm.data.email,
+          'name': '',
+          'password': vm.data.password
         }
       }).then(function successCallback() {
         //alert(angular.toJson (response.data));

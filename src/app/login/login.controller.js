@@ -5,7 +5,7 @@
   .module('login')
   .controller('LoginController', LoginController);
 
-  function LoginController($state, LoginService, $stateParams) {
+  function LoginController($state, LoginService, $stateParams, LoginHelperService, $log, $q) {
     var vm = this;
     vm.formStatus = '';
     vm.submit = submit;
@@ -20,32 +20,36 @@
       }
       var user = vm.data.email;
       var pass = vm.data.password;
-      var loginUrl = "api/decks/";
+      var loginUrl = "api/decks/me";
       var targetState = "decks";
+      var token = btoa(user + ":" + pass);
+      LoginHelperService.setCookie(user, token);
+      $log.info("cookies are set");
       LoginService.doLogin(user, pass, loginUrl)
-      .then(function(data){
-        if(data.status === 200) {
-
-          if(vm.deckId)
-          {
-            if(vm.deckEdit)
-            {
-            $state.go("deck.addCard", {"deckId": vm.deckId , cardId: null});
+      .then(
+        function(data) {
+          $log.info("Kontroler: " + data);
+          if(vm.deckId) {
+            if(vm.deckEdit == "d-e") {
+              $state.go("deck.addCard", {"deckId": vm.deckId , cardId: null});
+            } else {
+              if(vm.deckEdit == "d-p"){
+              $state.go("deck-preview", {"deckId": vm.deckId});
+              }
+              else{
+              $state.go("my-deck-preview", {"deckId": vm.deckId});
+              }
             }
-            else
-            {
-            $state.go("my-deck-preview", {"deckId": vm.deckId})
-            }
-          }
-          else
-          {
+          } else {
             $state.go(targetState);
           }
-
-        }else{
-          alert("Kontroler: logowanie nieudane!\n\n" + "HTTP: " + data.status + "\n" + data.statusText);
-        }
-      });
+        },
+        function(data){
+          LoginHelperService.setCookie();
+          $log.info("cookies resetted");
+          alert("Logowanie nieudane!\n" + "HTTP: " + data.status + "\n" + data.data.message);
+          $q.reject(data);
+        });
     }
   }
 })();

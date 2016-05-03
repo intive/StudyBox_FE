@@ -6,7 +6,7 @@
     .controller('DeckEditController', DeckEditController);
 
   /** @ngInject */
-  function DeckEditController($stateParams, $state, BackendService, $log, DeckService, $mdDialog, $translate) {
+  function DeckEditController($stateParams, $state, BackendService, $log, DeckService, $mdDialog, $translate, $document) {
     var vm = this;
     vm.deckId = $stateParams.deckId;
     vm.selectedDeck = new BackendService.Deck();
@@ -21,6 +21,51 @@
     vm.clear = clear;
     vm.emptyNameError = DeckService.getEmptyNameError();
     vm.access = $stateParams.access;
+    vm.changeVisibility = changeVisibility;
+    vm.checkIfAllHidden = checkIfAllHidden;
+
+    function checkIfAllHidden(){
+
+        vm.visibleCards = vm.cards.filter(hideFilter(false));
+
+        if(vm.visibleCards.length == 0){
+          $mdDialog.show(
+            $mdDialog.alert()
+              .parent(angular.element($document[0].querySelector('#popupContainer')))
+              .clickOutsideToClose(true)
+              .title($translate.instant('deck-ALL_HIDDEN_TITLE'))
+              .textContent($translate.instant('deck-ALL_HIDDEN_TEXT_CONTENT'))
+              .ariaLabel('All are hidden')
+              .ok($translate.instant('deck-ALL_HIDDEN_OK'))
+          );
+          }
+        else{
+          $state.go('test', { deckId: vm.deckId})
+            }
+
+    }
+
+    function hideFilter(isHidden) {
+      return function filterFn(card) {
+        return (card.isHidden === isHidden);
+      };
+    }
+
+    function changeVisibility(card){
+      return BackendService.getDeckById($stateParams.deckId)
+        .then(function success(data) {
+          vm.deck = data;
+          return vm.deck.updateFlashcard(card.id, card.question, card.answer, !card.isHidden)
+        },
+        function error(){
+          var message = 'I cant get deck';
+          alert(message);
+          throw message;
+        })
+        .then(function change(){
+          card.isHidden = !card.isHidden;
+        })
+    }
 
     function deckNameChange(item) {
       if (item) return;

@@ -18,9 +18,27 @@
     vm.editCard = editCard;
     vm.removeCard = removeCard;
     vm.clear = clear;
+    vm.changeVisibility = changeVisibility;
 
 
     vm.access = $stateParams.access;
+
+    function changeVisibility(card){
+      return BackendService.getDeckById($stateParams.deckId)
+        .then(function success(data) {
+          vm.deck = data;
+          return vm.deck.updateFlashcard(card.id, card.question, card.answer, !card.isHidden)
+        },
+        function error(){
+          var message = 'I cant get deck';
+          alert(message);
+          throw message;
+        })
+        .then(function change(){
+          card.isHidden = !card.isHidden;
+        })
+    }
+
 
     function getDecks(query) {
       //for not loading list of deck on page init

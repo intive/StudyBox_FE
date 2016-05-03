@@ -10,12 +10,13 @@
                            orderByLocaleAwareConfig) {
     var vm = this;
     vm.getDecks = getDecks;
+    vm.count = true;
 
     orderByLocaleAwareConfig.localeId = 'pl';
 
     function getDecks() {
       vm.access = $stateParams.access;
-      BackendService.getDecks(vm.access)
+      BackendService.getDecks(vm.access, vm.count)
       .then(function (result) {
         vm.categories=result;
       }, function (e) {

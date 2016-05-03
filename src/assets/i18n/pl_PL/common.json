@@ -16,6 +16,13 @@
     "deck-YES": "Tak",
     "deck-NO": "Anuluj",
     "deck-OFFLINE_REMOVE_CARD_MODAL": "Jesteś offline, nie możesz teraz usunąć fiszki.",
+    "deck-HIDE_FLASHCARD": "Ukryj fiszkę",
+    "deck-REVEAL_FLASHCARD": "Odkryj fiszskę",
+    "deck-HIDDEN": "Fiszka ukryta",
+    "deck-ALL_HIDDEN_TITLE": "Nie można rozpocząć egzaminu",
+    "deck-ALL_HIDDEN_TEXT_CONTENT": "Wszystkie fiszki są ukryte!",
+    "deck-ALL_HIDDEN_OK": "Rozumiem",
+    "deck-NOT_AN_OWNER": "Nie jesteś właścicielem tej talii.",
 
     "registration-FORM_TITLE": "Rejestracja",
     "registration-REQUIRED_FIELD": "To pole jest wymagane",
@@ -46,6 +53,7 @@
     "login-INVALID_FORMAT": "Niepoprawne hasło!",
     "login-TO_PUBLIC_SERVICE": "WEJDŹ ANONIMOWO",
     "login-GUEST": "GOŚĆ",
+    "login-OTHER_ACCOUNT": "ZALOGUJ SIĘ NA INNE KONTO",
 
     "addCard-WRITE_QUESTION": "Wpisz pytanie",
     "addCard-WRITE_HINT": "Wpisz podpowiedź",
@@ -58,8 +66,6 @@
     "addCard-ADD_DECK_FROM_FILE": "Dodaj talię z pliku",
     "addCard-REMOVE_IMAGE": "Usuń zdjęcie",
     "addCard-REMOVE_HINT": "Usuń podpowiedź",
-    "addCard-HIDE_FLASHCARD": "Ukryj fiszkę",
-    "addCard-REVEAL_FLASHCARD": "Odkryj fiszskę",
 
     "navbar-PLACEHOLDER": "Wybierz talię",
     "navbar-NOT_FOUND": "Nie znaleziono talii ",

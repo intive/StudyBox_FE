@@ -18,7 +18,7 @@
         <span md-highlight-text="deckPreview.searchText">{{item.name}}</span>
       </md-item-template>
     </md-autocomplete>
-    <div ng-if="deckPreview.searchText" ng-click="deckPreview.clear()" class="deck-clear">x</div>
+    <div ng-if="deckPreview.searchText" ng-click="deckPreview.clear()" class="deck-clear focusOn">x</div>
 </div>
 
 
@@ -37,9 +37,14 @@
       </md-card-title>
 
       <md-card-actions layout="row" layout-align="end center">
+        <div class="card-button" ng-if="card.isHidden">
+          <md-tooltip id="hidden" md-direction="top">{{'deck-HIDDEN' | translate}}</md-tooltip>
+          <md-icon class="visibility focusOn"
+                   md-svg-src="assets/icons/visibility_off_36px.svg"></md-icon>
+        </div>
         <md-button class="md-icon-button">
             <md-tooltip id="hintsListDialogTooltip" md-direction="top">Lista podpowiedzi</md-tooltip>
-            <md-icon class="deck-remove-button" md-svg-icon="assets/icons/show_hints.svg" ng-click="deckPreview.hintsListDialog($event)"></md-icon>
+            <md-icon class="deck-remove-button focusOn" md-svg-icon="assets/icons/show_hints.svg" ng-click="deckPreview.hintsListDialog($event)"></md-icon>
         </md-button>
       </md-card-actions>
 
