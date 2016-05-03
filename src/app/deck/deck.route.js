@@ -13,12 +13,21 @@
         url: '/deck-edit/:deckId',
         templateUrl: 'app/deck/deck.page.html',
         params: {access: 'private'},
-        onEnter: function(LoginHelperService, $state, $stateParams, BackendService){
+        onEnter: function(LoginHelperService, $state, $stateParams, BackendService, $translate){
 
           var deckId = $stateParams.deckId;
 
           BackendService.getDeckById(deckId)
-          .then(function success() {
+          .then(function success(data) {
+            if(LoginHelperService.getUserEmail() != data.creatorEmail){
+              alert($translate.instant("deck-NOT_AN_OWNER"));
+              if(LoginHelperService.isLogged()){
+              $state.go("decks");
+            }
+            else{
+              $state.go("decks", {access: "public"});
+            }
+            }
         },
         function error(data){
           if(data.code == 400 || data.code == 404){
@@ -83,12 +92,21 @@
           controller: 'MyDeckPreviewController',
           controllerAs: 'myDeckPreview',
           templateUrl: 'app/deck/my-deck-preview.page.html',
-          onEnter: function(LoginHelperService, $state, $stateParams, BackendService){
+          onEnter: function(LoginHelperService, $state, $stateParams, BackendService, $translate){
 
             var deckId = $stateParams.deckId;
 
             BackendService.getDeckById(deckId)
-            .then(function success() {
+            .then(function success(data) {
+            if(LoginHelperService.getUserEmail() != data.creatorEmail){
+              alert($translate.instant("deck-NOT_AN_OWNER"));
+              if(LoginHelperService.isLogged()){
+              $state.go("decks");
+            }
+            else{
+              $state.go("decks", {access: "public"});
+            }
+            }
           },
           function error(data){
             if(data.code == 400 || data.code == 404){

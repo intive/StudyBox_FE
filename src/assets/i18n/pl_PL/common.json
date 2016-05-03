@@ -22,6 +22,7 @@
     "deck-ALL_HIDDEN_TITLE": "Nie można rozpocząć egzaminu",
     "deck-ALL_HIDDEN_TEXT_CONTENT": "Wszystkie fiszki są ukryte!",
     "deck-ALL_HIDDEN_OK": "Rozumiem",
+    "deck-NOT_AN_OWNER": "Nie jesteś właścicielem tej talii.",
 
     "registration-FORM_TITLE": "Rejestracja",
     "registration-REQUIRED_FIELD": "To pole jest wymagane",
