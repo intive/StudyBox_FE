@@ -35,6 +35,7 @@
     this.getDecksByName = getDecksByName;
     this.getDecks = getDecks;
     this.createNewDeck = createNewDeck;
+    this.drawRandomDeck = drawRandomDeck;
 
     this.Deck = Deck;  // class
 
@@ -269,6 +270,22 @@
       return $http({method: method, url: url, data: data})
       .then(
         function success(response) {
+          return response;
+        },
+        function error(response) {
+          return $q.reject(response.data);
+        }
+      );
+    }
+
+    function drawRandomDeck(){
+      var method = 'GET';
+      var url = '/api/decks?random=true';
+
+      return $http({method: method, url: url})
+        .then(
+        function success(response) {
+
           return response.data;
         },
         function error(response) {
@@ -276,6 +293,7 @@
         }
       );
     }
+
   }
 
 })();

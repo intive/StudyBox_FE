@@ -32,7 +32,16 @@
 
       </md-list-item>
 
+      <md-list-item md-ink-ripple
+                    layout="row"
+                    layout-align="start center"
+                    ng-click="navbar.drawRandomDeck()">
+        <md-icon md-svg-src="assets/icons/drawRandomDeck.svg"></md-icon>
+        <span flex>{{'navbar-DRAW_RANDOM_DECK' | translate}}</span>
+      </md-list-item>
+
       <md-divider ng-if="navbar.isLogged()"></md-divider>
+
 
       <md-list-item md-ink-ripple
                  layout="row"
