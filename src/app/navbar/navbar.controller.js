@@ -7,10 +7,14 @@
 
 
   /** @ngInject */
-  function NavbarController($state, $timeout, $q, $log, $document, BackendService, $mdSidenav, $stateParams, LoginHelperService, md5, $mdDialog, $translate) {
+  function NavbarController($state, $timeout, $q, $log, $document, md5,
+                            BackendService, $mdSidenav, $stateParams,
+                            LoginHelperService, $mdDialog, $translate) {
 
     var vm = this;
     vm.uiRouterState = $state;
+
+    vm.decks = null;
 
     vm.access = $stateParams.access;
 
@@ -32,23 +36,27 @@
 
     vm.notLogged = notLogged;
 
+    vm.clearTextOnInputClose = clearTextOnInputClose;
+
     function notLogged(ev){
 
-          var confirm = $mdDialog.confirm()
-                .title($translate.instant('navbar-DIALOG_TITLE'))
-                .textContent($translate.instant('navbar-DIALOG_TEXT_CONTENT'))
-                .ariaLabel($translate.instant('navbar-DIALOG_ARIA_LABEL'))
-                .targetEvent(ev)
-                .ok($translate.instant('navbar-DIALOG_OK'))
-                .cancel($translate.instant('navbar-DIALOG_CANCEL'));
-          $mdDialog.show(confirm).then(function() {
-            $state.go("login");
-          });
+      var confirm = $mdDialog.confirm()
+        .title($translate.instant('navbar-DIALOG_TITLE'))
+        .textContent($translate.instant('navbar-DIALOG_TEXT_CONTENT'))
+        .ariaLabel($translate.instant('navbar-DIALOG_ARIA_LABEL'))
+        .targetEvent(ev)
+        .ok($translate.instant('navbar-DIALOG_OK'))
+        .cancel($translate.instant('navbar-DIALOG_CANCEL'));
+      $mdDialog.show(confirm).then(function() {
+        $state.go("login");
+      });
       }
 
 
-    function generateGravatarUrl(email)
-    {
+    function generateGravatarUrl(email) {
+      if(!email)
+        return;
+
       var url = email.trim();
       url = url.toLowerCase();
       url = md5.createHash(url || '');
@@ -90,13 +98,7 @@
 
     function selectDeck(item) {
       if (item) {
-        var url;
-        if(vm.access == 'private') {
-          url = 'deck.addCard';
-        } else {
-          url = 'deck-preview';
-        }
-        $state.go(url, {deckId: item.id});
+        $state.go('deck-preview', {deckId: item.id});
         item = null;
       }
     }
@@ -107,45 +109,31 @@
     }
 
     function changePage() {
-
-      var url;
-      if(vm.access == 'private') {
-        url = 'deck.addCard';
-      } else {
-        url = 'deck-preview';
-      }
-
-      if (vm.selectedItem === null) {
-        $state.go(url);
-      } else {
-        if (vm.searchText !== "")
-          $state.go(url, {deckId: vm.selectedItem.id});
-        else
-          $state.go(url);
+      if(vm.decks) {
+        var deck = vm.decks[0];
+        if(deck && vm.searchText === deck.name)
+          $state.go('deck-preview', {deckId: deck.id, notify: true});
       }
     }
 
     function querySearch (query) {
+      query = query.trim();
+      if(query.length > 100)
+        return;
 
-      if (!vm.decks)
-        vm.decks = BackendService.getDecks(vm.access);
-
-      return vm.decks
-      .then(function (result) {
-        var list = query ? result.filter(createFilterFor(query)) : result,
-          deferred;
-          deferred = $q.defer();
-          $timeout(function () { deferred.resolve( list ); }, Math.random() * 1000, false);
-          return deferred.promise;
-      });
+      return BackendService.getDecksByName(query).then(
+        function success(decks) {
+          vm.decks = decks;
+          return decks;
+        },
+        function error() {
+          return [];
+        });
     }
 
-    function createFilterFor(query) {
-      var lowercaseQuery = angular.lowercase(query);
-      return function filterFn(deck) {
-        if(deck.name)
-          return (deck.name.toLowerCase().indexOf(lowercaseQuery) === 0);
-      };
+    function clearTextOnInputClose(expand) {
+      if(!expand)
+        vm.searchText = '';
     }
   }
 
