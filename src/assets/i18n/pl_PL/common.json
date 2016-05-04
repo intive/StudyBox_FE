@@ -63,8 +63,7 @@
     "addCard-REMOVE_HINT": "Usuń podpowiedź",
 
     "navbar-PLACEHOLDER": "Wybierz talię",
-    "navbar-NOT_FOUND": "Nie znaleziono talii ",
-    "navbar-NOT_FOUND2": "Stwórz nową.",
+    "navbar-DECK_NOT_FOUND": "Nie znaleziono talii o podanej nazwie",
     "navbar-ADD": "Dodaj",
     "navbar-NEW_DECK": "Nowa talia",
     "navbar-NEW_CARD_FROM_FILE": "Nowa fiszka z pliku",

@@ -13,36 +13,51 @@
          flex-sm="90" flex-xs="90" flex="30"
          layout="row" layout-align="end start">
 
-      <form ng-submit="navbar.changePage()" id="searchAutocomplete" ng-class="{'searchForm': !expand, 'showUp': expand}">
+      <form ng-submit="navbar.changePage()"
+            id="searchAutocomplete"
+            ng-class="{'searchForm': !expand, 'showUp': expand}">
 
             <md-autocomplete
+                md-delay="500"
+                md-no-cache="true"
                 md-selected-item="navbar.selectedItem"
                 md-search-text="navbar.searchText"
                 md-items="item in navbar.querySearch(navbar.searchText)"
                 md-item-text="item.name"
-                md-min-length="3"
+                md-min-length="2"
                 md-selected-item-change="navbar.selectDeck(item)"
                 placeholder="{{'navbar-PLACEHOLDER' | translate}}"
                 md-input-id="searchInput"
                 id="searchBar">
 
               <md-item-template>
-                <span md-highlight-text="navbar.searchText" md-highlight-flags="^i">{{item.name}}</span>
+                <span md-highlight-text="navbar.searchText"
+                      md-highlight-flags="^i">
+                  {{item.name}}
+                </span>
               </md-item-template>
 
               <md-not-found>
-                <a ng-click="navbar.newDeck()">
-                  {{'navbar-NOT_FOUND' | translate}} "{{navbar.searchText}}". {{'navbar-NOT_FOUND2' | translate}}
-                </a>
+                {{'navbar-DECK_NOT_FOUND' | translate}}.
               </md-not-found>
 
             </md-autocomplete>
       </form>
     </div>
 
-    <md-button aria-label="search" ng-init="expand = false" ng-click="expand = !expand" id="searchButton" ng-class="{darkButton: expand}" ng-show="navbar.access == 'public'">
-      <md-icon md-svg-src="assets/icons/search.svg" id="searchButton2" ng-class="{'ng-hide': expand}"></md-icon>
-      <md-icon md-svg-src="assets/icons/clear.svg" id="searchButton3" ng-class="{'ng-hide': !expand}"></md-icon>
+    <md-button aria-label="search"
+               ng-init="expand = false"
+               ng-click="expand = !expand; navbar.clearTextOnInputClose(expand)"
+               id="searchButton"
+               ng-class="{darkButton: expand}">
+      <md-icon md-svg-src="assets/icons/search.svg"
+               id="searchButton2"
+               ng-class="{'ng-hide': expand}">
+      </md-icon>
+      <md-icon md-svg-src="assets/icons/clear.svg"
+               id="searchButton3"
+               ng-class="{'ng-hide': !expand}">
+      </md-icon>
     </md-button>
 
     <new-deck-fab></new-deck-fab>
