@@ -25,18 +25,23 @@
         throw message;
       }
 
-      function update(new_prompt)
+      function update(new_prompt,difficult)
       {
         if(!new_prompt) throw_error('Must specify content of tip');
 
+        //chwilowe rozwiązanie
+        difficult = 0;
+
         var method = 'PUT';
         var url = '/api/decks/'+this.deckId+'/flashcards/'+this.flashcardId+'/tips/'+this.id;
-        var data = {prompt: new_prompt};
+        var data = {essence: new_prompt,difficult: difficult};
 
         return $http({method: method, url: url, data: data})
           .then(
           function success(response) {
-            this.prompt = response.data.prompt;
+            this.essence = response.data.essence;
+            this.difficult = response.data.difficult;
+            this.id = response.data.id;
           },
           function error(response) {
             return $q.reject(response.data);
