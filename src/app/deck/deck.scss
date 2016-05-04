@@ -2,9 +2,12 @@
   overflow:scroll;
 }
 
-.deck-card {
-  margin-bottom: 1em;
+.deck-autocomplete{
   margin-left: 1em;
+}
+
+.deck-card {
+  cursor: pointer;
 }
 
 .deck-card-title {
@@ -27,23 +30,47 @@
   font-size: medium;
 }
 
-.deck-select-button{
-  padding-left: 5px;
-  background: #0068B4 !important;
+.deck-content,
+.deck-content > span {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  width: inherit;
 }
 
-.deck-select-button:disabled{
-  background: #cfcfcf !important;
+.deck-edit-button>svg{
+  fill: #bdbdbd;
+}
+.deck-edit-button:hover>svg{
+  cursor: hand;
+  fill: #0068B4;
 }
 
-.deck-add-button{
-  padding-left: 5px;
-  background-color: #EA0061 !important;
+.deck-remove-button>svg{
+  fill: #bdbdbd;
+}
+.deck-remove-button:hover>svg{
+  cursor: hand;
+  fill: #EA0061;
 }
 
-.deck-add-button:disabled{
-  background-color: #cfcfcf !important;
+.deck-edit-button:disabled>svg{
+  fill: #fafafa;
 }
+
+.selected .deck-edit-button,
+.selected .deck-remove-button,
+{
+  opacity: 0.7;
+}
+
+.deck-edit-button:hover,
+.deck-remove-button:hover,
+.selected .deck-edit-button:hover,
+.selected .deck-remove-button:hover {
+  opacity: 0.9;
+}
+
+
 
 /* The starting CSS styles for the enter animation */
 .fade.ng-enter {
@@ -62,10 +89,39 @@
   margin-top: 1.5em;
   left: -1.5em;
   cursor: pointer;
-  color: #0068B4;
+  color: #bdbdbd;
   padding: 0;
   height: 1.2em;
 }
 .deck-clear:hover{
   cursor: hand;
+  color: #EA0061;
+}
+
+.deck-button{
+  position: relative;
+  z-index: 2;
+  cursor: pointer;
+  padding-top: 1.6em;
+  height: 1.2em;
+  float: right;
+}
+
+.card-button{
+  position: relative;
+  float: right;
+  padding: 0 0.3em;
+}
+
+.deck-checkbox {
+  margin-top: 2em;
+}
+
+.focusOn:focus{
+   outline: none;
+   border: 0;
+}
+
+.visibility:hover{
+    cursor: default;
 }

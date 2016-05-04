@@ -2,33 +2,29 @@
   'use strict';
 
   angular
-    .module('studyBoxFe')
+    .module('decks')
     .controller('DecksController', DecksController);
 
   /** @ngInject */
-  function DecksController(BackendService, $log) {
+  function DecksController(BackendService, $log, $stateParams,
+                           orderByLocaleAwareConfig) {
     var vm = this;
-    vm.isOpen = false;
-    vm.SearchIsOpen = false;
-    vm.toggle = toggle;
     vm.getDecks = getDecks;
+    vm.count = true;
+
+    orderByLocaleAwareConfig.localeId = 'pl';
 
     function getDecks() {
-      BackendService.getDecks()
-        .then(function (result) {
-          $log.log(result);
-          vm.categories=result;
-          }, function (e) {
-            $log.error(e);
-          });
+      vm.access = $stateParams.access;
+      BackendService.getDecks(vm.access, vm.count)
+      .then(function (result) {
+        vm.categories=result;
+      }, function (e) {
+        $log.error(e);
+      });
     }
 
     getDecks();
-
-    function toggle(){
-      vm.SearchIsOpen = !vm.SearchIsOpen;
-    }
-
-    }
+  }
 
 })();

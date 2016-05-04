@@ -1,0 +1,53 @@
+<div layout="row" layout-xs="column">
+
+    <md-autocomplete
+            flex="30"
+            ng-model="deckPreview.searchText"
+            md-input-name="deckField"
+            md-selected-item="deckPreview.selectedItem"
+            md-search-text="deckPreview.searchText"
+            md-items="item in deckPreview.getDecks(deckPreview.searchText)"
+            md-item-text="item.name"
+            md-search-text-change="deckPreview.getDecks(deckPreview.searchText)"
+            md-selected-item-change="deckPreview.selectDeck(item)"
+            md-min-length="0"
+            md-input-maxlength="50"
+            md-autoselect="true"
+            md-floating-label="{{'deck-TYPE_NAME' | translate}}">
+      <md-item-template>
+        <span md-highlight-text="deckPreview.searchText">{{item.name}}</span>
+      </md-item-template>
+    </md-autocomplete>
+    <div ng-if="deckPreview.searchText" ng-click="deckPreview.clear()" class="deck-clear focusOn">x</div>
+</div>
+
+
+<div layout="horizontal" layout-wrap>
+  <div ng-repeat="card in deckPreview.cards" flex-xs="100" flex-sm="50" flex="33">
+    <md-card ng-click="deckPreview.selectCard(card)"
+             class="deck-card"
+             ng-class="{'md-whiteframe-15dp': hover, 'md-whiteframe-8dp': card.id === deckPreview.selectedCardId}"
+             ng-mouseenter="hover = true" ng-mouseleave="hover = false">
+
+      <md-card-title>
+        <md-card-title-text class="deck-content">
+          <span class="md-headline">{{ card.question }}</span>
+          <span class="md-subhead">{{ card.answer }}</span>
+        </md-card-title-text>
+      </md-card-title>
+
+      <md-card-actions layout="row" layout-align="end center">
+        <div class="card-button" ng-if="card.isHidden">
+          <md-tooltip id="hidden" md-direction="top">{{'deck-HIDDEN' | translate}}</md-tooltip>
+          <md-icon class="visibility focusOn"
+                   md-svg-src="assets/icons/visibility_off_36px.svg"></md-icon>
+        </div>
+        <md-button class="md-icon-button">
+            <md-tooltip id="hintsListDialogTooltip" md-direction="top">Lista podpowiedzi</md-tooltip>
+            <md-icon class="deck-remove-button focusOn" md-svg-icon="assets/icons/show_hints.svg" ng-click="deckPreview.hintsListDialog($event)"></md-icon>
+        </md-button>
+      </md-card-actions>
+
+    </md-card>
+  </div>
+</div>
