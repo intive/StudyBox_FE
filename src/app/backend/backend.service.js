@@ -2,7 +2,7 @@
  * INSTRUKCJA OBSŁUGI
  *
  * getDeckById(id) - zwraca talię po jej ID
- * getDeckByName(name) - zwraca talię po nazwie
+ * getDecksByName(name) - zwraca listę talii po nazwie
  * getDecks(access) - zwraca wszystkie talie (obiekty typu Deck)
  *    access: 'public'|'private'
  * createNewDeck(name, access) - tworzy (na serwerze) nową talię
@@ -32,7 +32,7 @@
   function BackendService($http, $q) {
 
     this.getDeckById = getDeckById;
-    this.getDeckByName = getDeckByName;
+    this.getDecksByName = getDecksByName;
     this.getDecks = getDecks;
     this.createNewDeck = createNewDeck;
 
@@ -42,7 +42,7 @@
 
     function getDeckById(id) {
       if(angular.isUndefined(id) )
-        show_error('must specify deck id');
+        throw_error('must specify deck id');
 
       var method = 'GET';
       var url = '/api/decks/' + id;
@@ -50,7 +50,7 @@
       return promiseWithDeck(method, url);
     }
 
-    function show_error(message) {
+    function throw_error(message) {
       alert(message);
       throw message;
     }
@@ -74,14 +74,14 @@
       return promise;
     }
 
-    function getDeckByName(name) {
-      if(angular.isUndefined(name) )
-        show_error('must specify deck name');
+    function getDecksByName(name) {
+      if(!name)
+        throw_error('must specify deck name');
 
       var method = 'GET';
       var url = '/api/decks?name=' + name;
 
-      return promiseWithDeck(method, url);
+      return promiseWithDecks(method, url);
     }
 
     function getDecks(access, count) {
@@ -98,7 +98,7 @@
       else if(access == 'public')
         url = '/api/decks';
       else
-        show_error('wrong access (must be `public`|`private`)');
+        throw_error('wrong access (must be `public`|`private`)');
 
       if(count)
         url = url+'?flashcardsCount=true';
@@ -110,6 +110,9 @@
       var promise = $http({method: method, url: url})
       .then(
         function success(response) {
+          if(!response.data.length)
+            return $q.reject(response.data);
+
           return jsonToDecks(response);
         },
         function error(response) {
@@ -138,7 +141,7 @@
 
     function createNewDeck(name, access) {
       if(angular.isUndefined(name))
-        show_error('must specify deck name');
+        throw_error('must specify deck name');
 
       var method = 'POST';
       var url = '/api/decks';
@@ -190,7 +193,7 @@
 
       function createFlashcard(question, answer, isHidden) {
         if(angular.isUndefined(question) || angular.isUndefined(answer) )
-          show_error('must specify question and answer');
+          throw_error('must specify question and answer');
 
         var method = 'POST';
         /*jshint validthis:true */
@@ -203,7 +206,7 @@
       function updateFlashcard(id, question, answer, isHidden) {
         if(angular.isUndefined(id) || angular.isUndefined(question) ||
            angular.isUndefined(answer) )
-          show_error('must specify id, question and answer');
+          throw_error('must specify id, question and answer');
 
         var method = 'PUT';
         /*jshint validthis:true */
@@ -216,7 +219,7 @@
 
       function removeFlashcard(id) {
         if(angular.isUndefined(id) )
-          show_error('must specify id');
+          throw_error('must specify id');
 
         var method = 'DELETE';
         /*jshint validthis:true */
@@ -228,7 +231,7 @@
 
       function updateDeck(new_name, access) {
         if(angular.isUndefined(new_name) )
-          show_error('must specify new_name');
+          throw_error('must specify new_name');
 
         var method = 'PUT';
         /*jshint validthis:true */
