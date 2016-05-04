@@ -1,39 +1,61 @@
-<div md-content layout-padding ng-controller="LoginController as login" ng-cloak>
-    <div layout="column" layout-align="center center">
-          <md-card-title layout-align="center">
+<md-content ng-controller="LoginController as login" ng-cloak layout="row" layout-align="center center">
+  <div flex-xs="100" flex-gt-md="30" flex-gt-sm="40" flex-gt-xs="50">
+    <md-card>
+      <md-card-title layout-align="center">
         <md-card-title-media>
           <div class="md-media-sm logo">
-              <img ng-src="{{login.imagePath}}" class="md-card-image">
+              <img ng-src="assets/images/StudyBoxLogo_xx.png" class="md-card-image">
           </div>
         </md-card-title-media>
       </md-card-title>
+      <md-card-content>
         <div flex><h4>{{"login-FORM_TITLE" | translate}}</h4></div>
-
-        <form name="loginForm" ng-submit="login.submit(loginForm.$valid)">
+        <form name="loginForm" ng-submit="login.submit(loginForm.$valid)" novalidate>
 
             <md-input-container class="md-block">
-                <label>{{"login-EMAIL_FIELD" | translate}}</label>
-                <input required type="email" name="email" ng-model="login.data.email" ng-pattern="/^.+@.+\..+$/" />
-                <div ng-messages="loginForm.email.$error">
-                    <div ng-message="required">{{"login-TYPE_VALID_EMAIL" | translate}}</div>
-                    <div ng-message="pattern">{{"login-TYPE_VALID_EMAIL" | translate}}</div>
-                </div>
+              <label>{{"login-EMAIL_FIELD" | translate}}</label>
+              <input required type="email"
+              name="email"
+              ng-model="login.data.email" />
+              <div ng-messages="loginForm.email.$error"
+              role="alert"
+              md-auto-hide="false"
+              ng-show="loginForm.email.$touched">
+                <div ng-message="required">{{"login-REQUIRED_FIELD" | translate}}</div>
+                <div ng-message="email">{{"login-TYPE_VALID_EMAIL" | translate}}</div>
+              </div>
             </md-input-container>
 
             <md-input-container class="md-block">
-                <label>{{"login-PASSWORD_FIELD" | translate}}</label>
-                <input required type="password" name="password" minlength="8" ng-model="login.data.password" />
-                <div ng-messages="loginnForm.password.$error">
-                    <div ng-message="required">{{"login-INVALID_PASSWORD" | translate}}</div>
-
-                </div>
+              <label>{{"login-PASSWORD_FIELD" | translate}}</label>
+              <input required type="password"
+              name="password"
+              ng-minlength="8"
+              ng-model="login.data.password"
+              ng-pattern="login.passwordRegex"/>
+              <div ng-messages="loginForm.password.$error"
+              role="alert"
+              md-auto-hide="false"
+              ng-show="loginForm.password.$touched"
+              >
+                <div ng-message="required">{{"login-REQUIRED_FIELD" | translate}}</div>
+                <div ng-message="minlength">{{"login-FIELD_MIN_CHARS" | translate}}</div>
+                <div ng-message="pattern">{{"login-INVALID_FORMAT" | translate}}</div>
+              </div>
             </md-input-container>
 
             <div layout="column" layout-align="center stretch">
-                <md-button class="md-raised" type="submit" ng-disabled="loginForm.$invalid">{{"login-LOGIN_BUTTON" | translate}}</md-button>
-                <md-button class="md-raised" ng-href="#/registration">{{"login-NEW_USER_ACCOUNT" | translate}}</md-button>
+              <md-button
+              class="md-raised md-primary"
+              type="submit">{{"login-LOGIN_BUTTON" | translate}}</md-button>
+              <md-button ui-sref="registration">{{"login-NEW_USER_ACCOUNT" | translate}}</md-button>
+              <md-button ui-sref="decks({access: 'public'})">{{"login-TO_PUBLIC_SERVICE" | translate}}</md-button>
+              <md-button
+              ng-if="login.deckId"
+              ui-sref="login">{{"login-OTHER_ACCOUNT" | translate}}</md-button>
             </div>
-            
         </form>
-    </div>
-  </md-content>
+      </md-card-content>
+    </md-card>
+  </div>
+</md-content>
