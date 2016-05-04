@@ -60,7 +60,7 @@
       var url = email.trim();
       url = url.toLowerCase();
       url = md5.createHash(url || '');
-      url = url+"?s=100&d=mm";
+      url = url+"?size=100&d=mm";
       return url;
     }
 
