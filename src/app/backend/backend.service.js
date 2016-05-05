@@ -268,9 +268,9 @@
 
     function simplePromise(method, url, data) {
       return $http({method: method, url: url, data: data})
-      .then(
+        .then(
         function success(response) {
-          return response;
+          return response.data;
         },
         function error(response) {
           return $q.reject(response.data);
