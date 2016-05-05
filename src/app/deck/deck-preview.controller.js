@@ -16,8 +16,35 @@
     vm.selectDeck = selectDeck;
     vm.hintsListDialog = hintsListDialog;
     vm.cancelDialog = cancelDialog;
-
+    vm.checkIfAllHidden = checkIfAllHidden;
     vm.access = $stateParams.access;
+
+
+    function checkIfAllHidden(){
+      vm.visibleCards = vm.cards.filter(hideFilter(false));
+
+      if(vm.visibleCards.length == 0){
+        $mdDialog.show(
+          $mdDialog.alert()
+            .parent(angular.element($document[0].querySelector('#popupContainer')))
+            .clickOutsideToClose(true)
+            .title($translate.instant('deck-ALL_HIDDEN_TITLE'))
+            .textContent($translate.instant('deck-ALL_HIDDEN_TEXT_CONTENT'))
+            .ariaLabel('All are hidden')
+            .ok($translate.instant('deck-ALL_HIDDEN_OK'))
+        );
+      }
+      else{
+        $state.go('test', { deckId: vm.deckId})
+      }
+
+    }
+
+    function hideFilter(isHidden) {
+      return function filterFn(card) {
+        return (card.isHidden === isHidden);
+      };
+    }
 
     function getDecks(query) {
       //for not loading list of deck on page init

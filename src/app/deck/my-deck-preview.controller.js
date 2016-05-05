@@ -6,7 +6,7 @@
     .controller('MyDeckPreviewController', MyDeckPreviewController);
 
   /** @ngInject */
-  function MyDeckPreviewController($stateParams, $state, BackendService, $log, DeckService, $mdDialog, $translate) {
+  function MyDeckPreviewController($stateParams, $state, BackendService, $log, DeckService, $mdDialog, $translate, $document) {
     var vm = this;
     vm.deckId = $stateParams.deckId;
     vm.selectedDeck = new BackendService.Deck();
@@ -19,9 +19,35 @@
     vm.removeCard = removeCard;
     vm.clear = clear;
     vm.changeVisibility = changeVisibility;
-
-
+    vm.checkIfAllHidden = checkIfAllHidden;
     vm.access = $stateParams.access;
+
+
+    function checkIfAllHidden(){
+      vm.visibleCards = vm.cards.filter(hideFilter(false));
+
+      if(vm.visibleCards.length == 0){
+        $mdDialog.show(
+          $mdDialog.alert()
+            .parent(angular.element($document[0].querySelector('#popupContainer')))
+            .clickOutsideToClose(true)
+            .title($translate.instant('deck-ALL_HIDDEN_TITLE'))
+            .textContent($translate.instant('deck-ALL_HIDDEN_TEXT_CONTENT'))
+            .ariaLabel('All are hidden')
+            .ok($translate.instant('deck-ALL_HIDDEN_OK'))
+        );
+      }
+      else{
+        $state.go('test', { deckId: vm.deckId})
+      }
+
+    }
+
+    function hideFilter(isHidden) {
+      return function filterFn(card) {
+        return (card.isHidden === isHidden);
+      };
+    }
 
     function changeVisibility(card){
       return BackendService.getDeckById($stateParams.deckId)

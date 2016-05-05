@@ -1,6 +1,6 @@
 <div layout="row" layout-xs="column" layout-sm="column" class="addCard">
 
-  <div flex-gt-sm="65" flex-xs="grow" flex-sm="grow" layout-align="center stretch" class="separate">
+  <div flex flex-xs="grow" flex-sm="grow" layout-align="center stretch" class="separate">
     <md-content layout-padding class="siteParts" style="overflow: visible;">
       <form name="addCardForm" ng-submit="addCard.submitCard(addCardForm.$valid)">
         <md-input-container class="md-block md-whiteframe-4dp middleCard" md-no-float>
@@ -140,12 +140,4 @@
       </md-content>
   </div>
 
-  <div flex-gt-sm="35" flex-xs="grow" flex-sm="grow" class="separate">
-
-    <div layout="column" layout-align="center stretch" class="siteParts">
-      <md-button class="md-raised addCardButtons" ng-click="deckEdit.checkIfAllHidden()" style="margin-top:0px;">{{"addCard-START_TEST" | translate}}</md-button>
-
-      <md-button class="md-raised addCardButtons">{{"addCard-ADD_DECK_FROM_FILE" | translate}}</md-button>
-    </div>
-  </div>
 </div>
