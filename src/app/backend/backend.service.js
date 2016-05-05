@@ -63,7 +63,7 @@
           var deck = new Deck();
           deck.id = response.data.id;
           deck.name = response.data.name;
-          deck.isPublic = response.data.publicVisible;
+          deck.isPublic = response.data.isPublic;
           deck.creatorEmail = response.data.creatorEmail;
           return deck;
         },
@@ -134,6 +134,7 @@
           if(response.data[i].flashcardsCount)
             deck.flashcardsCount = response.data[i].flashcardsCount;
           decks.push(deck);
+          console.log(response)
         }
         return decks;
 
@@ -244,7 +245,7 @@
         .then(
           function success(response) {
             $this.name = response.data.name;
-            $this.isPublic = response.data.publicVisible;
+            $this.isPublic = response.data.isPublic;
 
             return response.data;
           },
