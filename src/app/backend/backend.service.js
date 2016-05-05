@@ -286,7 +286,7 @@
         .then(
         function success(response) {
 
-          return response.data;
+          return response;
         },
         function error(response) {
           return $q.reject(response.data);

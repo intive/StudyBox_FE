@@ -58,8 +58,9 @@
     {
       BackendService.drawRandomDeck().then(
         function success(response) {
-          alert(response.data.id);
-          $state.go("deck-preview",{deckId: response.data.id});
+          alert(angular.toJson(response.data[0].id));
+          $state.go("deck-preview",{deckId: response.data[0].id});
+          openLeftMenu();
         },
         function error(message) {
           alert(message);
