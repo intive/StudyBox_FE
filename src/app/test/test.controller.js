@@ -11,9 +11,12 @@
     var vm = this;
     vm.mode = 'question';
     vm.answer = answer;
-    vm.getTips = getTips;
+    vm.getCurrentTips = getCurrentTips;
+    vm.getPrevTip = getPrevTip;
+    vm.getNextTip = getNextTip;
     vm.currentQuestion = 0;
     vm.currentTip = 0;
+    vm.usedTips = [];
     vm.yes = 0;
     vm.no = 0;
 
@@ -34,7 +37,8 @@
         })
         .then(function () {
           getTips();
-        }, function (e) {
+        }
+        , function (e) {
           $log.error(e);
         });
     }
@@ -54,6 +58,22 @@
         }, function (e) {
           $log.error(e);
         });
+    }
+
+    function getCurrentTips() {
+      vm.mode = 'hint';
+      vm.usedTips[vm.currentQuestion] = 1;
+    }
+
+    function getPrevTip(){
+      vm.currentTip = vm.currentTip - 1;
+    }
+
+    function getNextTip(){
+      vm.currentTip = vm.currentTip + 1;
+      if (vm.currentTip > vm.usedTips[vm.currentQuestion]){
+        vm.usedTips[vm.currentQuestion] = vm.currentTip;
+      }
     }
 
     function answer(answer) {
@@ -77,6 +97,13 @@
       var allCorrect = (correct == all) ? true : false;
 
       var wrong = all - correct;
+
+      var total = 0;
+      vm.usedTips.forEach(function (question){
+        total = total + question
+      });
+
+      $log.info("used hints: " +total);
 
       $mdDialog.show({
         bindToController: true,
