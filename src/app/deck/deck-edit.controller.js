@@ -6,7 +6,7 @@
     .controller('DeckEditController', DeckEditController);
 
   /** @ngInject */
-  function DeckEditController($stateParams, $state, BackendService, $log, DeckService, $mdDialog, $translate) {
+  function DeckEditController($stateParams, $state, BackendService, $log, DeckService, $mdDialog, $translate, $mdConstant) {
     var vm = this;
     vm.deckId = $stateParams.deckId;
     vm.selectedDeck = new BackendService.Deck();
@@ -22,6 +22,9 @@
     vm.emptyNameError = DeckService.getEmptyNameError();
     vm.access = $stateParams.access;
     vm.changeVisibility = changeVisibility;
+    vm.keys = [$mdConstant.KEY_CODE.ENTER, $mdConstant.KEY_CODE.COMMA];
+    vm.tags = [];
+
 
     function changeVisibility(card){
       return BackendService.getDeckById($stateParams.deckId)
