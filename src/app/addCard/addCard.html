@@ -1,44 +1,143 @@
-<div layout="row" layout-xs="column" class="addCard">
+<div layout="row" layout-xs="column" layout-sm="column" class="addCard">
 
-  <div flex-gt-xs="45" flex-xs="grow" layout-align="center stretch" class="separate">
+  <div flex flex-xs="grow" flex-sm="grow" layout-align="center stretch" class="separate">
     <md-content layout-padding class="siteParts" style="overflow: visible;">
-      <!--sprawdzenie działania-->
-      deckId= {{addCard.deckId}}
-      cardId= {{addCard.cardId}}
-      <md-input-container class="md-block md-whiteframe-4dp middleCard" md-no-float>
-        <i class="material-icons camera" onclick="document.getElementById('fileInput1').click();">camera_alt</i>
-        <i id="addButton" class="material-icons hintCardAdd" hide-xs ng-click="AddCardController.toggleButton()">add_circle</i>
-        <textarea class="question" placeholder="Wpisz pytanie" ng-model="question" rows="5" md-select-on-focus></textarea>
-      </md-input-container>
+      <form name="addCardForm" ng-submit="addCard.submitCard(addCardForm.$valid)">
+        <md-input-container class="md-block md-whiteframe-4dp middleCard" md-no-float>
 
-      <md-input-container class="md-block hintDiv md-whiteframe-4dp middleCard" md-no-float hide-gt-xs show-xs>
-        <md-button id="hiddenIcon" class="md-raised material-icons hintCardRemove" ng-click="AddCardController.toggleButton()" style="margin-top: 10px;margin-bottom:10px;">add</md-button>
-      </md-input-container>
+          <div ngf-select
+               ng-model="questionFile"
+               name="questionFile"
+               ngf-pattern="'image/*'"
+               ngf-accept="'image/*'"
+               ngf-max-size="50MB" >
+            <i class="camera-position">
+              <md-icon md-svg-src="assets/icons/photo_camera_36px.svg" class="camera"></md-icon>
+            </i>
+          </div>
 
-      <md-input-container class="md-block md-whiteframe-4dp middleCard" id="hint" md-no-float style="display: none;">
-        <i class="material-icons camera" onclick="document.getElementById('fileInput2').click();">camera_alt</i>
-        <textarea class="hint" placeholder="Wpisz podpowiedź" ng-model="hint" rows="5" md-select-on-focus></textarea>
-      </md-input-container>
+          <md-button id="addButton" hide-xs hide-sm aria-label="add"
+                    class="md-fab color-dial hintCardAdd"
+                    ng-click="addCard.addHint()">
+            <md-tooltip id="addButtonTooltip" md-direction="right">{{addCard.addHintTranslate}}</md-tooltip>
+            <md-icon md-svg-src="assets/icons/add_36px.svg" style="display: inline; " ></md-icon>
+          </md-button>
+          <textarea
+            minlength="2"
+            maxlength="1000"
+            ng-paste="addCard.pasteChecker()"
+            ng-change="addCard.trimInput(addCard)"
+            ng-focus="addCard.questionFocus=true"
+            ng-blur="addCard.questionFocus=false"
+            ng-trim="false"
+            class="question"
+            placeholder='{{"addCard-WRITE_QUESTION" | translate}}'
+            ng-model="addCard.question" rows="5"
+            md-select-on-focus
+            required></textarea>
+          <div class="display: inline-block;" ng-show="questionFile">
+            <md-button ng-click="questionFile=null;"
+                      aria-label="closeImg"
+                      class="closePosition">{{"addCard-REMOVE_IMAGE" | translate}}</md-button>
+            <img style="text-align: center;" ng-show="addCard.questionFile.$valid" ngf-thumbnail="questionFile" class="imgStyle">
+          </div>
 
-      <md-input-container class="md-block md-whiteframe-4dp middleCard" md-no-float>
-        <i class="material-icons camera" onclick="document.getElementById('fileInput3').click();">camera_alt</i>
-        <textarea class="answer" placeholder="Wpisz odpowiedź" ng-model="answer" rows="5" md-select-on-focus></textarea>
-      </md-input-container>
+          <div ng-class="addCard.question.length == 1000 ? 'counterError' : 'counter'">
+              {{addCard.question.length}}
+          </div>
 
-      <input type="file" style="display: none;" id="fileInput1" name="myImage" accept="image/*" />
-      <input type="file" style="display: none;" id="fileInput2" name="myImage" accept="image/*" />
-      <input type="file" style="display: none;" id="fileInput3" name="myImage" accept="image/*" />
+        </md-input-container>
 
-      <md-button class="md-raised addCardButtons addCardButton" layout-align="end center">Dodaj do talii</md-button>
-    </md-content>
+        <!--RWD BUTTON:-->
+        <md-input-container class="md-block hintDiv md-whiteframe-4dp middleCard" md-no-float hide-gt-sm show-sm show-xs>
+          <md-button id="hiddenIcon"
+                    aria-label="add hint"
+                    class="md-fab color-dial hintCardRemove"
+                    ng-click="addCard.addHint()">
+            <md-tooltip id="addButtonTooltip" md-direction="top">{{addCard.addHintTranslate}}</md-tooltip>
+            <md-icon md-svg-src="assets/icons/add_36px.svg" style="display: inline; " ></md-icon>
+          </md-button>
+        </md-input-container>
+
+        <!--HINT AREA:-->
+        <div ng-repeat="hint in addCard.hints track by $index">
+          <md-input-container class="md-block md-whiteframe-4dp middleCard" md-no-float style="display: block;">
+            <div ngf-select
+                 ng-model="hintFile"
+                 name="hintFile"
+                 ngf-pattern="'image/*'"
+                 ngf-accept="'image/*'"
+                 ngf-max-size="50MB" >
+              <i class="camera-position">
+                <md-icon md-svg-src="assets/icons/photo_camera_36px.svg" class="camera"></md-icon>
+              </i>
+            </div>
+            <textarea
+              maxlength="1000"
+              minlength="2"
+              class="hint"
+              ng-trim="false"
+              placeholder='{{"addCard-WRITE_HINT" | translate}}'
+              ng-model="hint.inputArea" rows="5"
+              md-select-on-focus></textarea>
+            <div class="display: inline-block;" ng-show="hintFile">
+              <md-button ng-click="hintFile=null;" aria-label="closeImg" class="closePosition">{{"addCard-REMOVE_IMAGE" | translate}}</md-button>
+              <img style="text-align: center;" ng-show="addCard.hintFile.$valid" ngf-thumbnail="hintFile" class="imgStyle">
+            </div>
+
+            <div ng-class="hint.inputArea.length == 1000 ? 'counterError' : 'counter'">
+              {{hint.inputArea.length}}
+            </div>
+            <div class="removeHint">
+              <md-tooltip  md-direction="top">{{"addCard-REMOVE_HINT" | translate}}</md-tooltip>
+              <md-icon class="deck-remove-button"
+                   md-svg-src="assets/icons/clear.svg"
+                   ng-click="addCard.removeHint($index)"></md-icon>
+            </div>
+          </md-input-container>
+        </div>
+
+        <!--ANSWER AREA:-->
+        <md-input-container class="md-block md-whiteframe-4dp middleCard" md-no-float>
+          <div ngf-select
+               ng-model="answerFile"
+               name="answerFile"
+               ngf-pattern="'image/*'"
+               ngf-accept="'image/*'"
+               ngf-max-size="50MB" >
+            <i class="camera-position">
+              <md-icon md-svg-src="assets/icons/photo_camera_36px.svg" class="camera"></md-icon>
+            </i>
+          </div>
+          <textarea
+            minlength="2"
+            maxlength="1000"
+            ng-paste="addCard.pasteChecker()"
+            ng-change="addCard.trimInput(addCard)"
+            ng-focus="addCard.answerFocus=true"
+            ng-blur="addCard.answerFocus=false"
+            ng-trim="false"
+            class="answer"
+            placeholder='{{"addCard-WRITE_ANSWER" | translate}}'
+            ng-model="addCard.answer" rows="5"
+            md-select-on-focus
+            required></textarea>
+          <div class="display: inline-block;" ng-show="answerFile">
+            <md-button ng-click="answerFile=null;" aria-label="closeImg" class="closePosition">Usuń zdjęcie ✖</md-button>
+            <img style="text-align: center;" ng-show="addCard.answerFile.$valid" ngf-thumbnail="answerFile" class="imgStyle">
+          </div>
+
+          <div ng-class="addCard.answer.length == 1000 ? 'counterError' : 'counter'">
+              {{addCard.answer.length}}
+          </div>
+        </md-input-container>
+
+        <md-button type="submit" class="md-raised addCardButtons addCardButton"
+                   ng-if="!addCard.editMode" layout-align="end center">{{"addCard-ADD_TO_DECK" | translate}}</md-button>
+        <md-button type="submit" class="md-raised addCardButtons addCardButton"
+                   ng-if="addCard.editMode" layout-align="end center">{{"addCard-EDIT_CARD" | translate}}</md-button>
+        </form>
+      </md-content>
   </div>
 
-  <div flex-gt-xs="25" flex-xs="grow" class="separate">
-
-    <div layout="column" layout-align="center stretch" class="siteParts">
-      <md-button class="md-raised addCardButtons" style="margin-top:0px;">Rozpocznij test</md-button>
-
-      <md-button class="md-raised addCardButtons">Dodaj talię z pliku</md-button>
-    </div>
-  </div>
 </div>

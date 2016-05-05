@@ -1,18 +1,71 @@
-<md-content>
-  <md-toolbar class="md-menu-toolbar.md-primary" layout="column">
-    <md-toolbar-filler >
-    </md-toolbar-filler>
+<md-content  style="overflow:hidden;">
 
-      <div class="md-toolbar-tools">
+<top-navbar-elements></top-navbar-elements>
 
-        <md-icon md-svg-src="assets/icons/home.svg" ui-sref="decks"></md-icon>
+  <hamburger-menu></hamburger-menu>
 
-  	 </div>
+  <div layout="row"
+       layout-align="end start"
+       class="nav-buttons"
+       ng-show="navbar.uiRouterState.current.name == 'decks'">
 
-  </md-toolbar>
+    <div class="searchArea"
+         flex-sm="90" flex-xs="90" flex="30"
+         layout="row" layout-align="end start">
+
+      <form ng-submit="navbar.changePage()"
+            id="searchAutocomplete"
+            ng-class="{'searchForm': !expand, 'showUp': expand}">
+
+            <md-autocomplete
+                md-delay="500"
+                md-no-cache="true"
+                md-selected-item="navbar.selectedItem"
+                md-search-text="navbar.searchText"
+                md-items="item in navbar.querySearch(navbar.searchText)"
+                md-item-text="item.name"
+                md-min-length="2"
+                md-selected-item-change="navbar.selectDeck(item)"
+                placeholder="{{'navbar-PLACEHOLDER' | translate}}"
+                md-input-id="searchInput"
+                id="searchBar">
+
+              <md-item-template>
+                <span md-highlight-text="navbar.searchText"
+                      md-highlight-flags="^i">
+                  {{item.name}}
+                </span>
+              </md-item-template>
+
+              <md-not-found>
+                {{'navbar-DECK_NOT_FOUND' | translate}}.
+              </md-not-found>
+
+            </md-autocomplete>
+      </form>
+    </div>
+
+    <md-button aria-label="search"
+               ng-init="expand = false"
+               ng-click="expand = !expand; navbar.clearTextOnInputClose(expand)"
+               id="searchButton"
+               ng-class="{darkButton: expand}">
+      <md-icon md-svg-src="assets/icons/search.svg"
+               id="searchButton2"
+               ng-hide="expand">
+      </md-icon>
+      <md-icon md-svg-src="assets/icons/clear.svg"
+               id="searchButton3"
+               ng-hide="!expand">
+      </md-icon>
+    </md-button>
+
+    <new-deck-fab></new-deck-fab>
+
+  </div>
 
   <md-content layout-padding>
-    <div ui-view>
-    </div>
+    <div ui-view></div>
   </md-content>
+
 </md-content>

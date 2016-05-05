@@ -1,8 +1,10 @@
-<div layout="row" layout-wrap>
-  <div flex-sm="100" flex-xs="100" flex="35" flex-order="0">
-    <deck></deck>
+<div layout="row" layout-xs="column">
+
+  <div flex-gt-sm="40" flex-xs="40" flex-gt-sm="40" flex-sm="40" flex-gt-xs="grow" flex-order="0">
+    <deck-edit></deck-edit>
   </div>
-  <div ui-view flex-sm="100" flex-xs="100" flex="65" flex-order="1">
-    <add-card></add-card>
+
+  <div ui-view flex-gt-sm="60" flex-xs="60" flex-gt-sm="60" flex-sm="60" flex-gt-xs="grow" flex-order="1">
+    <!--<add-card></add-card>-->
   </div>
 </div>
