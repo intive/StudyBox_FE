@@ -32,7 +32,9 @@
 
     vm.getUserEmail = getUserEmail;
     vm.isLogged = isLogged;
+
     vm.generateGravatarUrl = generateGravatarUrl;
+    vm.drawRandomDeck = drawRandomDeck;
 
     vm.notLogged = notLogged;
 
@@ -50,8 +52,20 @@
       $mdDialog.show(confirm).then(function() {
         $state.go("login");
       });
-      }
+    }
 
+    function drawRandomDeck()
+    {
+      BackendService.drawRandomDeck().then(
+        function success(response) {
+          alert(angular.toJson(response.data[0].id));
+          $state.go("deck-preview",{deckId: response.data[0].id});
+          openLeftMenu();
+        },
+        function error(message) {
+          alert(message);
+        });
+    }
 
     function generateGravatarUrl(email) {
       if(!email)
