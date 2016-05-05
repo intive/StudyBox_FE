@@ -7,7 +7,7 @@
 
   /** @ngInject */
   function TestController(BackendService, TipsService, $log, $stateParams,
-                          $mdDialog, $state, $translate) {
+                          $mdDialog, $state) {
     var vm = this;
     vm.mode = 'question';
     vm.answer = answer;

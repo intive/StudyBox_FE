@@ -19,6 +19,10 @@
       </md-item-template>
     </md-autocomplete>
     <div ng-if="deckPreview.searchText" ng-click="deckPreview.clear()" class="deck-clear focusOn">x</div>
+
+    <div flex layout="row" layout-align="end start" class="siteParts">
+      <md-button class="md-raised addCardButtons" ng-click="deckPreview.checkIfAllHidden()">{{"addCard-START_TEST" | translate}}</md-button>
+    </div>
 </div>
 
 
