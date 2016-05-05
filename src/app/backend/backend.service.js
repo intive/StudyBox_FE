@@ -134,7 +134,6 @@
           if(response.data[i].flashcardsCount)
             deck.flashcardsCount = response.data[i].flashcardsCount;
           decks.push(deck);
-          console.log(response)
         }
         return decks;
 
