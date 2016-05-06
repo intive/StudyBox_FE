@@ -10,7 +10,7 @@
   <span layout="row"><hr flex/></span>
   <md-card-actions layout="row" layout-align="center center">
     <div class="card-button">
-      <md-button ng-disabled="!test.cards[test.currentQuestion].tips" ng-click="test.mode = 'hint'">{{'test-HINT' | translate}}</md-button>
+      <md-button ng-disabled="!test.cards[test.currentQuestion].tips" ng-click="test.getCurrentTips()">{{'test-HINT' | translate}}</md-button>
     </div>
   </md-card-actions>
 </md-card>
