@@ -3,7 +3,8 @@
 
     <md-toolbar class="md-theme-light">
         <div layout="column"  layout-align="center center" class="md-toolbar-bottom inset">
-          <img ng-src="http://www.gravatar.com/avatar/{{ navbar.generateGravatarUrl(navbar.getUserEmail()) }}" class="md-avatar">
+          <img ng-src="http://www.gravatar.com/avatar/{{ navbar.generateGravatarUrl(navbar.getUserEmail()) }}"
+               class="md-avatar">
           <div class="md-subhead" id="email">{{ navbar.getUserEmail() }}</div>
         </div>
     </md-toolbar>
@@ -18,17 +19,6 @@
 
         <md-icon md-svg-src="assets/icons/account_circle.svg"></md-icon>
         <span flex>{{'navbar-PRIVATE_CARDS' | translate}}</span>
-
-      </md-list-item>
-
-      <md-list-item md-ink-ripple
-              layout="row"
-              layout-align="start center"
-              ng-click="navbar.showPublicCards()"
-              ng-if="navbar.isLogged()">
-
-        <md-icon md-svg-src="assets/icons/public.svg"></md-icon>
-        <span flex>{{'navbar-PUBLIC_CARDS' | translate}}</span>
 
       </md-list-item>
 
