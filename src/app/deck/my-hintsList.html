@@ -1,9 +1,9 @@
 <md-dialog ng-cloak>
   <md-toolbar>
     <div class="md-toolbar-tools">
-      <h2>{{deckPreview.hintCardQuestion}} - Podpowiedźi</h2>
+      <h2>{{myDeckPreview.hintCardQuestion}} - Podpowiedźi</h2>
       <span flex></span>
-      <md-button class="md-icon-button" ng-click="deckPreview.cancelDialog()">
+      <md-button class="md-icon-button" ng-click="myDeckPreview.cancelDialog()">
         <md-icon md-svg-src="assets/icons/cancel.svg" aria-label="Close dialog"></md-icon>
       </md-button>
     </div>
@@ -11,7 +11,7 @@
   <md-dialog-content>
     <div class="md-dialog-content">
       <md-list flex="">
-        <md-list-item  ng-repeat="hint in deckPreview.hints">
+        <md-list-item ng-repeat="hint in myDeckPreview.hints">
           <div class="md-list-item-text" layout="column">
             <h3>{{ hint.essence }}</h3>
           </div>

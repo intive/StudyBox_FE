@@ -59,6 +59,10 @@
                    md-svg-src="assets/icons/visibility_off_36px.svg"
                    ng-click="myDeckPreview.changeVisibility(card)"></md-icon>
         </div>
+        <div class="card-button" ng-show="card.tipsCount > 0">
+            <md-tooltip id="hintsListDialogTooltip" md-direction="top">{{'preview-SHOW_HINTS' | translate}}</md-tooltip>
+            <md-icon class="deck-remove-button focusOn" md-svg-icon="assets/icons/show_hints.svg" ng-click="myDeckPreview.hintsListDialog($event, card)"></md-icon>
+        </div>
         <div class="card-button">
           <md-tooltip id="editCardButtonTooltip" md-direction="top">{{'deck-EDIT_CARD' | translate}}</md-tooltip>
           <md-icon class="deck-edit-button focusOn"

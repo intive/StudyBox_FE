@@ -83,7 +83,6 @@
     "navbar-DIALOG_CANCEL": "Anuluj",
     "navbar-DRAW_RANDOM_DECK": "Odkryj nową talię",
 
-
     "networkAlert-WARNING": "Uwaga!",
     "networkAlert-LOST_CONNECTION": "Brak połączenia z internetem. Spróbuj później!",
     "networkAlert-CONNECTION_SET": "Odzyskałeś połączenie z internetem, możesz kontynuować.",
@@ -97,6 +96,8 @@
     "test-CONGRATS": "Gratulacje!",
     "test-SCORE": "Twój wynik to ",
     "test-BEAT": "Popraw wynik",
-    "test-RETEST": "Powtórz test"
+    "test-RETEST": "Powtórz test",
+
+    "preview-SHOW_HINTS": "Lista podpowiedzi"
 
   }
