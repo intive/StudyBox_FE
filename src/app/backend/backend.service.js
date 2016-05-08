@@ -35,6 +35,7 @@
     this.getDecksByName = getDecksByName;
     this.getDecks = getDecks;
     this.createNewDeck = createNewDeck;
+    this.drawRandomDeck = drawRandomDeck;
 
     this.Deck = Deck;  // class
 
@@ -62,7 +63,7 @@
           var deck = new Deck();
           deck.id = response.data.id;
           deck.name = response.data.name;
-          deck.isPublic = response.data.publicVisible;
+          deck.isPublic = response.data.isPublic;
           deck.creatorEmail = response.data.creatorEmail;
           return deck;
         },
@@ -243,7 +244,7 @@
         .then(
           function success(response) {
             $this.name = response.data.name;
-            $this.isPublic = response.data.publicVisible;
+            $this.isPublic = response.data.isPublic;
 
             return response.data;
           },
@@ -267,7 +268,7 @@
 
     function simplePromise(method, url, data) {
       return $http({method: method, url: url, data: data})
-      .then(
+        .then(
         function success(response) {
           return response.data;
         },
@@ -276,6 +277,23 @@
         }
       );
     }
+
+    function drawRandomDeck(){
+      var method = 'GET';
+      var url = '/api/decks?random=true';
+
+      return $http({method: method, url: url})
+        .then(
+        function success(response) {
+
+          return response;
+        },
+        function error(response) {
+          return $q.reject(response.data);
+        }
+      );
+    }
+
   }
 
 })();

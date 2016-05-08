@@ -16,13 +16,13 @@
         onEnter: function(LoginHelperService, $state, $stateParams, BackendService, $translate){
 
           var deckId = $stateParams.deckId;
-          if(deckId == ""){
+          if(deckId == "" && !LoginHelperService.isLogged()){
             $state.go("login")
           }
 
           BackendService.getDeckById(deckId)
           .then(function success(data) {
-            if(LoginHelperService.getUserEmail() != data.creatorEmail){
+            if(LoginHelperService.getUserEmail() != data.creatorEmail && deckId != ""){
               alert($translate.instant("deck-NOT_AN_OWNER"));
               if(LoginHelperService.isLogged()){
               $state.go("decks");

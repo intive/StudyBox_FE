@@ -3,16 +3,16 @@
   <md-card-title class="test-answer" ng-click="test.mode = 'answer'">
     <md-card-title-text class="deck-content">
         <span class="md-headline">
-        {{test.cards[test.currentQuestion].tips[test.currentTip]}}
+        {{test.cards[test.currentQuestion].tips[test.currentTip].content}}
         </span>
     </md-card-title-text>
   </md-card-title>
   <span layout="row"><hr flex/></span>
   <md-card-actions layout="row" layout-align="center center">
     <div class="card-button">
-      <md-button flex="25" ng-disabled="test.currentTip == 0" ng-click="test.currentTip = test.currentTip - 1" class="md-raised"><<</md-button>
+      <md-button flex="25" ng-disabled="test.currentTip == 0" ng-click="test.getPrevTip()" class="md-raised"><<</md-button>
       <md-button flex="50" ng-click="test.mode = 'question'" class="md-raised">{{'test-HINT' | translate}}</md-button>
-      <md-button flex="25" ng-disabled="test.currentTip >= test.cards[test.currentQuestion].tips.length - 1" ng-click="test.currentTip = test.currentTip + 1" class="md-raised">>></md-button>
+      <md-button flex="25" ng-disabled="test.currentTip >= test.cards[test.currentQuestion].tips.length - 1" ng-click="test.getNextTip()" class="md-raised">>></md-button>
     </div>
   </md-card-actions>
 </md-card>

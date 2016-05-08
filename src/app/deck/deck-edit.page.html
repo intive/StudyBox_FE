@@ -26,8 +26,6 @@
         ng-click="deckEdit.saveDeck(deckEdit.searchText)"
         md-svg-src="assets/icons/save.svg"></md-icon>
     </div>
-
-
   </form>
   <div class="deck-autocomplete" layout="row">
     <div flex="80">
@@ -42,9 +40,8 @@
         <span class="deck-checkbox">{{ deckEdit.deckAccess | translate}}</span>
       </md-switch>
     </div>
-
   </div>
-  <span layout="row"><hr flex/></span>
+  <!-- <span layout="row"><hr flex/></span> -->
   <div>
     <md-card ng-repeat="card in deckEdit.cards" ng-click="deckEdit.selectCard(card)" class="deck-card"
              ng-class="{'md-whiteframe-15dp': hover, 'md-whiteframe-8dp': card.id === deckEdit.selectedCardId}"
