@@ -183,15 +183,6 @@
       this.updateDeck = updateDeck;
       this.remove = remove;
 
-      // function getFlashcards() {
-      //   var method = 'GET';
-      //   /*jshint validthis:true */
-      //   var url = "/api/decks/" + this.id + "/flashcards";
-      //   var data = {};
-
-      //   return simplePromise(method, url, data);
-      // }
-
       function getFlashcards() {
         var method = 'GET';
         /*jshint validthis:true */
