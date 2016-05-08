@@ -7,15 +7,13 @@
 
 
   /** @ngInject */
-  function NavbarController($state, $timeout, $q, $log, $document, md5,
+  function NavbarController($state, $q, $log, $document, md5,
                             BackendService, $mdSidenav, $stateParams,
                             LoginHelperService, $mdDialog, $translate,
                             DecksService) {
 
     var vm = this;
     vm.uiRouterState = $state;
-
-    vm.decks = null;
 
     vm.access = $stateParams.access;
     vm.openLeftMenu = openLeftMenu;
@@ -42,10 +40,8 @@
 
     ///////////
 
-    var _timeout = null;
-
-    function notifyObservers() {
-      DecksService.notifyObservers(vm.decks);
+    function notifyObservers(decks) {
+      DecksService.notifyObservers(decks);
     }
 
     function showPrivateCards() {
@@ -62,24 +58,14 @@
       vm.searchText = vm.searchText.trim();
 
       if(vm.searchText.length < 2) {
-        vm.decks = [];
-        notifyObservers();
+        notifyObservers([]);
         return;
       }
 
-      if(vm.searchText.length > 10)
-        vm.searchText = vm.searchText.slice(0, 10);
+      if(vm.searchText.length > 100)
+        vm.searchText = vm.searchText.slice(0, 100);
 
-      if(_timeout)
-        $timeout.cancel(_timeout);
-
-      var delayed = function() {
-        if(vm.searchText) {
-          getDecksByName(vm.searchText);
-          _timeout = null;
-        }
-      };
-      _timeout = $timeout(delayed,500);
+      getDecksByName(vm.searchText);
     }
 
     function notLogged(ev){
@@ -144,8 +130,7 @@
     function getDecksByName() {
       return BackendService.getDecksByName(vm.searchText).then(
         function success(decks) {
-          vm.decks = decks;
-          notifyObservers(vm.decks);
+          notifyObservers(decks);
         },
         function error() {}
       );
@@ -155,8 +140,7 @@
       BackendService.getDecks('private', true)
       .then(
         function success(decks) {
-          vm.decks = decks;
-          notifyObservers();
+          notifyObservers(decks);
       },
         function error() {}
       );

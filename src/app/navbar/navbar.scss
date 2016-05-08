@@ -53,8 +53,12 @@ visibility: visible;
   z-index:3;
 }
 
-.searchArea{
-margin-top:-12px;
+#searchArea {
+  margin-top: -12px;
+}
+
+#searchInput{
+  width: 97%;
 }
 
 #searchButton{

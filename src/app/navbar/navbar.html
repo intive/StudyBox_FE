@@ -9,13 +9,17 @@
        class="nav-buttons"
        ng-show="navbar.uiRouterState.current.name == 'decks'">
 
-    <input ng-class="{'searchForm': !expand, 'showUp': expand}"
-           ng-model="navbar.searchText"
-           placeholder="{{'navbar-PLACEHOLDER' | translate}}"
-           class="searchArea"
-           flex-sm="90" flex-xs="90" flex="30"
-           ng-change="navbar.querySearch()">
-    </input>
+    <form ng-submit="navbar.querySearch()"
+          flex-sm="90" flex-xs="90" flex="30"
+          id="searchArea"
+          ng-class="{'searchForm': !expand, 'showUp': expand}">
+
+      <input ng-model="navbar.searchText"
+             placeholder="{{'navbar-PLACEHOLDER' | translate}}"
+             id="searchInput">
+      </input>
+
+    </form>
 
     <md-button aria-label="search"
                ng-init="expand = false"
