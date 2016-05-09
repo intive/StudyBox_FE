@@ -10,31 +10,32 @@
     return {
       restrict: 'E',
       template: '<canvas></canvas>',
-
-      link: function(scope, element, attributes) {
-
-        var correct = parseInt(attributes.correct);
-        var wrong = parseInt(attributes.wrong);
-
-        if(angular.isUndefined(correct))
-          throw "must provide number of correct answers";
-        if(angular.isUndefined(wrong))
-          throw "must provide number of wrong answers";
-
-        var canvas = element.contents()[0];
-
-        paintPieChart(correct, wrong, canvas);
-      }
+      link: link
     };
+
+    function link(scope, element, attributes) {
+
+      var correct = parseInt(attributes.correct);
+      var wrong = parseInt(attributes.wrong);
+
+      if(angular.isUndefined(correct))
+        throw "must provide number of correct answers";
+      if(angular.isUndefined(wrong))
+        throw "must provide number of wrong answers";
+
+      var canvas = element.contents()[0];
+
+      paintPieChart(correct, wrong, canvas);
+    }
 
     function paintPieChart(correct, wrong, canvas) {
       var ctx = canvas.getContext("2d");
       var lastend = 0;
       var data = [wrong, correct];
       var myTotal = 0;
-      var red = '#C24642';
-      var green = '#369EAD';
-      var myColor = [red, green];
+      var red = '#EA0061';
+      var blue = '#0069B4';
+      var myColor = [red, blue];
 
       for(var e = 0; e < data.length; e++) {
         myTotal += data[e];
