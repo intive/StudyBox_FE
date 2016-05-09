@@ -12,6 +12,9 @@
       this.id = null;
       this.name = null;
       this.isPublic = null;
+      this.flashcardsCount = null;
+      this.creatorEmail = null;
+      this.creationDate = null;
       this.flashcards = [];
 
       // methods

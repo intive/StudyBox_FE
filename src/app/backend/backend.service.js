@@ -1,27 +1,3 @@
-/**
- * INSTRUKCJA OBSŁUGI
- *
- * getDeckById(id) - zwraca talię po jej ID
- * getDecks(access) - zwraca wszystkie talie (obiekty typu Deck)
- *    access: 'public'|'private'
- * createNewDeck(name, access) - tworzy (na serwerze) nową talię
- *    access: 'public'|'private'
- *
- * Deck [klasa]:
- *  > pola:
- *  id - identyfikator talii, ustalany przez serwer
- *  name - nazwa talii
- *  isPublic - poziom dostępu
- *  flashcards - lista fiszek
- *
- *  > metody (wszystkie zwracają promise):
- *  getFlashcards() - pobiera fiszki i przypisuje je do siebie
- *  addNewFlashcard() - tworzy nową fiszkę i przypisuje ją do siebie
- *  rename(name) - zmienia nazwę talii
- *  changeAccess(new_access) - zmienia talię na publiczną/prywatną
- *  remove() - usuwa talię z bazy danych
- */
-
 (function() {
   'use strict';
   angular
@@ -34,6 +10,7 @@
     this.getDeckById = getDeckById;
     this.getDecks = getDecks;
     this.createNewDeck = createNewDeck;
+    this.drawRandomDeck = drawRandomDeck;
 
     /* *** */
 
@@ -46,7 +23,7 @@
       var method = 'GET';
       var url = '/api/decks/' + id;
 
-      return promiseWithDeck(method, url);
+      return promiseWithDeck(method, url, {});
     }
 
     function throw_error(message) {
@@ -54,14 +31,16 @@
       throw message;
     }
 
-    function promiseWithDeck(method, url) {
-      var promise = $http({method: method, url: url})
+    function promiseWithDeck(method, url, data) {
+      var promise = $http({method: method, url: url, data: data})
       .then(
         function success(response) {
           var deck = new Deck();
           deck.id = response.data.id;
           deck.name = response.data.name;
           deck.isPublic = response.data.isPublic;
+          deck.creatorEmail = response.data.creatorEmail;
+          deck.creationDate = response.data.creationDate;
           return deck;
         },
         function error(response) {
@@ -72,9 +51,12 @@
       return promise;
     }
 
-    function getDecks(access) {
+    function getDecks(access, count) {
       if(!access)
         access = 'public';
+
+      if(!count)
+        count = false;
 
       var method = 'GET';
 
@@ -85,6 +67,9 @@
         url = '/api/decks';
       else
         throw_error('wrong access (must be `public`|`private`)');
+
+      if(count)
+        url += '?flashcardsCount=true';
 
       return promiseWithDecks(method, url);
     }
@@ -106,9 +91,15 @@
       var decks = [];
       for(var i = 0; i < response.data.length; i++) {
         var deck = new Deck();
+
         deck.name = response.data[i].name;
         deck.id = response.data[i].id;
         deck.isPublic = response.data[i].isPublic;
+        if(response.data[i].flashcardsCount)
+          deck.flashcardsCount = response.data[i].flashcardsCount;
+        deck.creatorEmail = response.data[i].creatorEmail;
+        deck.creationDate = response.data[i].creationDate;
+
         decks.push(deck);
       }
       return decks;
@@ -130,24 +121,14 @@
       var url = '/api/decks';
       var data = {name: name, isPublic: isPublic};
 
-      return newDeckPromise(method, url, data);
+      return promiseWithDeck(method, url, data);
     }
 
-    function newDeckPromise(method, url, data) {
-      var promise = $http({method: method, url: url, data: data})
-      .then(
-        function success(response) {
-          var deck = new Deck();
-          deck.name = response.data.name;
-          deck.id = response.data.id;
-          deck.isPublic = response.data.isPublic;
-          return deck;
-        },
-        function error(response) {
-          return $q.reject(response.data);
-        }
-      );
-      return promise;
+    function drawRandomDeck() {
+      var method = 'GET';
+      var url = '/api/decks/random';
+
+      return promiseWithDeck(method, url, {});
     }
   }
 
