@@ -6,7 +6,7 @@
     .controller('MyDeckPreviewController', MyDeckPreviewController);
 
   /** @ngInject */
-  function MyDeckPreviewController($stateParams, $state, BackendService, $log, DeckService, $mdDialog, $translate, $document) {
+  function MyDeckPreviewController($stateParams, $state, BackendService, $log, DeckService, $mdDialog, $translate, $document, $mdMedia, $scope, TipsService) {
     var vm = this;
     vm.deckId = $stateParams.deckId;
     vm.selectedDeck = new BackendService.Deck();
@@ -21,6 +21,9 @@
     vm.changeVisibility = changeVisibility;
     vm.checkIfAllHidden = checkIfAllHidden;
     vm.access = $stateParams.access;
+    vm.hintsListDialog = hintsListDialog;
+    vm.cancelDialog = cancelDialog;
+    vm.getAllTips = getAllTips;
 
 
     function checkIfAllHidden(){
@@ -40,7 +43,6 @@
       else{
         $state.go('test', { deckId: vm.deckId})
       }
-
     }
 
     function hideFilter(isHidden) {
@@ -90,7 +92,6 @@
       DeckService.setDeckObj({name: vm.searchText});
       $state.go("deck.addCard", {deckId:null , cardId: null});
     }
-
 
     function editDeck(){
       $state.go("deck.addCard", {deckId:vm.selectedDeck.id , cardId: null});
@@ -158,6 +159,16 @@
         });
     }
 
+    function getAllTips(cardId){
+      TipsService.getAllTips(vm.deckId, cardId)
+      .then(function success(data) {
+        vm.hints = data;
+      },
+      function error(){
+        throw 'Nie można pobrać podpowiedzi';
+      });
+    }
+
     //init current deck
     function initDeck(value) {
       if(value){
@@ -220,6 +231,26 @@
           }
         )
     }
-  }
 
+    function hintsListDialog(ev, card) {
+      getAllTips(card.id);
+      vm.hintCardQuestion = card.question;
+      var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'));
+      $mdDialog.show({
+        controller: MyDeckPreviewController,
+        templateUrl: 'app/deck/my-hintsList.html',
+        parent: angular.element($document.body),
+        targetEvent: ev,
+        scope: $scope,
+        preserveScope: true,
+        clickOutsideToClose:true,
+        fullscreen: useFullScreen
+      });
+    }
+
+    function cancelDialog(){
+      $mdDialog.hide();
+    }
+
+}
 })();

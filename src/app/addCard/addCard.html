@@ -60,7 +60,7 @@
         </md-input-container>
 
         <!--HINT AREA:-->
-        <div ng-repeat="hint in addCard.hints track by $index">
+        <div ng-repeat="hint in addCard.hints">
           <md-input-container class="md-block md-whiteframe-4dp middleCard" md-no-float style="display: block;">
             <div ngf-select
                  ng-model="hintFile"
@@ -78,15 +78,16 @@
               class="hint"
               ng-trim="false"
               placeholder='{{"addCard-WRITE_HINT" | translate}}'
-              ng-model="hint.inputArea" rows="5"
+              ng-model="hint.essence" rows="5"
+              ng-change="hint.hintChanged = true"
               md-select-on-focus></textarea>
             <div class="display: inline-block;" ng-show="hintFile">
               <md-button ng-click="hintFile=null;" aria-label="closeImg" class="closePosition">{{"addCard-REMOVE_IMAGE" | translate}}</md-button>
               <img style="text-align: center;" ng-show="addCard.hintFile.$valid" ngf-thumbnail="hintFile" class="imgStyle">
             </div>
 
-            <div ng-class="hint.inputArea.length == 1000 ? 'counterError' : 'counter'">
-              {{hint.inputArea.length}}
+            <div ng-class="hint.essence.length == 1000 ? 'counterError' : 'counter'">
+              {{hint.essence.length}}
             </div>
             <div class="removeHint">
               <md-tooltip  md-direction="top">{{"addCard-REMOVE_HINT" | translate}}</md-tooltip>

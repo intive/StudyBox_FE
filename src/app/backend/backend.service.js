@@ -186,7 +186,7 @@
       function getFlashcards() {
         var method = 'GET';
         /*jshint validthis:true */
-        var url = "/api/decks/" + this.id + "/flashcards";
+        var url = "/api/decks/" + this.id + "/flashcards?tipsCount=true";
         var data = {};
 
         return simplePromise(method, url, data);

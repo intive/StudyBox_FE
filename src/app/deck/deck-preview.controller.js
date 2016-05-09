@@ -6,7 +6,7 @@
     .controller('DeckPreviewController', DeckPreviewController);
 
   /** @ngInject */
-  function DeckPreviewController($stateParams, $state, BackendService, $log, DeckService, $mdDialog, $mdMedia, $document, $scope) {
+  function DeckPreviewController($stateParams, $state, BackendService, $log, DeckService, $mdDialog, $mdMedia, $document, $scope, $translate, TipsService) {
     var vm = this;
     vm.deckId = $stateParams.deckId;
     vm.selectedDeck = new BackendService.Deck();
@@ -18,7 +18,7 @@
     vm.cancelDialog = cancelDialog;
     vm.checkIfAllHidden = checkIfAllHidden;
     vm.access = $stateParams.access;
-
+    vm.getAllTips = getAllTips;
 
     function checkIfAllHidden(){
       vm.visibleCards = vm.cards.filter(hideFilter(false));
@@ -64,6 +64,16 @@
       } else {
         vm.load = true;
       }
+    }
+
+    function getAllTips(cardId){
+      TipsService.getAllTips(vm.deckId, cardId)
+      .then(function success(data) {
+        vm.hints = data;
+      },
+      function error(){
+        throw 'Nie można pobrać podpowiedzi';
+      });
     }
 
     function selectDeck(deck) {
@@ -143,7 +153,9 @@
     }
     initDeck($stateParams.deckId);
 
-  function hintsListDialog(ev) {
+  function hintsListDialog(ev, card) {
+    getAllTips(card.id);
+    vm.hintCardQuestion = card.question;
     var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'));
     $mdDialog.show({
       controller: DeckPreviewController,
@@ -161,5 +173,5 @@
     $mdDialog.hide();
   }
 
-  }
+}
 })();

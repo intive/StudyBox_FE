@@ -46,10 +46,10 @@
           <md-icon class="visibility focusOn"
                    md-svg-src="assets/icons/visibility_off_36px.svg"></md-icon>
         </div>
-        <md-button class="md-icon-button">
-            <md-tooltip id="hintsListDialogTooltip" md-direction="top">Lista podpowiedzi</md-tooltip>
-            <md-icon class="deck-remove-button focusOn" md-svg-icon="assets/icons/show_hints.svg" ng-click="deckPreview.hintsListDialog($event)"></md-icon>
-        </md-button>
+        <div class="card-button" ng-show="card.tipsCount > 0">
+            <md-tooltip id="hintsListDialogTooltip" md-direction="top">{{'preview-SHOW_HINTS' | translate}}</md-tooltip>
+            <md-icon class="deck-remove-button focusOn" md-svg-icon="assets/icons/show_hints.svg" ng-click="deckPreview.hintsListDialog($event, card)"></md-icon>
+        </div>
       </md-card-actions>
 
     </md-card>

@@ -7,7 +7,7 @@
 
 
   /** @ngInject */
-  function AddCardController($stateParams, $state, BackendService, DeckService, $log, $translate) {
+  function AddCardController($stateParams, $state, BackendService, DeckService, $log, $translate, TipsService) {
     var vm = this;
     vm.deckId = $stateParams.deckId;
     vm.cardId = $stateParams.cardId;
@@ -18,13 +18,16 @@
     vm.toggleStatus = false;
     vm.trimInput = trimInput;
     vm.pasteChecker = pasteChecker;
-    vm.hints = [];
     vm.addHint = addHint;
     vm.removeHint = removeHint;
     vm.addHintTranslate = $translate.instant("addCard-HINT");
     vm.maxHintCount = 5;
     vm.trimString = trimString;
     vm.isHidden = false;
+    vm.createTip = createTip;
+    vm.getAllTips = getAllTips;
+    vm.deleteTip = deleteTip;
+    vm.updateTip = updateTip;
 
     if (vm.cardId){
       vm.card = DeckService.getCardObj();
@@ -33,6 +36,7 @@
         vm.answer = vm.card.answer;
         vm.editMode=true;
         vm.isHidden = vm.card.isHidden;
+        getAllTips();
       }
     }
 
@@ -59,15 +63,56 @@
     function addHint(){
       if(vm.hints.length < vm.maxHintCount){
         vm.hintNumber = vm.hints.length + 1;
-        vm.hints.push({'id':'id' + vm.hintNumber});
+        vm.hints.push({'count':+ vm.hintNumber});
         vm.addHintTranslate = $translate.instant("addCard-ANOTHER_HINT");
       }
     }
 
     function removeHint(index){
-      vm.hints.splice(index, 1);
+      vm.hints.splice(vm.hints.indexOf(index), 1);
+      deleteTip(index);
       if(vm.hints.length == 0)
         vm.addHintTranslate = $translate.instant("addCard-HINT");
+    }
+
+    function createTip(essence){
+      TipsService.createNewTip(vm.deckId, vm.cardId, essence)
+      .then(function success() {
+
+      },
+      function error(){
+        throw 'Nie można utworzyć podpowiedzi';
+      });
+    }
+
+    function getAllTips(){
+      TipsService.getAllTips(vm.deckId, vm.cardId)
+      .then(function success(data) {
+        vm.hints = data;
+      },
+      function error(){
+        throw 'Nie można pobrać podpowiedzi';
+      });
+    }
+
+    function deleteTip(tipId){
+      TipsService.deleteTip(vm.deckId, vm.cardId, tipId.id)
+      .then(function success() {
+
+      },
+      function error(){
+        throw 'Nie można usunąć podpowiedzi';
+      });
+    }
+
+    function updateTip(tipId, essence){
+      TipsService.updateTip(vm.deckId, vm.cardId, tipId, essence)
+      .then(function success() {
+
+      },
+      function error(){
+        throw 'Nie można edytować podpowiedzi';
+      });
     }
 
     function submitCard(isValid) {
@@ -96,10 +141,21 @@
       //Jeżeli pola nie są puste
       var cardInDeck;
         if($stateParams.cardId) {
-          cardInDeck = editFlashCard()
+          cardInDeck = editFlashCard();
+          //CRUD podpowiedzi
+          for(var i=0; i < vm.hints.length; i++){
+            if(vm.hints[i].hintChanged == true){
+              //tworzenie
+              if(angular.isUndefined(vm.hints[i].id)){
+                createTip(vm.hints[i].essence);
+              }else{  //edycja
+                updateTip(vm.hints[i].id, vm.hints[i].essence);
+              }
+            }
+          }
         } else {
           if($stateParams.deckId) {
-            cardInDeck = createFlashCard()
+            cardInDeck = createFlashCard();
           } else {
             cardInDeck = createDeckWithFlashCard()
           }
@@ -156,7 +212,7 @@
       return BackendService.getDeckById($stateParams.deckId)
         .then(function success(data) {
           vm.deck = data;
-          return vm.deck.createFlashcard(vm.question, vm.answer, vm.isHidden)
+          return vm.deck.createFlashcard(vm.question, vm.answer, vm.isHidden);
         },
         function error(){
           var message = 'I cant get deck';
