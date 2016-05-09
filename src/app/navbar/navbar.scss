@@ -45,14 +45,6 @@ transition:0.5s;
 color:white;
 }
 
-
-#searchBar{
-margin-top:13px;
-min-width:150px;
-z-index:3;
-background:#F5F5F5;
-}
-
 .showUp{
 visibility: visible;
   opacity:1;
@@ -61,8 +53,12 @@ visibility: visible;
   z-index:3;
 }
 
-.searchArea{
-margin-top:-30px;
+#searchArea {
+  margin-top: -12px;
+}
+
+#searchInput{
+  width: 97%;
 }
 
 #searchButton{

@@ -7,15 +7,26 @@
 
   /** @ngInject */
   function DecksController(BackendService, $log, $stateParams,
-                           orderByLocaleAwareConfig) {
+                           orderByLocaleAwareConfig, DecksService) {
     var vm = this;
     vm.getDecks = getDecks;
     vm.count = true;
+    vm.access = null;
+
+    DecksService.addObserver(vm);
+    vm.notify = notify;
 
     orderByLocaleAwareConfig.localeId = 'pl';
 
+    /////////////////
+
+    function notify(decks) {
+      vm.access = 'public';
+      vm.categories = decks;
+    }
+
     function getDecks() {
-      vm.access = $stateParams.access;
+      vm.access = 'private';
       BackendService.getDecks(vm.access, vm.count)
       .then(function (result) {
         vm.categories=result;

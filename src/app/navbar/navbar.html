@@ -9,45 +9,21 @@
        class="nav-buttons"
        ng-show="navbar.uiRouterState.current.name == 'decks'">
 
-    <div class="searchArea"
-         flex-sm="90" flex-xs="90" flex="30"
-         layout="row" layout-align="end start">
+    <form ng-submit="navbar.querySearch()"
+          flex-sm="90" flex-xs="90" flex="30"
+          id="searchArea"
+          ng-class="{'searchForm': !expand, 'showUp': expand}">
 
-      <form ng-submit="navbar.changePage()"
-            id="searchAutocomplete"
-            ng-class="{'searchForm': !expand, 'showUp': expand}">
+      <input ng-model="navbar.searchText"
+             placeholder="{{'navbar-PLACEHOLDER' | translate}}"
+             id="searchInput">
+      </input>
 
-            <md-autocomplete
-                md-delay="500"
-                md-no-cache="true"
-                md-selected-item="navbar.selectedItem"
-                md-search-text="navbar.searchText"
-                md-items="item in navbar.querySearch(navbar.searchText)"
-                md-item-text="item.name"
-                md-min-length="2"
-                md-selected-item-change="navbar.selectDeck(item)"
-                placeholder="{{'navbar-PLACEHOLDER' | translate}}"
-                md-input-id="searchInput"
-                id="searchBar">
-
-              <md-item-template>
-                <span md-highlight-text="navbar.searchText"
-                      md-highlight-flags="^i">
-                  {{item.name}}
-                </span>
-              </md-item-template>
-
-              <md-not-found>
-                {{'navbar-DECK_NOT_FOUND' | translate}}.
-              </md-not-found>
-
-            </md-autocomplete>
-      </form>
-    </div>
+    </form>
 
     <md-button aria-label="search"
                ng-init="expand = false"
-               ng-click="expand = !expand; navbar.clearTextOnInputClose(expand)"
+               ng-click="expand = !expand; navbar.finishSearching(expand)"
                id="searchButton"
                ng-class="{darkButton: expand}">
       <md-icon md-svg-src="assets/icons/search.svg"

@@ -7,25 +7,19 @@
 
 
   /** @ngInject */
-  function NavbarController($state, $timeout, $q, $log, $document, md5,
-                            BackendService, $mdSidenav, $stateParams,
-                            LoginHelperService, $mdDialog, $translate) {
+  function NavbarController($state, md5, BackendService, $mdSidenav,
+                            LoginHelperService, $mdDialog, $translate,
+                            DecksService, $stateParams) {
 
     var vm = this;
     vm.uiRouterState = $state;
 
-    vm.decks = null;
-
     vm.access = $stateParams.access;
-
     vm.openLeftMenu = openLeftMenu;
     vm.showPrivateCards = showPrivateCards;
     vm.showPublicCards = showPublicCards;
 
-    vm.selectDeck = selectDeck;
     vm.querySearch  = querySearch;
-    vm.newDeck = newDeck;
-    vm.changePage = changePage;
 
     vm.userLogout = userLogout;
     vm.userLogin = userLogin;
@@ -38,7 +32,40 @@
 
     vm.notLogged = notLogged;
 
-    vm.clearTextOnInputClose = clearTextOnInputClose;
+    vm.finishSearching = finishSearching;
+
+    DecksService.addObserver(vm);
+    vm.notify = function() {};
+
+    ///////////
+
+    function notifyObservers(decks) {
+      DecksService.notifyObservers(decks);
+    }
+
+    function showPrivateCards() {
+      $state.go("decks", {access: 'private'});
+      $mdSidenav('left').toggle();
+    }
+
+    function showPublicCards() {
+      $state.go("decks", {access: 'public'});
+      $mdSidenav('left').toggle();
+    }
+
+    function querySearch() {
+      vm.searchText = vm.searchText.trim();
+
+      if(vm.searchText.length < 2) {
+        notifyObservers([]);
+        return;
+      }
+
+      if(vm.searchText.length > 100)
+        vm.searchText = vm.searchText.slice(0, 100);
+
+      getDecksByName(vm.searchText);
+    }
 
     function notLogged(ev){
 
@@ -58,7 +85,6 @@
     {
       BackendService.drawRandomDeck().then(
         function success(response) {
-          //alert(angular.toJson(response.data[0].id));
           $state.go("deck-preview",{deckId: response.data[0].id});
           openLeftMenu();
         },
@@ -100,54 +126,30 @@
       $mdSidenav('left').toggle();
     }
 
-    function showPrivateCards() {
-      $state.go("decks", {access: 'private'});
-      $mdSidenav('left').toggle();
-    }
-
-    function showPublicCards() {
-      $state.go("decks", {access: 'public'});
-      $mdSidenav('left').toggle();
-    }
-
-    function selectDeck(item) {
-      if (item) {
-        $state.go('deck-preview', {deckId: item.id});
-        item = null;
-      }
-    }
-
-    function newDeck() {
-      vm.searchText = null;
-      $state.go("deck.addCard");
-    }
-
-    function changePage() {
-      if(vm.decks) {
-        var deck = vm.decks[0];
-        if(deck && vm.searchText === deck.name)
-          $state.go('deck-preview', {deckId: deck.id, notify: true});
-      }
-    }
-
-    function querySearch (query) {
-      query = query.trim();
-      if(query.length > 100)
-        return;
-
-      return BackendService.getDecksByName(query).then(
+    function getDecksByName() {
+      return BackendService.getDecksByName(vm.searchText).then(
         function success(decks) {
-          vm.decks = decks;
-          return decks;
+          notifyObservers(decks);
         },
-        function error() {
-          return [];
-        });
+        function error() {}
+      );
     }
 
-    function clearTextOnInputClose(expand) {
-      if(!expand)
+    function getPrivateDecks() {
+      BackendService.getDecks('private', true)
+      .then(
+        function success(decks) {
+          notifyObservers(decks);
+      },
+        function error() {}
+      );
+    }
+
+    function finishSearching(expand) {
+      if(!expand) {
+        getPrivateDecks();
         vm.searchText = '';
+      }
     }
   }
 
