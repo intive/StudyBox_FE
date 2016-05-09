@@ -7,10 +7,9 @@
 
 
   /** @ngInject */
-  function NavbarController($state, $q, $log, $document, md5,
-                            BackendService, $mdSidenav, $stateParams,
+  function NavbarController($state, md5, BackendService, $mdSidenav,
                             LoginHelperService, $mdDialog, $translate,
-                            DecksService) {
+                            DecksService, $stateParams) {
 
     var vm = this;
     vm.uiRouterState = $state;
