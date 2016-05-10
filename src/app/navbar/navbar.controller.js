@@ -9,7 +9,7 @@
   /** @ngInject */
   function NavbarController($state, md5, BackendService, $mdSidenav,
                             LoginHelperService, $mdDialog, $translate,
-                            DecksService, $stateParams) {
+                            DecksService, $stateParams, $scope) {
 
     var vm = this;
     vm.uiRouterState = $state;
@@ -19,6 +19,7 @@
     vm.showPrivateCards = showPrivateCards;
     vm.showPublicCards = showPublicCards;
 
+    vm.trimInput = trimInput;
     vm.querySearch  = querySearch;
 
     vm.userLogout = userLogout;
@@ -32,10 +33,13 @@
 
     vm.notLogged = notLogged;
 
+    vm.inputVisible = false;
     vm.finishSearching = finishSearching;
 
     DecksService.addObserver(vm);
     vm.notify = function() {};
+
+    finishSearchingOnStateChange();
 
     ///////////
 
@@ -53,18 +57,31 @@
       $mdSidenav('left').toggle();
     }
 
-    function querySearch() {
+    function trimInput() {
       vm.searchText = vm.searchText.trim();
 
+      if(vm.searchText.length > 100)
+        vm.searchText = vm.searchText.slice(0, 100);
+    }
+
+    function querySearch() {
       if(vm.searchText.length < 2) {
         notifyObservers([]);
         return;
       }
 
-      if(vm.searchText.length > 100)
-        vm.searchText = vm.searchText.slice(0, 100);
-
       getDecksByName(vm.searchText);
+    }
+
+    function getDecksByName() {
+      return BackendService.getDecksByName(vm.searchText).then(
+        function success(decks) {
+          notifyObservers(decks);
+        },
+        function error() {
+          notifyObservers([]);
+        }
+      );
     }
 
     function notLogged(ev){
@@ -126,13 +143,15 @@
       $mdSidenav('left').toggle();
     }
 
-    function getDecksByName() {
-      return BackendService.getDecksByName(vm.searchText).then(
-        function success(decks) {
-          notifyObservers(decks);
-        },
-        function error() {}
-      );
+    function finishSearching(reloadDecks) {
+      if(vm.inputVisible) {
+        vm.inputVisible = false;
+        if(reloadDecks)
+          getPrivateDecks();
+        vm.searchText = '';
+      }
+      else
+        vm.inputVisible = true;
     }
 
     function getPrivateDecks() {
@@ -141,15 +160,18 @@
         function success(decks) {
           notifyObservers(decks);
       },
-        function error() {}
+        function error() {
+          notifyObservers(false);
+        }
       );
     }
 
-    function finishSearching(expand) {
-      if(!expand) {
-        getPrivateDecks();
-        vm.searchText = '';
-      }
+    function finishSearchingOnStateChange() {
+      $scope.$on('$stateChangeStart', function(event, toState,
+                                               toParams, fromState) {
+        if(fromState.name == 'decks')
+          finishSearching(false);
+      });
     }
   }
 
