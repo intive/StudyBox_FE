@@ -91,6 +91,7 @@
       } else {
         vm.showDialog(vm.yes, vm.cards.length);
       }
+      getTips();
     }
 
     vm.showDialog = function(correct, all) {
