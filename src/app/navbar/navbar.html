@@ -12,9 +12,10 @@
     <form ng-submit="navbar.querySearch()"
           flex-sm="90" flex-xs="90" flex="30"
           id="searchArea"
-          ng-class="{'searchForm': !expand, 'showUp': expand}">
+          ng-class="{'searchForm': !navbar.inputVisible, 'showUp': navbar.inputVisible}">
 
       <input ng-model="navbar.searchText"
+             ng-change="navbar.trimInput()"
              placeholder="{{'navbar-PLACEHOLDER' | translate}}"
              id="searchInput">
       </input>
@@ -22,17 +23,16 @@
     </form>
 
     <md-button aria-label="search"
-               ng-init="expand = false"
-               ng-click="expand = !expand; navbar.finishSearching(expand)"
+               ng-click="navbar.finishSearching(true)"
                id="searchButton"
-               ng-class="{darkButton: expand}">
+               ng-class="{darkButton: navbar.inputVisible}">
       <md-icon md-svg-src="assets/icons/search.svg"
                id="searchButton2"
-               ng-hide="expand">
+               ng-hide="navbar.inputVisible">
       </md-icon>
       <md-icon md-svg-src="assets/icons/clear.svg"
                id="searchButton3"
-               ng-hide="!expand">
+               ng-hide="!navbar.inputVisible">
       </md-icon>
     </md-button>
 

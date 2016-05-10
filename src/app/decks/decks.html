@@ -1,10 +1,12 @@
 <div layout="horizontal" layout-wrap>
 
-  <div ng-if="decks.categories.length == 0" align="center" flex>
+  <div ng-if="decks.categories.length == 0 && decks.no_private_decks == false"
+       align="center" flex>
     {{'navbar-DECK_NOT_FOUND' | translate}}
   </div>
 
-  <div ng-repeat="deck in decks.categories |orderByLocaleAware:'+@name'" flex-xs="100" flex-sm="50" flex="25">
+  <div ng-repeat="deck in decks.categories | orderByLocaleAware:'+@name'"
+       flex-xs="100" flex-sm="50" flex="25">
 
     <div ng-if="decks.access == 'private'">
       <md-card class="card-square"
