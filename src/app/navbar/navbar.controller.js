@@ -102,7 +102,8 @@
     {
       BackendService.drawRandomDeck().then(
         function success(response) {
-          $state.go("deck-preview",{deckId: response.data[0].id});
+          //alert(response.data.id);
+          $state.go("deck-preview",{deckId: response.data.id});
           openLeftMenu();
         },
         function error(message) {
