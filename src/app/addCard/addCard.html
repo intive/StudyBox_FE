@@ -43,7 +43,10 @@
           </div>
 
           <div ng-class="addCard.question.length == 1000 ? 'counterError' : 'counter'">
-              {{addCard.question.length}}
+              {{addCard.question.length}}/
+          </div>
+          <div class="maxInputLength">
+            1000
           </div>
 
         </md-input-container>
@@ -87,13 +90,16 @@
             </div>
 
             <div ng-class="hint.essence.length == 1000 ? 'counterError' : 'counter'">
-              {{hint.essence.length}}
+              {{hint.essence.length}}/
+            </div>
+            <div class="maxInputLength">
+              1000
             </div>
             <div class="removeHint">
               <md-tooltip  md-direction="top">{{"addCard-REMOVE_HINT" | translate}}</md-tooltip>
               <md-icon class="deck-remove-button"
                    md-svg-src="assets/icons/clear.svg"
-                   ng-click="addCard.removeHint($index)"></md-icon>
+                   ng-click="addCard.removeHint(hint)"></md-icon>
             </div>
           </md-input-container>
         </div>
@@ -129,7 +135,10 @@
           </div>
 
           <div ng-class="addCard.answer.length == 1000 ? 'counterError' : 'counter'">
-              {{addCard.answer.length}}
+              {{addCard.answer.length}}/
+          </div>
+          <div class="maxInputLength">
+            1000
           </div>
         </md-input-container>
 
