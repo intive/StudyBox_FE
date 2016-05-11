@@ -280,7 +280,7 @@
 
     function drawRandomDeck(){
       var method = 'GET';
-      var url = '/api/decks?random=true';
+      var url = '/api/decks/random?flashcardsCount=true';
 
       return $http({method: method, url: url})
         .then(
