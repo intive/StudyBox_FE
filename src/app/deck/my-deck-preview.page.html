@@ -37,7 +37,8 @@
   </form>
 
   <div layout="horizontal" layout-wrap>
-    <md-card flex-xs="100" flex-gt-xs="45" flex-gt-sm="30" ng-repeat="card in myDeckPreview.cards" ng-click="myDeckPreview.selectCard(card)" class="deck-card"
+    <div flex-xs="100" flex-gt-xs="50" flex-gt-sm="33" ng-repeat="card in myDeckPreview.cards">
+    <md-card ng-click="myDeckPreview.selectCard(card)" class="deck-card"
              ng-class="{'md-whiteframe-15dp': hover, 'md-whiteframe-8dp': card.id === myDeckPreview.selectedCardId}"
              ng-mouseenter="hover = true" ng-mouseleave="hover = false">
       <md-card-title>
@@ -77,5 +78,6 @@
         </div>
       </md-card-actions>
     </md-card>
+</div>
   </div>
 </md-content>
