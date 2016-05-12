@@ -103,7 +103,7 @@
       BackendService.drawRandomDeck().then(
         function success(response) {
           //alert(response.data.id);
-          $state.go("deck-preview",{deckId: response.data.id});
+          $state.go("test",{deckId: response.data.id});
           openLeftMenu();
         },
         function error(message) {
