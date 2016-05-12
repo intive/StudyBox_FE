@@ -9,7 +9,7 @@
   /** @ngInject */
   function NavbarController($state, md5, BackendService, $mdSidenav,
                             LoginHelperService, $mdDialog, $translate,
-                            DecksService, $stateParams, $scope, $timeout, $document) {
+                            DecksService, $stateParams, $scope) {
 
     var vm = this;
     vm.uiRouterState = $state;
@@ -148,8 +148,6 @@
     function startSearching(){
       if(!vm.inputVisible)
         vm.inputVisible = true;
-        $timeout(function(){angular.element($document[0].querySelector('#searchInput')).focus();},350);
-
     }
 
     function finishSearching(reloadDecks) {
@@ -161,7 +159,6 @@
       }
       else
         vm.inputVisible = true;
-        $timeout(function(){angular.element($document[0].querySelector('#searchInput')).focus();},350);
     }
 
     function getPrivateDecks() {

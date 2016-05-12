@@ -7,16 +7,13 @@
 
   /** @ngInject */
   function DecksController(BackendService, $stateParams,
-                           orderByLocaleAwareConfig, DecksService, $window, $scope) {
+                           orderByLocaleAwareConfig, DecksService) {
     var vm = this;
     vm.getDecks = getDecks;
     vm.count = true;
     vm.access = null;
     vm.no_private_decks = true;
     vm.parameter = $stateParams.access;
-    vm.isWide = isWide;
-    vm.isMedium = isMedium;
-    vm.isNarrow = isNarrow;
     vm.randomDecks = randomDecks;
 
     DecksService.addObserver(vm);
@@ -37,18 +34,6 @@
           alert(message);
         });
     }
-    }
-
-    function isWide(){
-        return $window.innerWidth >= 960;
-    }
-
-    function isMedium(){
-        return $window.innerWidth >= 600 && $window.innerWidth < 960;
-    }
-
-    function isNarrow(){
-        return $window.innerWidth < 600;
     }
 
     function notify(decks) {
@@ -75,8 +60,6 @@
     if(vm.parameter == "public"){
       randomDecks();
     }
-
-      angular.element($window).on('resize', angular.bind($scope, $scope.$apply));
 
   }
 

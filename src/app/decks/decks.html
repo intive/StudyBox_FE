@@ -51,7 +51,7 @@
     <div ng-if="decks.access != 'public' && decks.parameter == 'public'" flex="100"
      ng-show="decks.randomCategories[2].isPublic">
 
-            <div ng-if="decks.isWide()" flex="100" layout="horizontal" layout-wrap>
+            <div flex="100" layout="horizontal" layout-wrap class="isWide">
 
               <div ng-repeat="deck in decks.randomCategories" flex="25">
                       <md-card class="card-square"
@@ -87,7 +87,7 @@
             </div>
 
 
-            <div ng-if="decks.isMedium()" flex="100" layout="horizontal" layout-wrap>
+            <div flex="100" layout="horizontal" layout-wrap class="isMedium">
 
                 <div flex="50">
                     <md-card class="card-square"
@@ -148,7 +148,7 @@
             </div>
 
 
-            <div ng-if="decks.isNarrow()" flex="100" layout="horizontal" layout-wrap>
+            <div flex="100" layout="horizontal" layout-wrap class="isNarrow">
 
                 <div flex="100">
                     <md-card class="card-square-search"
