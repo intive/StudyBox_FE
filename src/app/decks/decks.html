@@ -41,12 +41,15 @@
   </div>
 
 
-    <div ng-if="decks.access != 'public' && decks.parameter == 'public'" flex="100" ng-show="!decks.randomCategories[2].isPublic" layout="row" layout-align="center center">
+    <div ng-if="decks.access != 'public' && decks.parameter == 'public'"
+    flex="100" ng-show="!decks.randomCategories[2].isPublic"
+    layout="row" layout-align="center center">
       <md-progress-circular md-mode="indeterminate"></md-progress-circular>
     </div>
 
 
-    <div ng-if="decks.access != 'public' && decks.parameter == 'public'" flex="100" ng-show="decks.randomCategories[2].isPublic">
+    <div ng-if="decks.access != 'public' && decks.parameter == 'public'" flex="100"
+     ng-show="decks.randomCategories[2].isPublic">
 
             <div ng-if="decks.isWide()" flex="100" layout="horizontal" layout-wrap>
 
