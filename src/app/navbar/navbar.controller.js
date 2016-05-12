@@ -9,7 +9,7 @@
   /** @ngInject */
   function NavbarController($state, md5, BackendService, $mdSidenav,
                             LoginHelperService, $mdDialog, $translate,
-                            DecksService, $stateParams, $scope) {
+                            DecksService, $stateParams, $scope, $timeout, $document) {
 
     var vm = this;
     vm.uiRouterState = $state;
@@ -35,6 +35,7 @@
 
     vm.inputVisible = false;
     vm.finishSearching = finishSearching;
+    vm.startSearching = startSearching;
 
     DecksService.addObserver(vm);
     vm.notify = function() {};
@@ -144,15 +145,23 @@
       $mdSidenav('left').toggle();
     }
 
+    function startSearching(){
+      if(!vm.inputVisible)
+        vm.inputVisible = true;
+        $timeout(function(){angular.element($document[0].querySelector('#searchInput')).focus();},350);
+
+    }
+
     function finishSearching(reloadDecks) {
       if(vm.inputVisible) {
         vm.inputVisible = false;
-        if(reloadDecks)
+        if(reloadDecks && vm.isLogged())
           getPrivateDecks();
         vm.searchText = '';
       }
       else
         vm.inputVisible = true;
+        $timeout(function(){angular.element($document[0].querySelector('#searchInput')).focus();},350);
     }
 
     function getPrivateDecks() {
