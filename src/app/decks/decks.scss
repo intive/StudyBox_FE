@@ -25,3 +25,49 @@
   cursor:pointer;
   transition:0.3s;
 }
+
+.card-square-search{
+  width: 75%;
+  margin: 2em auto;
+  padding-top: 70%;
+  background-color: #FFFFFF;
+  opacity:1;
+  transition:0.3s;
+  border-style:dashed;
+}
+
+.title-square-search{
+  text-align: center;
+  margin-top:-50%;
+  color: #424242;
+}
+
+.card-square-search:hover{
+  opacity:0.8;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+  .isWide, .isMedium, .isNarrow{
+  display:none;
+  }
+
+
+ @media (min-width: 960px){
+  .isWide{
+  display:flex;
+  }
+}
+
+@media (min-width: 600px) and (max-width: 959px){
+  .isMedium{
+  display:flex;
+  }
+}
+
+@media (max-width: 599px){
+  .isNarrow{
+  display:flex;
+  }
+}
+

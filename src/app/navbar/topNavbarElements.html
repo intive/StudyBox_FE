@@ -8,7 +8,11 @@
     </div>
 
     <div class="top-navbar-element" align="center">
-      <md-button ui-sref="decks" aria-label=".">
+      <md-button ui-sref="decks({ access: 'private' })" aria-label="." ng-if="navbar.isLogged()">
+        <md-icon md-svg-src="assets/icons/studyBox.svg" ui-sref="decks"></md-icon>
+      </md-button>
+
+      <md-button ui-sref="decks({ access: 'public' })" aria-label="." ng-if="!navbar.isLogged()">
         <md-icon md-svg-src="assets/icons/studyBox.svg" ui-sref="decks"></md-icon>
       </md-button>
     </div>

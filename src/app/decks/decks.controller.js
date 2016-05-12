@@ -13,6 +13,8 @@
     vm.count = true;
     vm.access = null;
     vm.no_private_decks = true;
+    vm.parameter = $stateParams.access;
+    vm.randomDecks = randomDecks;
 
     DecksService.addObserver(vm);
     vm.notify = notify;
@@ -20,6 +22,19 @@
     orderByLocaleAwareConfig.localeId = 'pl';
 
     /////////////////
+
+    function randomDecks(){
+      vm.randomCategories= [];
+      for(var i = 0; i < 3; i++) {
+      BackendService.drawRandomDeck().then(
+        function success(response) {
+        vm.randomCategories.push(response.data)
+        },
+        function error(message) {
+          alert(message);
+        });
+    }
+    }
 
     function notify(decks) {
       vm.access = 'public';
@@ -41,6 +56,11 @@
     }
 
     getDecks();
+
+    if(vm.parameter == "public"){
+      randomDecks();
+    }
+
   }
 
 })();

@@ -35,6 +35,7 @@
 
     vm.inputVisible = false;
     vm.finishSearching = finishSearching;
+    vm.startSearching = startSearching;
 
     DecksService.addObserver(vm);
     vm.notify = function() {};
@@ -144,10 +145,15 @@
       $mdSidenav('left').toggle();
     }
 
+    function startSearching(){
+      if(!vm.inputVisible)
+        vm.inputVisible = true;
+    }
+
     function finishSearching(reloadDecks) {
       if(vm.inputVisible) {
         vm.inputVisible = false;
-        if(reloadDecks)
+        if(reloadDecks && vm.isLogged())
           getPrivateDecks();
         vm.searchText = '';
       }
