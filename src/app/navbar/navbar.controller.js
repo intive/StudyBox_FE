@@ -103,7 +103,6 @@
     {
       BackendService.drawRandomDeck().then(
         function success(response) {
-          //alert(response.data.id);
           $state.go("test",{deckId: response.data.id});
           openLeftMenu();
         },
@@ -150,10 +149,10 @@
         vm.inputVisible = true;
     }
 
-    function finishSearching(reloadDecks) {
+    function finishSearching() {
       if(vm.inputVisible) {
         vm.inputVisible = false;
-        if(reloadDecks && vm.isLogged())
+        if(vm.isLogged() && vm.searchText)
           getPrivateDecks();
         vm.searchText = '';
       }
@@ -176,8 +175,8 @@
     function finishSearchingOnStateChange() {
       $scope.$on('$stateChangeStart', function(event, toState,
                                                toParams, fromState) {
-        if(fromState.name == 'decks')
-          finishSearching(false);
+        if(fromState.name == 'decks' && vm.inputVisible)
+            finishSearching();
       });
     }
   }
