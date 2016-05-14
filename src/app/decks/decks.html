@@ -41,131 +41,132 @@
   </div>
 
 
-    <div ng-if="decks.access != 'public' && decks.parameter == 'public'"
-    flex="100" ng-show="!decks.randomCategories[2].isPublic"
-    layout="row" layout-align="center center">
-      <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+  <div ng-if="decks.access != 'public'"
+       flex="100" ng-show="!decks.randomCategories[2].isPublic"
+                  layout="row" layout-align="center center">
+    <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+  </div>
+
+
+  <div ng-if="decks.access != 'public'"
+       flex="100"
+       ng-show="decks.randomCategories[2].isPublic">
+
+    <div flex="100" layout="horizontal" layout-wrap class="isWide">
+
+      <div ng-repeat="deck in decks.randomCategories" flex="25">
+        <md-card class="card-square"
+                 ui-sref="deck-preview({ deckId: deck.id, access: 'public' })">
+
+          <div>
+            <div class="title-square">
+              {{ deck.name }}
+            </div>
+          </div>
+          <div class="counter-square">
+            {{ deck.flashcardsCount }}
+            <md-icon md-svg-src="assets/icons/studyBox.svg"></md-icon>
+          </div>
+        </md-card>
+
+      </div>
+
+      <div flex="25">
+        <md-card class="card-square-search"
+                 ng-click="navbar.startSearching()">
+          <div>
+            <div class="title-square-search">
+              {{ "deck-SEARCH_FOR_MORE_DECKS" | translate }}
+            </div>
+          </div>
+          <div class="counter-square">
+            <md-icon md-svg-src="assets/icons/studyBox.svg"></md-icon>
+          </div>
+        </md-card>
+      </div>
+
     </div>
 
 
-    <div ng-if="decks.access != 'public' && decks.parameter == 'public'" flex="100"
-     ng-show="decks.randomCategories[2].isPublic">
+    <div flex="100" layout="horizontal" layout-wrap class="isMedium">
 
-            <div flex="100" layout="horizontal" layout-wrap class="isWide">
-
-              <div ng-repeat="deck in decks.randomCategories" flex="25">
-                      <md-card class="card-square"
-                      ui-sref="deck-preview({ deckId: deck.id, access: 'public' })">
-
-                          <div>
-                            <div class="title-square">
-                              {{ deck.name }}
-                            </div>
-                          </div>
-                          <div class="counter-square">
-                            {{ deck.flashcardsCount }}
-                            <md-icon md-svg-src="assets/icons/studyBox.svg"></md-icon>
-                          </div>
-                      </md-card>
-
-              </div>
-
-                <div flex="25">
-                     <md-card class="card-square-search"
-                     ng-click="navbar.startSearching()">
-                          <div>
-                            <div class="title-square-search">
-                              {{ "deck-SEARCH_FOR_MORE_DECKS" | translate }}
-                            </div>
-                          </div>
-                          <div class="counter-square">
-                            <md-icon md-svg-src="assets/icons/studyBox.svg"></md-icon>
-                          </div>
-                    </md-card>
-                </div>
-
+      <div flex="50">
+        <md-card class="card-square"
+                 ui-sref="deck-preview({ deckId: decks.randomCategories[0].id, access: 'public' })">
+          <div>
+            <div class="title-square">
+              {{ decks.randomCategories[0].name }}
             </div>
+          </div>
+          <div class="counter-square">
+            <md-icon md-svg-src="assets/icons/studyBox.svg"></md-icon>
+          </div>
+        </md-card>
+      </div>
 
-
-            <div flex="100" layout="horizontal" layout-wrap class="isMedium">
-
-                <div flex="50">
-                    <md-card class="card-square"
-                      ui-sref="deck-preview({ deckId: decks.randomCategories[0].id, access: 'public' })">
-                          <div>
-                            <div class="title-square">
-                              {{ decks.randomCategories[0].name }}
-                            </div>
-                          </div>
-                          <div class="counter-square">
-                            <md-icon md-svg-src="assets/icons/studyBox.svg"></md-icon>
-                          </div>
-                    </md-card>
-                </div>
-
-                <div flex="50">
-                    <md-card class="card-square-search"
-                     ng-click="navbar.finishSearching(false)">
-                          <div>
-                            <div class="title-square-search">
-                              {{ "deck-SEARCH_FOR_MORE_DECKS" | translate }}
-                            </div>
-                          </div>
-                          <div class="counter-square">
-                            <md-icon md-svg-src="assets/icons/studyBox.svg"></md-icon>
-                          </div>
-                    </md-card>
-                </div>
-
-                <div flex="50">
-                    <md-card class="card-square"
-                      ui-sref="deck-preview({ deckId: decks.randomCategories[1].id, access: 'public' })">
-                          <div>
-                            <div class="title-square">
-                              {{ decks.randomCategories[1].name }}
-                            </div>
-                          </div>
-                          <div class="counter-square">
-                            <md-icon md-svg-src="assets/icons/studyBox.svg"></md-icon>
-                          </div>
-                    </md-card>
-                </div>
-
-                <div flex="50">
-                    <md-card class="card-square"
-                      ui-sref="deck-preview({ deckId: decks.randomCategories[2].id, access: 'public' })">
-                          <div>
-                            <div class="title-square">
-                              {{ decks.randomCategories[2].name }}
-                            </div>
-                          </div>
-                          <div class="counter-square">
-                            <md-icon md-svg-src="assets/icons/studyBox.svg"></md-icon>
-                          </div>
-                    </md-card>
-                </div>
-
+      <div flex="50">
+        <md-card class="card-square-search"
+                 ng-click="navbar.finishSearching(false)">
+          <div>
+            <div class="title-square-search">
+              {{ "deck-SEARCH_FOR_MORE_DECKS" | translate }}
             </div>
+          </div>
+          <div class="counter-square">
+            <md-icon md-svg-src="assets/icons/studyBox.svg"></md-icon>
+          </div>
+        </md-card>
+      </div>
 
-
-            <div flex="100" layout="horizontal" layout-wrap class="isNarrow">
-
-                <div flex="100">
-                    <md-card class="card-square-search"
-                     ng-click="navbar.finishSearching(false)">
-                          <div>
-                            <div class="title-square-search">
-                              {{ "deck-SEARCH_FOR_DECKS" | translate }}
-                            </div>
-                          </div>
-                          <div class="counter-square">
-                            <md-icon md-svg-src="assets/icons/studyBox.svg"></md-icon>
-                          </div>
-                    </md-card>
-                </div>
-
+      <div flex="50">
+        <md-card class="card-square"
+                 ui-sref="deck-preview({ deckId: decks.randomCategories[1].id, access: 'public' })">
+          <div>
+            <div class="title-square">
+              {{ decks.randomCategories[1].name }}
             </div>
+          </div>
+          <div class="counter-square">
+            <md-icon md-svg-src="assets/icons/studyBox.svg"></md-icon>
+          </div>
+        </md-card>
+      </div>
+
+      <div flex="50">
+        <md-card class="card-square"
+                 ui-sref="deck-preview({ deckId: decks.randomCategories[2].id, access: 'public' })">
+          <div>
+            <div class="title-square">
+              {{ decks.randomCategories[2].name }}
+            </div>
+          </div>
+          <div class="counter-square">
+            <md-icon md-svg-src="assets/icons/studyBox.svg"></md-icon>
+          </div>
+        </md-card>
+      </div>
 
     </div>
+
+
+    <div flex="100" layout="horizontal" layout-wrap class="isNarrow">
+
+      <div flex="100">
+        <md-card class="card-square-search"
+                 ng-click="navbar.finishSearching(false)">
+          <div>
+            <div class="title-square-search">
+              {{ "deck-SEARCH_FOR_DECKS" | translate }}
+            </div>
+          </div>
+          <div class="counter-square">
+            <md-icon md-svg-src="assets/icons/studyBox.svg"></md-icon>
+          </div>
+        </md-card>
+      </div>
+
+    </div>
+
+  </div>
 
 </div>
