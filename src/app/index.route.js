@@ -15,8 +15,7 @@
         controllerAs: 'login',
         params: {
           loginRequired: false
-        },
-        onEnter: redirectToDecksIfIsLogged
+        }
       })
       .state('login/:deckId/:deckEdit', {
         url: '/:deckId/:deckEdit',
@@ -29,11 +28,6 @@
       });
 
     $urlRouterProvider.otherwise('/');
-
-    function redirectToDecksIfIsLogged(LoginHelperService, $state) {
-      if(LoginHelperService.isLogged())
-        $state.go('decks', {access: 'private'});
-    }
   }
 
 })();

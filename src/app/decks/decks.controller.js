@@ -6,43 +6,59 @@
     .controller('DecksController', DecksController);
 
   /** @ngInject */
-  function DecksController(BackendService, $stateParams,
-                           orderByLocaleAwareConfig, DecksService) {
+  function DecksController(BackendService, $stateParams, $state,
+                           orderByLocaleAwareConfig, DecksService,
+                           LoginHelperService) {
     var vm = this;
     vm.getDecks = getDecks;
     vm.count = true;
     vm.access = null;
     vm.no_private_decks = true;
-    vm.parameter = $stateParams.access;
-    vm.randomDecks = randomDecks;
 
-    DecksService.addObserver(vm);
-    vm.notify = notify;
+    DecksService.controller = vm;
+    vm.onDecksChange = onDecksChange;
 
     orderByLocaleAwareConfig.localeId = 'pl';
 
     /////////////////
 
-    function randomDecks(){
-      vm.randomCategories= [];
-      for(var i = 0; i < 3; i++) {
-      BackendService.drawRandomDeck().then(
-        function success(response) {
-        vm.randomCategories.push(response.data)
-        },
-        function error(message) {
-          alert(message);
-        });
-    }
+    function getRandomDecks() {
+      vm.randomCategories = [];
+
+      for(var i = 0; i < 3; i++)
+        BackendService.drawRandomDeck().then(success, error);
+
+      function success(response) {
+        vm.randomCategories.push(response.data);
+      }
+
+      function error(response) {
+        alert(response);
+      }
     }
 
-    function notify(decks) {
+    function onDecksChange(decks) {
       vm.access = 'public';
       vm.no_private_decks = (decks === false) ? true : false;
       vm.categories = (vm.no_private_decks) ? [] : decks;
     }
 
     function getDecks() {
+      var state = $state.current.name;
+
+      if(LoginHelperService.isLogged() && state == 'decks') {
+        getPrivateDecks();
+      }
+      else if(!LoginHelperService.isLogged() && state == 'decks') {
+        getRandomDecks();
+      }
+      else if(state == 'decks-search') {
+        vm.categories = DecksService.getDecks();
+        vm.access = 'public';
+      }
+    }
+
+    function getPrivateDecks() {
       vm.access = 'private';
       BackendService.getDecks(vm.access, vm.count)
       .then(
@@ -56,11 +72,6 @@
     }
 
     getDecks();
-
-    if(vm.parameter == "public"){
-      randomDecks();
-    }
-
   }
 
 })();

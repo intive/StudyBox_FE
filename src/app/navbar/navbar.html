@@ -7,7 +7,8 @@
   <div layout="row"
        layout-align="end start"
        class="nav-buttons"
-       ng-show="navbar.uiRouterState.current.name == 'decks'">
+       ng-show="navbar.uiRouterState.current.name == 'decks' ||
+                navbar.uiRouterState.current.name == 'decks-search'">
 
     <form ng-submit="navbar.querySearch()"
           flex-sm="90" flex-xs="90" flex="30"
@@ -23,7 +24,7 @@
     </form>
 
     <md-button aria-label="search"
-               ng-click="navbar.finishSearching()"
+               ng-click="navbar.toggleSearchButton()"
                id="searchButton"
                ng-class="{darkButton: navbar.inputVisible}">
       <md-icon md-svg-src="assets/icons/search.svg"
