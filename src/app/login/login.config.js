@@ -26,10 +26,10 @@
                   $interval.cancel(interval);
                 }
 
-                if (ctrl.input.parent()[0].querySelector('input:-webkit-autofill')) {
-                  ctrl.element.addClass('md-input-has-value');
-                  $interval.cancel(interval);
-                }
+                // if (ctrl.input.parent()[0].querySelector('input:-webkit-autofill')) {
+                //   ctrl.element.addClass('md-input-has-value');
+                //   $interval.cancel(interval);
+                // }
 
                 count++;
               }, 25);

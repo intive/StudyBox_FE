@@ -16,15 +16,31 @@
       controllerAs: 'decks',
       params: {
         access: 'private'
-      },
-      onEnter: function($state, $stateParams, LoginHelperService) {
-        if ($stateParams.access === 'private' && !LoginHelperService.isLogged()) {
-          $state.go('login');
-        }
       }
+    })
+    .state('decks-search', {
+      parent: 'navbar',
+      url: '/decks-search',
+      templateUrl: 'app/decks/decks.html',
+      controller: 'DecksController',
+      controllerAs: 'decks',
+      params: {
+        access: 'public'
+      },
+      onExit: tryClosingSearchBar
     });
 
     $urlRouterProvider.otherwise('/');
+
+    function tryClosingSearchBar(NavbarService, $timeout) {
+      var ctrl = NavbarService.controller;
+
+      if(ctrl && ctrl.inputVisible) {
+        $timeout(function(){
+          ctrl.inputVisible = false;
+        });
+      }
+    }
   }
 
 })();

@@ -1,6 +1,3 @@
-//
-// Obserwator, rozsyła talie do subskrybentów.
-//
 (function() {
   'use strict';
 
@@ -10,15 +7,16 @@
 
   /* @ngInject */
   function DecksService() {
-    this.observers = [];
+    this.controller = null;
+    this.decks = [];
 
-    this.addObserver = function(observer) {
-      this.observers.push(observer);
+    this.setDecks = function(decks) {
+      this.decks = decks;
+      this.controller.onDecksChange(decks);
     };
 
-    this.notifyObservers = function(decks) {
-      for(var i = 0; i < this.observers.length; i++)
-        this.observers[i].notify(decks);
+    this.getDecks = function() {
+      return this.decks;
     };
   }
 })();

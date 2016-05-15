@@ -278,14 +278,13 @@
       );
     }
 
-    function drawRandomDeck(){
+    function drawRandomDeck() {
       var method = 'GET';
       var url = '/api/decks/random?flashcardsCount=true';
 
       return $http({method: method, url: url})
         .then(
         function success(response) {
-
           return response;
         },
         function error(response) {
