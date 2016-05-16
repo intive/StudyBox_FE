@@ -99,6 +99,8 @@
     "test-BEAT": "Popraw wynik",
     "test-RETEST": "Powtórz test",
 
-    "preview-SHOW_HINTS": "Lista podpowiedzi"
+    "preview-SHOW_HINTS": "Lista podpowiedzi",
+
+    "hintList-HINTS": "Podpowiedzi"
 
   }
