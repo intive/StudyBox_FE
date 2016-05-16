@@ -6,7 +6,7 @@ angular
 .controller('RegistrationController', RegistrationController);
 
 /** @ngInject */
-function RegistrationController($document, $log, $window, $rootScope, $mdDialog, $translate,$http,$filter , $state) {
+function RegistrationController($document, $log, $window, $rootScope, $mdDialog, $translate, $http, $filter, $state, LoginHelperService) {
   var vm = this;
   vm.submit = submit;
   vm.reset = reset;
@@ -38,8 +38,10 @@ function RegistrationController($document, $log, $window, $rootScope, $mdDialog,
         $mdDialog
           .show( dialog )
           .finally(function() {
+            var token = btoa(vm.data.email + ":" + vm.data.password);
+            LoginHelperService.setCookie(vm.data.email, token);
             dialog = undefined;
-            $state.go('login');
+            $state.go('decks');
           });
       }, function errorCallback() {
         var dialog = $mdDialog.alert({
