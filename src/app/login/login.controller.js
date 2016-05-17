@@ -26,7 +26,7 @@
       LoginHelperService.setCookie(user, token);
       LoginService.doLogin(user, pass, loginUrl)
       .then(
-        function(data) {
+        function() {
           if(vm.deckId) {
             if(vm.deckEdit == "d-e") {
               $state.go("deck.addCard", {"deckId": vm.deckId , cardId: null});

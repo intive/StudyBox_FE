@@ -71,7 +71,7 @@
     function removeHint(index){
       vm.hints.splice(vm.hints.indexOf(index), 1);
       deleteTip(index);
-      if(vm.hints.length == 0)
+      if(vm.hints.length === 0)
         vm.addHintTranslate = $translate.instant("addCard-HINT");
     }
 
@@ -131,7 +131,7 @@
       if (!vm.newDeck) {
         $log.warn("pusta nazwa talii");
         DeckService.setEmptyNameError(true);
-        return $state.reload()
+        return $state.reload();
       }
       //sprawdzenie zmiany nazwy talii
       if (vm.deck && vm.newDeck.name != vm.deck.name) {
@@ -144,7 +144,7 @@
           cardInDeck = editFlashCard();
           //CRUD podpowiedzi
           for(var i=0; i < vm.hints.length; i++){
-            if(vm.hints[i].hintChanged == true){
+            if(vm.hints[i].hintChanged === true){
               //tworzenie
               if(angular.isUndefined(vm.hints[i].id)){
                 createTip(vm.hints[i].essence);
@@ -157,14 +157,14 @@
           if($stateParams.deckId) {
             cardInDeck = createFlashCard();
           } else {
-            cardInDeck = createDeckWithFlashCard()
+            cardInDeck = createDeckWithFlashCard();
           }
         }
       //update deck name
       if (nameChange) {
         cardInDeck
           .then(function success() {
-            return vm.deck.updateDeck(vm.newDeck.name, vm.newDeck.access)
+            return vm.deck.updateDeck(vm.newDeck.name, vm.newDeck.access);
           },
           function error() {
             var message = 'I cant create/update card';
@@ -179,7 +179,7 @@
             var message = 'I cant update Deck name';
             alert(message);
             throw message;
-          })
+          });
       }
 
     }
@@ -188,7 +188,7 @@
       return BackendService.getDeckById($stateParams.deckId)
         .then(function success(data) {
           vm.deck = data;
-          return vm.deck.updateFlashcard($stateParams.cardId, vm.question, vm.answer, vm.isHidden)
+          return vm.deck.updateFlashcard($stateParams.cardId, vm.question, vm.answer, vm.isHidden);
         },
         function error(){
           var message = 'I cant get deck';
@@ -235,7 +235,7 @@
       return BackendService.createNewDeck(vm.newDeck.name, vm.newDeck.access)
         .then(function success(data) {
           vm.deck = data;
-          return vm.deck.createFlashcard(vm.question, vm.answer, vm.isHidden)
+          return vm.deck.createFlashcard(vm.question, vm.answer, vm.isHidden);
         },
         function error(){
           var message = 'I cant create new deck';
