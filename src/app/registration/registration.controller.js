@@ -1,18 +1,18 @@
 (function() {
   'use strict';
 
-angular
-.module('registration')
-.controller('RegistrationController', RegistrationController);
+  angular
+  .module('registration')
+  .controller('RegistrationController', RegistrationController);
 
-/** @ngInject */
-function RegistrationController($document, $log, $window, $rootScope, $mdDialog, $translate, $http, $filter, $state, LoginHelperService) {
-  var vm = this;
-  vm.submit = submit;
-  vm.reset = reset;
-  vm.data = {};
-  vm.imagePath = "assets/images/StudyBoxLogo_xx.png";
-  vm.passwordRegex = /^[^\s]+$/;
+  /** @ngInject */
+  function RegistrationController($document, $log, $window, $rootScope, $mdDialog, $translate, $http, $filter, $state, LoginHelperService) {
+    var vm = this;
+    vm.submit = submit;
+    vm.reset = reset;
+    vm.data = {};
+    vm.imagePath = "assets/images/StudyBoxLogo_xx.png";
+    vm.passwordRegex = /^[^\s]+$/;
 
   //wysylanie formularza
   function submit(isValid) {
@@ -29,20 +29,9 @@ function RegistrationController($document, $log, $window, $rootScope, $mdDialog,
           'password': vm.data.password
         }
       }).then(function successCallback() {
-        //alert(angular.toJson (response.data));
-        var dialog = $mdDialog.alert({
-          title: $filter('translate')('registration-DIALOG_TITLE'),
-          textContent: $filter('translate')('registration-DIALOG_TEXT_CONTENT_TRUE'),
-          ok: $filter('translate')('registration-DIALOG_OK')
-        });
-        $mdDialog
-          .show( dialog )
-          .finally(function() {
-            var token = btoa(vm.data.email + ":" + vm.data.password);
-            LoginHelperService.setCookie(vm.data.email, token);
-            dialog = undefined;
-            $state.go('decks');
-          });
+        var token = btoa(vm.data.email + ":" + vm.data.password);
+        LoginHelperService.setCookie(vm.data.email, token);
+        $state.go('decks');
       }, function errorCallback() {
         var dialog = $mdDialog.alert({
           title: $filter('translate')('registration-DIALOG_TITLE'),
@@ -50,10 +39,10 @@ function RegistrationController($document, $log, $window, $rootScope, $mdDialog,
           ok: $filter('translate')('registration-DIALOG_OK')
         });
         $mdDialog
-          .show( dialog )
-          .finally(function() {
-            dialog = undefined;
-          });
+        .show( dialog )
+        .finally(function() {
+          dialog = undefined;
+        });
       });
 
     }else{
@@ -70,13 +59,13 @@ function RegistrationController($document, $log, $window, $rootScope, $mdDialog,
   function showOfflineRegistrationAlert() {
     $mdDialog.show(
       $mdDialog.alert()
-        .parent(angular.element($document[0].querySelector('#popupContainer')))
-        .clickOutsideToClose(false)
-        .title($translate.instant('networkAlert-WARNING'))
-        .textContent($translate.instant('networkAlert-OFFLINE_REGISTRATION'))
-        .ariaLabel('Alert Dialog')
-        .ok($translate.instant('networkAlert-AGREE'))
-    );
+      .parent(angular.element($document[0].querySelector('#popupContainer')))
+      .clickOutsideToClose(false)
+      .title($translate.instant('networkAlert-WARNING'))
+      .textContent($translate.instant('networkAlert-OFFLINE_REGISTRATION'))
+      .ariaLabel('Alert Dialog')
+      .ok($translate.instant('networkAlert-AGREE'))
+      );
   }
 }
 })();
