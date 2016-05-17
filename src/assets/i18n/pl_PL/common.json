@@ -41,7 +41,7 @@
     "registration-DIALOG_TITLE": "Rejestracja",
     "registration-DIALOG_TEXT_CONTENT_TRUE": "Prawidłowo utworzono konto :)",
     "registration-DIALOG_TEXT_CONTENT_FALSE": "Wystąpiły problemy podczas tworzenia konta :(",
-    "registration-DIALOG_OK": "Logowanie",
+    "registration-DIALOG_OK": "OK",
 
     "login-FORM_TITLE":"Logowanie",
     "login-NAME_FIELD": "IMIĘ",
