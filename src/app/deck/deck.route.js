@@ -51,12 +51,19 @@
 
         }
       })
-      .state('deck.addCard', {
-        parent: 'deck',
-        url: '/:cardId',
-        templateUrl: 'app/addCard/addCard.html',
-        controller: 'AddCardController',
-        controllerAs: 'addCard'
+      // .state('deck.addCard', {
+      //   parent: 'deck',
+      //   url: '/:cardId',
+      //   templateUrl: 'app/addCard/addCard.html',
+      //   controller: 'AddCardController',
+      //   controllerAs: 'addCard'
+      // })
+      .state('my-deck-preview-new-card', {
+        parent: 'navbar',
+        url: '/my-deck-preview/',
+        templateUrl: 'app/deck/my-deck-preview.page.html',
+        controller: 'MyDeckPreviewController',
+        controllerAs: 'myDeckPreview'
       })
       .state('deck-preview', {
         parent: 'navbar',
@@ -99,8 +106,8 @@
 
             var deckId = $stateParams.deckId;
             if(deckId == ""){
-            $state.go("login")
-          }
+              $state.go("login")
+            }
 
             BackendService.getDeckById(deckId)
             .then(function success(data) {

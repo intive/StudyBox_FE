@@ -6,7 +6,10 @@
     .controller('MyDeckPreviewController', MyDeckPreviewController);
 
   /** @ngInject */
-  function MyDeckPreviewController($stateParams, $state, BackendService, $log, DeckService, $mdDialog, $translate, $document, $mdMedia, $scope, TipsService) {
+  function MyDeckPreviewController($stateParams, $state, BackendService, $log,
+                                    DeckService, $mdDialog, $translate, $document,
+                                    $mdMedia, $scope, TipsService, $mdToast) {
+
     var vm = this;
     vm.deckId = $stateParams.deckId;
     vm.selectedDeck = new BackendService.Deck();
@@ -21,10 +24,277 @@
     vm.changeVisibility = changeVisibility;
     vm.checkIfAllHidden = checkIfAllHidden;
     vm.access = $stateParams.access;
+    vm.getAllTips = getAllTips;
+    vm.maxHintCount = 5;
+    vm.trimInput = trimInput;
+    vm.pasteChecker = pasteChecker;
+
+    vm.addHint = addHint;
+    vm.removeHint = removeHint;
+
+    vm.createTip = createTip;
+    vm.deleteTip = deleteTip;
+    vm.updateTip = updateTip;
+    vm.createTips = createTips;
+    vm.createUpdateTips = createUpdateTips;
+
+
+    vm.trimString = trimString;
+    vm.trimInput = trimInput;
+
+    vm.cardSaveToast = cardSaveToast;
+    vm.getToastPosition = getToastPosition;
+    vm.pageDialog = pageDialog;
     vm.hintsListDialog = hintsListDialog;
     vm.cancelDialog = cancelDialog;
-    vm.getAllTips = getAllTips;
 
+    vm.submitCard = submitCard;
+    vm.createCard = createCard;
+    vm.setNewCard = setNewCard;
+
+    vm.setCard = setCard;
+    vm.createDeckWithFlashCard = createDeckWithFlashCard;
+    vm.cardAccessChange = cardAccessChange;
+    vm.deckAccessChange = deckAccessChange;
+    // vm.isHidden = false;
+
+    //tworzenie nowej tali
+    if(!vm.deckId){
+      vm.createNewDeckFlag = true;
+      vm.isHidden = true;
+      vm.isPublic = false;
+      vm.isHiddenMsg = $translate.instant("preview-PRIVATE_CARD");
+      // pageDialog(null, null, true);
+    }
+
+    //dodanie nowego inputa dla podpowiedzi
+    function addHint(){
+      if(vm.hints.length < vm.maxHintCount){
+        vm.hintNumber = vm.hints.length + 1;
+        vm.hints.push({'count':+ vm.hintNumber});
+        vm.addHintTranslate = $translate.instant("preview-ANOTHER_HINT");
+      }
+    }
+
+    //usuniecie inputa dla podpoweidzi
+    function removeHint(index){
+      vm.hints.splice(vm.hints.indexOf(index), 1);
+      deleteTip(index);
+      if(vm.hints.length == 0)
+        vm.addHintTranslate = $translate.instant("preview-HINT");
+    }
+
+    function createTip(essence){
+      $log.info("createTip vm.cardId "+vm.cardId);
+      TipsService.createNewTip(vm.deckId, vm.cardId, essence)
+      .then(function success() {
+
+      },
+      function error(){
+        throw 'Nie można utworzyć podpowiedzi';
+      });
+    }
+
+    function deleteTip(tipId){
+      TipsService.deleteTip(vm.deckId, vm.cardId, tipId.id)
+      .then(function success() {
+
+      },
+      function error(){
+        throw 'Nie można usunąć podpowiedzi';
+      });
+    }
+
+    function updateTip(tipId, essence){
+      TipsService.updateTip(vm.deckId, vm.cardId, tipId, essence)
+      .then(function success() {
+
+      },
+      function error(){
+        throw 'Nie można edytować podpowiedzi';
+      });
+    }
+
+    function createTips(){
+      for(var i=0; i < vm.hints.length; i++){
+        if(vm.hints[i].hintChanged == true){
+          //tworzenie
+          if(angular.isUndefined(vm.hints[i].id))
+            createTip(vm.hints[i].essence);
+        }
+      }
+    }
+
+    function createUpdateTips(){
+      for(var i=0; i < vm.hints.length; i++){
+        if(vm.hints[i].hintChanged == true){
+          //tworzenie
+          if(angular.isUndefined(vm.hints[i].id))
+            createTip(vm.hints[i].essence);
+          else //edycja
+            updateTip(vm.hints[i].id, vm.hints[i].essence);
+        }
+      }
+    }
+
+    //ucinanie bialych znakow na poczatku i koncu inputa
+    function trimString(str) {
+      return str.replace(/^\s+|\s+$/g, '');
+    }
+
+    //ucinanie inputa tylko w przypadku wklejenia
+    function trimInput(field){
+      if(vm.paste){
+        if(vm.questionFocus){
+          field.question = field.question.substring(0, 1000);
+        }
+        else if(vm.answerFocus){
+          field.answer = field.answer.substring(0, 1000);
+        }
+        vm.paste = false;
+      }
+    }
+
+    function pasteChecker(){
+      vm.paste = true;
+    }
+
+    function submitCard(isValid) {
+      //gdy formularz nie przechodzi walidacji
+      if(!isValid) return;
+      if(!vm.answer || vm.answer.length > 1000) return;
+      if(!vm.question || vm.question.length > 1000) return;
+
+      //ucina spacje przed i za
+      vm.question = trimString(vm.question);
+      vm.answer = trimString(vm.answer);
+
+      // vm.newDeck = DeckService.getNewDeck();
+
+      //sprawdzenie nazwy talii
+      // if (!vm.newDeck) {
+      //   $log.warn("pusta nazwa talii");
+      //   DeckService.setEmptyNameError(true);
+      //   return $state.reload()
+      // }
+      // //sprawdzenie zmiany nazwy talii
+      // if (vm.deck && vm.newDeck.name != vm.deck.name) {
+      //   $log.warn("zmieniono nazwe talii");
+      //   var nameChange = true;
+      // }
+      //Jeżeli pola nie są puste
+      // var cardInDeck;
+      //   if($stateParams.cardId) {
+      //     cardInDeck = editFlashCard();
+
+      //tworzenie nowej tali
+      if(vm.createNewDeckFlag){
+        createDeckWithFlashCard();
+        vm.createNewDeckFlag = !vm.createNewDeckFlag;
+      }else{
+        //dodanie nowej fiszki
+        if(vm.addCard == true){
+          createCard();
+          vm.addCard = !vm.addCard;
+        }else{  //edycja istniejacej fiszki
+          updateCard();
+          createUpdateTips();
+        }
+      }
+
+
+      //   } else {
+      //     if($stateParams.deckId) {
+      //       cardInDeck = createFlashCard();
+      //     } else {
+      //       cardInDeck = createDeckWithFlashCard()
+      //     }
+      //   }
+      // //update deck name
+      // if (nameChange) {
+      //   cardInDeck
+      //     .then(function success() {
+      //       return vm.deck.updateDeck(vm.newDeck.name, vm.newDeck.access)
+      //     },
+      //     function error() {
+      //       var message = 'I cant create/update card';
+      //       alert(message);
+      //       throw message;
+      //     })
+      //     .then(function success() {
+      //       $state.go("deck.addCard", {deckId: vm.deck.id});
+      //       $state.reload("deck");
+      //     },
+      //     function error() {
+      //       var message = 'I cant update Deck name';
+      //       alert(message);
+      //       throw message;
+      //     })
+      // }
+        cancelDialog();
+        cardSaveToast();
+
+        if(vm.hints.length == 0)
+          vm.addHintTranslate = $translate.instant("preview-HINT");
+    }
+
+
+
+    function updateCard(){
+      BackendService.getDeckById(vm.deckId)
+        .then(function success(data) {
+          vm.deck = data;
+          $log.info("vm.isHidden "+vm.isHidden);
+          vm.deck.updateFlashcard(vm.cardId, vm.question, vm.answer, vm.isHidden)
+          .then(function success(){
+            $state.reload("my-deck-preview");
+          },
+          function error(){
+            throw 'Nie można edytować fiszki';
+          });
+      },
+      function error(){
+        throw 'Nie można pobrać talii';
+      });
+    }
+
+    function createCard(){
+      BackendService.getDeckById(vm.deckId)
+        .then(function success(data) {
+          vm.deck = data;
+          vm.deck.createFlashcard(vm.question, vm.answer, !vm.isHidden)
+          .then(function success(data) {
+            vm.cardId = data.id;
+            createTips();
+          },
+          function error(){
+            throw 'Nie można dodać fiszki';
+          });
+          $state.reload("my-deck-preview");
+      },
+      function error(){
+        throw 'Nie można pobrać id talii';
+      });
+    }
+
+    function createDeckWithFlashCard(){
+      vm.hints = [];
+      $log.info("vm.isPublic "+vm.isPublic+" vm.isHidden "+vm.isHidden);
+      BackendService.createNewDeck(vm.newDeckName, vm.isPublic)
+        .then(function success(data) {
+          vm.deck = data;
+          vm.deck.createFlashcard(vm.question, vm.answer, vm.isHidden)
+          .then(function success() {
+            $state.go("my-deck-preview", {deckId:vm.deck.id});
+          },
+          function error(){
+            throw 'Nie można stworzyć fiszki';
+          });
+        },
+        function error(){
+          throw 'Nie można stworzyć tali';
+        });
+    }
 
     function checkIfAllHidden(){
       vm.visibleCards = vm.cards.filter(hideFilter(false));
@@ -52,7 +322,7 @@
     }
 
     function changeVisibility(card){
-      return BackendService.getDeckById($stateParams.deckId)
+      return BackendService.getDeckById(vm.deckId)
         .then(function success(data) {
           vm.deck = data;
           return vm.deck.updateFlashcard(card.id, card.question, card.answer, !card.isHidden)
@@ -154,6 +424,7 @@
       vm.selectedDeck.getFlashcards()
         .then(function (result) {
           vm.cards = result;
+          vm.cards.isHidden = vm.isPublic;
         }, function (e) {
           $log.error(e);
         });
@@ -163,6 +434,10 @@
       TipsService.getAllTips(vm.deckId, cardId)
       .then(function success(data) {
         vm.hints = data;
+        if(angular.isUndefined(vm.hints) || vm.hints.length == 0)
+          vm.addHintTranslate = $translate.instant("preview-HINT");
+        else
+          vm.addHintTranslate = $translate.instant("preview-ANOTHER_HINT");
       },
       function error(){
         throw 'Nie można pobrać podpowiedzi';
@@ -197,9 +472,9 @@
     //DELETE CARD DIALOG
     function deleteCardDialog(cardId, cardNo) {
       var content = $translate.instant("deck-REMOVE_CARD_MODAL");
-      //info for last card
+      //info for toastPosition card
       if (cardNo < 2) {
-        content = ($translate.instant("deck-REMOVE_LAST_CARD_MODAL"));
+        content = ($translate.instant("deck-REMOVE_toastPosition_CARD_MODAL"));
       }
       var confirm = $mdDialog.confirm()
         .title($translate.instant("deck-REMOVE_CARD"))
@@ -211,25 +486,66 @@
               //delete card
             vm.selectedDeck.removeFlashcard(cardId)
               .then(function (result) {
-                //delete deck if last card
+                //delete deck if toastPosition card
                 if (cardNo < 2) {
-                  $log.warn('last one flashcard');
+                  $log.warn('toastPosition one flashcard');
                   vm.selectedDeck.remove().then(function () {
                     $state.go('decks');
                   });
                 } else {
-                  $state.go("deck.addCard", {deckId: vm.selectedDeck.id, cardId: null});
-                  getCards();
+                  // $state.go("deck.addCard", {deckId: vm.selectedDeck.id, cardId: null});
+                  $state.reload();
+                  // getCards();
                   $log.log(result);
                 }
               }, function (e) {
                 $log.error(e);
               });
-          }
-          , function () {
-            $log.log('do nothing')
-          }
+          }, function () {}
         )
+    }
+
+    function cardAccessChange() {
+      if(vm.isHidden == true)
+        vm.isHiddenMsg = $translate.instant("preview-PRIVATE_CARD");
+      else
+        vm.isHiddenMsg = $translate.instant("preview-PUBLIC_CARD");
+
+      // var access= !accessToBool(vm.deckAccess);
+      // $log.info("access "+access);
+      // if (!vm.selectedDeck){
+      //   DeckService.setNewDeck({name: vm.searchText, access:access});
+      // } else {
+      //   saveDeck(vm.selectedDeck.name, access);
+      // }
+    }
+
+    function deckAccessChange() {
+      if(vm.isPublic == false)
+        vm.isPublicMsg = $translate.instant("preview-PRIVATE_DECK");
+      else
+        vm.isPublicMsg = $translate.instant("preview-PUBLIC_DECK");
+    }
+
+    function setCard(card){
+      // if (vm.card){
+        vm.card = card;
+        vm.question = card.question;
+        vm.answer = card.answer;
+        vm.isHidden = card.isHidden;
+        if(vm.isHidden == true)
+          vm.isHiddenMsg = $translate.instant("preview-PRIVATE_CARD");
+        else
+          vm.isHiddenMsg = $translate.instant("preview-PUBLIC_CARD");
+        vm.cardId = card.id;
+        getAllTips(vm.cardId);
+      // }
+    }
+
+    function setNewCard(){
+      vm.hints = [];
+      vm.question = "";
+      vm.answer = "";
     }
 
     function hintsListDialog(ev, card) {
@@ -246,6 +562,65 @@
         clickOutsideToClose:true,
         fullscreen: useFullScreen
       });
+    }
+
+    function pageDialog(ev, card, editStatus) {
+
+      //edycja
+      if(editStatus){
+        vm.editMode = true;
+        setCard(card);
+      }
+      else{ //dodanie nowej fiszki
+        vm.editMode = false;
+        setNewCard();
+      }
+
+      var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'));
+      $mdDialog.show({
+        controller: MyDeckPreviewController,
+        templateUrl: 'app/deck/cardEdit.html',
+        parent: angular.element($document.body),
+        targetEvent: ev,
+        scope: $scope,
+        preserveScope: true,
+        clickOutsideToClose:true,
+        fullscreen: useFullScreen
+      });
+    }
+
+
+    var toastPosition = {
+      bottom: true,
+      top: false,
+      left: true,
+      right: false
+    };
+
+    vm.toastPosition = angular.extend({}, toastPosition);
+    function getToastPosition(){
+      sanitizeToastPosition();
+      return Object.keys(vm.toastPosition)
+        .filter(function(pos) { return vm.toastPosition[pos]; })
+        .join(' ');
+    }
+
+    function sanitizeToastPosition(){
+      var current = vm.toastPosition;
+      if ( current.bottom && toastPosition.top ) current.top = false;
+      if ( current.top && toastPosition.bottom ) current.bottom = false;
+      if ( current.right && toastPosition.left ) current.left = false;
+      if ( current.left && toastPosition.right ) current.right = false;
+      toastPosition = angular.extend({},current);
+    }
+
+    function cardSaveToast(){
+      $mdToast.show(
+        $mdToast.simple()
+          .textContent($translate.instant("preview-SAVE_CARD_TOAST"))
+          .position(vm.getToastPosition())
+          .hideDelay(3000)
+      );
     }
 
     function cancelDialog(){

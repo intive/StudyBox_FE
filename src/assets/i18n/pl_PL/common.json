@@ -99,6 +99,13 @@
     "test-BEAT": "Popraw wynik",
     "test-RETEST": "Powtórz test",
 
-    "preview-SHOW_HINTS": "Lista podpowiedzi"
+    "preview-SHOW_HINTS": "Lista podpowiedzi",
+    "preview-SAVE_CARD_TOAST": "Zapisano zmiany",
+    "preview-HINT": "Dodaj podpowiedź",
+    "preview-ANOTHER_HINT": "Dodaj kolejną podpowiedź",
+    "preview-PUBLIC_CARD": "Publiczna",
+    "preview-PRIVATE_CARD": "Prywatna",
+    "preview-PUBLIC_DECK": "Publiczna",
+    "preview-PRIVATE_DECK": "Prywatna"
 
   }
