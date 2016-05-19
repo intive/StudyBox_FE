@@ -1,48 +1,29 @@
-<md-content class="parentScrollBar">
+<md-toolbar layout-gt-sm="row" layout="column" layout-align="start">
+  <top-navbar-elements layout="row" flex="66">
+  </top-navbar-elements>
 
-<top-navbar-elements></top-navbar-elements>
-
-  <hamburger-menu></hamburger-menu>
-
-  <div layout="row"
-       layout-align="end start"
-       class="nav-buttons"
-       ng-show="navbar.uiRouterState.current.name == 'decks' ||
-                navbar.uiRouterState.current.name == 'decks-search'">
-
-    <form ng-submit="navbar.querySearch()"
-          flex-sm="40" flex-xs="90" flex="30"
-          id="searchArea"
-          ng-class="{'searchForm': !navbar.inputVisible, 'showUp': navbar.inputVisible}">
-
-      <input ng-model="navbar.searchText"
-             ng-change="navbar.trimInput()"
-             placeholder="{{'navbar-PLACEHOLDER' | translate}}"
-             id="searchInput">
-      </input>
-
+  <div id="deckSearch" layout="row" flex="70" flex-offset="15" 
+  flex-gt-sm="33" flex-offset-gt-sm="0" 
+  layout-align-gt-sm="center center" layout-align="start center" 
+  ng-show="navbar.uiRouterState.current.name == 'decks' || navbar.uiRouterState.current.name == 'decks-search'">
+    <form ng-submit="navbar.querySearch()" id="searchArea" ng-class="{'searchForm': !navbar.inputVisible, 'showUp': navbar.inputVisible}">
+      <input ng-model="navbar.searchText" ng-change="navbar.trimInput()" placeholder="{{ 'navbar-PLACEHOLDER' | translate }}" id="searchInput"/>
     </form>
-
-    <md-button aria-label="search"
-               ng-click="navbar.toggleSearchButton()"
-               id="searchButton"
-               ng-class="{darkButton: navbar.inputVisible}">
-      <md-icon md-svg-src="assets/icons/search.svg"
-               id="searchButton2"
-               ng-hide="navbar.inputVisible">
+    <md-button aria-label="search" ng-click="navbar.toggleSearchButton()" id="searchButton" ng-class="{darkButton: navbar.inputVisible}">
+      <md-icon md-svg-src="assets/icons/search.svg" id="searchButton2" ng-hide="navbar.inputVisible">
       </md-icon>
-      <md-icon md-svg-src="assets/icons/not.svg"
-               id="searchButton3"
-               ng-hide="!navbar.inputVisible">
+      <md-icon md-svg-src="assets/icons/not.svg" id="searchButton3" ng-hide="!navbar.inputVisible">
       </md-icon>
     </md-button>
+    <new-deck-fab>
+  </new-deck-fab>
+  </div>  
+  <!--  workaround, flex-66 wypełnia 100% jak ma miejsce, parametry typu nogrow nic nie dają -->
+  <div flex="33" ng-hide="navbar.uiRouterState.current.name == 'decks' || navbar.uiRouterState.current.name == 'decks-search'"></div>
+</md-toolbar>
 
-    <new-deck-fab></new-deck-fab>
-
-  </div>
-
-  <md-content layout-padding class="deleteScrollBar">
-    <div ui-view></div>
-  </md-content>
-
+<md-content ui-view>  
 </md-content>
+
+<hamburger-menu>
+  </hamburger-menu>

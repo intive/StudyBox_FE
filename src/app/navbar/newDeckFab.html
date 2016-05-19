@@ -1,6 +1,5 @@
-<div class="fabSpeedDial">
-  <div class="lock-size">
-    <md-fab-speed-dial md-open="navbar.isOpen" md-direction="down" class="md-scale">
+
+    <md-fab-speed-dial md-open="navbar.isOpen" md-direction="down" class="md-scale" md-fab-top-right>
       <md-fab-trigger ng-show="navbar.isLogged()">
         <md-button aria-label="add" class="md-fab color-dial" ng-class="navbar.isOpen == true ? 'rotate' : ''">
           <md-tooltip md-direction="top">{{'navbar-ADD' | translate}}</md-tooltip>
@@ -26,6 +25,5 @@
               <md-icon md-svg-src="assets/icons/add.svg"></md-icon>
     </md-button>
 
-  </div>
-</div>
+
 
