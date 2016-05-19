@@ -1,24 +1,16 @@
-<md-toolbar class="md-menu-toolbar.md-primary">
-  <div flex layout="row" layout-align="space-around center">
-
-    <div class="top-navbar-element">
-      <md-button ng-click="navbar.openLeftMenu()" aria-label=".">
-        <md-icon md-svg-src="assets/icons/burger.svg"></md-icon>
-      </md-button>
-    </div>
-
-    <div class="top-navbar-element" align="center">
-      <md-button ui-sref="decks({ access: 'private' })" aria-label="." ng-if="navbar.isLogged()">
-        <md-icon md-svg-src="assets/icons/studyBox.svg" ui-sref="decks"></md-icon>
-      </md-button>
-
-      <md-button ui-sref="decks({ access: 'public' })" aria-label="." ng-if="!navbar.isLogged()">
-        <md-icon md-svg-src="assets/icons/studyBox.svg" ui-sref="decks"></md-icon>
-      </md-button>
-    </div>
-
-    <div class="top-navbar-element">
-    </div>
-
-  </div>
-</md-toolbar>
+<div flex="50" layout="row" layout-align="start center">
+  <md-button ng-click="navbar.openLeftMenu()" aria-label=".">
+    <md-icon md-svg-src="assets/icons/burger.svg">
+    </md-icon>
+  </md-button>
+</div>
+<div flex="50" layout="row" layout-align-gt-sm="center center" layout-align="end center">
+  <md-button ui-sref="decks({ access: 'private' })" aria-label="." ng-if="navbar.isLogged()">
+    <md-icon md-svg-src="assets/icons/studyBox.svg">
+    </md-icon>
+  </md-button>
+  <md-button ui-sref="decks({ access: 'public' })" aria-label="." ng-if="!navbar.isLogged()">
+    <md-icon md-svg-src="assets/icons/studyBox.svg">
+    </md-icon>
+  </md-button>
+</div>
