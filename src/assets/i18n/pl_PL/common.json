@@ -7,7 +7,7 @@
     "deck-TYPE_NAME": "Wpisz nazwę talii",
     "deck-NAME_REQUIRED": "Nazwa talii jest wymagana",
     "deck-NAME_TOO_LONG": "Zbyt długa nazwa (max 50 znaków)",
-    "deck-EDIT_DECK": "Edytuj talię",
+    "deck-EDIT_DECK_NAME": "Zmień nazwę talii",
     "deck-SAVE_DECK": "Zapisz zmiany",
     "deck-EDIT_CARD": "Edytuj",
     "deck-REMOVE_CARD": "Usuń",

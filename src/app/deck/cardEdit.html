@@ -10,30 +10,29 @@
   </md-toolbar>
   <md-dialog-content>
     <div class="md-dialog-content">
-      <div layout="row" ng-show="myDeckPreview.createNewDeckFlag == true">
-        <md-input-container  flex="30">
-          <label>Nazwa tali</label>
-          <input ng-model="myDeckPreview.newDeckName">
-        </md-input-container>
+      <div flex flex-xs="grow" flex-sm="grow" layout-align="center stretch">
+        <md-content layout-padding style="overflow: visible;">
+          <form name="addCardForm" ng-submit="myDeckPreview.submitCard(addCardForm.$valid)" >
+            <div layout="row" ng-if="myDeckPreview.createNewDeckFlag == true">
+              <md-input-container layout="column" flex-sm="50" flex="40">
+                <label>Nazwa tali</label>
+                <input ng-model="myDeckPreview.newDeckName" required>
+              </md-input-container>
 
-        <md-switch
-          layout-align="end center"
-          ng-change="myDeckPreview.deckAccessChange()"
-          class="md-primary"
-          ng-model="myDeckPreview.isPublic"
-          aria-label="deck access"
-          ng-true-value="false"
-          ng-false-value="true"
-          flex="15">
-          {{ myDeckPreview.isPublicMsg | translate}}
-        </md-switch>
-      </div>
-      <div layout="row" layout-xs="column" layout-sm="column" class="addCard">
-        <div flex flex-xs="grow" flex-sm="grow" layout-align="center stretch" class="separate">
-          <md-content layout-padding class="siteParts" style="overflow: visible;">
-            <form name="addCardForm" ng-submit="myDeckPreview.submitCard(addCardForm.$valid)">
+              <div layout="column" flex-offset="5">
+                <md-switch
+                  ng-change="myDeckPreview.deckAccessChange()"
+                  class="md-primary"
+                  ng-model="myDeckPreview.isPublic"
+                  aria-label="deck access"
+                  ng-true-value="false"
+                  ng-false-value="true">
+                  {{ myDeckPreview.isPublicMsg | translate}}
+                </md-switch>
+              </div>
+            </div>
+            <div class="addCard">
               <md-input-container class="md-block md-whiteframe-4dp middleCard" md-no-float>
-
                 <div ngf-select
                      ng-model="questionFile"
                      name="questionFile"
@@ -77,7 +76,6 @@
                 <div class="maxInputLength">
                   1000
                 </div>
-
               </md-input-container>
 
               <!--RWD BUTTON:-->
@@ -172,28 +170,15 @@
               </md-input-container>
 
               <div layout="row">
-                <md-switch
-                  layout-align="start center"
-                  ng-change="myDeckPreview.cardAccessChange()"
-                  class="md-primary"
-                  ng-model="myDeckPreview.isHidden"
-                  aria-label="card access"
-                  ng-true-value="true"
-                  ng-false-value="false"
-                  flex="50">
-                  <!-- <span class="deck-checkbox"> -->{{ myDeckPreview.isHiddenMsg | translate}}<!-- </span> -->
-                </md-switch>
-
                 <md-button type="submit" class="md-raised addCardButtons addCardButton"
                            ng-if="!myDeckPreview.editMode"  flex="50">{{"addCard-ADD_TO_DECK" | translate}}</md-button>
                 <md-button type="submit" class="md-raised addCardButtons addCardButton"
                            ng-if="myDeckPreview.editMode"  flex="50">{{"addCard-EDIT_CARD" | translate}}</md-button>
               </div>
-              </form>
-            </md-content>
-        </div>
+            </div>
+          </form>
+        </md-content >
       </div>
-
     </div>
   </md-dialog-content>
 </md-dialog>

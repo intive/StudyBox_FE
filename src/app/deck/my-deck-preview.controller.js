@@ -16,9 +16,9 @@
     vm.load = false;
     vm.getDecks = getDecks;
     vm.selectDeck = selectDeck;
-    vm.editDeck = editDeck;
-    vm.selectCard = selectCard;
-    vm.editCard = editCard;
+    vm.editDeckName = editDeckName;
+    // vm.selectCard = selectCard;
+    // vm.editCard = editCard;
     vm.removeCard = removeCard;
     vm.clear = clear;
     vm.changeVisibility = changeVisibility;
@@ -37,7 +37,7 @@
     vm.updateTip = updateTip;
     vm.createTips = createTips;
     vm.createUpdateTips = createUpdateTips;
-
+    // vm.deleteUpdateTips = deleteUpdateTips;
 
     vm.trimString = trimString;
     vm.trimInput = trimInput;
@@ -47,25 +47,27 @@
     vm.pageDialog = pageDialog;
     vm.hintsListDialog = hintsListDialog;
     vm.cancelDialog = cancelDialog;
+    vm.changeDeckNameDialog = changeDeckNameDialog;
 
     vm.submitCard = submitCard;
     vm.createCard = createCard;
     vm.setNewCard = setNewCard;
-
     vm.setCard = setCard;
+    vm.getCards = getCards;
+
     vm.createDeckWithFlashCard = createDeckWithFlashCard;
-    vm.cardAccessChange = cardAccessChange;
+    // vm.setDeck = setDeck;
     vm.deckAccessChange = deckAccessChange;
-    // vm.isHidden = false;
 
     //tworzenie nowej tali
     if(!vm.deckId){
       vm.createNewDeckFlag = true;
-      vm.isHidden = true;
       vm.isPublic = false;
-      vm.isHiddenMsg = $translate.instant("preview-PRIVATE_CARD");
+      vm.isPublicMsg = $translate.instant("preview-PRIVATE_DECK");
       // pageDialog(null, null, true);
-    }
+    }else
+      initDeck(vm.deckId);
+
 
     //dodanie nowego inputa dla podpowiedzi
     function addHint(){
@@ -79,27 +81,24 @@
     //usuniecie inputa dla podpoweidzi
     function removeHint(index){
       vm.hints.splice(vm.hints.indexOf(index), 1);
-      deleteTip(index);
+      if(angular.isDefined(index.id))
+        deleteTip(index);
       if(vm.hints.length == 0)
         vm.addHintTranslate = $translate.instant("preview-HINT");
     }
 
     function createTip(essence){
-      $log.info("createTip vm.cardId "+vm.cardId);
       TipsService.createNewTip(vm.deckId, vm.cardId, essence)
-      .then(function success() {
-
-      },
+      .then(function success() {},
       function error(){
         throw 'Nie można utworzyć podpowiedzi';
       });
     }
 
     function deleteTip(tipId){
+      $log.info("tipId.id "+tipId.id);
       TipsService.deleteTip(vm.deckId, vm.cardId, tipId.id)
-      .then(function success() {
-
-      },
+      .then(function success() {},
       function error(){
         throw 'Nie można usunąć podpowiedzi';
       });
@@ -107,9 +106,7 @@
 
     function updateTip(tipId, essence){
       TipsService.updateTip(vm.deckId, vm.cardId, tipId, essence)
-      .then(function success() {
-
-      },
+      .then(function success() {},
       function error(){
         throw 'Nie można edytować podpowiedzi';
       });
@@ -125,6 +122,20 @@
       }
     }
 
+    function getAllTips(cardId){
+      TipsService.getAllTips(vm.deckId, cardId)
+      .then(function success(data) {
+        vm.hints = data;
+        if(angular.isUndefined(vm.hints) || vm.hints.length == 0)
+          vm.addHintTranslate = $translate.instant("preview-HINT");
+        else
+          vm.addHintTranslate = $translate.instant("preview-ANOTHER_HINT");
+      },
+      function error(){
+        throw 'Nie można pobrać podpowiedzi';
+      });
+    }
+
     function createUpdateTips(){
       for(var i=0; i < vm.hints.length; i++){
         if(vm.hints[i].hintChanged == true){
@@ -137,6 +148,21 @@
       }
     }
 
+    // function deleteUpdateTips(){
+    //   for(var i=0; i < vm.hints.length; i++){
+    //     // if(vm.hints[i].hintChanged == true){
+    //       $log.info("vm.hints[i] objekt: "+JSON.stringify(vm.hints[i], null, 4));
+    //       // $log.info("vm.hints.id "+vm.hints[i].id);
+    //       deleteTip(vm.hints[i].id);
+    //       //tworzenie
+    //       // if(angular.isUndefined(vm.hints[i].id))
+    //       //   createTip(vm.hints[i].essence);
+    //       // else //edycja
+    //       //   updateTip(vm.hints[i].id, vm.hints[i].essence);
+    //     // }
+    //   }
+    // }
+
     //ucinanie bialych znakow na poczatku i koncu inputa
     function trimString(str) {
       return str.replace(/^\s+|\s+$/g, '');
@@ -145,12 +171,10 @@
     //ucinanie inputa tylko w przypadku wklejenia
     function trimInput(field){
       if(vm.paste){
-        if(vm.questionFocus){
+        if(vm.questionFocus)
           field.question = field.question.substring(0, 1000);
-        }
-        else if(vm.answerFocus){
+        else if(vm.answerFocus)
           field.answer = field.answer.substring(0, 1000);
-        }
         vm.paste = false;
       }
     }
@@ -190,13 +214,16 @@
       //tworzenie nowej tali
       if(vm.createNewDeckFlag){
         createDeckWithFlashCard();
+        vm.deckNameRequired = true;
         vm.createNewDeckFlag = !vm.createNewDeckFlag;
       }else{
+        vm.deckNameRequired = false;
         //dodanie nowej fiszki
         if(vm.addCard == true){
           createCard();
           vm.addCard = !vm.addCard;
         }else{  //edycja istniejacej fiszki
+          // deleteUpdateTips();
           updateCard();
           createUpdateTips();
         }
@@ -244,7 +271,6 @@
       BackendService.getDeckById(vm.deckId)
         .then(function success(data) {
           vm.deck = data;
-          $log.info("vm.isHidden "+vm.isHidden);
           vm.deck.updateFlashcard(vm.cardId, vm.question, vm.answer, vm.isHidden)
           .then(function success(){
             $state.reload("my-deck-preview");
@@ -262,7 +288,7 @@
       BackendService.getDeckById(vm.deckId)
         .then(function success(data) {
           vm.deck = data;
-          vm.deck.createFlashcard(vm.question, vm.answer, !vm.isHidden)
+          vm.deck.createFlashcard(vm.question, vm.answer, vm.isHidden)
           .then(function success(data) {
             vm.cardId = data.id;
             createTips();
@@ -279,7 +305,6 @@
 
     function createDeckWithFlashCard(){
       vm.hints = [];
-      $log.info("vm.isPublic "+vm.isPublic+" vm.isHidden "+vm.isHidden);
       BackendService.createNewDeck(vm.newDeckName, vm.isPublic)
         .then(function success(data) {
           vm.deck = data;
@@ -320,7 +345,7 @@
         return (card.isHidden === isHidden);
       };
     }
-
+    //zmiana widocznsci fiszki
     function changeVisibility(card){
       return BackendService.getDeckById(vm.deckId)
         .then(function success(data) {
@@ -337,13 +362,12 @@
         })
     }
 
-
     function getDecks(query) {
       //for not loading list of deck on page init
       if (vm.load) {
         if (!vm.decks) {
           //create request for deck list
-          vm.decks = BackendService.getDecks(vm.access);
+          vm.decks = BackendService.getDecks("private");
         }
         return vm.decks
           .then(function (result) {
@@ -357,50 +381,63 @@
         vm.load = true;
       }
     }
-
+    //przenoszenie na widok tworzenia nowej tallii
     function createDeck(){
-      DeckService.setDeckObj({name: vm.searchText});
-      $state.go("deck.addCard", {deckId:null , cardId: null});
+      $state.go("my-deck-preview-new-card", {}, {reload: true});
     }
 
-    function editDeck(){
-      $state.go("deck.addCard", {deckId:vm.selectedDeck.id , cardId: null});
+    function editDeckName(deckName){
+      BackendService.getDeckById(vm.deckId)
+        .then(function success(data) {
+          vm.deck = data;
+          vm.deck.updateDeck(deckName, vm.deck.isPublic)
+          .then(function success(){},
+          function error(){
+            throw "Nie można zaktualizować talii";
+          })
+        },
+        function error(){
+          throw "Nie można pobrać talii";
+        });
+      cancelDialog();
+      cardSaveToast();
+      vm.searchText = vm.newDeckName;
     }
-
+    //wybor talli z autocomplete'a
     function selectDeck(deck) {
-      if (deck) {
-        if (deck.id && deck.id != $stateParams.deckId) {
-          $stateParams.deckId = deck.id;
-          $stateParams.cardId = null;
-          $state.go($state.current, {deckId: deck.id}, {notify: false});
-          initDeck(deck.id);
-        }
-        else if (!deck.id) {
-          createDeck();
-        }
+      if (!deck) return;
+
+      if (deck.id && deck.id != $stateParams.deckId) {
+        $stateParams.deckId = deck.id;
+        $stateParams.cardId = null;
+        $state.go($state.current, {deckId: deck.id}, {notify: false});
+        initDeck(deck.id);
+      }
+      else if (!deck.id) {
+        createDeck();
       }
     }
 
-    function selectCard(card) {
-      DeckService.setCardObj(card);
-      //for selecting on ui (ng-repeat)
-      if(card.id !=vm.selectedCardId) {
-        pickUpCard(card.id);
-        $state.go($state.current, {cardId: card.id}, {notify:true});
-      } else {
-        pickUpCard(false);
-        $state.go($state.current, {cardId: null}, {notify:true});
-      }
-    }
+    // function selectCard(card) {
+    //   DeckService.setCardObj(card);
+    //   //for selecting on ui (ng-repeat)
+    //   if(card.id !=vm.selectedCardId) {
+    //     pickUpCard(card.id);
+    //     $state.go($state.current, {cardId: card.id}, {notify:true});
+    //   } else {
+    //     pickUpCard(false);
+    //     $state.go($state.current, {cardId: null}, {notify:true});
+    //   }
+    // }
 
-    function pickUpCard(cardId) {
-      vm.selectedCardId = cardId;
-    }
+    // function pickUpCard(cardId) {
+    //   vm.selectedCardId = cardId;
+    // }
 
-    function editCard(card){
-      DeckService.setCardObj(card);
-      $state.go("deck.addCard", {deckId: vm.selectedDeck.id , cardId: card.id});
-    }
+    // function editCard(card){
+    //   DeckService.setCardObj(card);
+    //   $state.go("deck.addCard", {deckId: vm.selectedDeck.id , cardId: card.id});
+    // }
 
     function removeCard(cardId){
       deleteCardDialog(cardId, vm.cards.length );
@@ -415,67 +452,25 @@
         }
       };
     }
-
+    //czyszczenie inputa w autocomplete'cie
     function clear() {
       vm.searchText = null;
     }
 
     function getCards() {
       vm.selectedDeck.getFlashcards()
-        .then(function (result) {
-          vm.cards = result;
-          vm.cards.isHidden = vm.isPublic;
-        }, function (e) {
-          $log.error(e);
+        .then(function (data) {
+          vm.cards = data;
+        },
+        function (){
+          throw 'Nie można pobrać fiszek';
         });
     }
 
-    function getAllTips(cardId){
-      TipsService.getAllTips(vm.deckId, cardId)
-      .then(function success(data) {
-        vm.hints = data;
-        if(angular.isUndefined(vm.hints) || vm.hints.length == 0)
-          vm.addHintTranslate = $translate.instant("preview-HINT");
-        else
-          vm.addHintTranslate = $translate.instant("preview-ANOTHER_HINT");
-      },
-      function error(){
-        throw 'Nie można pobrać podpowiedzi';
-      });
-    }
-
-    //init current deck
-    function initDeck(value) {
-      if(value){
-        BackendService.getDeckById(value)
-          .then(function (result) {
-            vm.selectedDeck = result;
-            vm.selectedItem = vm.selectedDeck;
-            if (result.isPublic){
-              vm.deckAccess = 'public';
-            } else {
-              vm.deckAccess = 'private';
-            }
-            DeckService.setNewDeck({name: vm.selectedDeck.name, access: vm.deckAccess});
-            getCards();
-          }, function (e) {
-            $log.error(e);
-          });
-      } else {
-        vm.selectedItem = vm.selectedDeck;
-        vm.deckAccess = 'private';
-      }
-      pickUpCard($stateParams.cardId);
-    }
-    initDeck($stateParams.deckId);
-
-    //DELETE CARD DIALOG
     function deleteCardDialog(cardId, cardNo) {
       var content = $translate.instant("deck-REMOVE_CARD_MODAL");
-      //info for toastPosition card
-      if (cardNo < 2) {
-        content = ($translate.instant("deck-REMOVE_toastPosition_CARD_MODAL"));
-      }
+      if (cardNo < 2)
+        content = ($translate.instant("deck-REMOVE_LAST_CARD_MODAL"));
       var confirm = $mdDialog.confirm()
         .title($translate.instant("deck-REMOVE_CARD"))
         .textContent(content)
@@ -483,69 +478,130 @@
         .cancel($translate.instant("deck-NO"));
         $mdDialog.show(confirm)
           .then(function () {
-              //delete card
+            //usuwanie fiszki
             vm.selectedDeck.removeFlashcard(cardId)
-              .then(function (result) {
+              .then(function () {
                 //delete deck if toastPosition card
                 if (cardNo < 2) {
                   $log.warn('toastPosition one flashcard');
                   vm.selectedDeck.remove().then(function () {
                     $state.go('decks');
                   });
-                } else {
-                  // $state.go("deck.addCard", {deckId: vm.selectedDeck.id, cardId: null});
+                }else
                   $state.reload();
-                  // getCards();
-                  $log.log(result);
-                }
-              }, function (e) {
-                $log.error(e);
+              }, function () {
+                throw "Nie można usunąć fiszki"
               });
           }, function () {}
         )
     }
 
-    function cardAccessChange() {
-      if(vm.isHidden == true)
-        vm.isHiddenMsg = $translate.instant("preview-PRIVATE_CARD");
-      else
-        vm.isHiddenMsg = $translate.instant("preview-PUBLIC_CARD");
+    // function cardAccessChange() {
+    //   if(vm.isHidden == true)
+    //     vm.isHiddenMsg = $translate.instant("preview-PRIVATE_CARD");
+    //   else
+    //     vm.isHiddenMsg = $translate.instant("preview-PUBLIC_CARD");
 
-      // var access= !accessToBool(vm.deckAccess);
-      // $log.info("access "+access);
-      // if (!vm.selectedDeck){
-      //   DeckService.setNewDeck({name: vm.searchText, access:access});
-      // } else {
-      //   saveDeck(vm.selectedDeck.name, access);
-      // }
-    }
+    //   // var access= !accessToBool(vm.deckAccess);
+    //   // $log.info("access "+access);
+    //   // if (!vm.selectedDeck){
+    //   //   DeckService.setNewDeck({name: vm.searchText, access:access});
+    //   // } else {
+    //   //   saveDeck(vm.selectedDeck.name, access);
+    //   // }
+    // }
 
-    function deckAccessChange() {
+    function deckAccessChange(){
       if(vm.isPublic == false)
         vm.isPublicMsg = $translate.instant("preview-PRIVATE_DECK");
       else
         vm.isPublicMsg = $translate.instant("preview-PUBLIC_DECK");
+
+      //gdy tworzymy nowa talie
+      if(vm.createNewDeckFlag) return;
+
+      BackendService.getDeckById(vm.deckId)
+        .then(function success(data) {
+          vm.deck = data;
+          return vm.deck.updateDeck(vm.deck.name, vm.isPublic);
+        },
+        function error(){
+          throw "Nie można pobrać talii";
+        })
     }
 
+    function initDeck(deckId) {
+      if(deckId){
+        BackendService.getDeckById(deckId)
+          .then(function (data) {
+            vm.selectedDeck = data;
+            vm.selectedItem = vm.selectedDeck;
+            vm.isPublic = vm.selectedDeck.isPublic;
+
+            if(vm.isPublic == false)
+              vm.isPublicMsg = $translate.instant("preview-PRIVATE_DECK");
+            else
+              vm.isPublicMsg = $translate.instant("preview-PUBLIC_DECK");
+
+            getCards();
+          },
+          function (){
+            throw "Nie można pobrać talii";
+          });
+      } else {
+        vm.selectedItem = vm.selectedDeck;
+        vm.deckAccess = 'private';
+      }
+    }
+
+    // function setDeck(deckId){
+    //   if(angular.isUndefined(deckId)){
+    //     BackendService.getDeckById(vm.deckId)
+    //     .then(function success(data) {
+    //       vm.deck = data;
+    //       vm.isPublic = vm.deck.isPublic;
+
+    //       if(vm.isPublic == false)
+    //         vm.isPublicMsg = $translate.instant("preview-PRIVATE_DECK");
+    //       else
+    //         vm.isPublicMsg = $translate.instant("preview-PUBLIC_DECK");
+
+    //       // getCards(vm.deck);
+    //     },
+    //     function error(){
+    //       throw "Nie można pobrać talii";
+    //     });
+    //   }
+    // }
+
     function setCard(card){
-      // if (vm.card){
-        vm.card = card;
-        vm.question = card.question;
-        vm.answer = card.answer;
-        vm.isHidden = card.isHidden;
-        if(vm.isHidden == true)
-          vm.isHiddenMsg = $translate.instant("preview-PRIVATE_CARD");
-        else
-          vm.isHiddenMsg = $translate.instant("preview-PUBLIC_CARD");
-        vm.cardId = card.id;
-        getAllTips(vm.cardId);
-      // }
+      vm.card = card;
+      vm.question = card.question;
+      vm.answer = card.answer;
+      vm.cardId = card.id;
+      getAllTips(vm.cardId);
     }
 
     function setNewCard(){
       vm.hints = [];
       vm.question = "";
       vm.answer = "";
+      vm.isHidden = false;
+    }
+
+    function changeDeckNameDialog(ev){
+      vm.newDeckName = vm.searchText;
+      var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'));
+      $mdDialog.show({
+        controller: MyDeckPreviewController,
+        templateUrl: 'app/deck/changeDeckName.html',
+        parent: angular.element($document.body),
+        targetEvent: ev,
+        scope: $scope,
+        preserveScope: true,
+        clickOutsideToClose:true,
+        fullscreen: useFullScreen
+      });
     }
 
     function hintsListDialog(ev, card) {
@@ -565,16 +621,21 @@
     }
 
     function pageDialog(ev, card, editStatus) {
-
       //edycja
       if(editStatus){
         vm.editMode = true;
+        vm.isHidden = card.isHidden;
         setCard(card);
       }
       else{ //dodanie nowej fiszki
         vm.editMode = false;
+        vm.addHintTranslate = $translate.instant("preview-HINT");
         setNewCard();
       }
+      var clickOutside = true;
+
+      if(vm.createNewDeckFlag)
+        clickOutside = false;
 
       var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'));
       $mdDialog.show({
@@ -584,7 +645,7 @@
         targetEvent: ev,
         scope: $scope,
         preserveScope: true,
-        clickOutsideToClose:true,
+        clickOutsideToClose: clickOutside,
         fullscreen: useFullScreen
       });
     }
@@ -624,7 +685,10 @@
     }
 
     function cancelDialog(){
-      $mdDialog.hide();
+      if(vm.createNewDeckFlag)
+        $state.go("decks");
+      else
+        $mdDialog.hide();
     }
 
 }
