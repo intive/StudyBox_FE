@@ -23,15 +23,12 @@
         </div>
       </md-autocomplete>
       <div ng-if="myDeckPreview.searchText" ng-click="myDeckPreview.clear()" class="deck-clear focusOn">x</div>
-
-
       <div class="deck-button">
         <md-tooltip id="editDeckButtonTooltip" md-direction="top">{{'deck-EDIT_DECK_NAME' | translate}}</md-tooltip>
         <md-icon class="deck-edit-button focusOn" ng-click="myDeckPreview.changeDeckNameDialog($event)"
                   md-svg-src="assets/icons/card.svg">
         </md-icon>
       </div>
-
       <div layout="column" layout-align="start center" flex-offset="5">
       <md-switch
         ng-change="myDeckPreview.deckAccessChange()"
@@ -44,7 +41,6 @@
         {{ myDeckPreview.isPublicMsg | translate}}
       </md-switch>
       </div>
-
       <div flex layout="row" layout-align="end start" class="siteParts">
         <md-button layout-align="center center"
                     class="md-primary md-raised"
@@ -116,8 +112,6 @@
         </md-card-actions>
       </md-card>
     </div>
-
-
   </div>
 </md-content>
 

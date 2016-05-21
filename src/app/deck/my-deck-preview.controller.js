@@ -96,7 +96,6 @@
     }
 
     function deleteTip(tipId){
-      $log.info("tipId.id "+tipId.id);
       TipsService.deleteTip(vm.deckId, vm.cardId, tipId.id)
       .then(function success() {},
       function error(){

@@ -1,5 +1,5 @@
 <md-content class="md-padding" layout="column" ng-cloak>
-  <form class="deck-autocomplete" ng-submit="deckEdit.saveDeck(deckForm.$valid)" name="deckForm" layout="row" layout-wrap >
+  <form class="deck-autocomplete" ng-submit="deckEdit.saveDeck(deckForm.$valid)" name="deckForm" layout="row" layout-xs="column" layout-wrap >
     <md-autocomplete flex required
                      ng-model="deckEdit.searchText"
                      md-input-name="deckField"
@@ -27,7 +27,7 @@
         md-svg-src="assets/icons/save.svg"></md-icon>
     </div>
   </form>
-  <div class="deck-autocomplete" layout="row">
+  <div class="deck-autocomplete" layout="row" layout-xs="column">
     <div flex="80">
       <md-switch
         ng-click="deckEdit.deckAccessChange()"

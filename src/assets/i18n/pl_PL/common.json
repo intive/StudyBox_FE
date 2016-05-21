@@ -27,7 +27,7 @@
     "deck-SEARCH_FOR_DECKS": "Wyszukaj talie!",
 
     "registration-FORM_TITLE": "Rejestracja",
-    "registration-REQUIRED_FIELD": "To pole jest wymagane",
+    "registration-REQUIRED_FIELD": "Wypełnij obligatoryjne pola!",
     "registration-FIELD_MIN_CHARS": "Hasła są zbyt krótkie",
     "registration-USER_NAME": "NAZWA UŻYTKOWNIKA",
     "registration-EMAIL_FIELD": "E-MAIL",
@@ -36,12 +36,12 @@
     "registration-CANCEL_BUTTON": "ANULUJ",
     "registration-PASSWORD_REPEAT": "POWTÓRZ HASŁO",
     "registration-PASSWORDS_DIFFERENT": "Hasła nie są jednakowe!",
-    "registration-INVALID_FORMAT": "Format wpisu jest nieprawidłowy",
-    "registration-TYPE_VALID_EMAIL": "Nieprawidłowy adres email",
+    "registration-INVALID_FORMAT": "Niepoprawne hasło. Nie można użyć w haśle białych znaków!",
+    "registration-TYPE_VALID_EMAIL": "Niepoprawny e-mail",
     "registration-DIALOG_TITLE": "Rejestracja",
     "registration-DIALOG_TEXT_CONTENT_TRUE": "Prawidłowo utworzono konto :)",
-    "registration-DIALOG_TEXT_CONTENT_FALSE": "Wystąpiły problemy podczas tworzenia konta :(",
-    "registration-DIALOG_OK": "Logowanie",
+    "registration-DIALOG_TEXT_CONTENT_FALSE": "Konto już istnieje",
+    "registration-DIALOG_OK": "OK",
 
     "login-FORM_TITLE":"Logowanie",
     "login-NAME_FIELD": "IMIĘ",
@@ -106,6 +106,8 @@
     "preview-PUBLIC_CARD": "Publiczna",
     "preview-PRIVATE_CARD": "Prywatna",
     "preview-PUBLIC_DECK": "Publiczna",
-    "preview-PRIVATE_DECK": "Prywatna"
+    "preview-PRIVATE_DECK": "Prywatna",
+
+    "hintList-HINTS": "Podpowiedzi"
 
   }

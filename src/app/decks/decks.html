@@ -41,14 +41,14 @@
   </div>
 
 
-  <div ng-if="decks.access != 'public'"
+  <div ng-if="decks.access != 'public' && !decks.isLogged"
        flex="100" ng-show="!decks.randomCategories[2].isPublic"
                   layout="row" layout-align="center center">
     <md-progress-circular md-mode="indeterminate"></md-progress-circular>
   </div>
 
 
-  <div ng-if="decks.access != 'public'"
+  <div ng-if="decks.access != 'public' && !decks.isLogged"
        flex="100"
        ng-show="decks.randomCategories[2].isPublic">
 
@@ -106,7 +106,7 @@
 
       <div flex="50">
         <md-card class="card-square-search"
-                 ng-click="navbar.finishSearching(false)">
+                 ng-click="navbar.startSearching()">
           <div>
             <div class="title-square-search">
               {{ "deck-SEARCH_FOR_MORE_DECKS" | translate }}
@@ -153,7 +153,7 @@
 
       <div flex="100">
         <md-card class="card-square-search"
-                 ng-click="navbar.finishSearching(false)">
+                 ng-click="navbar.startSearching()">
           <div>
             <div class="title-square-search">
               {{ "deck-SEARCH_FOR_DECKS" | translate }}

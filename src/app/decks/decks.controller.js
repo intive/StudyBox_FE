@@ -13,6 +13,7 @@
     vm.getDecks = getDecks;
     vm.count = true;
     vm.access = null;
+    vm.isLogged = LoginHelperService.isLogged();
     vm.no_private_decks = true;
 
     DecksService.controller = vm;
