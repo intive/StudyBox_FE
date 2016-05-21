@@ -12,22 +12,12 @@
 
     var vm = this;
     vm.deckId = $stateParams.deckId;
-    vm.selectedDeck = new BackendService.Deck();
     vm.load = false;
-    vm.getDecks = getDecks;
-    vm.selectDeck = selectDeck;
-    vm.editDeckName = editDeckName;
-    // vm.selectCard = selectCard;
-    // vm.editCard = editCard;
-    vm.removeCard = removeCard;
+
     vm.clear = clear;
     vm.changeVisibility = changeVisibility;
     vm.checkIfAllHidden = checkIfAllHidden;
     vm.access = $stateParams.access;
-    vm.getAllTips = getAllTips;
-    vm.maxHintCount = 5;
-    vm.trimInput = trimInput;
-    vm.pasteChecker = pasteChecker;
 
     vm.addHint = addHint;
     vm.removeHint = removeHint;
@@ -36,28 +26,33 @@
     vm.deleteTip = deleteTip;
     vm.updateTip = updateTip;
     vm.createTips = createTips;
-    vm.createUpdateTips = createUpdateTips;
-    // vm.deleteUpdateTips = deleteUpdateTips;
+    vm.getAllTips = getAllTips;
 
     vm.trimString = trimString;
     vm.trimInput = trimInput;
+    vm.maxHintCount = 5;
+    vm.trimInput = trimInput;
+    vm.pasteChecker = pasteChecker;
 
     vm.cardSaveToast = cardSaveToast;
     vm.getToastPosition = getToastPosition;
     vm.pageDialog = pageDialog;
     vm.hintsListDialog = hintsListDialog;
     vm.cancelDialog = cancelDialog;
-    vm.changeDeckNameDialog = changeDeckNameDialog;
 
     vm.submitCard = submitCard;
     vm.createCard = createCard;
+    vm.removeCard = removeCard;
     vm.setNewCard = setNewCard;
     vm.setCard = setCard;
     vm.getCards = getCards;
 
+    vm.selectDeck = selectDeck;
+    vm.editDeckName = editDeckName;
+    vm.getDecks = getDecks;
     vm.createDeckWithFlashCard = createDeckWithFlashCard;
-    // vm.setDeck = setDeck;
     vm.deckAccessChange = deckAccessChange;
+    vm.changeDeckNameDialog = changeDeckNameDialog;
 
     //tworzenie nowej tali
     if(!vm.deckId){
@@ -67,7 +62,6 @@
       // pageDialog(null, null, true);
     }else
       initDeck(vm.deckId);
-
 
     //dodanie nowego inputa dla podpowiedzi
     function addHint(){
@@ -87,36 +81,38 @@
         vm.addHintTranslate = $translate.instant("preview-HINT");
     }
 
-    function createTip(essence){
-      TipsService.createNewTip(vm.deckId, vm.cardId, essence)
+    function createTip(deck, card, tip){
+      TipsService.createNewTip(deck, card, tip.essence)
       .then(function success() {},
       function error(){
         throw 'Nie można utworzyć podpowiedzi';
       });
     }
 
-    function deleteTip(tipId){
-      TipsService.deleteTip(vm.deckId, vm.cardId, tipId.id)
+    function deleteTip(tip){
+      TipsService.deleteTip(vm.deckId, vm.cardId, tip.id)
       .then(function success() {},
       function error(){
         throw 'Nie można usunąć podpowiedzi';
       });
     }
 
-    function updateTip(tipId, essence){
-      TipsService.updateTip(vm.deckId, vm.cardId, tipId, essence)
+    function updateTip(deck, card, tip){
+      TipsService.updateTip(deck, card, tip.id, tip.essence)
       .then(function success() {},
       function error(){
         throw 'Nie można edytować podpowiedzi';
       });
     }
 
-    function createTips(){
-      for(var i=0; i < vm.hints.length; i++){
+    function createTips(deck, card){
+       for(var i=0; i < vm.hints.length; i++){
         if(vm.hints[i].hintChanged == true){
           //tworzenie
           if(angular.isUndefined(vm.hints[i].id))
-            createTip(vm.hints[i].essence);
+            createTip(deck, card, vm.hints[i]);
+          else //edycja
+            updateTip(deck, card, vm.hints[i]);
         }
       }
     }
@@ -134,33 +130,6 @@
         throw 'Nie można pobrać podpowiedzi';
       });
     }
-
-    function createUpdateTips(){
-      for(var i=0; i < vm.hints.length; i++){
-        if(vm.hints[i].hintChanged == true){
-          //tworzenie
-          if(angular.isUndefined(vm.hints[i].id))
-            createTip(vm.hints[i].essence);
-          else //edycja
-            updateTip(vm.hints[i].id, vm.hints[i].essence);
-        }
-      }
-    }
-
-    // function deleteUpdateTips(){
-    //   for(var i=0; i < vm.hints.length; i++){
-    //     // if(vm.hints[i].hintChanged == true){
-    //       $log.info("vm.hints[i] objekt: "+JSON.stringify(vm.hints[i], null, 4));
-    //       // $log.info("vm.hints.id "+vm.hints[i].id);
-    //       deleteTip(vm.hints[i].id);
-    //       //tworzenie
-    //       // if(angular.isUndefined(vm.hints[i].id))
-    //       //   createTip(vm.hints[i].essence);
-    //       // else //edycja
-    //       //   updateTip(vm.hints[i].id, vm.hints[i].essence);
-    //     // }
-    //   }
-    // }
 
     //ucinanie bialych znakow na poczatku i koncu inputa
     function trimString(str) {
@@ -192,24 +161,6 @@
       vm.question = trimString(vm.question);
       vm.answer = trimString(vm.answer);
 
-      // vm.newDeck = DeckService.getNewDeck();
-
-      //sprawdzenie nazwy talii
-      // if (!vm.newDeck) {
-      //   $log.warn("pusta nazwa talii");
-      //   DeckService.setEmptyNameError(true);
-      //   return $state.reload()
-      // }
-      // //sprawdzenie zmiany nazwy talii
-      // if (vm.deck && vm.newDeck.name != vm.deck.name) {
-      //   $log.warn("zmieniono nazwe talii");
-      //   var nameChange = true;
-      // }
-      //Jeżeli pola nie są puste
-      // var cardInDeck;
-      //   if($stateParams.cardId) {
-      //     cardInDeck = editFlashCard();
-
       //tworzenie nowej tali
       if(vm.createNewDeckFlag){
         createDeckWithFlashCard();
@@ -222,46 +173,16 @@
           createCard();
           vm.addCard = !vm.addCard;
         }else{  //edycja istniejacej fiszki
-          // deleteUpdateTips();
           updateCard();
-          createUpdateTips();
+          createTips(vm.deckId, vm.cardId);
         }
       }
 
+      cancelDialog();
+      cardSaveToast();
 
-      //   } else {
-      //     if($stateParams.deckId) {
-      //       cardInDeck = createFlashCard();
-      //     } else {
-      //       cardInDeck = createDeckWithFlashCard()
-      //     }
-      //   }
-      // //update deck name
-      // if (nameChange) {
-      //   cardInDeck
-      //     .then(function success() {
-      //       return vm.deck.updateDeck(vm.newDeck.name, vm.newDeck.access)
-      //     },
-      //     function error() {
-      //       var message = 'I cant create/update card';
-      //       alert(message);
-      //       throw message;
-      //     })
-      //     .then(function success() {
-      //       $state.go("deck.addCard", {deckId: vm.deck.id});
-      //       $state.reload("deck");
-      //     },
-      //     function error() {
-      //       var message = 'I cant update Deck name';
-      //       alert(message);
-      //       throw message;
-      //     })
-      // }
-        cancelDialog();
-        cardSaveToast();
-
-        if(vm.hints.length == 0)
-          vm.addHintTranslate = $translate.instant("preview-HINT");
+      if(vm.hints.length == 0)
+        vm.addHintTranslate = $translate.instant("preview-HINT");
     }
 
 
@@ -290,7 +211,7 @@
           vm.deck.createFlashcard(vm.question, vm.answer, vm.isHidden)
           .then(function success(data) {
             vm.cardId = data.id;
-            createTips();
+            createTips(vm.deckId, vm.cardId);
           },
           function error(){
             throw 'Nie można dodać fiszki';
@@ -303,12 +224,14 @@
     }
 
     function createDeckWithFlashCard(){
-      vm.hints = [];
       BackendService.createNewDeck(vm.newDeckName, vm.isPublic)
         .then(function success(data) {
           vm.deck = data;
           vm.deck.createFlashcard(vm.question, vm.answer, vm.isHidden)
-          .then(function success() {
+          .then(function success(data) {
+            vm.deckId = data.deckId;
+            vm.cardId = data.id
+            createTips(vm.deckId, vm.cardId);
             $state.go("my-deck-preview", {deckId:vm.deck.id});
           },
           function error(){
@@ -334,9 +257,8 @@
             .ok($translate.instant('deck-ALL_HIDDEN_OK'))
         );
       }
-      else{
+      else
         $state.go('test', { deckId: vm.deckId})
-      }
     }
 
     function hideFilter(isHidden) {
@@ -412,31 +334,9 @@
         $state.go($state.current, {deckId: deck.id}, {notify: false});
         initDeck(deck.id);
       }
-      else if (!deck.id) {
+      else if (!deck.id)
         createDeck();
-      }
     }
-
-    // function selectCard(card) {
-    //   DeckService.setCardObj(card);
-    //   //for selecting on ui (ng-repeat)
-    //   if(card.id !=vm.selectedCardId) {
-    //     pickUpCard(card.id);
-    //     $state.go($state.current, {cardId: card.id}, {notify:true});
-    //   } else {
-    //     pickUpCard(false);
-    //     $state.go($state.current, {cardId: null}, {notify:true});
-    //   }
-    // }
-
-    // function pickUpCard(cardId) {
-    //   vm.selectedCardId = cardId;
-    // }
-
-    // function editCard(card){
-    //   DeckService.setCardObj(card);
-    //   $state.go("deck.addCard", {deckId: vm.selectedDeck.id , cardId: card.id});
-    // }
 
     function removeCard(cardId){
       deleteCardDialog(cardId, vm.cards.length );
@@ -495,21 +395,6 @@
         )
     }
 
-    // function cardAccessChange() {
-    //   if(vm.isHidden == true)
-    //     vm.isHiddenMsg = $translate.instant("preview-PRIVATE_CARD");
-    //   else
-    //     vm.isHiddenMsg = $translate.instant("preview-PUBLIC_CARD");
-
-    //   // var access= !accessToBool(vm.deckAccess);
-    //   // $log.info("access "+access);
-    //   // if (!vm.selectedDeck){
-    //   //   DeckService.setNewDeck({name: vm.searchText, access:access});
-    //   // } else {
-    //   //   saveDeck(vm.selectedDeck.name, access);
-    //   // }
-    // }
-
     function deckAccessChange(){
       if(vm.isPublic == false)
         vm.isPublicMsg = $translate.instant("preview-PRIVATE_DECK");
@@ -552,26 +437,6 @@
         vm.deckAccess = 'private';
       }
     }
-
-    // function setDeck(deckId){
-    //   if(angular.isUndefined(deckId)){
-    //     BackendService.getDeckById(vm.deckId)
-    //     .then(function success(data) {
-    //       vm.deck = data;
-    //       vm.isPublic = vm.deck.isPublic;
-
-    //       if(vm.isPublic == false)
-    //         vm.isPublicMsg = $translate.instant("preview-PRIVATE_DECK");
-    //       else
-    //         vm.isPublicMsg = $translate.instant("preview-PUBLIC_DECK");
-
-    //       // getCards(vm.deck);
-    //     },
-    //     function error(){
-    //       throw "Nie można pobrać talii";
-    //     });
-    //   }
-    // }
 
     function setCard(card){
       vm.card = card;
@@ -619,6 +484,7 @@
       });
     }
 
+    //modal z edycja fiszki
     function pageDialog(ev, card, editStatus) {
       //edycja
       if(editStatus){
@@ -648,7 +514,6 @@
         fullscreen: useFullScreen
       });
     }
-
 
     var toastPosition = {
       bottom: true,
