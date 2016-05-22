@@ -170,3 +170,11 @@ md-input-container .md-errors-spacer {
 
 .rotate{transform: rotate(135deg);
   background-color: #424242 !important;}
+
+.edit-card{
+  background-color: lighten($graphite,70%);
+}
+
+.edit-card-text{
+  color: #bdbdbd;
+}
