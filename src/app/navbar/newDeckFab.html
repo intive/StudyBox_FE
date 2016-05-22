@@ -1,29 +1,37 @@
-
-    <md-fab-speed-dial md-open="navbar.isOpen" md-direction="down" class="md-scale" md-fab-top-right>
-      <md-fab-trigger ng-show="navbar.isLogged()">
-        <md-button aria-label="add" class="md-fab color-dial" ng-class="navbar.isOpen == true ? 'rotate' : ''">
-          <md-tooltip md-direction="top">{{'navbar-ADD' | translate}}</md-tooltip>
-          <md-icon md-svg-src="assets/icons/add.svg"></md-icon>
-        </md-button>
-      </md-fab-trigger>
-
-      <md-fab-actions>
-        <md-button aria-label="deck" class="md-fab md-raised md-mini color-mini" ui-sref="deck.addCard">
-          <md-tooltip md-direction="left">{{'navbar-NEW_DECK' | translate}}</md-tooltip>
-          <md-icon md-svg-src="assets/icons/new.svg"></md-icon>
-        </md-button>
-
-        <md-button aria-label="external file" class="md-fab md-raised md-mini color-mini">
-          <md-tooltip md-direction="left">{{'navbar-NEW_CARD_FROM_FILE' | translate}}</md-tooltip>
-          <md-icon md-svg-src="assets/icons/ext.svg"></md-icon>
-        </md-button>
-      </md-fab-actions>
-    </md-fab-speed-dial>
-
-    <md-button aria-label="add" class="md-fab color-dial not-logged-button" ng-show="!navbar.isLogged()"  ng-click="navbar.notLogged($event)">
-              <md-tooltip md-direction="top">{{'navbar-ADD' | translate}}</md-tooltip>
-              <md-icon md-svg-src="assets/icons/add.svg"></md-icon>
+<md-fab-speed-dial md-open="navbar.isOpen" md-direction="down" 
+    class="md-scale" md-fab-top-right>
+  <md-fab-trigger ng-show="navbar.isLogged()">
+    <md-button aria-label="add" class="md-fab color-dial" 
+        ng-class="navbar.isOpen == true ? 'rotate' : ''">
+      <md-tooltip md-direction="top">
+        {{ 'navbar-ADD' | translate }}
+      </md-tooltip>
+      <md-icon md-svg-src="assets/icons/add.svg">
+      </md-icon>
     </md-button>
-
-
-
+  </md-fab-trigger>
+  <md-fab-actions>
+    <md-button aria-label="deck" class="md-fab md-raised md-mini color-mini" 
+        ui-sref="deck.addCard">
+      <md-tooltip md-direction="left">
+        {{ 'navbar-NEW_DECK' | translate }}
+      </md-tooltip>
+      <md-icon md-svg-src="assets/icons/new.svg">
+      </md-icon>
+    </md-button>
+    <md-button aria-label="external file" class="md-fab md-raised md-mini color-mini">
+      <md-tooltip md-direction="left">
+        {{ 'navbar-NEW_CARD_FROM_FILE' | translate }}
+      </md-tooltip>
+      <md-icon md-svg-src="assets/icons/ext.svg">
+      </md-icon>
+    </md-button>
+  </md-fab-actions>
+</md-fab-speed-dial>
+<md-button aria-label="add" class="md-fab color-dial not-logged-button" ng-show="!navbar.isLogged()"  ng-click="navbar.notLogged($event)">
+  <md-tooltip md-direction="top">
+    {{ 'navbar-ADD' | translate }}
+  </md-tooltip>
+  <md-icon md-svg-src="assets/icons/add.svg">
+  </md-icon>
+</md-button>
