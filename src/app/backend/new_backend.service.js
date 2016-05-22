@@ -1,7 +1,7 @@
 (function() {
   'use strict';
   angular
-    .module('backend')
+    .module('new_backend')
     .service('BackendService', BackendService);
 
   /** @ngInject */
