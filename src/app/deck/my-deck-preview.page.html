@@ -1,7 +1,8 @@
 <md-content class="md-padding" layout="column" ng-cloak>
   <div ng-hide="myDeckPreview.createNewDeckFlag == true">
-    <form class="deck-autocomplete" ng-submit="myDeckPreview.selectedDeckChange(deckForm.$valid)" name="deckForm" layout="row" layout-wrap >
-      <md-autocomplete flex="30" required
+    <form class="deck-autocomplete" ng-submit="myDeckPreview.selectedDeckChange(deckForm.$valid)" name="deckForm" layout="row" layout-xs="column" layout-wrap >
+    <md-input-container flex="33" flex-xs="100" layout="row">
+      <md-autocomplete flex="75" required
                       ng-model="myDeckPreview.searchText"
                       md-input-name="deckField"
                       md-selected-item="myDeckPreview.selectedItem"
@@ -29,7 +30,11 @@
                   md-svg-src="assets/icons/card.svg">
         </md-icon>
       </div>
-      <div layout="column" layout-align="start center" flex-offset="5">
+
+    </md-input-container>
+    <div layout="row" flex="66" flex-xs="100" flex-order-xs="-1">
+      <div layout="row" layout-align="start center" layout-align-xs="start start" 
+          flex="50" flex-offset-sm="5">
       <md-switch
         ng-change="myDeckPreview.deckAccessChange()"
         class="md-primary"
@@ -41,11 +46,12 @@
         {{ myDeckPreview.isPublicMsg | translate}}
       </md-switch>
       </div>
-      <div flex layout="row" layout-align="end start" class="siteParts">
+          <div flex=50 layout="row" layout-align="end start" class="siteParts">
         <md-button layout-align="center center"
                     class="md-primary md-raised"
                     ng-click="myDeckPreview.checkIfAllHidden()">{{"addCard-START_TEST" | translate}}</md-button>
       </div>
+      </div>     
     </form>
   </div>
 
