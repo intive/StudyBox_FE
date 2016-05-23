@@ -1,8 +1,8 @@
 (function() {
   'use strict';
-  describe('new_backend service testing', function() {
+  describe('newbackend service testing', function() {
 
-    beforeEach(module('new_backend'));
+    beforeEach(module('newbackend'));
 
     it('can create a deck locally', inject(function(DeckFactory) {
       var deck = new DeckFactory.Deck();

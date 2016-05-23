@@ -6,10 +6,8 @@
     .controller('DeckPreviewController', DeckPreviewController);
 
   /** @ngInject */
-  function DeckPreviewController($stateParams, $state, BackendService, $log, DeckService, $mdDialog, $mdMedia, $document, $scope, $translate, TipsService) {
+  function DeckPreviewController($stateParams, $state, DeckFactory, $log, DeckService, $mdDialog, $mdMedia, $document, $scope, $translate, FlashcardFactory,NewbackendService) {
     var vm = this;
-    vm.deckId = $stateParams.deckId;
-    vm.selectedDeck = new BackendService.Deck();
     vm.selectCard = selectCard;
     vm.clear = clear;
     vm.getDecks = getDecks;
@@ -19,6 +17,13 @@
     vm.checkIfAllHidden = checkIfAllHidden;
     vm.access = $stateParams.access;
     vm.getAllTips = getAllTips;
+
+    vm.flashCard = new FlashcardFactory.Flashcard();
+    vm.flashCard.deckId = $stateParams.deckId;
+
+
+    vm.selectedDeck = new DeckFactory.Deck();
+    vm.selectedDeck.id = $stateParams.deckId;
 
     function checkIfAllHidden(){
       vm.visibleCards = vm.cards.filter(hideFilter(false));
@@ -51,7 +56,7 @@
       if (vm.load) {
         if (!vm.decks) {
           //create request for deck list
-          vm.decks = BackendService.getDecks(vm.access);
+          vm.decks = NewbackendService.getDecks(vm.access);
         }
         return vm.decks
           .then(function (result) {
@@ -67,7 +72,8 @@
     }
 
     function getAllTips(cardId){
-      TipsService.getAllTips(vm.deckId, cardId)
+      vm.flashCard.id = cardId;
+      vm.flashCard.getTips()
       .then(function success(data) {
         vm.hints = data;
       },
@@ -128,7 +134,7 @@
     //init current deck
     function initDeck(value) {
       if(value){
-        BackendService.getDeckById(value)
+        NewbackendService.getDeckById(value)
           .then(function (result) {
             vm.selectedDeck = result;
             vm.selectedItem = vm.selectedDeck;

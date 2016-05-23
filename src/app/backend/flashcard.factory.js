@@ -1,7 +1,7 @@
 (function() {
   'use strict';
   angular
-    .module('new_backend')
+    .module('backend')
     .factory('FlashcardFactory', FlashcardFactory);
 
   /** @ngInject */

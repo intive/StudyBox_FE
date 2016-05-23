@@ -39,12 +39,6 @@
       this.difficult = 0;
     }
 
-    this.createNewTip = createNewTip;
-    this.getTipById = getTipById;
-    this.getAllTips = getAllTips;
-    this.updateTip = updateTip;
-    this.deleteTip = deleteTip;
-
     function createNewTip(deckId,flashcardId,essence)
     {
       if(angular.isUndefined(deckId) ) throw_error('Must specify deck id');

@@ -6,12 +6,18 @@
     .controller('MyDeckPreviewController', MyDeckPreviewController);
 
   /** @ngInject */
-  function MyDeckPreviewController($stateParams, $state, BackendService, $log,
+  function MyDeckPreviewController($stateParams, $state, NewbackendService, $log,
                                     DeckService, $mdDialog, $translate, $document,
-                                    $mdMedia, $scope, TipsService, $mdToast) {
+                                    $mdMedia, $scope, TipsService, $mdToast,DeckFactory,FlashcardFactory,TipFactory) {
 
     var vm = this;
-    vm.deckId = $stateParams.deckId;
+
+    vm.tip = new TipFactory.Tip();
+
+    vm.deck = new DeckFactory.Deck();
+    vm.deck.id = $stateParams.deckId;
+    vm.flashCard = FlashcardFactory.Flashcard();
+
     vm.load = false;
 
     vm.clear = clear;
@@ -55,13 +61,13 @@
     vm.changeDeckNameDialog = changeDeckNameDialog;
 
     //tworzenie nowej tali
-    if(!vm.deckId){
+    if(!vm.deck.id){
       vm.createNewDeckFlag = true;
       vm.isPublic = false;
       vm.isPublicMsg = $translate.instant("preview-PRIVATE_DECK");
       // pageDialog(null, null, true);
     }else
-      initDeck(vm.deckId);
+      initDeck(vm.deck.id);
 
     //dodanie nowego inputa dla podpowiedzi
     function addHint(){
@@ -82,7 +88,9 @@
     }
 
     function createTip(deck, card, tip){
-      TipsService.createNewTip(deck, card, tip.essence)
+      vm.flashCard.id = card;
+      vm.flashCard.deckid = deck;
+      vm.flashCard.addNewTip(tip.essence,0)
       .then(function success() {},
       function error(){
         throw 'Nie można utworzyć podpowiedzi';
@@ -90,7 +98,11 @@
     }
 
     function deleteTip(tip){
-      TipsService.deleteTip(vm.deckId, vm.cardId, tip.id)
+      vm.tip.id = tip.id;
+      vm.tip.flashcardId = vm.cardId;
+      vm.tip.deckid = vm.deck.id;
+
+      tip.remove()
       .then(function success() {},
       function error(){
         throw 'Nie można usunąć podpowiedzi';
@@ -98,7 +110,11 @@
     }
 
     function updateTip(deck, card, tip){
-      TipsService.updateTip(deck, card, tip.id, tip.essence)
+      vm.tip.id = tip.id;
+      vm.tip.flashcardId = card;
+      vm.tip.deckid = deck;
+
+      tip.update(tip.essence,0)
       .then(function success() {},
       function error(){
         throw 'Nie można edytować podpowiedzi';
@@ -118,7 +134,10 @@
     }
 
     function getAllTips(cardId){
-      TipsService.getAllTips(vm.deckId, cardId)
+      vm.flashCard.id = cardId;
+      vm.flashCard.deckid = vm.deck.id;
+
+      vm.flashCard.getTips()
       .then(function success(data) {
         vm.hints = data;
         if(angular.isUndefined(vm.hints) || vm.hints.length == 0)
@@ -174,7 +193,7 @@
           vm.addCard = !vm.addCard;
         }else{  //edycja istniejacej fiszki
           updateCard();
-          createTips(vm.deckId, vm.cardId);
+          createTips(vm.deck.id, vm.cardId);
         }
       }
 
@@ -188,15 +207,34 @@
 
 
     function updateCard(){
-      BackendService.getDeckById(vm.deckId)
+      NewbackendService.getDeckById(vm.deck.id)
         .then(function success(data) {
           vm.deck = data;
-          vm.deck.updateFlashcard(vm.cardId, vm.question, vm.answer, vm.isHidden)
+
+          vm.flashCard.id = vm.cardId;
+          vm.flashCard.deckId = vm.deck.id;
+          vm.flashCard.question = vm.question;
+          vm.flashCard.answer = vm.answer;
+          vm.flashCard.isHidden = vm.isHidden;
+
+          vm.flashCard.changeQuestion()
           .then(function success(){
-            $state.reload("my-deck-preview");
+              vm.flashCard.changeAnswer()
+                .then(function success(){
+                  vm.flashCard.changeVisibility()
+                    .then(function success(){
+                      $state.reload("my-deck-preview");
+                    },
+                    function error(){
+                      throw 'Nie można zmienić widoczności fiszki';
+                    });
+                },
+                function error(){
+                  throw 'Nie można zmienić odpowiedzi fiszki';
+                });
           },
           function error(){
-            throw 'Nie można edytować fiszki';
+            throw 'Nie można zmienić pytania fiszki';
           });
       },
       function error(){
@@ -205,13 +243,14 @@
     }
 
     function createCard(){
-      BackendService.getDeckById(vm.deckId)
+      NewbackendService.getDeckById(vm.deck.id)
         .then(function success(data) {
           vm.deck = data;
-          vm.deck.createFlashcard(vm.question, vm.answer, vm.isHidden)
+
+          vm.deck.addNewFlashcard(vm.question, vm.answer, vm.isHidden)
           .then(function success(data) {
             vm.cardId = data.id;
-            createTips(vm.deckId, vm.cardId);
+            createTips(vm.deck.id, vm.cardId);
           },
           function error(){
             throw 'Nie można dodać fiszki';
@@ -224,14 +263,15 @@
     }
 
     function createDeckWithFlashCard(){
-      BackendService.createNewDeck(vm.newDeckName, vm.isPublic)
+      NewbackendService.createNewDeck(vm.newDeckName, vm.isPublic)
         .then(function success(data) {
           vm.deck = data;
-          vm.deck.createFlashcard(vm.question, vm.answer, vm.isHidden)
+
+          vm.deck.addNewFlashcard(vm.question, vm.answer, vm.isHidden)
           .then(function success(data) {
-            vm.deckId = data.deckId;
+            vm.deck.id = data.deckId;
             vm.cardId = data.id
-            createTips(vm.deckId, vm.cardId);
+            createTips(vm.deck.id, vm.cardId);
             $state.go("my-deck-preview", {deckId:vm.deck.id});
           },
           function error(){
@@ -258,7 +298,7 @@
         );
       }
       else
-        $state.go('test', { deckId: vm.deckId})
+        $state.go('test', { deckId: vm.deck.id})
     }
 
     function hideFilter(isHidden) {
@@ -268,13 +308,20 @@
     }
     //zmiana widocznsci fiszki
     function changeVisibility(card){
-      return BackendService.getDeckById(vm.deckId)
+      return NewbackendService.getDeckById(vm.deck.id)
         .then(function success(data) {
           vm.deck = data;
-          return vm.deck.updateFlashcard(card.id, card.question, card.answer, !card.isHidden)
+
+          vm.flashCard.id = card.id;
+          vm.flashCard.deckId = vm.deck.id;
+          vm.flashCard.question = card.question;
+          vm.flashCard.answer = card.answer;
+          vm.flashCard.isHidden = !card.isHidden;
+
+          return vm.flashCard.changeVisibility()
         },
         function error(){
-          var message = 'I cant get deck';
+          var message = 'I cant change visibility';
           alert(message);
           throw message;
         })
@@ -288,7 +335,7 @@
       if (vm.load) {
         if (!vm.decks) {
           //create request for deck list
-          vm.decks = BackendService.getDecks("private");
+          vm.decks = NewbackendService.getDecks("private");
         }
         return vm.decks
           .then(function (result) {
@@ -308,14 +355,22 @@
     }
 
     function editDeckName(deckName){
-      BackendService.getDeckById(vm.deckId)
+      NewbackendService.getDeckById(vm.deck.id)
         .then(function success(data) {
           vm.deck = data;
-          vm.deck.updateDeck(deckName, vm.deck.isPublic)
-          .then(function success(){},
-          function error(){
-            throw "Nie można zaktualizować talii";
-          })
+          vm.deck.rename(deckName)
+            .then(function success(){
+              vm.deck.changeAccess(vm.deck.isPublic)
+                .then(function success(){
+
+                },
+                function error(){
+                  throw "Nie można zmienić dostępu do talii";
+                })
+            },
+            function error(){
+              throw "Nie można zmienić nazwy talii";
+            })
         },
         function error(){
           throw "Nie można pobrać talii";
@@ -404,10 +459,10 @@
       //gdy tworzymy nowa talie
       if(vm.createNewDeckFlag) return;
 
-      BackendService.getDeckById(vm.deckId)
+      NewbackendService.getDeckById(vm.deck.id)
         .then(function success(data) {
           vm.deck = data;
-          return vm.deck.updateDeck(vm.deck.name, vm.isPublic);
+          return vm.deck.changeAccess(vm.isPublic);
         },
         function error(){
           throw "Nie można pobrać talii";
@@ -416,7 +471,7 @@
 
     function initDeck(deckId) {
       if(deckId){
-        BackendService.getDeckById(deckId)
+        NewbackendService.getDeckById(deckId)
           .then(function (data) {
             vm.selectedDeck = data;
             vm.selectedItem = vm.selectedDeck;

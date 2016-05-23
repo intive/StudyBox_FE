@@ -21,11 +21,12 @@
         controller: 'DeckPreviewController',
         controllerAs: 'deckPreview',
         templateUrl: 'app/deck/deck-preview.page.html',
-        onEnter: function(LoginHelperService, $state, $stateParams, BackendService){
+        onEnter: function(LoginHelperService, $state, $stateParams, NewbackendService,DeckFactory){
 
-            var deckId = $stateParams.deckId;
+            var deck = new DeckFactory.Deck();
+            deck.id = $stateParams.deckId;
 
-            BackendService.getDeckById(deckId)
+            NewbackendService.getDeckById(deck.id)
             .then(function success() {
           },
           function error(data){
@@ -40,7 +41,7 @@
             }
             else{
             alert(data.message);
-            $state.go("login/:deckId/:deckEdit", {"deckId": deckId, "deckEdit": "d-p"});
+            $state.go("login/:deckId/:deckEdit", {"deckId": deck.id, "deckEdit": "d-p"});
             LoginHelperService.doLogout();
           }
           })
@@ -52,14 +53,16 @@
           controller: 'MyDeckPreviewController',
           controllerAs: 'myDeckPreview',
           templateUrl: 'app/deck/my-deck-preview.page.html',
-          onEnter: function(LoginHelperService, $state, $stateParams, BackendService, $translate){
+          onEnter: function(LoginHelperService, $state, $stateParams, NewbackendService, $translate,DeckFactory){
 
-            var deckId = $stateParams.deckId;
-            if(deckId == ""){
+            var deck = new DeckFactory.Deck();
+            deck.id = $stateParams.deckId;
+
+            if(deck.id == ""){
               $state.go("login")
             }
 
-            BackendService.getDeckById(deckId)
+            NewbackendService.getDeckById(deck.id)
             .then(function success(data) {
             if(LoginHelperService.getUserEmail() != data.creatorEmail){
               alert($translate.instant("deck-NOT_AN_OWNER"));
@@ -83,7 +86,7 @@
             }
             else{
             alert(data.message);
-            $state.go("login/:deckId/:deckEdit", {"deckId": deckId, "deckEdit": null});
+            $state.go("login/:deckId/:deckEdit", {"deckId": deck.id, "deckEdit": null});
             LoginHelperService.doLogout();
           }
           })

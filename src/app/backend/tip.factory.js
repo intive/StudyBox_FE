@@ -1,11 +1,11 @@
 (function() {
   'use strict';
   angular
-    .module('new_backend')
+    .module('backend')
     .factory('TipFactory', TipFactory);
 
   /** @ngInject */
-  function TipFactory() {
+  function TipFactory($http,$q) {
 
     function Tip() {
       // fields

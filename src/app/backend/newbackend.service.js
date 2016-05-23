@@ -1,11 +1,11 @@
 (function() {
   'use strict';
   angular
-    .module('new_backend')
-    .service('BackendService', BackendService);
+    .module('backend')
+    .service('NewbackendService', NewbackendService);
 
   /** @ngInject */
-  function BackendService($http, $q, DeckFactory) {
+  function NewbackendService($http, $q, DeckFactory) {
 
     this.getDeckById = getDeckById;
     this.getDecks = getDecks;
