@@ -5,7 +5,7 @@
     .factory('TipFactory', TipFactory);
 
   /** @ngInject */
-  function TipFactory() {
+  function TipFactory($http,$q) {
 
     function Tip() {
       // fields

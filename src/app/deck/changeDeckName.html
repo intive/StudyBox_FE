@@ -1,0 +1,28 @@
+<md-dialog ng-cloak flex="60">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <h2>Edytuj nazwę talii</h2>
+      <span flex></span>
+      <md-button class="md-icon-button" ng-click="myDeckPreview.cancelDialog()">
+        <md-icon md-svg-src="assets/icons/cancel.svg" aria-label="Close dialog"></md-icon>
+      </md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+    <div class="md-dialog-content">
+      <div layout="row"  layout-align="center center">
+        <md-input-container flex="90" layout="column">
+          <label>Nazwa tali</label>
+          <input ng-model="myDeckPreview.newDeckName">
+        </md-input-container>
+        <md-button class="md-icon-button" layout="column">
+          <md-tooltip id="saveDeckButtonTooltip" md-direction="top">{{'deck-SAVE_DECK' | translate}}</md-tooltip>
+          <md-icon
+            class="deck-edit-button focusOn"
+            ng-click="myDeckPreview.editDeckName(myDeckPreview.newDeckName)"
+            md-svg-src="assets/icons/save.svg"></md-icon>
+        </md-button>
+      </div>
+    </div>
+  </md-dialog-content>
+</md-dialog>

@@ -1,7 +1,7 @@
-<div layout="row" layout-xs="column">
+<div id="dckP-P" layout="row" layout-xs="column">
 
-    <md-autocomplete
-            flex="30"
+    <!-- <md-autocomplete
+            flex="30" flex-xs="100" flex-order-xs="2"
             ng-model="deckPreview.searchText"
             md-input-name="deckField"
             md-selected-item="deckPreview.selectedItem"
@@ -18,11 +18,16 @@
         <span md-highlight-text="deckPreview.searchText">{{item.name}}</span>
       </md-item-template>
     </md-autocomplete>
-    <div ng-if="deckPreview.searchText" ng-click="deckPreview.clear()" class="deck-clear">x</div>
+    <div ng-if="deckPreview.searchText" ng-click="deckPreview.clear()" class="deck-clear focusOn">x</div> -->
+    
+
+    <div flex layout="row" layout-align="end start" flex-order-xs="1" class="siteParts">
+      <md-button class="md-raised addCardButtons" ng-click="deckPreview.checkIfAllHidden()">{{"addCard-START_TEST" | translate}}</md-button>
+    </div>
 </div>
 
 
-<div layout="horizontal" layout-wrap>
+<div layout="row" layout-wrap>
   <div ng-repeat="card in deckPreview.cards" flex-xs="100" flex-sm="50" flex="33">
     <md-card ng-click="deckPreview.selectCard(card)"
              class="deck-card"
@@ -35,6 +40,18 @@
           <span class="md-subhead">{{ card.answer }}</span>
         </md-card-title-text>
       </md-card-title>
+
+      <md-card-actions layout="row" layout-align="end center">
+        <div class="card-button" ng-if="card.isHidden">
+          <md-tooltip id="hidden" md-direction="top">{{'deck-HIDDEN' | translate}}</md-tooltip>
+          <md-icon class="visibility focusOn"
+                   md-svg-src="assets/icons/visibility_off_36px.svg"></md-icon>
+        </div>
+        <div class="card-button" ng-show="card.tipsCount > 0">
+            <md-tooltip id="hintsListDialogTooltip" md-direction="top">{{'preview-SHOW_HINTS' | translate}}</md-tooltip>
+            <md-icon class="deck-remove-button focusOn" md-svg-icon="assets/icons/show_hints.svg" ng-click="deckPreview.hintsListDialog($event, card)"></md-icon>
+        </div>
+      </md-card-actions>
 
     </md-card>
   </div>

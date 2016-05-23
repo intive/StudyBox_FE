@@ -126,7 +126,7 @@
       function simplePromise(method, url, data) {
         var promise = $http({method: method, url: url, data: data})
         .then(
-          function success(response) {
+          function success() {
             return true;
           },
           function error(response) {

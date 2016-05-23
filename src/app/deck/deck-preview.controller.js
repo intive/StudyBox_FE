@@ -6,23 +6,57 @@
     .controller('DeckPreviewController', DeckPreviewController);
 
   /** @ngInject */
-  function DeckPreviewController($stateParams, $state, BackendService, $log, DeckService) {
+  function DeckPreviewController($stateParams, $state, DeckFactory, $log, DeckService, $mdDialog, $mdMedia, $document, $scope, $translate, FlashcardFactory,NewbackendService) {
     var vm = this;
-    vm.deckId = $stateParams.deckId;
-    vm.selectedDeck = new BackendService.Deck();
     vm.selectCard = selectCard;
     vm.clear = clear;
     vm.getDecks = getDecks;
     vm.selectDeck = selectDeck;
-
+    vm.hintsListDialog = hintsListDialog;
+    vm.cancelDialog = cancelDialog;
+    vm.checkIfAllHidden = checkIfAllHidden;
     vm.access = $stateParams.access;
+    vm.getAllTips = getAllTips;
+
+    vm.flashCard = new FlashcardFactory.Flashcard();
+    vm.flashCard.deckId = $stateParams.deckId;
+
+
+    vm.selectedDeck = new DeckFactory.Deck();
+    vm.selectedDeck.id = $stateParams.deckId;
+
+    function checkIfAllHidden(){
+      vm.visibleCards = vm.cards.filter(hideFilter(false));
+
+      if(vm.visibleCards.length == 0){
+        $mdDialog.show(
+          $mdDialog.alert()
+            .parent(angular.element($document[0].querySelector('#popupContainer')))
+            .clickOutsideToClose(true)
+            .title($translate.instant('deck-ALL_HIDDEN_TITLE'))
+            .textContent($translate.instant('deck-ALL_HIDDEN_TEXT_CONTENT'))
+            .ariaLabel('All are hidden')
+            .ok($translate.instant('deck-ALL_HIDDEN_OK'))
+        );
+      }
+      else{
+        $state.go('test', { deckId: vm.deckId})
+      }
+
+    }
+
+    function hideFilter(isHidden) {
+      return function filterFn(card) {
+        return (card.isHidden === isHidden);
+      };
+    }
 
     function getDecks(query) {
       //for not loading list of deck on page init
       if (vm.load) {
         if (!vm.decks) {
           //create request for deck list
-          vm.decks = BackendService.getDecks(vm.access);
+          vm.decks = NewbackendService.getDecks(vm.access);
         }
         return vm.decks
           .then(function (result) {
@@ -37,9 +71,19 @@
       }
     }
 
+    function getAllTips(cardId){
+      vm.flashCard.id = cardId;
+      vm.flashCard.getTips()
+      .then(function success(data) {
+        vm.hints = data;
+      },
+      function error(){
+        throw 'Nie można pobrać podpowiedzi';
+      });
+    }
+
     function selectDeck(deck) {
       if (!deck) return;
-      DeckService.setDeckObj(deck);
       if (deck.id && deck.id != $stateParams.deckId) {
         $stateParams.deckId = deck.id;
         $stateParams.cardId = null;
@@ -90,7 +134,7 @@
     //init current deck
     function initDeck(value) {
       if(value){
-        BackendService.getDeckById(value)
+        NewbackendService.getDeckById(value)
           .then(function (result) {
             vm.selectedDeck = result;
             vm.selectedItem = vm.selectedDeck;
@@ -107,8 +151,6 @@
             $log.error(e);
           });
       } else {
-        vm.selectedDeck = DeckService.getDeckObj();
-        DeckService.setDeckObj(null);
         vm.selectedItem = vm.selectedDeck;
         vm.deckAccess = 'private';
         vm.dataChanged = false;
@@ -117,5 +159,25 @@
     }
     initDeck($stateParams.deckId);
 
+  function hintsListDialog(ev, card) {
+    getAllTips(card.id);
+    vm.hintCardQuestion = card.question;
+    var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'));
+    $mdDialog.show({
+      controller: DeckPreviewController,
+      templateUrl: 'app/deck/hintsList.html',
+      parent: angular.element($document.body),
+      targetEvent: ev,
+      scope: $scope,
+      preserveScope: true,
+      clickOutsideToClose:true,
+      fullscreen: useFullScreen
+    });
   }
+
+  function cancelDialog(){
+    $mdDialog.hide();
+  }
+
+}
 })();

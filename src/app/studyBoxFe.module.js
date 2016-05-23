@@ -14,8 +14,10 @@
 
       /*3rd party modules*/
       'ui.router',
+      'angular-md5',
       'toastr',
       'pascalprecht.translate',
+      'orderByLocaleAware',
 
       /*team modules*/
       'translator',
@@ -24,6 +26,8 @@
       'deck',
       'navbar',
       'decks',
-      'login'
+      'login',
+      'test',
+      'tips'
     ]);
 })();

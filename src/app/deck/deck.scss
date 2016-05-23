@@ -8,6 +8,12 @@
 
 .deck-card {
   cursor: pointer;
+  // height: 150px;
+}
+
+.new-card {
+  cursor: pointer;
+  height: 164px;
 }
 
 .deck-card-title {
@@ -107,6 +113,15 @@
   float: right;
 }
 
+.deck-add-button>svg{
+  fill: #bdbdbd;
+}
+
+md-icon.add-card{
+  height: 56px;
+  width: 56px;
+}
+
 .card-button{
   position: relative;
   float: right;
@@ -117,3 +132,11 @@
   margin-top: 2em;
 }
 
+.focusOn:focus{
+   outline: none;
+   border: 0;
+}
+
+.visibility:hover{
+    cursor: default;
+}
