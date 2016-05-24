@@ -30,6 +30,7 @@
               <label>{{"login-PASSWORD_FIELD" | translate}}</label>
               <input required type="password"
               name="password"
+              autocomplete="off" 
               ng-minlength="8"
               ng-model="login.data.password"
               ng-pattern="login.passwordRegex"/>
