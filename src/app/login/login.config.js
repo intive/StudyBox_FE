@@ -6,12 +6,12 @@
   .config(config);
 
   /** @ngInject */
-  function config($httpProvider,$provide) {
+  function config($httpProvider /*,$provide*/) {
 
     //set authentication headers for logged user
     $httpProvider.interceptors.push('LoginInterceptor');
 
-    $provide.decorator('mdInputContainerDirective', function($delegate, $interval) {
+    /*$provide.decorator('mdInputContainerDirective', function($delegate, $interval) {
       var directive = $delegate[0];
 
       directive.compile = function() {
@@ -39,6 +39,6 @@
       };
 
       return $delegate;
-    });
+    });*/
   }
 })();

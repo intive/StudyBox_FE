@@ -166,7 +166,7 @@
       }
     }
 
-    function getPrivateDecks() {
+    /*function getPrivateDecks() {
       BackendService.getDecks('private', true)
       .then(
         function success(decks) {
@@ -176,7 +176,7 @@
           setDecks(false);
         }
       );
-    }
+    }*/
   }
 
 })();
