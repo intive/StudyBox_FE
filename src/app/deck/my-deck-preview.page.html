@@ -33,7 +33,7 @@
 
     </md-input-container>
     <div layout="row" flex="66" flex-xs="100" flex-order-xs="-1">
-      <div layout="row" layout-align="start center" layout-align-xs="start start" 
+      <div layout="row" layout-align="start center" layout-align-xs="start start"
           flex="50" flex-offset-sm="5">
       <md-switch
         ng-change="myDeckPreview.deckAccessChange()"
@@ -51,7 +51,7 @@
                     class="md-primary md-raised"
                     ng-click="myDeckPreview.checkIfAllHidden()">{{"addCard-START_TEST" | translate}}</md-button>
       </div>
-      </div>     
+      </div>
     </form>
   </div>
 
@@ -80,41 +80,41 @@
           </md-card-title-text>
         </md-card-title>
         <md-card-actions layout="row" layout-align="end center">
-          <md-button class="md-icon-button" ng-if="!card.isHidden">
+          <div class="card-button" ng-if="!card.isHidden">
             <md-tooltip id="hideCardButtonTooltip" md-direction="top">
               {{'deck-HIDE_FLASHCARD' | translate}}
             </md-tooltip>
             <md-icon class="deck-edit-button focusOn" md-svg-src="assets/icons/visibility_36px.svg" ng-click="myDeckPreview.changeVisibility(card)">
             </md-icon>
-          </md-button>
-          <md-button class="md-icon-button" ng-if="card.isHidden">
+          </div>
+          <div class="card-button" ng-if="card.isHidden">
             <md-tooltip id="revealCardButtonTooltip" md-direction="top">
               {{'deck-REVEAL_FLASHCARD' | translate}}
             </md-tooltip>
             <md-icon class="deck-edit-button focusOn" md-svg-src="assets/icons/visibility_off_36px.svg" ng-click="myDeckPreview.changeVisibility(card)">
             </md-icon>
-          </md-button>
-          <md-button class="md-icon-button" ng-show="card.tipsCount > 0">
+          </div>
+          <div class="card-button" ng-show="card.tipsCount > 0">
             <md-tooltip id="hintsListDialogTooltip" md-direction="top">
               {{'preview-SHOW_HINTS' | translate}}
             </md-tooltip>
             <md-icon class="deck-remove-button focusOn" md-svg-icon="assets/icons/show_hints.svg" ng-click="myDeckPreview.hintsListDialog($event, card)">
             </md-icon>
-          </md-button>
-          <md-button class="md-icon-button">
+          </div>
+          <div class="card-button">
             <md-tooltip id="editCardButtonTooltip" md-direction="top">
               {{'deck-EDIT_CARD' | translate}}
             </md-tooltip>
               <md-icon class="deck-edit-button focusOn" md-svg-src="assets/icons/card.svg" ng-click="myDeckPreview.pageDialog($event, card, true)">
             </md-icon>
-          </md-button>
-          <md-button class="md-icon-button">
+          </div>
+          <div class="card-button">
             <md-tooltip id="removeCardButtonTooltip" md-direction="top">
               {{'deck-REMOVE_CARD' | translate}}
             </md-tooltip>
             <md-icon class="deck-remove-button focusOn" md-svg-src="assets/icons/clear.svg" ng-click="myDeckPreview.removeCard(card.id)">
             </md-icon>
-          </md-button>
+          </div>
         </md-card-actions>
       </md-card>
     </div>

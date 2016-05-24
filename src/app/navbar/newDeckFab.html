@@ -1,7 +1,7 @@
-<md-fab-speed-dial md-open="navbar.isOpen" md-direction="down" 
+<md-fab-speed-dial md-open="navbar.isOpen" md-direction="down"
     class="md-scale" md-fab-top-right>
   <md-fab-trigger ng-show="navbar.isLogged()">
-    <md-button aria-label="add" class="md-fab color-dial" 
+    <md-button aria-label="add" class="md-fab color-dial"
         ng-class="navbar.isOpen == true ? 'rotate' : ''">
       <md-tooltip md-direction="top">
         {{ 'navbar-ADD' | translate }}
@@ -11,8 +11,8 @@
     </md-button>
   </md-fab-trigger>
   <md-fab-actions>
-    <md-button aria-label="deck" class="md-fab md-raised md-mini color-mini" 
-        ui-sref="deck.addCard">
+    <md-button aria-label="deck" class="md-fab md-raised md-mini color-mini"
+        ui-sref="my-deck-preview-new-card">
       <md-tooltip md-direction="left">
         {{ 'navbar-NEW_DECK' | translate }}
       </md-tooltip>
