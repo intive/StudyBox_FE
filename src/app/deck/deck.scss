@@ -46,7 +46,8 @@
 .deck-edit-button>svg{
   fill: #bdbdbd;
 }
-.deck-edit-button:hover>svg{
+.deck-edit-button:hover>svg,
+.card-button:hover .deck-edit-button>svg{
   cursor: hand;
   fill: #0068B4;
 }
@@ -54,7 +55,8 @@
 .deck-remove-button>svg{
   fill: #bdbdbd;
 }
-.deck-remove-button:hover>svg{
+.deck-remove-button:hover>svg,
+.card-button:hover .deck-remove-button>svg{
   cursor: hand;
   fill: #EA0061;
 }
