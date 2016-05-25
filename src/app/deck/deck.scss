@@ -8,7 +8,7 @@
 
 .deck-card {
   cursor: pointer;
-  // height: 150px;
+  height: 164px;
 }
 
 .new-card {
@@ -41,6 +41,7 @@
   text-overflow: ellipsis;
   overflow: hidden;
   width: inherit;
+  white-space: nowrap;
 }
 
 .deck-edit-button>svg{

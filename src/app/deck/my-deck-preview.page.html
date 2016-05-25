@@ -1,7 +1,7 @@
 <md-content class="md-padding" layout="column" ng-cloak>
   <div ng-hide="myDeckPreview.createNewDeckFlag == true">
     <form class="deck-autocomplete" ng-submit="myDeckPreview.selectedDeckChange(deckForm.$valid)" name="deckForm" layout="row" layout-xs="column" layout-wrap >
-    <md-input-container flex="33" flex-xs="100" layout="row">
+    <div flex="33" flex-xs="100" layout="row">
       <md-autocomplete flex="75" required
                       ng-model="myDeckPreview.searchText"
                       md-input-name="deckField"
@@ -30,8 +30,8 @@
                   md-svg-src="assets/icons/card.svg">
         </md-icon>
       </div>
+    </div>
 
-    </md-input-container>
     <div layout="row" flex="66" flex-xs="100" flex-order-xs="-1">
       <div layout="row" layout-align="start center" layout-align-xs="start start"
           flex="50" flex-offset-sm="5">
