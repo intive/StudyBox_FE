@@ -8,7 +8,7 @@
 
 .deck-card {
   cursor: pointer;
-  height: 164px;
+  /*height: 164px;*/
 }
 
 .new-card {
@@ -142,4 +142,9 @@ md-icon.add-card{
 
 .visibility:hover{
     cursor: default;
+}
+
+.md-media-sm.auto-width {
+  width: auto;
+  height: 80px;
 }
