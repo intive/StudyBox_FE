@@ -10,18 +10,18 @@
   <span layout="row"><hr flex/></span>
   <md-card-actions >
     <div class="card-rotate" layout="row" layout-align="center center">
-      <md-button class="card-button" layout="row" layout-align="center center" flex="50">
+      <md-button class="card-button" layout="row" 
+                layout-align="center center" flex="50" 
+                ng-click="test.answer(false)">
         <md-tooltip id="no" md-direction="top">{{'test-DONT_KNOWN' | translate}}</md-tooltip>
-        <md-icon class="deck-remove-button"
-                 md-svg-src="assets/icons/not.svg"
-                 ng-click="test.answer(false)">
+        <md-icon class="deck-remove-button" md-svg-src="assets/icons/not.svg">
         </md-icon>
       </md-button>
-      <md-button class="card-button" layout="row" layout-align="center center" flex="50">
+      <md-button class="card-button" layout="row" 
+                layout-align="center center" flex="50"
+                ng-click="test.answer(true)">
         <md-tooltip id="yes" md-direction="top">{{'test-KNOWN' | translate}}</md-tooltip>
-        <md-icon class="deck-edit-button"
-                 md-svg-src="assets/icons/ok.svg"
-                 ng-click="test.answer(true)">
+        <md-icon class="deck-edit-button" md-svg-src="assets/icons/ok.svg">
 
         </md-icon>
       </md-button>
