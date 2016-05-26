@@ -77,7 +77,7 @@
       vm.hints.splice(vm.hints.indexOf(index), 1);
       if(angular.isDefined(index.id))
         deleteTip(index);
-      if(vm.hints.length == 0)
+      if(vm.hints.length === 0)
         vm.addHintTranslate = $translate.instant("preview-HINT");
     }
 
@@ -107,7 +107,7 @@
 
     function createTips(deck, card){
        for(var i=0; i < vm.hints.length; i++){
-        if(vm.hints[i].hintChanged == true){
+        if(vm.hints[i].hintChanged === true){
           //tworzenie
           if(angular.isUndefined(vm.hints[i].id))
             createTip(deck, card, vm.hints[i]);
@@ -121,7 +121,7 @@
       TipsService.getAllTips(vm.deckId, cardId)
       .then(function success(data) {
         vm.hints = data;
-        if(angular.isUndefined(vm.hints) || vm.hints.length == 0)
+        if(angular.isUndefined(vm.hints) || vm.hints.length === 0)
           vm.addHintTranslate = $translate.instant("preview-HINT");
         else
           vm.addHintTranslate = $translate.instant("preview-ANOTHER_HINT");
@@ -169,7 +169,7 @@
       }else{
         vm.deckNameRequired = false;
         //dodanie nowej fiszki
-        if(vm.addCard == true){
+        if(vm.addCard === true){
           createCard();
           vm.addCard = !vm.addCard;
         }else{  //edycja istniejacej fiszki
@@ -181,7 +181,7 @@
       cancelDialog();
       cardSaveToast();
 
-      if(vm.hints.length == 0)
+      if(vm.hints.length === 0)
         vm.addHintTranslate = $translate.instant("preview-HINT");
     }
 
@@ -230,7 +230,7 @@
           vm.deck.createFlashcard(vm.question, vm.answer, vm.isHidden)
           .then(function success(data) {
             vm.deckId = data.deckId;
-            vm.cardId = data.id
+            vm.cardId = data.id;
             createTips(vm.deckId, vm.cardId);
             $state.go("my-deck-preview", {deckId:vm.deck.id});
           },
@@ -246,7 +246,7 @@
     function checkIfAllHidden(){
       vm.visibleCards = vm.cards.filter(hideFilter(false));
 
-      if(vm.visibleCards.length == 0){
+      if(vm.visibleCards.length === 0){
         $mdDialog.show(
           $mdDialog.alert()
             .parent(angular.element($document[0].querySelector('#popupContainer')))
@@ -258,7 +258,7 @@
         );
       }
       else
-        $state.go('test', { deckId: vm.deckId})
+        $state.go('test', { deckId: vm.deckId});
     }
 
     function hideFilter(isHidden) {
@@ -271,7 +271,7 @@
       return BackendService.getDeckById(vm.deckId)
         .then(function success(data) {
           vm.deck = data;
-          return vm.deck.updateFlashcard(card.id, card.question, card.answer, !card.isHidden)
+          return vm.deck.updateFlashcard(card.id, card.question, card.answer, !card.isHidden);
         },
         function error(){
           var message = 'I cant get deck';
@@ -280,7 +280,7 @@
         })
         .then(function change(){
           card.isHidden = !card.isHidden;
-        })
+        });
     }
 
     function getDecks(query) {
@@ -315,7 +315,7 @@
           .then(function success(){},
           function error(){
             throw "Nie można zaktualizować talii";
-          })
+          });
         },
         function error(){
           throw "Nie można pobrać talii";
@@ -389,14 +389,14 @@
                 }else
                   $state.reload();
               }, function () {
-                throw "Nie można usunąć fiszki"
+                throw "Nie można usunąć fiszki";
               });
           }, function () {}
-        )
+        );
     }
 
     function deckAccessChange(){
-      if(vm.isPublic == false)
+      if(vm.isPublic === false)
         vm.isPublicMsg = $translate.instant("preview-PRIVATE_DECK");
       else
         vm.isPublicMsg = $translate.instant("preview-PUBLIC_DECK");
@@ -411,7 +411,7 @@
         },
         function error(){
           throw "Nie można pobrać talii";
-        })
+        });
     }
 
     function initDeck(deckId) {
@@ -422,7 +422,7 @@
             vm.selectedItem = vm.selectedDeck;
             vm.isPublic = vm.selectedDeck.isPublic;
 
-            if(vm.isPublic == false)
+            if(vm.isPublic === false)
               vm.isPublicMsg = $translate.instant("preview-PRIVATE_DECK");
             else
               vm.isPublicMsg = $translate.instant("preview-PUBLIC_DECK");

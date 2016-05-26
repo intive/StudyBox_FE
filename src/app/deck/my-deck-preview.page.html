@@ -73,12 +73,27 @@
       <md-card class="deck-card"
                 ng-class="{'md-whiteframe-15dp': hover, 'md-whiteframe-8dp': card.id === myDeckPreview.selectedCardId}"
                 ng-mouseenter="hover = true" ng-mouseleave="hover = false">
-        <md-card-title>
+        <md-card-title layout="column">
+        <div layout="row">
           <md-card-title-text class="deck-content">
             <span class="md-headline">{{ card.question }}</span>
+          </md-card-title-text>
+          <md-card-title-media>
+            <div ng-hide="angular.isDefined(card.questionImageURL)" class="md-media-sm"></div>
+            <img ng-show="angular.isDefined(card.questionImageURL)" 
+            ng-src="{{ card.questionImageURL }}" class="md-media-sm auto-width">
+          </md-card-title-media>
+        </div>
+        <div layout="row">
+          <md-card-title-text class="deck-content">
             <span class="md-subhead">{{ card.answer }}</span>
           </md-card-title-text>
-        </md-card-title>
+          <md-card-title-media>
+            <div ng-hide="true" class="md-media-sm"></div>
+            <img ng-src="assets/images/StudyBoxLogo_x.png" class="md-media-sm auto-width">
+          </md-card-title-media>
+        </div>
+      </md-card-title>
         <md-card-actions layout="row" layout-align="end center">
           <div class="card-button" ng-if="!card.isHidden">
             <md-tooltip id="hideCardButtonTooltip" md-direction="top">

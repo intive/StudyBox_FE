@@ -20,43 +20,59 @@
     </md-autocomplete>
     <div ng-if="deckPreview.searchText" ng-click="deckPreview.clear()" class="deck-clear focusOn">x</div> -->
 
-  <div layout="row" layout-align="center center" flex>
-    <h3>
-      <md-icon class="test-logo" md-svg-src="assets/icons/studyBox.svg"></md-icon>
-      {{deckPreview.selectedItem.name}}
-    </h3>
-  </div>
+    <div layout="row" layout-align="center center" flex>
+      <h3>
+        <md-icon class="test-logo" md-svg-src="assets/icons/studyBox.svg"></md-icon>
+        {{deckPreview.selectedItem.name}}
+      </h3>
+    </div>
     <div flex="15" layout="row" layout-align="end start" flex-order-xs="1" class="siteParts">
       <md-button layout-align="center center"
-                 class="md-primary md-raised"
-                 ng-click="deckPreview.checkIfAllHidden()">{{"addCard-START_TEST" | translate}}</md-button>
+      class="md-primary md-raised"
+      ng-click="deckPreview.checkIfAllHidden()">{{"addCard-START_TEST" | translate}}</md-button>
     </div>
-</div>
+  </div>
 
 
-<div layout="row" layout-wrap>
-  <div ng-repeat="card in deckPreview.cards" flex-xs="100" flex-sm="50" flex="33">
-    <md-card ng-click="deckPreview.selectCard(card)"
-             class="deck-card"
-             ng-class="{'md-whiteframe-15dp': hover, 'md-whiteframe-8dp': card.id === deckPreview.selectedCardId}"
-             ng-mouseenter="hover = true" ng-mouseleave="hover = false">
+  <div layout="row" layout-wrap>
+    <div ng-repeat="card in deckPreview.cards" flex-xs="100" flex-sm="50" flex="33">
+      <md-card ng-click="deckPreview.selectCard(card)"
+      class="deck-card"
+      ng-class="{'md-whiteframe-15dp': hover, 'md-whiteframe-8dp': card.id === deckPreview.selectedCardId}"
+      ng-mouseenter="hover = true" ng-mouseleave="hover = false">
 
-      <md-card-title>
-        <md-card-title-text class="deck-content">
-          <span class="md-headline">{{ card.question }}</span>
-          <span class="md-subhead">{{ card.answer }}</span>
-        </md-card-title-text>
+      <md-card-title layout="column">
+        <div layout="row">
+          <md-card-title-text class="deck-content">
+            <span class="md-headline">{{ card.question }}</span>
+          </md-card-title-text>
+          <md-card-title-media>
+            <div ng-hide="angular.isDefined(card.questionImageURL)" class="md-media-sm"></div>
+            <img ng-show="angular.isDefined(card.questionImageURL)" 
+            ng-src="{{ card.questionImageURL }}" class="md-media-sm auto-width">
+          </md-card-title-media>
+        </div>
+        <div layout="row">
+          <md-card-title-text class="deck-content">
+            <span class="md-subhead">{{ card.answer }}</span>
+          </md-card-title-text>
+          <md-card-title-media>
+            <div ng-hide="true" class="md-media-sm"></div>
+            <img ng-src="assets/images/StudyBoxLogo_x.png" class="md-media-sm auto-width"
+            title="obrazek zastępczy" alt="obrazek do podpowiedzi">
+          </md-card-title-media>
+        </div>
       </md-card-title>
 
       <md-card-actions layout="row" layout-align="end center">
         <div class="card-button" ng-if="card.isHidden">
           <md-tooltip id="hidden" md-direction="top">{{'deck-HIDDEN' | translate}}</md-tooltip>
           <md-icon class="visibility focusOn"
-                   md-svg-src="assets/icons/visibility_off_36px.svg"></md-icon>
+          md-svg-src="assets/icons/visibility_off_36px.svg"></md-icon>
         </div>
         <div class="card-button" ng-show="card.tipsCount > 0">
-            <md-tooltip id="hintsListDialogTooltip" md-direction="top">{{'preview-SHOW_HINTS' | translate}}</md-tooltip>
-            <md-icon class="deck-remove-button focusOn" md-svg-icon="assets/icons/show_hints.svg" ng-click="deckPreview.hintsListDialog($event, card)"></md-icon>
+          <md-tooltip id="hintsListDialogTooltip" md-direction="top">{{'preview-SHOW_HINTS' | translate}}</md-tooltip>
+          <md-icon class="deck-remove-button focusOn" md-svg-icon="assets/icons/show_hints.svg" ng-click="deckPreview.hintsListDialog($event, card)"></md-icon>
         </div>
       </md-card-actions>
 
