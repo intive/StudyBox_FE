@@ -1,5 +1,5 @@
 body {
-  min-width: 480px;
+  min-width: 320px;
 }
 
 md-content {
@@ -8,4 +8,28 @@ md-content {
 
 #md-centered {
   height: 100%;
+}
+
+@media only screen and (max-width: 519px) {
+  #deckSearch {
+    font-size: 80%;
+  }
+  #searchButton {
+  min-height: 30px;
+  min-width: 80px;
+  font-size: 13px;
+  line-height: 30px;
+  }
+}
+
+@media only screen and (max-width: 459px) {
+  #deckSearch {
+    font-size: 70%;
+  }
+}
+
+@media only screen and (max-width: 429px) {
+  #deckSearch {
+    font-size: 60%;
+  }
 }
