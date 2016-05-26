@@ -10,25 +10,23 @@ md-content {
   height: 100%;
 }
 
-@media only screen and (max-width: 519px) {
-  #deckSearch {
-    font-size: 80%;
-  }
-  #searchButton {
+#searchInput {
   min-height: 30px;
-  min-width: 80px;
-  font-size: 13px;
-  line-height: 30px;
-  }
 }
 
 @media only screen and (max-width: 459px) {
+  #deckSearch {
+    font-size: 90%;
+  }
+}
+
+@media only screen and (max-width: 399px) {
   #deckSearch {
     font-size: 70%;
   }
 }
 
-@media only screen and (max-width: 429px) {
+@media only screen and (max-width: 359px) {
   #deckSearch {
     font-size: 60%;
   }
