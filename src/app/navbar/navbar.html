@@ -2,14 +2,14 @@
   <top-navbar-elements layout="row" flex="66">
   </top-navbar-elements>
 
-  <div id="deckSearch" layout="row" flex="70" flex-offset="15" 
+  <div id="deckSearch" layout="row" flex="70" flex-offset="0" 
   flex-gt-sm="33" flex-offset-gt-sm="0" 
   layout-align-gt-sm="center center" layout-align="start center" 
   ng-show="navbar.uiRouterState.current.name == 'decks' || navbar.uiRouterState.current.name == 'decks-search'">
     <form ng-submit="navbar.querySearch()" id="searchArea" ng-class="{'searchForm': !navbar.inputVisible, 'showUp': navbar.inputVisible}">
       <input ng-model="navbar.searchText" ng-change="navbar.trimInput()" placeholder="{{ 'navbar-PLACEHOLDER' | translate }}" id="searchInput"/>
     </form>
-    <md-button aria-label="search" ng-click="navbar.toggleSearchButton()" id="searchButton" ng-class="{darkButton: navbar.inputVisible}">
+    <md-button flex-order-sm="-1" flex-order-xs="-1" aria-label="search" ng-click="navbar.toggleSearchButton()" id="searchButton" ng-class="{darkButton: navbar.inputVisible}">
       <md-icon md-svg-src="assets/icons/search.svg" id="searchButton2" ng-hide="navbar.inputVisible">
       </md-icon>
       <md-icon md-svg-src="assets/icons/not.svg" id="searchButton3" ng-hide="!navbar.inputVisible">
