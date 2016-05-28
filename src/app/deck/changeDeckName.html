@@ -15,13 +15,13 @@
           <label>Nazwa tali</label>
           <input ng-model="myDeckPreview.newDeckName">
         </md-input-container>
-        <md-button class="md-icon-button" layout="column">
+        <div class="card-button" layout="column">
           <md-tooltip id="saveDeckButtonTooltip" md-direction="top">{{'deck-SAVE_DECK' | translate}}</md-tooltip>
           <md-icon
             class="deck-edit-button focusOn"
             ng-click="myDeckPreview.editDeckName(myDeckPreview.newDeckName)"
             md-svg-src="assets/icons/save.svg"></md-icon>
-        </md-button>
+        </div>
       </div>
     </div>
   </md-dialog-content>

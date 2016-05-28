@@ -12,6 +12,9 @@ md-content {
 
 #searchInput {
   min-height: 30px;
+  padding: 5px;
+  border-radius: 2px;
+  border-style: none;
 }
 
 @media only screen and (max-width: 459px) {
