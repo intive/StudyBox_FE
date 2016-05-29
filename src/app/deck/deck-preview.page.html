@@ -47,9 +47,7 @@
             <span class="md-headline">{{ card.question }}</span>
           </md-card-title-text>
           <md-card-title-media>
-            <div ng-hide="angular.isDefined(card.questionImageURL)" class="md-media-sm"></div>
-            <img ng-show="angular.isDefined(card.questionImageURL)" 
-            ng-src="{{ card.questionImageURL }}" class="md-media-sm auto-width">
+            <img ng-src="{{ card.questionImageURL }}" class="md-media-sm auto-width">
           </md-card-title-media>
         </div>
         <div layout="row">
@@ -57,9 +55,7 @@
             <span class="md-subhead">{{ card.answer }}</span>
           </md-card-title-text>
           <md-card-title-media>
-            <div ng-hide="true" class="md-media-sm"></div>
-            <img ng-src="assets/images/StudyBoxLogo_x.png" class="md-media-sm auto-width"
-            title="obrazek zastępczy" alt="obrazek do podpowiedzi">
+            <img ng-src="{{ card.questionImageURL }}" class="md-media-sm auto-width">
           </md-card-title-media>
         </div>
       </md-card-title>

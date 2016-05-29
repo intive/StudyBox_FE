@@ -78,19 +78,17 @@
           <md-card-title-text class="deck-content">
             <span class="md-headline">{{ card.question }}</span>
           </md-card-title-text>
-          <md-card-title-media>
-            <div ng-hide="angular.isDefined(card.questionImageURL)" class="md-media-sm"></div>
-            <img ng-show="angular.isDefined(card.questionImageURL)" 
-            ng-src="{{ card.questionImageURL }}" class="md-media-sm auto-width">
+          <md-card-title-media>            
+            <img ng-src="{{ card.questionImageURL }}" class="md-media-sm auto-width">
           </md-card-title-media>
         </div>
+        <div layout-margin></div>
         <div layout="row">
           <md-card-title-text class="deck-content">
             <span class="md-subhead">{{ card.answer }}</span>
           </md-card-title-text>
           <md-card-title-media>
-            <div ng-hide="true" class="md-media-sm"></div>
-            <img ng-src="assets/images/StudyBoxLogo_x.png" class="md-media-sm auto-width">
+            <img ng-src="{{ card.answerImageURL }}" class="md-media-sm auto-width">
           </md-card-title-media>
         </div>
       </md-card-title>

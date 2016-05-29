@@ -1,17 +1,22 @@
-<md-card class="md-whiteframe-8dp deck-card new-card"
-         ng-class="{'flip-card': test.mode == 'answer'}">
-  <md-card-title class="test-answer" ng-click="test.mode = 'answer'">
-    <md-card-title-text class="deck-content">
-        <span class="md-headline">
-        {{test.cards[test.currentQuestion].question}}
-        </span>
-    </md-card-title-text>
-  </md-card-title>
-  <span layout="row"><hr flex/></span>
-  <md-card-actions layout="row" layout-align="center center">
-    <div class="card-button">
-      <md-button ng-disabled="!test.cards[test.currentQuestion].tips" ng-click="test.getCurrentTips()">{{'test-HINT' | translate}}</md-button>
-    </div>
-  </md-card-actions>
+<md-card class="md-whiteframe-8dp deck-card new-card" ng-class="{'flip-card': test.mode == 'answer'}">
+    <md-card-title class="test-answer" ng-click="test.mode = 'answer'">
+        <md-card-title-text class="deck-content">
+            <span class="md-headline">
+                {{test.cards[test.currentQuestion].question}}
+            </span>
+        </md-card-title-text>
+        <md-card-title-media>
+            <img class="md-media-sm auto-width" ng-src="{{ test.cards[test.currentQuestion].questionImageURL }}">
+        </md-card-title-media>
+    </md-card-title>
+    <span layout="row">
+        <hr flex=""/>
+    </span>
+    <md-card-actions layout="row" layout-align="center center">
+        <div class="card-button">
+            <md-button ng-click="test.getCurrentTips()" ng-disabled="!test.cards[test.currentQuestion].tips">
+                {{'test-HINT' | translate}}
+            </md-button>
+        </div>
+    </md-card-actions>
 </md-card>
-
