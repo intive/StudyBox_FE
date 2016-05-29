@@ -2,8 +2,7 @@
   <top-navbar-elements layout="row" flex="66">
   </top-navbar-elements>
 
-  <div id="deckSearch" layout="row" flex="70" flex-offset="0" 
-  flex-gt-sm="33" flex-offset-gt-sm="0" 
+  <div id="deckSearch" layout="row" flex="66" flex-gt-sm="33" 
   layout-align-gt-sm="center center" layout-align="start center" 
   ng-show="navbar.uiRouterState.current.name == 'decks' || navbar.uiRouterState.current.name == 'decks-search'">
     <form ng-submit="navbar.querySearch()" id="searchArea" ng-class="{'searchForm': !navbar.inputVisible, 'showUp': navbar.inputVisible}">
