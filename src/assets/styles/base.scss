@@ -17,9 +17,15 @@ md-content {
   border-style: none;
 }
 
-@media only screen and (max-width: 459px) {
+@media only screen and (max-width: 1079px) {
   #deckSearch {
     font-size: 90%;
+  }
+}
+
+@media only screen and (max-width: 459px) {
+  #deckSearch {
+    font-size: 80%;
   }
 }
 
