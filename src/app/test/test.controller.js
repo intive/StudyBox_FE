@@ -19,6 +19,7 @@
     vm.usedTips = [];
     vm.yes = 0;
     vm.no = 0;
+    vm.getScorePercentage = getScorePercentage;
 
     BackendService.getDeckById($stateParams.deckId)
       .then(function (result) {
@@ -37,8 +38,7 @@
         })
         .then(function () {
           getTips();
-        }
-        , function (e) {
+        }, function (e) {
           $log.error(e);
         });
     }
@@ -101,14 +101,13 @@
 
       var total = 0;
       vm.usedTips.forEach(function (question){
-        total = total + question
+        total = total + question;
       });
-
-      $log.info("used hints: " +total);
 
       $mdDialog.show({
         bindToController: true,
         locals: {
+          cardsNum: all,
           correct: correct,
           wrong: wrong,
           allCorrect: allCorrect
@@ -127,6 +126,11 @@
       $mdDialog.hide();
       $state.go("decks", {access: 'private'});
     };
+
+    function getScorePercentage() {
+      var result = Math.floor(((vm.correct / vm.cardsNum) * 100));
+      return result + '%';
+    }
 
   }
 

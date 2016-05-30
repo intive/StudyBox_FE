@@ -5,7 +5,7 @@
         {{'test-CONGRATS' | translate}}
       </md-list-item>
       <md-list-item>
-        {{'test-SCORE' | translate}}:
+        {{'test-SCORE' | translate}} {{test.getScorePercentage()}}
       </md-list-item>
 
       <pie-chart correct="{{test.correct}}" wrong="{{test.wrong}}"></pie-chart>
