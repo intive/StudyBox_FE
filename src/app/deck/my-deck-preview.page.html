@@ -63,7 +63,7 @@
                 ng-mouseenter="hoverAddCard = true"
                 ng-mouseleave="hoverAddCard = false">
           <md-card-content layout="column" layout-align="space-around center">
-            <div><span class="md-headline edit-card-text">Dodaj nową fiszkę</span></div>
+            <div><p class="md-headline edit-card-text">Dodaj nową fiszkę</p></div>
             <div><md-icon class="deck-add-button add-card" md-svg-src="assets/icons/add_new_deck.svg" ></md-icon></div>
           </md-card-content>
       </md-card>
@@ -78,7 +78,7 @@
           <md-card-title-text class="deck-content">
             <span class="md-headline">{{ card.question }}</span>
           </md-card-title-text>
-          <md-card-title-media>            
+          <md-card-title-media>
             <img ng-src="{{ card.questionImageURL }}" class="md-media-sm auto-width">
           </md-card-title-media>
         </div>
@@ -111,7 +111,7 @@
             <md-tooltip id="hintsListDialogTooltip" md-direction="top">
               {{'preview-SHOW_HINTS' | translate}}
             </md-tooltip>
-            <md-icon class="deck-remove-button focusOn" md-svg-icon="assets/icons/show_hints.svg" ng-click="myDeckPreview.hintsListDialog($event, card)">
+            <md-icon class="deck-edit-button focusOn" md-svg-icon="assets/icons/show_hints.svg" ng-click="myDeckPreview.hintsListDialog($event, card)">
             </md-icon>
           </div>
           <div class="card-button">
