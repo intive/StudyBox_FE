@@ -20,6 +20,7 @@
  *  removeFlashcard(id) - usuwa fiszkę
  *  changename(name) - zmienia nazwę talii
  *  remove() - usuwa talię z bazy danych
+ *  updateDeck(new_name, access) - aktualizuję talie
  */
 
 (function() {
@@ -186,7 +187,7 @@
       function getFlashcards() {
         var method = 'GET';
         /*jshint validthis:true */
-        var url = "/api/decks/" + this.id + "/flashcards";
+        var url = "/api/decks/" + this.id + "/flashcards?tipsCount=true";
         var data = {};
 
         return simplePromise(method, url, data);
@@ -278,14 +279,13 @@
       );
     }
 
-    function drawRandomDeck(){
+    function drawRandomDeck() {
       var method = 'GET';
-      var url = '/api/decks?random=true';
+      var url = '/api/decks/random?flashcardsCount=true';
 
       return $http({method: method, url: url})
         .then(
         function success(response) {
-
           return response;
         },
         function error(response) {

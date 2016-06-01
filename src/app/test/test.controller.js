@@ -11,11 +11,15 @@
     var vm = this;
     vm.mode = 'question';
     vm.answer = answer;
-    vm.getTips = getTips;
+    vm.getCurrentTips = getCurrentTips;
+    vm.getPrevTip = getPrevTip;
+    vm.getNextTip = getNextTip;
     vm.currentQuestion = 0;
     vm.currentTip = 0;
+    vm.usedTips = [];
     vm.yes = 0;
     vm.no = 0;
+    vm.getScorePercentage = getScorePercentage;
 
     BackendService.getDeckById($stateParams.deckId)
       .then(function (result) {
@@ -56,6 +60,22 @@
         });
     }
 
+    function getCurrentTips() {
+      vm.mode = 'hint';
+      vm.usedTips[vm.currentQuestion] = 1;
+    }
+
+    function getPrevTip(){
+      vm.currentTip = vm.currentTip - 1;
+    }
+
+    function getNextTip(){
+      vm.currentTip = vm.currentTip + 1;
+      if (vm.currentTip > vm.usedTips[vm.currentQuestion]){
+        vm.usedTips[vm.currentQuestion] = vm.currentTip;
+      }
+    }
+
     function answer(answer) {
       if (answer){
         vm.yes +=1;
@@ -71,6 +91,7 @@
       } else {
         vm.showDialog(vm.yes, vm.cards.length);
       }
+      getTips();
     }
 
     vm.showDialog = function(correct, all) {
@@ -78,9 +99,15 @@
 
       var wrong = all - correct;
 
+      var total = 0;
+      vm.usedTips.forEach(function (question){
+        total = total + question;
+      });
+
       $mdDialog.show({
         bindToController: true,
         locals: {
+          cardsNum: all,
           correct: correct,
           wrong: wrong,
           allCorrect: allCorrect
@@ -99,6 +126,11 @@
       $mdDialog.hide();
       $state.go("decks", {access: 'private'});
     };
+
+    function getScorePercentage() {
+      var result = Math.floor(((vm.correct / vm.cardsNum) * 100));
+      return result + '%';
+    }
 
   }
 

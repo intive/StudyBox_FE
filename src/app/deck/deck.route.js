@@ -8,55 +8,12 @@
   /** @ngInject */
   function routerConfig($stateProvider, $urlRouterProvider) {
     $stateProvider
-      .state('deck', {
+      .state('my-deck-preview-new-card', {
         parent: 'navbar',
-        url: '/deck-edit/:deckId',
-        templateUrl: 'app/deck/deck.page.html',
-        params: {access: 'private'},
-        onEnter: function(LoginHelperService, $state, $stateParams, BackendService, $translate){
-
-          var deckId = $stateParams.deckId;
-          if(deckId == "" && !LoginHelperService.isLogged()){
-            $state.go("login")
-          }
-
-          BackendService.getDeckById(deckId)
-          .then(function success(data) {
-            if(LoginHelperService.getUserEmail() != data.creatorEmail && deckId != ""){
-              alert($translate.instant("deck-NOT_AN_OWNER"));
-              if(LoginHelperService.isLogged()){
-              $state.go("decks");
-            }
-            else{
-              $state.go("decks", {access: "public"});
-            }
-            }
-        },
-        function error(data){
-          if(data.code == 400 || data.code == 404){
-            alert(data.message);
-            if(LoginHelperService.isLogged()){
-              $state.go("decks");
-            }
-            else{
-              $state.go("decks", {access: "public"});
-            }
-          }
-          else{
-          alert(data.message);
-          $state.go("login/:deckId/:deckEdit", {"deckId": deckId, "deckEdit": "d-e"});
-          LoginHelperService.doLogout();
-        }
-        })
-
-        }
-      })
-      .state('deck.addCard', {
-        parent: 'deck',
-        url: '/:cardId',
-        templateUrl: 'app/addCard/addCard.html',
-        controller: 'AddCardController',
-        controllerAs: 'addCard'
+        url: '/my-deck-preview/',
+        templateUrl: 'app/deck/my-deck-preview.page.html',
+        controller: 'MyDeckPreviewController',
+        controllerAs: 'myDeckPreview'
       })
       .state('deck-preview', {
         parent: 'navbar',
@@ -99,8 +56,8 @@
 
             var deckId = $stateParams.deckId;
             if(deckId == ""){
-            $state.go("login")
-          }
+              $state.go("login")
+            }
 
             BackendService.getDeckById(deckId)
             .then(function success(data) {

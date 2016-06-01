@@ -7,25 +7,23 @@
 
 
   /** @ngInject */
-  function NavbarController($state, $timeout, $q, $log, $document, md5,
-                            BackendService, $mdSidenav, $stateParams,
-                            LoginHelperService, $mdDialog, $translate) {
+  function NavbarController($state, md5, BackendService, $mdSidenav,
+                            LoginHelperService, $mdDialog, $translate,
+                            DecksService, $stateParams, NavbarService) {
 
     var vm = this;
+
+    NavbarService.controller = vm;
+
     vm.uiRouterState = $state;
 
-    vm.decks = null;
-
     vm.access = $stateParams.access;
-
     vm.openLeftMenu = openLeftMenu;
     vm.showPrivateCards = showPrivateCards;
     vm.showPublicCards = showPublicCards;
 
-    vm.selectDeck = selectDeck;
+    vm.trimInput = trimInput;
     vm.querySearch  = querySearch;
-    vm.newDeck = newDeck;
-    vm.changePage = changePage;
 
     vm.userLogout = userLogout;
     vm.userLogin = userLogin;
@@ -38,7 +36,55 @@
 
     vm.notLogged = notLogged;
 
-    vm.clearTextOnInputClose = clearTextOnInputClose;
+    vm.inputVisible = false;
+    vm.finishSearching = finishSearching;
+    vm.startSearching = startSearching;
+    vm.toggleSearchButton = toggleSearchButton;
+
+    ///////////
+
+    function setDecks(decks) {
+      DecksService.setDecks(decks);
+    }
+
+    function showPrivateCards() {
+      $state.go("decks", {access: 'private'});
+      $mdSidenav('left').toggle();
+    }
+
+    function showPublicCards() {
+      $state.go("decks", {access: 'public'});
+      $mdSidenav('left').toggle();
+    }
+
+    function trimInput() {
+      vm.searchText = vm.searchText.trim();
+
+      if(vm.searchText.length > 100)
+        vm.searchText = vm.searchText.slice(0, 100);
+    }
+
+    function querySearch() {
+      if(vm.searchText.length < 2) {
+        setDecks([]);
+        return;
+      }
+
+      $state.go('decks-search').then(function() {
+        getDecksByName(vm.searchText);
+      });
+    }
+
+    function getDecksByName() {
+      return BackendService.getDecksByName(vm.searchText).then(
+        function success(decks) {
+          setDecks(decks);
+        },
+        function error() {
+          setDecks([]);
+        }
+      );
+    }
 
     function notLogged(ev){
 
@@ -58,8 +104,7 @@
     {
       BackendService.drawRandomDeck().then(
         function success(response) {
-          //alert(angular.toJson(response.data[0].id));
-          $state.go("deck-preview",{deckId: response.data[0].id});
+          $state.go("test",{deckId: response.data.id});
           openLeftMenu();
         },
         function error(message) {
@@ -100,55 +145,38 @@
       $mdSidenav('left').toggle();
     }
 
-    function showPrivateCards() {
-      $state.go("decks", {access: 'private'});
-      $mdSidenav('left').toggle();
+    function startSearching(){
+      vm.inputVisible = true;
+      vm.searchText = '';
     }
 
-    function showPublicCards() {
-      $state.go("decks", {access: 'public'});
-      $mdSidenav('left').toggle();
+    function toggleSearchButton() {
+      if(vm.inputVisible)
+        vm.finishSearching();
+      else
+        vm.startSearching();
     }
 
-    function selectDeck(item) {
-      if (item) {
-        $state.go('deck-preview', {deckId: item.id});
-        item = null;
-      }
-    }
-
-    function newDeck() {
-      vm.searchText = null;
-      $state.go("deck.addCard");
-    }
-
-    function changePage() {
-      if(vm.decks) {
-        var deck = vm.decks[0];
-        if(deck && vm.searchText === deck.name)
-          $state.go('deck-preview', {deckId: deck.id, notify: true});
-      }
-    }
-
-    function querySearch (query) {
-      query = query.trim();
-      if(query.length > 100)
-        return;
-
-      return BackendService.getDecksByName(query).then(
-        function success(decks) {
-          vm.decks = decks;
-          return decks;
-        },
-        function error() {
-          return [];
-        });
-    }
-
-    function clearTextOnInputClose(expand) {
-      if(!expand)
+    function finishSearching() {
+      if(vm.inputVisible) {
+        vm.inputVisible = false;
+        if(vm.searchText)
+          $state.go('decks', {access: 'private'});
         vm.searchText = '';
+      }
     }
+
+    /*function getPrivateDecks() {
+      BackendService.getDecks('private', true)
+      .then(
+        function success(decks) {
+          setDecks(decks);
+      },
+        function error() {
+          setDecks(false);
+        }
+      );
+    }*/
   }
 
 })();

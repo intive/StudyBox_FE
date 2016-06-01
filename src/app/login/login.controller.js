@@ -24,11 +24,9 @@
       var targetState = "decks";
       var token = btoa(user + ":" + pass);
       LoginHelperService.setCookie(user, token);
-      $log.info("cookies are set");
       LoginService.doLogin(user, pass, loginUrl)
       .then(
-        function(data) {
-          $log.info("Kontroler: " + data);
+        function() {
           if(vm.deckId) {
             if(vm.deckEdit == "d-e") {
               $state.go("deck.addCard", {"deckId": vm.deckId , cardId: null});
@@ -46,7 +44,6 @@
         },
         function(data){
           LoginHelperService.setCookie();
-          $log.info("cookies resetted");
           alert("Logowanie nieudane!\n" + "HTTP: " + data.status + "\n" + data.data.message);
           $q.reject(data);
         });

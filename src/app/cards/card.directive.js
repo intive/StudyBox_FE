@@ -13,6 +13,6 @@
       templateUrl: 'app/cards/card.html',
       controller: 'CardController',
       controllerAs: 'card'
-    }
+    };
   }
 })();
